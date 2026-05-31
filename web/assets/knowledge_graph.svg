@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs>
+<marker id="ar_BLOCKS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#D73434"/></marker>
+<marker id="ar_EVADES" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#4AF626"/></marker>
+<marker id="ar_USES" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#FF8012"/></marker>
+<marker id="ar_GENERALIZES" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#C77DFF"/></marker>
+<marker id="ar_IMPLIES" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#5BC0EB"/></marker>
+<marker id="ar_INSTANCE_OF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#876244"/></marker>
+<marker id="ar_RELATED" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#5A5040"/></marker>
+<marker id="ar_TARGETS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#FFAF4B"/></marker>
+</defs>
+<rect width="1600" height="860" fill="#0A0502"/>
+<text x="70" y="50" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="3">&gt; KNOWLEDGE GRAPH // P vs NP</text>
+<text x="70" y="82" fill="#FCF2E6" font-size="24" font-weight="700">Le barriere, gli approcci e perché il problema resiste</text>
+<path d="M1033,235 Q1171,233 1309,283" fill="none" stroke="#5A5040" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_RELATED)"/>
+<path d="M1425,318 Q1425,341 1425,416" fill="none" stroke="#5A5040" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_RELATED)"/>
+<path d="M1425,318 Q1425,425 1425,584" fill="none" stroke="#5A5040" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_RELATED)"/>
+<path d="M580,303 Q428,399 277,548" fill="none" stroke="#D73434" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_BLOCKS)"/>
+<path d="M570,463 Q554,461 538,512" fill="none" stroke="#D73434" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_BLOCKS)"/>
+<path d="M580,607 Q428,459 277,362" fill="none" stroke="#D73434" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_BLOCKS)"/>
+<path d="M283,340 Q421,290 559,292" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M533,258 Q546,244 559,282" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M510,273 Q547,326 584,431" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M486,280 Q548,409 609,590" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M526,376 Q546,313 566,302" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M530,396 Q546,394 562,445" fill="none" stroke="#4AF626" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_EVADES)"/>
+<path d="M279,352 Q546,428 813,556" fill="none" stroke="#FF8012" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_USES)"/>
+<path d="M519,404 Q672,505 824,659" fill="none" stroke="#FF8012" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_USES)"/>
+<path d="M822,354 Q679,405 535,509" fill="none" stroke="#876244" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_INSTANCE_OF)"/>
+<path d="M817,459 Q679,462 541,517" fill="none" stroke="#876244" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_INSTANCE_OF)"/>
+<path d="M531,515 Q796,408 1061,352" fill="none" stroke="#FF8012" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_USES)"/>
+<path d="M1034,567 Q1046,541 1058,567" fill="none" stroke="#5A5040" stroke-width="1.6" opacity="0.7" stroke-dasharray="5 5" marker-end="url(#ar_RELATED)"/>
+<path d="M531,515 Q921,380 1311,296" fill="none" stroke="#FFAF4B" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_TARGETS)"/>
+<path d="M527,265 Q921,411 1315,609" fill="none" stroke="#FFAF4B" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_TARGETS)"/>
+<path d="M532,650 Q921,530 1310,463" fill="none" stroke="#FFAF4B" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_TARGETS)"/>
+<path d="M533,385 Q921,312 1309,291" fill="none" stroke="#FFAF4B" stroke-width="1.6" opacity="0.7" marker-end="url(#ar_TARGETS)"/>
+<rect x="70" y="314" width="210" height="58" rx="12" fill="#140C06" stroke="#C77DFF" stroke-width="2"/>
+<circle cx="84" cy="328" r="4" fill="#C77DFF"/>
+<text x="175" y="347" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Aritmetizzazione</text>
+<rect x="70" y="538" width="210" height="58" rx="12" fill="#140C06" stroke="#C77DFF" stroke-width="2"/>
+<circle cx="84" cy="552" r="4" fill="#C77DFF"/>
+<text x="175" y="571" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Diagonalizzazione</text>
+<rect x="320" y="225" width="210" height="58" rx="12" fill="#140C06" stroke="#FF8012" stroke-width="2"/>
+<circle cx="334" cy="239" r="4" fill="#FF8012"/>
+<text x="425" y="250" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Geometric Complexity</text>
+<text x="425" y="266" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Theory (GCT)</text>
+<rect x="320" y="359" width="210" height="58" rx="12" fill="#140C06" stroke="#FF8012" stroke-width="2"/>
+<circle cx="334" cy="373" r="4" fill="#FF8012"/>
+<text x="425" y="384" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Metodo algoritmico</text>
+<text x="425" y="400" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">(Williams)</text>
+<rect x="320" y="493" width="210" height="58" rx="12" fill="#140C06" stroke="#FF8012" stroke-width="2"/>
+<circle cx="334" cy="507" r="4" fill="#FF8012"/>
+<text x="425" y="518" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Lower bound combinatori</text>
+<text x="425" y="534" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">sui circuiti</text>
+<rect x="320" y="627" width="210" height="58" rx="12" fill="#140C06" stroke="#FF8012" stroke-width="2"/>
+<circle cx="334" cy="641" r="4" fill="#FF8012"/>
+<text x="425" y="660" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Proof complexity</text>
+<rect x="570" y="258" width="210" height="58" rx="12" fill="#140C06" stroke="#D73434" stroke-width="2"/>
+<circle cx="584" cy="272" r="4" fill="#D73434"/>
+<text x="770" y="276" fill="#FF8012" font-size="9" font-family="ui-monospace, monospace" text-anchor="end">⚙ Modulo 2</text>
+<text x="675" y="292" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Relativizzazione</text>
+<rect x="570" y="426" width="210" height="58" rx="12" fill="#140C06" stroke="#D73434" stroke-width="2"/>
+<circle cx="584" cy="440" r="4" fill="#D73434"/>
+<text x="770" y="443" fill="#FF8012" font-size="9" font-family="ui-monospace, monospace" text-anchor="end">⚙ Modulo 1</text>
+<text x="675" y="459" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Natural Proofs</text>
+<rect x="570" y="594" width="210" height="58" rx="12" fill="#140C06" stroke="#D73434" stroke-width="2"/>
+<circle cx="584" cy="608" r="4" fill="#D73434"/>
+<text x="675" y="626" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Algebrizzazione</text>
+<rect x="820" y="203" width="210" height="58" rx="12" fill="#140C06" stroke="#4AF626" stroke-width="2"/>
+<circle cx="834" cy="217" r="4" fill="#4AF626"/>
+<text x="925" y="236" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Teorema di Cook–Levin</text>
+<rect x="820" y="314" width="210" height="58" rx="12" fill="#140C06" stroke="#4AF626" stroke-width="2"/>
+<circle cx="834" cy="328" r="4" fill="#4AF626"/>
+<text x="925" y="347" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Parità ∉ AC0</text>
+<rect x="820" y="426" width="210" height="58" rx="12" fill="#140C06" stroke="#4AF626" stroke-width="2"/>
+<circle cx="834" cy="440" r="4" fill="#4AF626"/>
+<text x="925" y="451" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">Clique richiede circuiti</text>
+<text x="925" y="467" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">monotoni esponenziali</text>
+<rect x="820" y="538" width="210" height="58" rx="12" fill="#140C06" stroke="#4AF626" stroke-width="2"/>
+<circle cx="834" cy="552" r="4" fill="#4AF626"/>
+<text x="925" y="571" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">IP = PSPACE</text>
+<rect x="820" y="649" width="210" height="58" rx="12" fill="#140C06" stroke="#4AF626" stroke-width="2"/>
+<circle cx="834" cy="663" r="4" fill="#4AF626"/>
+<text x="925" y="682" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">NEXP ⊄ ACC0</text>
+<rect x="1070" y="314" width="210" height="58" rx="12" fill="#140C06" stroke="#5BC0EB" stroke-width="2"/>
+<circle cx="1084" cy="328" r="4" fill="#5BC0EB"/>
+<text x="1175" y="347" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">P/poly</text>
+<rect x="1070" y="538" width="210" height="58" rx="12" fill="#140C06" stroke="#5BC0EB" stroke-width="2"/>
+<circle cx="1084" cy="552" r="4" fill="#5BC0EB"/>
+<text x="1175" y="571" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">PSPACE</text>
+<rect x="1320" y="258" width="210" height="58" rx="12" fill="#140C06" stroke="#FCF2E6" stroke-width="2"/>
+<circle cx="1334" cy="272" r="4" fill="#FCF2E6"/>
+<text x="1425" y="292" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">P vs NP</text>
+<rect x="1320" y="426" width="210" height="58" rx="12" fill="#140C06" stroke="#FCF2E6" stroke-width="2"/>
+<circle cx="1334" cy="440" r="4" fill="#FCF2E6"/>
+<text x="1425" y="459" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">NP vs coNP</text>
+<rect x="1320" y="594" width="210" height="58" rx="12" fill="#140C06" stroke="#FCF2E6" stroke-width="2"/>
+<circle cx="1334" cy="608" r="4" fill="#FCF2E6"/>
+<text x="1425" y="618" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">VP vs VNP (permanente vs</text>
+<text x="1425" y="634" fill="#FCF2E6" font-size="12.5" font-weight="600" text-anchor="middle">determinante)</text>
+<circle cx="76" cy="826" r="5" fill="#C77DFF"/>
+<text x="88" y="830" fill="#876244" font-size="12">tecnica</text>
+<circle cx="155" cy="826" r="5" fill="#FF8012"/>
+<text x="167" y="830" fill="#876244" font-size="12">approccio</text>
+<circle cx="248" cy="826" r="5" fill="#D73434"/>
+<text x="260" y="830" fill="#876244" font-size="12">barriera</text>
+<circle cx="334" cy="826" r="5" fill="#4AF626"/>
+<text x="346" y="830" fill="#876244" font-size="12">risultato</text>
+<circle cx="427" cy="826" r="5" fill="#5BC0EB"/>
+<text x="439" y="830" fill="#876244" font-size="12">concetto / classe</text>
+<circle cx="576" cy="826" r="5" fill="#FCF2E6"/>
+<text x="588" y="830" fill="#876244" font-size="12">problema aperto</text>
+<text x="1530" y="830" fill="#876244" font-size="12" text-anchor="end"><tspan fill="#D73434">━ blocca</tspan>   <tspan fill="#4AF626">┄ aggira</tspan>   <tspan fill="#FFAF4B">━ mira a</tspan></text>
+</svg>

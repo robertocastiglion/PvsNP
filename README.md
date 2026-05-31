@@ -15,8 +15,14 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 |---|--------|-------|---------|
 | 1 | **Natural Proofs Analyzer** | ✅ fatto | Data una proprietà combinatoria delle funzioni booleane, verifica se è *costruttiva* e *larga* — cioè se cade nella barriera di Razborov–Rudich e quindi **non potrà mai separare P da NP**. |
 | 2 | **Oracle Separation Sandbox** | ✅ fatto | Costruisce per diagonalizzazione l'oracolo B con P^B ≠ NP^B (eseguito e verificato) e usa l'oracolo PSPACE-completo TQBF per illustrare P^A = NP^A. Rende visibile la barriera della **relativizzazione**. |
-| 3 | **Knowledge Graph** | ✅ fatto | Grafo navigabile e interrogabile di barriere, approcci, tecniche, risultati e problemi aperti (con riferimenti). Sa chi blocca chi, chi aggira chi, e la "frontiera" promettente. Export Markdown/JSON/Graphviz. |
-| 4 | **Lean 4 Formalization** | ✅ fatto | Definizioni rigorose (P, NP, riduzioni, NP-completezza) e teoremi verificati dal kernel: P ⊆ NP, transitività delle riduzioni, collasso di Cook, e la barriera di relativizzazione. Zero `sorry`, zero assiomi. Vedi `formalization/`. |
+| 3 | **Knowledge Graph** | ✅ fatto | Grafo navigabile e interrogabile di barriere, approcci, tecniche, risultati e problemi aperti (con riferimenti). Sa chi blocca chi, chi aggira chi, e la "frontiera" promettente. Export Markdown/JSON/Graphviz **+ SVG** nei colori del brand (`pnp_lab/knowledge/render_svg.py`). |
+| 4 | **Lean 4 Formalization** | ✅ fatto | Definizioni rigorose (P, NP, riduzioni, NP-completezza) e 7 teoremi verificati dal kernel: P ⊆ NP, riduzioni come preordine (`reduces_refl`/`reduces_trans`), collasso di Cook **e la sua caratterizzazione** (`L∈P ↔ P=NP`), e la barriera di relativizzazione. Zero `sorry`, zero assiomi. Vedi `formalization/`. |
+
+## Pagina divulgativa
+
+In `web/index.html` c'è una pagina (stile *La Logica dei Sistemi*) che spiega P vs NP
+in modo semplice, le tre barriere, cosa fanno i quattro moduli e i risultati raggiunti.
+Apri il file in un browser; il knowledge graph è incluso come SVG in `web/assets/`.
 
 ## La barriera Natural Proofs in una riga
 
