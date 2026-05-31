@@ -12,6 +12,12 @@ namespace PvsNP
 def PolyReducible (M : Model) (A B : Language) : Prop :=
   ∃ f : BitString → BitString, M.PolyFn f ∧ ∀ x, A x ↔ B (f x)
 
+/-- Le riduzioni poly-time sono riflessive: ogni linguaggio si riduce a sé
+    tramite l'identità. Con `reduces_trans` ciò fa di `PolyReducible M` un
+    preordine sui linguaggi. -/
+theorem reduces_refl (M : Model) (L : Language) : PolyReducible M L L :=
+  ⟨fun x => x, M.idFn, fun _ => Iff.rfl⟩
+
 /-- Le riduzioni poly-time sono transitive. -/
 theorem reduces_trans (M : Model) (A B C : Language)
     (hAB : PolyReducible M A B) (hBC : PolyReducible M B C) :
@@ -58,5 +64,23 @@ theorem complete_in_P_implies_PEqNP (M : Model) (L : Language)
     exact P_subset_NP M A hPA
   · intro hNA
     exact P_closed_reduction M A L (hC.2 A hNA) hLP
+
+/-- Converso del collasso di Cook: se P = NP, allora ogni linguaggio
+    NP-completo è in P (basta che sia in NP, e `PEqNP` identifica le classi). -/
+theorem PEqNP_complete_in_P (M : Model) (L : Language)
+    (hEq : PEqNP M) (hC : NPComplete M L) : P M L :=
+  (hEq L).mpr hC.1
+
+/-- **Caratterizzazione di P = NP.** Fissato un qualunque linguaggio
+    NP-completo `L`, vale l'equivalenza
+
+        L ∈ P   ↔   P = NP
+
+    Mette insieme il collasso di Cook (→) e il suo converso (←): la
+    congettura P vs NP si decide guardando un singolo problema completo. -/
+theorem complete_in_P_iff_PEqNP (M : Model) (L : Language)
+    (hC : NPComplete M L) : P M L ↔ PEqNP M :=
+  ⟨fun hLP => complete_in_P_implies_PEqNP M L hC hLP,
+   fun hEq => PEqNP_complete_in_P M L hEq hC⟩
 
 end PvsNP

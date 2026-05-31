@@ -42,5 +42,8 @@ structure Model where
   /-- Comporre un decisore con una funzione poly-time resta poly-time. -/
   applyFn : ∀ {f : BitString → BitString} {d : BitString → Bool},
     PolyFn f → PolyDec d → PolyDec (fun x => d (f x))
+  /-- L'identità è poly-time. Serve per la riflessività delle riduzioni
+      (ogni linguaggio si riduce banalmente a sé tramite `id`). -/
+  idFn : PolyFn (fun x => x)
 
 end PvsNP

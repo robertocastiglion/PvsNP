@@ -20,17 +20,18 @@ Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 7 job
 
 | File | Contenuto |
 |------|-----------|
-| `PvsNP/Basic.lean` | `BitString`, `Language`, `IsPoly`, la struttura `Model`. |
+| `PvsNP/Basic.lean` | `BitString`, `Language`, `IsPoly`, la struttura `Model` (con le sue chiusure poly-time, inclusa `idFn`). |
 | `PvsNP/Classes.lean` | `P`, `NP`, **`P_subset_NP`** (P ⊆ NP), `PEqNP`, `PNeqNP`. |
-| `PvsNP/Reductions.lean` | riduzioni poly-time, **`reduces_trans`**, **`P_closed_reduction`**, NP-completezza, **`complete_in_P_implies_PEqNP`** (collasso di Cook). |
+| `PvsNP/Reductions.lean` | riduzioni poly-time, **`reduces_refl`** + **`reduces_trans`** (preordine), **`P_closed_reduction`**, NP-completezza, **`complete_in_P_implies_PEqNP`** (collasso di Cook), il suo converso **`PEqNP_complete_in_P`** e la caratterizzazione **`complete_in_P_iff_PEqNP`** (`L ∈ P ↔ P = NP` per `L` NP-completo). |
 | `PvsNP/Barriers.lean` | `RelativizationBarrier` (forma astratta di Baker–Gill–Solovay) e **`relativizing_cannot_settle`**: nessuna dimostrazione valida in *ogni* modello può decidere P vs NP. |
 
 ### Verifica di onestà
 
 Nessun `sorry` nel codice, e `#print axioms` (vedi `Check.lean`) conferma che
-**tutti e cinque i teoremi non dipendono da alcun assioma** — nemmeno
-`propext` o `Classical.choice`: sono dimostrazioni completamente costruttive. I
-predicati poly-time del `Model` sono ipotesi esplicite, non assiomi globali.
+**tutti i teoremi non dipendono da alcun assioma** — nemmeno `propext` o
+`Classical.choice`: sono dimostrazioni completamente costruttive. I predicati
+poly-time del `Model` sono ipotesi esplicite (campi della struttura), non assiomi
+globali.
 
 Il teorema `relativizing_cannot_settle` è il ponte col **Modulo 2**: lì rendiamo
 *eseguibili* i due mondi (oracolo TQBF per P^A = NP^A, diagonalizzazione per
