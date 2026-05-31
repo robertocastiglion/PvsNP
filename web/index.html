@@ -517,11 +517,12 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>4 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>5 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
-        verificabile</em>: dato un tentativo, ti dice se cade in una trappola nota.
+        verificabile</em>: dato un tentativo, ti dice se cade in una trappola nota — e ti
+        mostra anche dove i lower bound <em>funzionano davvero</em>.
       </p>
 
       <div class="modules">
@@ -598,11 +599,37 @@
             <span class="lbl">lake build &gt;</span> 7 teoremi · "does not depend on any axioms"
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">5</div>
+            <div>
+              <div class="module-title">Proof Complexity Lab</div>
+              <div class="module-sub">// un lower bound che FUNZIONA · Haken 1985</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            L'altra metà della storia. I primi moduli mostrano <em>perché</em> le tecniche
+            falliscono; questo mostra un muro che <b>funziona davvero</b>. Refuta il
+            <b>principio della piccionaia</b> (n+1 piccioni in n buche) e misura quanto
+            cresce la prova: l'albero di ricerca DPLL <em>è</em> una refutazione per
+            resolution, e la sua dimensione <b>esplode esponenzialmente</b>. Via
+            Cook–Reckhow questo è una vera strada verso NP ≠ coNP, quindi P ≠ NP.
+          </div>
+          <div class="module-out">
+            <span class="lbl">il muro &gt;</span> 1 → 3 → 11 → 47 → 239 → 1439 nodi (il fattore di crescita sale a ogni piccione)
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
       <div class="graph-frame">
         <img src="assets/knowledge_graph.svg" alt="Knowledge graph delle barriere e degli approcci a P vs NP" />
+      </div>
+
+      <!-- MURO DI HAKEN -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/proof_growth.svg" alt="Crescita esponenziale della dimensione della prova per la piccionaia" />
       </div>
     </div>
   </section>
@@ -621,12 +648,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">4</div>
+          <div class="result-num">5</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le tre barriere + la formalizzazione, ciascuna completabile da sola.</div>
+          <div class="result-desc">Le tre barriere, la formalizzazione e la proof complexity, ciascuno a sé.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">32</div>
+          <div class="result-num green">44</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>

@@ -17,6 +17,7 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 | 2 | **Oracle Separation Sandbox** | ✅ fatto | Costruisce per diagonalizzazione l'oracolo B con P^B ≠ NP^B (eseguito e verificato) e usa l'oracolo PSPACE-completo TQBF per illustrare P^A = NP^A. Rende visibile la barriera della **relativizzazione**. |
 | 3 | **Knowledge Graph** | ✅ fatto | Grafo navigabile e interrogabile di barriere, approcci, tecniche, risultati e problemi aperti (con riferimenti). Sa chi blocca chi, chi aggira chi, e la "frontiera" promettente. Export Markdown/JSON/Graphviz **+ SVG** nei colori del brand (`pnp_lab/knowledge/render_svg.py`). |
 | 4 | **Lean 4 Formalization** | ✅ fatto | Definizioni rigorose (P, NP, riduzioni, NP-completezza) e 7 teoremi verificati dal kernel: P ⊆ NP, riduzioni come preordine (`reduces_refl`/`reduces_trans`), collasso di Cook **e la sua caratterizzazione** (`L∈P ↔ P=NP`), e la barriera di relativizzazione. Zero `sorry`, zero assiomi. Vedi `formalization/`. |
+| 5 | **Proof Complexity Lab** | ✅ fatto | L'altra metà della storia: un lower bound che **funziona davvero**. Refuta il principio della piccionaia (PHP) con resolution/DPLL e misura la dimensione della prova, che cresce **esponenzialmente** (1·3·11·47·239·1439… nodi — teorema di Haken 1985). Via Cook–Reckhow è una strada verso NP ≠ coNP ⇒ P ≠ NP. Genera grafico SVG. `pnp_lab/proof_complexity/`. |
 
 ## Pagina divulgativa
 
@@ -41,6 +42,7 @@ py -m pip install -r requirements.txt
 py examples/run_analyzer.py    # Modulo 1: Natural Proofs Analyzer
 py examples/run_oracles.py     # Modulo 2: Oracle Separation Sandbox
 py examples/run_knowledge.py   # Modulo 3: Knowledge Graph (+ export md/json/dot)
+py examples/run_proof_complexity.py  # Modulo 5: Proof Complexity Lab (piccionaia)
 
 cd formalization && lake build # Modulo 4: formalizzazione Lean 4 (kernel-verified)
 ```

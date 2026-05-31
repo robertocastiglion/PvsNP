@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="520" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; PROOF COMPLEXITY // piccionaia</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Dimensione della prova (resolution) — scala logaritmica</text>
+<line x1="70" y1="450" x2="870" y2="450" stroke="#876244" stroke-width="1"/>
+<line x1="70" y1="90" x2="70" y2="450" stroke="#876244" stroke-width="1"/>
+<rect x="97" y="450" width="80" height="0" fill="#FF8012" opacity="0.88"/>
+<text x="137" y="442" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<text x="137" y="472" fill="#876244" font-size="12" text-anchor="middle">2/1</text>
+<rect x="230" y="396" width="80" height="54" fill="#FF8012" opacity="0.88"/>
+<text x="270" y="388" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">3</text>
+<text x="270" y="472" fill="#876244" font-size="12" text-anchor="middle">3/2</text>
+<rect x="363" y="331" width="80" height="119" fill="#FF8012" opacity="0.88"/>
+<text x="403" y="323" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">11</text>
+<text x="403" y="472" fill="#876244" font-size="12" text-anchor="middle">4/3</text>
+<rect x="497" y="259" width="80" height="191" fill="#FF8012" opacity="0.88"/>
+<text x="537" y="251" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">47</text>
+<text x="537" y="472" fill="#876244" font-size="12" text-anchor="middle">5/4</text>
+<rect x="630" y="179" width="80" height="271" fill="#FF8012" opacity="0.88"/>
+<text x="670" y="171" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">239</text>
+<text x="670" y="472" fill="#876244" font-size="12" text-anchor="middle">6/5</text>
+<rect x="763" y="90" width="80" height="360" fill="#FF8012" opacity="0.88"/>
+<text x="803" y="82" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1439</text>
+<text x="803" y="472" fill="#876244" font-size="12" text-anchor="middle">7/6</text>
+<text x="470" y="496" fill="#876244" font-size="12" text-anchor="middle">piccioni / buche</text>
+<text x="20" y="270" fill="#876244" font-size="12" text-anchor="middle" transform="rotate(-90 20 270)">nodi DPLL (log)</text>
+</svg>
