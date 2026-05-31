@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.DS_Store
+knowledge_export/
+*.png
+
+# Lean / Lake (Modulo 4)
+formalization/.lake/
+**/*.olean
+**/*.ilean
+
+# Permessi locali Claude Code (specifici della macchina)
+.claude/settings.local.json

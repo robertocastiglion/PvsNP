@@ -1,0 +1,8 @@
+name = "PvsNP"
+defaultTargets = ["PvsNP"]
+
+# Formalizzazione autosufficiente: SOLO Lean core, nessuna dipendenza da mathlib.
+# Così compila in pochi secondi senza scaricare gigabyte.
+
+[[lean_lib]]
+name = "PvsNP"

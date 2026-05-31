@@ -1,0 +1,6 @@
+# Il core del Modulo 1 usa solo la standard library di Python 3.10+.
+# Le dipendenze qui sotto sono opzionali (visualizzazioni / moduli futuri).
+# Per usare l'analyzer base non serve installare nulla.
+
+# Visualizzazione del decadimento della larghezza (opzionale)
+matplotlib>=3.7
