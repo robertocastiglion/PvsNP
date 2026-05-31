@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="480" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; CIRCUIT COMPLEXITY // il muro della parità</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">DNF minima della parità = 2^(n−1) termini (esatto)</text>
+<line x1="70" y1="416" x2="870" y2="416" stroke="#876244"/>
+<line x1="70" y1="96" x2="70" y2="416" stroke="#876244"/>
+<rect x="97" y="406" width="80" height="10" fill="#FF8012" opacity="0.9"/>
+<text x="137" y="398" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">2</text>
+<text x="137" y="438" fill="#876244" font-size="12" text-anchor="middle">n=2</text>
+<rect x="230" y="396" width="80" height="20" fill="#FF8012" opacity="0.9"/>
+<text x="270" y="388" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">4</text>
+<text x="270" y="438" fill="#876244" font-size="12" text-anchor="middle">n=3</text>
+<rect x="363" y="376" width="80" height="40" fill="#FF8012" opacity="0.9"/>
+<text x="403" y="368" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">8</text>
+<text x="403" y="438" fill="#876244" font-size="12" text-anchor="middle">n=4</text>
+<rect x="497" y="336" width="80" height="80" fill="#FF8012" opacity="0.9"/>
+<text x="537" y="328" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">16</text>
+<text x="537" y="438" fill="#876244" font-size="12" text-anchor="middle">n=5</text>
+<rect x="630" y="256" width="80" height="160" fill="#FF8012" opacity="0.9"/>
+<text x="670" y="248" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">32</text>
+<text x="670" y="438" fill="#876244" font-size="12" text-anchor="middle">n=6</text>
+<rect x="763" y="96" width="80" height="320" fill="#FF8012" opacity="0.9"/>
+<text x="803" y="88" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">64</text>
+<text x="803" y="438" fill="#876244" font-size="12" text-anchor="middle">n=7</text>
+<text x="470" y="458" fill="#876244" font-size="12" text-anchor="middle">numero di variabili</text>
+<text x="20" y="256" fill="#876244" font-size="12" text-anchor="middle" transform="rotate(-90 20 256)">termini DNF minimi</text>
+</svg>

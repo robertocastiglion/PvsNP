@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>5 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>6 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -620,6 +620,28 @@
             <span class="lbl">il muro &gt;</span> 1 → 3 → 11 → 47 → 239 → 1439 nodi (il fattore di crescita sale a ogni piccione)
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">6</div>
+            <div>
+              <div class="module-title">Circuit Complexity Sandbox</div>
+              <div class="module-sub">// Shannon 1949 · parità ∉ AC0</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            Due lower bound <b>esatti</b>, calcolati a mano sulle funzioni piccole. Primo:
+            lo <b>spettro di Shannon</b> — la complessità di formula minima di <em>tutte</em>
+            le 256 funzioni di 3 variabili; quasi tutte sono difficili, eppure non sappiamo
+            esibirne <em>una</em> esplicita e dimostrabilmente dura (il muro). Secondo: la
+            DNF minima della <b>parità</b> ha <em>esattamente</em> 2^(n−1) termini — il caso
+            base, esatto, di «parità ∉ AC0», un lower bound che davvero funziona e che
+            <b>aggira la barriera Natural Proofs</b> (Modulo 1).
+          </div>
+          <div class="module-out">
+            <span class="lbl">parità &gt;</span> DNF minima 2 → 4 → 8 → 16 → 32 → 64 termini (esatto, verificato)
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -630,6 +652,16 @@
       <!-- MURO DI HAKEN -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/proof_growth.svg" alt="Crescita esponenziale della dimensione della prova per la piccionaia" />
+      </div>
+
+      <!-- SPETTRO DI SHANNON -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/circuit_spectrum.svg" alt="Spettro di Shannon: complessità di formula di tutte le funzioni booleane piccole" />
+      </div>
+
+      <!-- MURO DELLA PARITÀ -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/parity_wall.svg" alt="Il muro della parità: la DNF minima cresce come 2^(n-1)" />
       </div>
     </div>
   </section>
@@ -648,12 +680,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">5</div>
+          <div class="result-num">6</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le tre barriere, la formalizzazione e la proof complexity, ciascuno a sé.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, la proof complexity e i circuiti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">44</div>
+          <div class="result-num green">60</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -677,6 +709,125 @@
         <div><span class="kw">theorem</span> <span class="nm">complete_in_P_iff_PEqNP</span> <span class="c">-- caratterizzazione: L∈P ⟺ P=NP</span></div>
         <div><span class="kw">theorem</span> <span class="nm">relativizing_cannot_settle</span> <span class="c">-- nessuna prova relativizzante decide P vs NP</span></div>
         <div style="margin-top:10px;"><span class="ok">✓ #print axioms → "does not depend on any axioms"</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PERCORSO / ROADMAP -->
+  <section id="percorso">
+    <div class="wrap">
+      <div class="section-tag">./percorso</div>
+      <h2 class="section-title">Il <span>percorso</span>: cosa è fatto, cosa viene dopo</h2>
+      <p class="section-sub">
+        Un modulo alla volta, ognuno eseguibile e testato da solo. Prima le barriere
+        (perché le strade falliscono), poi i lower bound che <em>funzionano</em>. Sotto:
+        la timeline completa, in chiaro.
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:56px;">
+
+        <!-- FATTO -->
+        <div>
+          <div style="font-family:var(--font-mono); font-size:13px; letter-spacing:0.12em;
+                      text-transform:uppercase; color:var(--green-ok); margin-bottom:24px;">
+            ✓ fatto &amp; verificato
+          </div>
+          <ol style="list-style:none; display:flex; flex-direction:column; gap:14px;
+                     border-left:2px solid rgba(74,246,38,0.35); padding-left:24px;">
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 1 · Natural Proofs Analyzer</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Verifica se una proprietà booleana è «naturale» (Razborov–Rudich) e quindi
+                un vicolo cieco. <span style="color:var(--grey-warm);">9 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 2 · Oracle Separation Sandbox</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Costruisce i due mondi di Baker–Gill–Solovay (P^B≠NP^B e P^A=NP^A): la
+                barriera della relativizzazione. <span style="color:var(--grey-warm);">14 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 3 · Knowledge Graph</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Mappa navigabile di barriere/approcci/risultati — chi blocca chi, chi aggira
+                chi. Export md/json/dot + SVG. <span style="color:var(--grey-warm);">12 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 4 · Formalizzazione Lean 4</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                7 teoremi verificati dal kernel (P⊆NP, collasso di Cook, caratterizzazione,
+                relativizzazione). Zero <code>sorry</code>, zero assiomi.</div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 5 · Proof Complexity Lab</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                La piccionaia con resolution/DPLL: la prova esplode esponenzialmente
+                (Haken 1985). <span style="color:var(--grey-warm);">12 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 6 · Circuit Complexity Sandbox &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Spettro di Shannon (complessità esatta delle funzioni piccole) e il muro
+                esatto della parità in profondità 2. <span style="color:var(--grey-warm);">13 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Infrastruttura</div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
+                60 test verdi in totale.</div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- PROSSIMI PASSI -->
+        <div>
+          <div style="font-family:var(--font-mono); font-size:13px; letter-spacing:0.12em;
+                      text-transform:uppercase; color:var(--orange-lite); margin-bottom:24px;">
+            ○ prossimi passi possibili
+          </div>
+          <ol style="list-style:none; display:flex; flex-direction:column; gap:14px;
+                     border-left:2px dashed rgba(255,175,75,0.4); padding-left:24px;">
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
+                Algebrizzazione eseguibile</div>
+              <div style="font-size:14px; color:var(--grey-warm);">
+                La terza barriera (Aaronson–Wigderson): rendere tangibile l'aritmetizzazione
+                e il suo limite, completando il trittico delle barriere.</div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
+                Switching lemma in azione</div>
+              <div style="font-size:14px; color:var(--grey-warm);">
+                Estendere il Modulo 6 oltre la profondità 2: restringere casualmente le
+                variabili e «vedere» AC0 semplificarsi (cuore di Håstad).</div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
+                Lean: verso Cook–Levin</div>
+              <div style="font-size:14px; color:var(--grey-warm);">
+                Spingere la formalizzazione verso la NP-completezza di SAT, o un modello di
+                calcolo concreto.</div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
+                Proof-search assistita da LLM</div>
+              <div style="font-size:14px; color:var(--grey-warm);">
+                La frontiera (stile AlphaProof): un LLM che propone tattiche a Lean su
+                sotto-lemmi. Ambizioso, alto rischio — l'ultimo gradino.</div>
+            </li>
+          </ol>
+        </div>
+
       </div>
     </div>
   </section>

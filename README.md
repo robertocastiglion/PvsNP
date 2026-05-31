@@ -18,6 +18,7 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 | 3 | **Knowledge Graph** | ✅ fatto | Grafo navigabile e interrogabile di barriere, approcci, tecniche, risultati e problemi aperti (con riferimenti). Sa chi blocca chi, chi aggira chi, e la "frontiera" promettente. Export Markdown/JSON/Graphviz **+ SVG** nei colori del brand (`pnp_lab/knowledge/render_svg.py`). |
 | 4 | **Lean 4 Formalization** | ✅ fatto | Definizioni rigorose (P, NP, riduzioni, NP-completezza) e 7 teoremi verificati dal kernel: P ⊆ NP, riduzioni come preordine (`reduces_refl`/`reduces_trans`), collasso di Cook **e la sua caratterizzazione** (`L∈P ↔ P=NP`), e la barriera di relativizzazione. Zero `sorry`, zero assiomi. Vedi `formalization/`. |
 | 5 | **Proof Complexity Lab** | ✅ fatto | L'altra metà della storia: un lower bound che **funziona davvero**. Refuta il principio della piccionaia (PHP) con resolution/DPLL e misura la dimensione della prova, che cresce **esponenzialmente** (1·3·11·47·239·1439… nodi — teorema di Haken 1985). Via Cook–Reckhow è una strada verso NP ≠ coNP ⇒ P ≠ NP. Genera grafico SVG. `pnp_lab/proof_complexity/`. |
+| 6 | **Circuit Complexity Sandbox** | ✅ fatto | Due lower bound **esatti** sui circuiti. *Spettro di Shannon*: complessità di formula minima di **tutte** le funzioni piccole (quasi tutte difficili, ma nessuna esplicita). *Muro della parità*: la DNF minima della parità ha esattamente 2^(n−1) termini — caso base esatto di «parità ∉ AC0» (Furst–Saxe–Sipser, Håstad), che **aggira la barriera Natural Proofs**. Genera 2 grafici SVG. `pnp_lab/circuits/`. |
 
 ## Pagina divulgativa
 
@@ -43,6 +44,7 @@ py examples/run_analyzer.py    # Modulo 1: Natural Proofs Analyzer
 py examples/run_oracles.py     # Modulo 2: Oracle Separation Sandbox
 py examples/run_knowledge.py   # Modulo 3: Knowledge Graph (+ export md/json/dot)
 py examples/run_proof_complexity.py  # Modulo 5: Proof Complexity Lab (piccionaia)
+py examples/run_circuits.py          # Modulo 6: Circuit Complexity Sandbox (Shannon, parità)
 
 cd formalization && lake build # Modulo 4: formalizzazione Lean 4 (kernel-verified)
 ```
