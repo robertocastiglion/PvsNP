@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="480" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; META-COMPLEXITY // MCSP: la soglia facile/difficile</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Quante funzioni restano DURE (dim &gt; s) al crescere di s</text>
+<line x1="70" y1="416" x2="870" y2="416" stroke="#876244"/>
+<line x1="70" y1="100" x2="70" y2="416" stroke="#876244"/>
+<polygon points="70,416 70,107 159,140 248,218 337,256 426,354 514,394 603,394 692,414 781,414 870,416 870,416" fill="#D73434" opacity="0.18"/>
+<polyline points="70,107 159,140 248,218 337,256 426,354 514,394 603,394 692,414 781,414 870,416" fill="none" stroke="#D73434" stroke-width="3"/>
+<circle cx="70" cy="107" r="4" fill="#D73434"/>
+<text x="70" y="436" fill="#876244" font-size="11" text-anchor="middle">s=0</text>
+<circle cx="159" cy="140" r="4" fill="#D73434"/>
+<text x="159" y="436" fill="#876244" font-size="11" text-anchor="middle">s=1</text>
+<circle cx="248" cy="218" r="4" fill="#D73434"/>
+<text x="248" y="436" fill="#876244" font-size="11" text-anchor="middle">s=2</text>
+<circle cx="337" cy="256" r="4" fill="#D73434"/>
+<text x="337" y="436" fill="#876244" font-size="11" text-anchor="middle">s=3</text>
+<circle cx="426" cy="354" r="4" fill="#D73434"/>
+<text x="426" y="436" fill="#876244" font-size="11" text-anchor="middle">s=4</text>
+<circle cx="514" cy="394" r="4" fill="#D73434"/>
+<text x="514" y="436" fill="#876244" font-size="11" text-anchor="middle">s=5</text>
+<circle cx="603" cy="394" r="4" fill="#D73434"/>
+<text x="603" y="436" fill="#876244" font-size="11" text-anchor="middle">s=6</text>
+<circle cx="692" cy="414" r="4" fill="#D73434"/>
+<text x="692" y="436" fill="#876244" font-size="11" text-anchor="middle">s=7</text>
+<circle cx="781" cy="414" r="4" fill="#D73434"/>
+<text x="781" y="436" fill="#876244" font-size="11" text-anchor="middle">s=8</text>
+<circle cx="870" cy="416" r="4" fill="#D73434"/>
+<text x="870" y="436" fill="#876244" font-size="11" text-anchor="middle">s=9</text>
+<text x="470" y="464" fill="#876244" font-size="12" text-anchor="middle">soglia di dimensione s · area rossa = funzioni dure</text>
+</svg>

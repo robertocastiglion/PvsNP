@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>12 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>13 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -805,6 +805,36 @@
             dove la ricerca prova davvero a spingere.
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">13</div>
+            <div>
+              <div class="module-title">Meta-Complexity Lab</div>
+              <div class="module-sub">// MCSP &amp; hardness magnification · dove il cerchio si chiude</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            La <b>frontiera più viva</b> e il punto in cui i fili del progetto si annodano. <b>MCSP</b>
+            («quanto è complessa questa funzione?») è un problema in NP — il testimone è il circuito
+            piccolo — e lo calcoliamo <b>esatto</b> (riuso del Modulo 6). Il cerchio si chiude:
+            la proprietà «f è dura» è <b>utile e larga</b>, ma renderla <b>costruttiva equivale a
+            risolvere MCSP</b>, e questo romperebbe i generatori pseudo-casuali — è <b>esattamente</b>
+            la barriera Natural Proofs (Modulo 1), che qui verifichiamo. E la <b>hardness
+            magnification</b>: lower bound <em>minuscoli</em> (n^{1+ε}) si <b>amplificherebbero</b> in
+            P ≠ NP — a un soffio dai lower bound noti — ma restano fuori portata per la «barriera di
+            magnificazione» (servono tecniche non-naturali).
+          </div>
+          <div class="module-out">
+            <span class="lbl">MCSP &gt;</span> complessità esatta · in NP (verifica = N valutazioni) · «f dura» = utile+larga ma costruttiva ⇒ MCSP ⇒ no PRG
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà sul confine.</b> MCSP e il legame con Natural Proofs sono
+            <em>eseguiti</em> ed esatti; lo status di MCSP (NP-hard? in P?) e i teoremi di amplificazione
+            li <em>citiamo</em>. La meta-complessità è il punto in cui il problema guarda sé stesso —
+            ma <b>non lo risolve</b>.
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -856,6 +886,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algorithmic_method.svg" alt="Metodo algoritmico: contare #SAT, forza bruta 2^n vs polinomio sparso" />
       </div>
+
+      <!-- META-COMPLESSITÀ -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/meta_complexity.svg" alt="MCSP: quante funzioni restano dure al crescere della soglia di dimensione" />
+      </div>
     </div>
   </section>
 
@@ -873,12 +908,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">12</div>
+          <div class="result-num">13</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, la separazione algebrica, la proof-search guidata e il metodo algoritmico.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico e meta-complessità.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">115</div>
+          <div class="result-num green">124</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -1014,19 +1049,26 @@
                 verificato). Euristica 68 stati vs baseline 243, prove riverificate. <span style="color:var(--grey-warm);">10 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 12 · Algorithmic Method Lab &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 12 · Algorithmic Method Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Il metodo di Williams (SAT veloce ⇒ lower bound): speedup via sparsità, soglia
                 super-poly, e aggira tutte e tre le barriere. La crepa nel muro. <span style="color:var(--grey-warm);">10 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 13 · Meta-Complexity Lab &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                MCSP esatto + il legame con Natural Proofs + hardness magnification. Dove il
+                cerchio si chiude: il problema guarda sé stesso. <span style="color:var(--grey-warm);">9 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                115 test verdi in totale.</div>
+                124 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -1074,11 +1116,11 @@
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                La frontiera vera: meta-complessità &amp; hardness magnification</div>
+                Superare la barriera di magnificazione</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                Il Modulo 12 apre la direzione più promettente (Williams). Da lì: l'amplificazione
-                di durezza (lower bound minuscoli che si amplificano) e la meta-complessità (MCSP) —
-                dove la ricerca prova davvero a spingere, con i suoi nuovi ostacoli.</div>
+                Il Modulo 13 mostra che basterebbe un lower bound n^{1+ε} per gap-MCSP. Trovarlo
+                — con una tecnica non-naturale che superi la barriera di magnificazione — è il
+                problema aperto vero. È qui che la ricerca mondiale sta spingendo adesso.</div>
             </li>
           </ol>
         </div>
