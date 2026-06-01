@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="480" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; ALGEBRIZATION // la scala dell'arithmetization</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Sum-check: da 2^3 = 8 termini a 1 sola query</text>
+<line x1="70" y1="410" x2="870" y2="410" stroke="#876244"/>
+<line x1="70" y1="96" x2="70" y2="410" stroke="#876244"/>
+<rect x="110" y="96" width="120" height="314" fill="#D73434" opacity="0.9"/>
+<text x="170" y="88" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">8</text>
+<text x="170" y="432" fill="#876244" font-size="12" text-anchor="middle">start</text>
+<rect x="310" y="201" width="120" height="209" fill="#FF8012" opacity="0.9"/>
+<text x="370" y="193" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">4</text>
+<text x="370" y="432" fill="#876244" font-size="12" text-anchor="middle">round 1</text>
+<rect x="510" y="305" width="120" height="105" fill="#FF8012" opacity="0.9"/>
+<text x="570" y="297" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">2</text>
+<text x="570" y="432" fill="#876244" font-size="12" text-anchor="middle">round 2</text>
+<rect x="710" y="406" width="120" height="4" fill="#4AF626" opacity="0.9"/>
+<text x="770" y="398" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<text x="770" y="432" fill="#876244" font-size="12" text-anchor="middle">1 query</text>
+<text x="470" y="458" fill="#876244" font-size="12" text-anchor="middle">round del sum-check (ogni round fissa una variabile a un punto casuale del campo)</text>
+<text x="20" y="253" fill="#876244" font-size="12" text-anchor="middle" transform="rotate(-90 20 253)">termini da sommare (scala log)</text>
+</svg>

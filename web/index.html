@@ -505,7 +505,7 @@
             è così che si è dimostrato <b style="color:var(--white)">IP = PSPACE</b>. Ma
             anche loro, estese con un oracolo algebrico, restano insufficienti per P vs NP.
           </div>
-          <div class="barrier-ref">⚙ mappata nel Modulo 3 (Knowledge Graph)</div>
+          <div class="barrier-ref">⚙ resa eseguibile nel Modulo 7 (Algebrization Sandbox)</div>
         </div>
       </div>
     </div>
@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>6 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>7 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -642,6 +642,29 @@
             <span class="lbl">parità &gt;</span> DNF minima 2 → 4 → 8 → 16 → 32 → 64 termini (esatto, verificato)
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">7</div>
+            <div>
+              <div class="module-title">Algebrization Sandbox</div>
+              <div class="module-sub">// Aaronson–Wigderson 2008 · arithmetization</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            La <b>terza barriera</b>, eseguibile — il trittico è completo. Solleviamo una
+            funzione booleana alla sua <b>estensione multilineare</b> f~ (un polinomio su
+            un campo, valutabile <em>fuori</em> dal cubo 0/1) e facciamo girare per davvero
+            il <b>sum-check</b>, il motore della dimostrazione IP = PSPACE: un verificatore
+            controlla una somma su 2^n termini con <b>una sola query</b>. Il prover onesto
+            è sempre accettato, il bugiardo viene <b>smascherato</b> al punto casuale finale.
+            È la tecnica che <b>scavalca la relativizzazione</b> (Modulo 2) — e che però,
+            mostrano Aaronson–Wigderson, da sola ancora non basta.
+          </div>
+          <div class="module-out">
+            <span class="lbl">sum-check &gt;</span> da 2^n termini a 1 query · onesto = ACCETTATO, bugiardo = RIFIUTATO (prob. errore ≤ d/p)
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -663,6 +686,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/parity_wall.svg" alt="Il muro della parità: la DNF minima cresce come 2^(n-1)" />
       </div>
+
+      <!-- SCALA DELL'ARITHMETIZATION -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/algebrization_ladder.svg" alt="La scala dell'arithmetization: il sum-check riduce 2^n termini a una sola query" />
+      </div>
     </div>
   </section>
 
@@ -680,12 +708,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">6</div>
+          <div class="result-num">7</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere, la formalizzazione, la proof complexity e i circuiti.</div>
+          <div class="result-desc">Le 3 barriere (relativizzazione, natural proofs, algebrizzazione), la formalizzazione, la proof complexity e i circuiti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">55</div>
+          <div class="result-num green">67</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -772,19 +800,26 @@
                 (Haken 1985). <span style="color:var(--grey-warm);">12 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 6 · Circuit Complexity Sandbox &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 6 · Circuit Complexity Sandbox</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Spettro di Shannon (complessità esatta delle funzioni piccole) e il muro
                 esatto della parità in profondità 2. <span style="color:var(--grey-warm);">11 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 7 · Algebrization Sandbox &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Estensione multilineare + sum-check eseguito (motore di IP = PSPACE): la
+                terza barriera. Il trittico è completo. <span style="color:var(--grey-warm);">12 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                55 test verdi in totale.</div>
+                67 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -799,10 +834,11 @@
                      border-left:2px dashed rgba(255,175,75,0.4); padding-left:24px;">
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                Algebrizzazione eseguibile</div>
+                Separare i mondi algebrici</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                La terza barriera (Aaronson–Wigderson): rendere tangibile l'aritmetizzazione
-                e il suo limite, completando il trittico delle barriere.</div>
+                Oggi il Modulo 7 <em>esegue</em> l'arithmetization ma <em>cita</em> il teorema di
+                separazione: il passo successivo è costruire davvero i due oracoli algebrici
+                con esiti opposti su P vs NP.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
