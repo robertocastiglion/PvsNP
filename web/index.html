@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>10 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>11 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -745,6 +745,35 @@
             Aaronson–Wigderson: quelli li <em>citiamo</em>, non li simuliamo.
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">11</div>
+            <div>
+              <div class="module-title">Proof-Search Lab</div>
+              <div class="module-sub">// proof-search trasparente, policy pluggable (stile AlphaProof)</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            La <b>frontiera</b>, senza hype. Un loop di ricerca <b>best-first</b> esplora lo spazio
+            delle prove su un mini-prover di riscrittura equazionale <b>sound</b> (algebra dei gruppi),
+            guidato da una <b>policy</b> che propone tattiche. La policy non dimostra nulla da sola —
+            propone solo mosse; a verificare è il motore, e <b>ogni prova trovata viene riverificata</b>.
+            Una policy migliore si misura in <b>stati generati</b>: l'euristica chiude i 12 lemmi
+            generando <b>68</b> stati contro i <b>243</b> della ricerca cieca. È lo stesso paradigma del
+            Modulo 4 (proporre tattiche a un verificatore), ma su un verificatore-giocattolo eseguibile.
+          </div>
+          <div class="module-out">
+            <span class="lbl">benchmark &gt;</span> 12/12 lemmi chiusi e riverificati · euristica 68 stati vs baseline 243 (meno = policy migliore)
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà, prima di tutto.</b> Questo <em>non</em> dimostra P vs NP e
+            <em>non</em> «risolve la matematica con un LLM». L'LLM è una <b>policy opzionale e pluggable</b>
+            (<code>LLMPolicy</code>): il core non dipende da reti né chiavi, i test non usano mai un modello,
+            e se la policy esterna fallisce la ricerca ripiega sull'euristica. A verificare resta sempre
+            il motore sound.
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -786,6 +815,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebraic_separation.svg" alt="Separazione P^A ≠ NP^A: NP basta 1 query, P ne richiede κ che cresce con N" />
       </div>
+
+      <!-- PROOF SEARCH -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/proof_search.svg" alt="Proof-search: una policy migliore genera meno stati per chiudere ogni lemma" />
+      </div>
     </div>
   </section>
 
@@ -803,12 +837,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">10</div>
+          <div class="result-num">11</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere (relativizzazione e algebrizzazione separate, natural proofs), la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, la separazione algebrica e la proof-search guidata.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">95</div>
+          <div class="result-num green">105</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -930,19 +964,26 @@
                 2^m booleane) e il limite (lower bound di interpolazione). <span style="color:var(--grey-warm);">9 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 10 · Algebraic Separation &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 10 · Algebraic Separation</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Il cuore di query complexity di P^Ã ≠ NP^Ã: NP = 1 query, P ≥ κ via
                 avversario di cancellazione (κ cresce con N). <span style="color:var(--grey-warm);">8 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 11 · Proof-Search Lab &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Proof-search trasparente con policy pluggable (LLM opzionale, mai nel percorso
+                verificato). Euristica 68 stati vs baseline 243, prove riverificate. <span style="color:var(--grey-warm);">10 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                95 test verdi in totale.</div>
+                105 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -982,10 +1023,11 @@
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                Proof-search assistita da LLM</div>
+                Proof-search: dal giocattolo a Lean vero</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                La frontiera (stile AlphaProof): un LLM che propone tattiche a Lean su
-                sotto-lemmi. Ambizioso, alto rischio — l'ultimo gradino.</div>
+                Il Modulo 11 fa proof-search su un verificatore-giocattolo. Il passo successivo è
+                collegare la stessa policy a Lean vero (stile LeanDojo): tattiche proposte a
+                <code>lake</code> su sotto-lemmi reali, con le stesse metriche oneste.</div>
             </li>
           </ol>
         </div>

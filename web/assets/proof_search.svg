@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="500" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; PROOF-SEARCH // una policy migliore espande meno nodi</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Nodi espansi per chiudere ogni lemma (meno è meglio)</text>
+<line x1="70" y1="404" x2="870" y2="404" stroke="#876244"/>
+<line x1="70" y1="100" x2="70" y2="404" stroke="#876244"/>
+<rect x="80" y="343" width="21" height="61" fill="#876244" opacity="0.9"/>
+<rect x="105" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="103" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 103 422)">id_left</text>
+<rect x="147" y="343" width="21" height="61" fill="#876244" opacity="0.9"/>
+<rect x="172" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="170" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 170 422)">id_right</text>
+<rect x="214" y="363" width="21" height="41" fill="#876244" opacity="0.9"/>
+<rect x="238" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="237" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 237 422)">inv_e</text>
+<rect x="280" y="350" width="21" height="54" fill="#876244" opacity="0.9"/>
+<rect x="305" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="303" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 303 422)">inv_inv</text>
+<rect x="347" y="330" width="21" height="74" fill="#876244" opacity="0.9"/>
+<rect x="372" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="370" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 370 422)">e_times_inv</text>
+<rect x="414" y="255" width="21" height="149" fill="#876244" opacity="0.9"/>
+<rect x="438" y="370" width="21" height="34" fill="#4AF626" opacity="0.9"/>
+<text x="437" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 437 422)">double_id</text>
+<rect x="480" y="249" width="21" height="155" fill="#876244" opacity="0.9"/>
+<rect x="505" y="363" width="21" height="41" fill="#4AF626" opacity="0.9"/>
+<text x="503" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 503 422)">id_both_sides</text>
+<rect x="547" y="323" width="21" height="81" fill="#876244" opacity="0.9"/>
+<rect x="572" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="570" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 570 422)">inv_left_const</text>
+<rect x="614" y="296" width="21" height="108" fill="#876244" opacity="0.9"/>
+<rect x="638" y="377" width="21" height="27" fill="#4AF626" opacity="0.9"/>
+<text x="637" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 637 422)">assoc_step</text>
+<rect x="681" y="154" width="21" height="250" fill="#876244" opacity="0.9"/>
+<rect x="705" y="357" width="21" height="47" fill="#4AF626" opacity="0.9"/>
+<text x="703" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 703 422)">nested_id</text>
+<rect x="747" y="100" width="21" height="304" fill="#876244" opacity="0.9"/>
+<rect x="772" y="330" width="21" height="74" fill="#4AF626" opacity="0.9"/>
+<text x="770" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 770 422)">cancel_left</text>
+<rect x="814" y="100" width="21" height="304" fill="#876244" opacity="0.9"/>
+<rect x="838" y="330" width="21" height="74" fill="#4AF626" opacity="0.9"/>
+<text x="837" y="422" fill="#876244" font-size="10" text-anchor="end" transform="rotate(-40 837 422)">cancel_right</text>
+<rect x="650" y="100" width="12" height="12" fill="#876244"/>
+<text x="668" y="111" fill="#FCF2E6" font-size="13">esaustiva (baseline)</text>
+<rect x="650" y="120" width="12" height="12" fill="#4AF626"/>
+<text x="668" y="131" fill="#FCF2E6" font-size="13">euristica (top-4)</text>
+</svg>
