@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="500" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; SWITCHING LEMMA // la DNF collassa, la parità no</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Profondità dell'albero di decisione vs variabili libere</text>
+<line x1="70" y1="436" x2="870" y2="436" stroke="#876244"/>
+<line x1="70" y1="100" x2="70" y2="436" stroke="#876244"/>
+<polyline points="70,436 230,369 390,302 550,234 710,167 870,100" fill="none" stroke="#D73434" stroke-width="3"/>
+<circle cx="70" cy="436" r="4" fill="#D73434"/>
+<circle cx="230" cy="369" r="4" fill="#D73434"/>
+<circle cx="390" cy="302" r="4" fill="#D73434"/>
+<circle cx="550" cy="234" r="4" fill="#D73434"/>
+<circle cx="710" cy="167" r="4" fill="#D73434"/>
+<circle cx="870" cy="100" r="4" fill="#D73434"/>
+<polyline points="70,436 230,429 390,415 550,397 710,366 870,376" fill="none" stroke="#4AF626" stroke-width="3"/>
+<circle cx="70" cy="436" r="4" fill="#4AF626"/>
+<circle cx="230" cy="429" r="4" fill="#4AF626"/>
+<circle cx="390" cy="415" r="4" fill="#4AF626"/>
+<circle cx="550" cy="397" r="4" fill="#4AF626"/>
+<circle cx="710" cy="366" r="4" fill="#4AF626"/>
+<circle cx="870" cy="376" r="4" fill="#4AF626"/>
+<text x="70" y="458" fill="#876244" font-size="12" text-anchor="middle">0</text>
+<text x="230" y="458" fill="#876244" font-size="12" text-anchor="middle">1</text>
+<text x="390" y="458" fill="#876244" font-size="12" text-anchor="middle">2</text>
+<text x="550" y="458" fill="#876244" font-size="12" text-anchor="middle">3</text>
+<text x="710" y="458" fill="#876244" font-size="12" text-anchor="middle">4</text>
+<text x="870" y="458" fill="#876244" font-size="12" text-anchor="middle">5</text>
+<text x="470" y="480" fill="#876244" font-size="12" text-anchor="middle">numero di variabili libere dopo la restrizione</text>
+<text x="20" y="268" fill="#876244" font-size="12" text-anchor="middle" transform="rotate(-90 20 268)">profondità albero di decisione</text>
+<rect x="650" y="100" width="12" height="12" fill="#D73434"/>
+<text x="668" y="111" fill="#FCF2E6" font-size="13">parità (= #liberi)</text>
+<rect x="650" y="122" width="12" height="12" fill="#4AF626"/>
+<text x="668" y="133" fill="#FCF2E6" font-size="13">DNF w=3 (media)</text>
+</svg>

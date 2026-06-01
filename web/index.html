@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>7 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>8 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -665,6 +665,29 @@
             <span class="lbl">sum-check &gt;</span> da 2^n termini a 1 query · onesto = ACCETTATO, bugiardo = RIFIUTATO (prob. errore ≤ d/p)
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">8</div>
+            <div>
+              <div class="module-title">Switching Lemma Lab</div>
+              <div class="module-sub">// Håstad 1986 · il meccanismo di «parità ∉ AC0»</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            Il Modulo 6 mostrava <em>che</em> la parità è dura; questo mostra <em>perché</em>.
+            Applichiamo <b>restrizioni casuali</b> alle variabili (ognuna resta libera con
+            probabilità p) e misuriamo la profondità dell'<b>albero di decisione ottimo</b>.
+            Una DNF di larghezza w <b>collassa</b> — verifichiamo per davvero il bound di
+            Håstad <code>Pr[D ≥ s] ≤ (5pw)^s</code> — mentre la <b>parità resiste</b>: la sua
+            profondità resta <em>esattamente</em> uguale al numero di variabili libere. È il
+            <b>meccanismo</b> che genera il muro della parità: gli AC0 si appiattiscono sotto
+            restrizione, la parità no.
+          </div>
+          <div class="module-out">
+            <span class="lbl">contrasto &gt;</span> DNF media ≈ 0–1 di profondità · parità = #variabili-libere (la diagonale)
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -691,6 +714,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebrization_ladder.svg" alt="La scala dell'arithmetization: il sum-check riduce 2^n termini a una sola query" />
       </div>
+
+      <!-- SWITCHING LEMMA -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/switching_contrast.svg" alt="Switching lemma: la DNF si appiattisce sotto restrizione casuale, la parità no" />
+      </div>
     </div>
   </section>
 
@@ -708,12 +736,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">7</div>
+          <div class="result-num">8</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere (relativizzazione, natural proofs, algebrizzazione), la formalizzazione, la proof complexity e i circuiti.</div>
+          <div class="result-desc">Le 3 barriere (relativizzazione, natural proofs, algebrizzazione), la formalizzazione, la proof complexity, i circuiti e lo switching lemma.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">67</div>
+          <div class="result-num green">78</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -807,19 +835,26 @@
                 esatto della parità in profondità 2. <span style="color:var(--grey-warm);">11 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 7 · Algebrization Sandbox &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 7 · Algebrization Sandbox</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Estensione multilineare + sum-check eseguito (motore di IP = PSPACE): la
                 terza barriera. Il trittico è completo. <span style="color:var(--grey-warm);">12 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 8 · Switching Lemma Lab &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Restrizioni casuali: la DNF collassa (bound di Håstad verificato), la parità
+                no. Il meccanismo dietro «parità ∉ AC0». <span style="color:var(--grey-warm);">11 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                67 test verdi in totale.</div>
+                78 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -842,10 +877,11 @@
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                Switching lemma in azione</div>
+                Iterare le restrizioni in profondità d</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                Estendere il Modulo 6 oltre la profondità 2: restringere casualmente le
-                variabili e «vedere» AC0 semplificarsi (cuore di Håstad).</div>
+                Concatenare lo switching del Modulo 8 livello dopo livello, per far
+                collassare un intero circuito AC0 di profondità d e chiudere
+                quantitativamente «parità ∉ AC0».</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
