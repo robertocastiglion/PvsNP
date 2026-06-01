@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>9 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>10 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -715,6 +715,35 @@
             <span class="lbl">potenza/limite &gt;</span> 1 query algebrica ≈ 2^m booleane · ma servono 2^m query per l'oracolo (rango pieno su GF(p))
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">10</div>
+            <div>
+              <div class="module-title">Algebraic Separation</div>
+              <div class="module-sub">// P^Ã ≠ NP^Ã — il cuore di query complexity</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            L'analogo algebrico del Modulo 2: la <b>separazione P ≠ NP relativa a oracoli
+            algebrici</b>, nel modello a query. Per il problema OR («c'è un 1 nell'oracolo?»):
+            il lato <b>NP costa una sola query</b> (indovina il testimone, verifica
+            <code>Ã(z)=A(z)</code> sul cubo); il lato <b>P richiede κ query</b>, dimostrato
+            con un <b>avversario di cancellazione</b> — finché le query algebriche sono poche,
+            posizioni segrete <em>si annullano</em> (i loro χ sommano a zero) e l'algoritmo non
+            distingue «ci sono 1» da «tutto zero». E κ <b>cresce con N=2^m</b> quando il campo
+            è piccolo — il regime di Aaronson–Wigderson.
+          </div>
+          <div class="module-out">
+            <span class="lbl">separazione &gt;</span> NP = 1 query · P ≥ κ (2 a m=2, 4 a m=3, GF(3)) · l'avversario rende cieca ogni query
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà sul confine.</b> Eseguiamo il <em>cuore a query</em>
+            (testimone + avversario, esatti). Il sollevamento a un oracolo per macchine di Turing e la
+            versione forte (con il lower bound di communication complexity) sono il teorema di
+            Aaronson–Wigderson: quelli li <em>citiamo</em>, non li simuliamo.
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -751,6 +780,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebraic_worlds.svg" alt="Mondi algebrici: una query algebrica vale 2^m booleane, ma servono 2^m query per determinare l'oracolo" />
       </div>
+
+      <!-- SEPARAZIONE ALGEBRICA -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/algebraic_separation.svg" alt="Separazione P^A ≠ NP^A: NP basta 1 query, P ne richiede κ che cresce con N" />
+      </div>
     </div>
   </section>
 
@@ -768,12 +802,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">9</div>
+          <div class="result-num">10</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere (con i mondi algebrici), la formalizzazione, la proof complexity, i circuiti, lo switching lemma e Schwartz–Zippel.</div>
+          <div class="result-desc">Le 3 barriere (relativizzazione e algebrizzazione separate, natural proofs), la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">87</div>
+          <div class="result-num green">95</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -886,19 +920,26 @@
                 no. Il meccanismo dietro «parità ∉ AC0». <span style="color:var(--grey-warm);">11 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 9 · Algebraic Query Model &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 9 · Algebraic Query Model</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 I mondi algebrici: Schwartz–Zippel esatto, la potenza (1 query algebrica =
                 2^m booleane) e il limite (lower bound di interpolazione). <span style="color:var(--grey-warm);">9 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 10 · Algebraic Separation &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Il cuore di query complexity di P^Ã ≠ NP^Ã: NP = 1 query, P ≥ κ via
+                avversario di cancellazione (κ cresce con N). <span style="color:var(--grey-warm);">8 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                87 test verdi in totale.</div>
+                95 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -913,11 +954,11 @@
                      border-left:2px dashed rgba(255,175,75,0.4); padding-left:24px;">
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                La separazione P^Ã ≠ NP^Ã completa</div>
+                Dal cuore a query all'oracolo TM completo</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                Il Modulo 9 esegue il <em>motore</em> (Schwartz–Zippel, potenza e limite delle
-                query algebriche); resta da costruire per intero i due oracoli algebrici con
-                esiti opposti su P vs NP — la costruzione completa di Aaronson–Wigderson.</div>
+                Il Modulo 10 esegue la separazione nel modello a query (NP=1, P≥κ); resta da
+                sollevarla a una vera lingua in NP^Ã \ P^Ã via diagonalizzazione, e a chiudere
+                la versione forte col lower bound di communication complexity di Aaronson–Wigderson.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">

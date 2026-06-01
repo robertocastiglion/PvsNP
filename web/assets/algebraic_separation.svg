@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="470" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; ALGEBRAIC SEPARATION // P^Ã ≠ NP^Ã (cuore di query complexity)</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">OR: NP basta 1 query, P ne richiede κ (e κ cresce con N)</text>
+<line x1="70" y1="400" x2="870" y2="400" stroke="#876244"/>
+<line x1="70" y1="100" x2="70" y2="400" stroke="#876244"/>
+<rect x="119" y="325" width="80" height="75" fill="#4AF626" opacity="0.9"/>
+<text x="159" y="317" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<rect x="207" y="250" width="80" height="150" fill="#D73434" opacity="0.9"/>
+<text x="247" y="242" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">2</text>
+<text x="203" y="422" fill="#876244" font-size="12" text-anchor="middle">N=4 · GF(3)</text>
+<rect x="386" y="325" width="80" height="75" fill="#4AF626" opacity="0.9"/>
+<text x="426" y="317" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<rect x="474" y="100" width="80" height="300" fill="#D73434" opacity="0.9"/>
+<text x="514" y="92" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">4</text>
+<text x="470" y="422" fill="#876244" font-size="12" text-anchor="middle">N=8 · GF(3)</text>
+<rect x="653" y="325" width="80" height="75" fill="#4AF626" opacity="0.9"/>
+<text x="693" y="317" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<rect x="741" y="325" width="80" height="75" fill="#D73434" opacity="0.9"/>
+<text x="781" y="317" fill="#FCF2E6" font-size="12" font-weight="600" text-anchor="middle">1</text>
+<text x="737" y="422" fill="#876244" font-size="12" text-anchor="middle">N=4 · GF(5)</text>
+<rect x="670" y="100" width="12" height="12" fill="#4AF626"/>
+<text x="688" y="111" fill="#FCF2E6" font-size="13">NP (nondeterministico)</text>
+<rect x="670" y="122" width="12" height="12" fill="#D73434"/>
+<text x="688" y="133" fill="#FCF2E6" font-size="13">P (deterministico ≥ κ)</text>
+<text x="470" y="450" fill="#876244" font-size="12" text-anchor="middle">dimensione dell'oracolo N = 2^m (campo piccolo: regime di AW)</text>
+</svg>
