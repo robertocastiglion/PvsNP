@@ -18,3 +18,8 @@ import PvsNP
 #print axioms PvsNP.SAT.eval_append
 #print axioms PvsNP.SAT.eval_rename
 #print axioms PvsNP.SAT.sat_of_sat_rename
+
+-- Cuore di Cook–Levin: vincolo locale → CNF (ogni funzione booleana è una CNF).
+#print axioms PvsNP.SAT.forbid_eval_false
+#print axioms PvsNP.SAT.canonical_correct
+#print axioms PvsNP.SAT.canonical_sat

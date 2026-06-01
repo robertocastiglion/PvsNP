@@ -590,16 +590,17 @@
             </div>
           </div>
           <div class="module-desc">
-            Definizioni rigorose di P, NP, riduzioni e NP-completezza, con <b>22 teoremi
+            Definizioni rigorose di P, NP, riduzioni e NP-completezza, con <b>26 teoremi
             controllati dal kernel di Lean</b>: P ⊆ NP, il collasso di Cook e la sua
             caratterizzazione, la barriera di relativizzazione. <b>Verso Cook–Levin</b>:
             un modello di calcolo concreto «senza limiti» in cui <b>P = NP per forza bruta</b>
-            (così il framework non è vacuo: il «mondo P = NP» della barriera è davvero
-            abitato), e <b>CNF-SAT concreto</b> con la sua forma-NP e una riduzione
-            verificata. Zero <code>sorry</code>.
+            (così il framework non è vacuo), <b>CNF-SAT concreto</b> con la sua forma-NP, e
+            <b>il cuore di Cook–Levin</b> verificato: ogni <em>vincolo locale</em> (una finestra
+            del tableau) diventa una CNF, e quindi «computazione valida ⟺ formula
+            soddisfacibile». Zero <code>sorry</code>.
           </div>
           <div class="module-out">
-            <span class="lbl">lake build &gt;</span> 22 teoremi · nucleo a zero assiomi, livello concreto solo propext/Quot.sound (mai Classical.choice)
+            <span class="lbl">lake build &gt;</span> 26 teoremi · nucleo a zero assiomi, livello concreto solo propext/Quot.sound (mai Classical.choice)
           </div>
         </div>
 
@@ -812,7 +813,7 @@
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
         <div class="result-card">
-          <div class="result-num">22</div>
+          <div class="result-num">26</div>
           <div class="result-label">Teoremi Lean</div>
           <div class="result-desc">Controllati dal kernel. Il nucleo astratto (8) non dipende da alcun assioma; il livello concreto usa solo propext/Quot.sound, mai Classical.choice.</div>
         </div>
@@ -830,11 +831,12 @@
         <div><span class="kw">theorem</span> <span class="nm">complete_in_P_implies_PEqNP</span> <span class="c">-- collasso di Cook: NP-completo in P ⇒ P=NP</span></div>
         <div><span class="kw">theorem</span> <span class="nm">complete_in_P_iff_PEqNP</span> <span class="c">-- caratterizzazione: L∈P ⟺ P=NP</span></div>
         <div><span class="kw">theorem</span> <span class="nm">relativizing_cannot_settle</span> <span class="c">-- nessuna prova relativizzante decide P vs NP</span></div>
-        <div style="margin-top:14px;"><span class="c">-- verso Cook–Levin · Concrete.lean + SAT.lean (nuovi)</span></div>
+        <div style="margin-top:14px;"><span class="c">-- verso Cook–Levin · Concrete.lean + SAT.lean + CookLevin.lean (nuovi)</span></div>
         <div><span class="kw">theorem</span> <span class="nm">collapse_world_exists</span> <span class="c">-- ∃ M, P=NP: modello concreto, forza bruta (framework non vacuo)</span></div>
         <div><span class="kw">theorem</span> <span class="nm">sat_iff_witness</span> <span class="c">-- la forma-NP di CNF-SAT: testimone = assegnamento</span></div>
+        <div><span class="kw">theorem</span> <span class="nm">canonical_correct</span> <span class="c">-- cuore di Cook–Levin: ogni vincolo locale è una CNF</span></div>
         <div><span class="kw">theorem</span> <span class="nm">eval_rename</span> / <span class="nm">sat_of_sat_rename</span> <span class="c">-- riduzione SAT verificata (zero assiomi)</span></div>
-        <div style="margin-top:10px;"><span class="ok">✓ 22 teoremi · #print axioms: nucleo a zero assiomi, livello concreto solo propext/Quot.sound, mai Classical.choice</span></div>
+        <div style="margin-top:10px;"><span class="ok">✓ 26 teoremi · #print axioms: nucleo a zero assiomi, livello concreto solo propext/Quot.sound, mai Classical.choice</span></div>
       </div>
     </div>
   </section>
@@ -887,9 +889,10 @@
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Modulo 4 · Formalizzazione Lean 4</div>
               <div style="font-size:14px; color:var(--white-dim);">
-                22 teoremi verificati dal kernel: il nucleo astratto (P⊆NP, Cook,
+                26 teoremi verificati dal kernel: il nucleo astratto (P⊆NP, Cook,
                 relativizzazione) <em>più</em> il livello verso Cook–Levin — modello concreto
-                con P=NP per forza bruta e CNF-SAT verificato. Zero <code>sorry</code>.</div>
+                con P=NP per forza bruta, CNF-SAT, e il cuore «vincolo locale → CNF».
+                Zero <code>sorry</code>.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
@@ -972,9 +975,10 @@
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
                 Lean: il Cook–Levin completo</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                Abbiamo già CNF-SAT concreto e la sua forma-NP; il passo grosso è un
-                modello di macchina con limite di tempo e la costruzione a tableau che
-                riduce <em>ogni</em> linguaggio NP a SAT. Laborioso, alto rigore.</div>
+                Abbiamo già CNF-SAT concreto, la forma-NP <em>e il cuore della riduzione</em>
+                (ogni vincolo locale → CNF, verificato). Resta il modello di macchina con
+                limite di tempo e il cablaggio del tableau che riduce <em>ogni</em> linguaggio
+                NP a SAT. Laborioso, altissimo rigore.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">

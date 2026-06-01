@@ -16,8 +16,8 @@ dimostrati per davvero.
 
 ## Cosa è dimostrato
 
-Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 9 job).
-**22 dichiarazioni `theorem`** in totale.
+Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 10 job).
+**26 dichiarazioni `theorem`** in totale.
 
 | File | Contenuto |
 |------|-----------|
@@ -27,6 +27,7 @@ Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 9 job
 | `PvsNP/Barriers.lean` | `RelativizationBarrier` (forma astratta di Baker–Gill–Solovay) e **`relativizing_cannot_settle`**: nessuna dimostrazione valida in *ogni* modello può decidere P vs NP. |
 | `PvsNP/Concrete.lean` | **Un `Model` concreto** (il modello *senza limiti di tempo*) che soddisfa tutti gli assiomi della struttura, con enumerazione costruttiva dei testimoni (`stringsOfLen`/`allUpTo`). **`unbounded_NP_subset_P`**: la forza bruta decide ogni problema NP ⇒ **`unbounded_PEqNP`** (P = NP nel modello senza limiti) ⇒ **`collapse_world_exists`** (il "mondo P = NP" della barriera, ora abitato). Chiude la lacuna di *non vacuità* del framework. |
 | `PvsNP/SAT.lean` | **CNF-SAT concreto** — il bersaglio di Cook–Levin reso tangibile: `Lit`/`Clause`/`CNF`, valutatore, `Sat`. Teoremi: **`sat_iff_witness`** (la forma-NP: testimone = assegnamento, verificatore = valutatore), **`not_sat_of_nil_clause`** (la clausola vuota ⊥ è insoddisfacibile), **`eval_append`** + **`sat_append_left`** (semantica AND e monotonìa), e la riduzione verificata **`eval_rename`** / **`sat_of_sat_rename`** (sostituzione delle variabili, il mattone di ogni riduzione fra istanze SAT). |
+| `PvsNP/CookLevin.lean` | **Il cuore verificato di Cook–Levin**: il passo «vincolo locale → CNF». `forbidFrom i a` è la clausola che vieta un pattern a partire dalla variabile `i` (la *località* di una finestra del tableau). Teoremi: **`forbid_eval_false`** (la clausola è falsa esattamente sugli assegnamenti che combaciano col pattern vietato), **`canonical_correct`** (congiungendo i divieti si ottiene una CNF soddisfatta esattamente dagli assegnamenti che evitano tutti i pattern — *ogni funzione booleana è una CNF*) e **`canonical_sat`** (la forma «∃ computazione valida ⟺ formula soddisfacibile»). Onestà: questo è il passo irriducibile; il modello di macchina e il cablaggio del tableau (mettere le finestre agli offset giusti) sono **citati**. |
 
 ### Verifica di onestà (con `#print axioms`, vedi `Check.lean`)
 

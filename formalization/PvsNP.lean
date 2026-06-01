@@ -11,6 +11,8 @@
                     "mondo P = NP" della barriera
     - SAT         : sintassi/semantica concrete di CNF-SAT (il bersaglio di
                     Cook–Levin) con forma-NP e una riduzione verificata
+    - CookLevin   : il cuore verificato della riduzione di Cook–Levin
+                    (vincolo locale → CNF: ogni funzione booleana è una CNF)
 
   Tutto SOLO con Lean core (niente mathlib): compila con `lake build`.
 -/
@@ -20,3 +22,4 @@ import PvsNP.Reductions
 import PvsNP.Barriers
 import PvsNP.Concrete
 import PvsNP.SAT
+import PvsNP.CookLevin
