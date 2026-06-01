@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>11 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>12 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -774,6 +774,37 @@
             il motore sound.
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1; border-color: rgba(255,128,18,0.45);">
+          <div class="module-head">
+            <div class="module-num">12</div>
+            <div>
+              <div class="module-title">Algorithmic Method Lab</div>
+              <div class="module-sub">// Ryan Williams 2011 · l'unica crepa nel muro delle barriere</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            La <b>direzione più promettente</b> della ricerca vera: «un algoritmo SAT più veloce
+            della forza bruta per una classe di circuiti ⇒ un lower bound contro quella classe».
+            Ha prodotto <b>NEXP ⊄ ACC⁰</b> ed è l'<b>unico approccio noto che aggira tutte e tre le
+            barriere</b> (relativizzazione, natural proofs, algebrizzazione). Cuore eseguibile ed
+            esatto: i circuiti <b>strutturati</b> hanno una rappresentazione <b>polinomiale sparsa</b>,
+            quindi si conta #SAT su <em>tutti</em> i 2ⁿ input <b>senza enumerarli</b> (un AND è 4096×
+            più veloce della forza bruta; un OR denso non guadagna nulla). Più la <b>catena win-win</b>:
+            lo speedup implica un lower bound solo se è <b>super-polinomiale</b> — il senso preciso di
+            «anche solo un po' più veloce della forza bruta».
+          </div>
+          <div class="module-out">
+            <span class="lbl">speedup &gt;</span> AND 4096× · OR denso 1× · soglia: speedup super-poly ⇒ NEXP ⊄ C · aggira 3/3 barriere
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà sul confine.</b> Eseguiamo il <em>meccanismo</em> (lo speedup
+            via sparsità, esatto e verificato) e la <em>struttura logica</em> (la soglia super-poly).
+            Easy Witness Lemma, PCP succinti, il teorema di gerarchia e l'algoritmo ACC⁰ vero
+            (2^{n−n^δ}) li <em>citiamo</em>. E, come sempre: <b>non risolve P vs NP</b> — è la direzione
+            dove la ricerca prova davvero a spingere.
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -820,6 +851,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/proof_search.svg" alt="Proof-search: una policy migliore genera meno stati per chiudere ogni lemma" />
       </div>
+
+      <!-- METODO ALGORITMICO -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/algorithmic_method.svg" alt="Metodo algoritmico: contare #SAT, forza bruta 2^n vs polinomio sparso" />
+      </div>
     </div>
   </section>
 
@@ -837,12 +873,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">11</div>
+          <div class="result-num">12</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, la separazione algebrica e la proof-search guidata.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, la separazione algebrica, la proof-search guidata e il metodo algoritmico.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">105</div>
+          <div class="result-num green">115</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -971,19 +1007,26 @@
                 avversario di cancellazione (κ cresce con N). <span style="color:var(--grey-warm);">8 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 11 · Proof-Search Lab &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 11 · Proof-Search Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Proof-search trasparente con policy pluggable (LLM opzionale, mai nel percorso
                 verificato). Euristica 68 stati vs baseline 243, prove riverificate. <span style="color:var(--grey-warm);">10 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 12 · Algorithmic Method Lab &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Il metodo di Williams (SAT veloce ⇒ lower bound): speedup via sparsità, soglia
+                super-poly, e aggira tutte e tre le barriere. La crepa nel muro. <span style="color:var(--grey-warm);">10 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                105 test verdi in totale.</div>
+                115 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -1028,6 +1071,14 @@
                 Il Modulo 11 fa proof-search su un verificatore-giocattolo. Il passo successivo è
                 collegare la stessa policy a Lean vero (stile LeanDojo): tattiche proposte a
                 <code>lake</code> su sotto-lemmi reali, con le stesse metriche oneste.</div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
+                La frontiera vera: meta-complessità &amp; hardness magnification</div>
+              <div style="font-size:14px; color:var(--grey-warm);">
+                Il Modulo 12 apre la direzione più promettente (Williams). Da lì: l'amplificazione
+                di durezza (lower bound minuscoli che si amplificano) e la meta-complessità (MCSP) —
+                dove la ricerca prova davvero a spingere, con i suoi nuovi ostacoli.</div>
             </li>
           </ol>
         </div>

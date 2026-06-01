@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="500" fill="#0A0502"/>
+<text x="80" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; ALGORITHMIC METHOD // SAT più veloce della forza bruta (Williams)</text>
+<text x="80" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Operazioni per contare #SAT: 2^n vs polinomio sparso (scala log)</text>
+<line x1="80" y1="436" x2="870" y2="436" stroke="#876244"/>
+<line x1="80" y1="100" x2="80" y2="436" stroke="#876244"/>
+<polyline points="80,375 124,360 168,344 212,329 256,314 299,299 343,283 387,268 431,253 475,237 519,222 563,207 607,192 651,176 694,161 738,146 782,131 826,115 870,100" fill="none" stroke="#D73434" stroke-width="3"/>
+<polyline points="80,436 124,436 168,436 212,436 256,436 299,436 343,436 387,436 431,436 475,436 519,436 563,436 607,436 651,436 694,436 738,436 782,436 826,436 870,436" fill="none" stroke="#4AF626" stroke-width="3"/>
+<text x="80" y="456" fill="#876244" font-size="11" text-anchor="middle">n=4</text>
+<text x="212" y="456" fill="#876244" font-size="11" text-anchor="middle">n=7</text>
+<text x="343" y="456" fill="#876244" font-size="11" text-anchor="middle">n=10</text>
+<text x="475" y="456" fill="#876244" font-size="11" text-anchor="middle">n=13</text>
+<text x="607" y="456" fill="#876244" font-size="11" text-anchor="middle">n=16</text>
+<text x="738" y="456" fill="#876244" font-size="11" text-anchor="middle">n=19</text>
+<text x="870" y="456" fill="#876244" font-size="11" text-anchor="middle">n=22</text>
+<rect x="640" y="100" width="12" height="12" fill="#D73434"/>
+<text x="658" y="111" fill="#FCF2E6" font-size="13">forza bruta = 2^n</text>
+<rect x="640" y="122" width="12" height="12" fill="#4AF626"/>
+<text x="658" y="133" fill="#FCF2E6" font-size="13">metodo polinomiale (sparso)</text>
+<text x="475" y="482" fill="#876244" font-size="12" text-anchor="middle">numero di variabili n (circuito AND di 3 letterali)</text>
+</svg>

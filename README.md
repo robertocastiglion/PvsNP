@@ -24,11 +24,12 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 | 9 | **Algebraic Query Model** | ✅ fatto | I **«mondi algebrici»** della barriera dell'algebrizzazione (estende il Modulo 7). Il motore — **Schwartz–Zippel** su GF(p) — verificato in modo esatto. *Mondo potenza*: rilevare un bit piantato costa 2^m query booleane ma **una** algebrica (prob. `(1−1/p)^m`). *Mondo limite*: determinare l'oracolo richiede comunque ~2^m query — **lower bound di interpolazione esatto** su GF(p), con un avversario che esibisce due oracoli indistinguibili. Genera 1 grafico SVG. `pnp_lab/algebraic_worlds/`. |
 | 10 | **Algebraic Separation** | ✅ fatto | Il **cuore di query complexity di P^Ã ≠ NP^Ã** (l'analogo algebrico del Modulo 2). Per OR (∃ un 1 nell'oracolo): lato **NP** = *una* query (indovina il testimone, verifica sul cubo); lato **P** = lower bound esatto **κ** via **avversario di cancellazione** — finché le query algebriche sono < κ, posizioni segrete si annullano e l'algoritmo è cieco. κ cresce con N=2^m (campo piccolo: il regime di AW). Onestà: eseguiamo il cuore a query; il sollevamento a oracolo TM e il teorema asintotico di Aaronson–Wigderson sono **citati**. Genera 1 grafico SVG. `pnp_lab/algebraic_separation/`. |
 | 11 | **Proof-Search Lab** | ✅ fatto | Proof-search **trasparente** (stile AlphaProof/LeanDojo) su un mini-prover di riscrittura equazionale **sound**. Un loop best-first esplora lo spazio delle prove, guidato da una **policy** che propone tattiche; ogni prova trovata è **riverificata**. Metriche oneste: una policy migliore *genera meno stati* (euristica 68 vs baseline 243 sui benchmark). L'**LLM è una policy opzionale e pluggable** (`LLMPolicy`, interfaccia `build_prompt`/`parse_tactics`), **mai nel percorso verificato**: il core non dipende da reti né chiavi. NON dimostra P vs NP — è una demo onesta della tecnica. Genera 1 grafico SVG. `pnp_lab/proof_search/`. |
+| 12 | **Algorithmic Method Lab** | ✅ fatto | Il **metodo di Ryan Williams** (NEXP ⊄ ACC⁰, 2011): «un algoritmo SAT più veloce della forza bruta ⇒ un lower bound» — l'unico approccio che **aggira tutte e tre le barriere**. Cuore eseguibile (esatto): i circuiti strutturati hanno **polinomi sparsi**, quindi si conta #SAT su tutti i 2ⁿ input *senza enumerarli* (AND: 4096× più veloce; OR denso: nessun guadagno). Più la **catena win-win** e la soglia (serve speedup **super-polinomiale**). Onestà: eseguiamo il meccanismo; Easy Witness Lemma, PCP, gerarchia e l'algoritmo ACC⁰ vero sono **citati**. Genera 1 grafico SVG. `pnp_lab/algorithmic_method/`. |
 
 ## Pagina divulgativa
 
 In `web/index.html` c'è una pagina (stile *La Logica dei Sistemi*) che spiega P vs NP
-in modo semplice, le tre barriere, cosa fanno gli undici moduli e i risultati raggiunti.
+in modo semplice, le tre barriere, cosa fanno i dodici moduli e i risultati raggiunti.
 Apri il file in un browser; i grafici sono inclusi come SVG in `web/assets/`.
 
 ## La barriera Natural Proofs in una riga
@@ -55,6 +56,7 @@ py examples/run_switching.py         # Modulo 8: Switching Lemma Lab (restrizion
 py examples/run_algebraic_worlds.py  # Modulo 9: Algebraic Query Model (Schwartz–Zippel)
 py examples/run_algebraic_separation.py  # Modulo 10: separazione P^Ã ≠ NP^Ã (query)
 py examples/run_proof_search.py      # Modulo 11: Proof-Search Lab (policy + verificatore sound)
+py examples/run_algorithmic_method.py # Modulo 12: Algorithmic Method Lab (Williams)
 
 cd formalization && lake build # Modulo 4: formalizzazione Lean 4 (kernel-verified)
 ```
