@@ -21,11 +21,12 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 | 6 | **Circuit Complexity Sandbox** | ✅ fatto | Due lower bound **esatti** sui circuiti. *Spettro di Shannon*: complessità di formula minima di **tutte** le funzioni piccole (quasi tutte difficili, ma nessuna esplicita). *Muro della parità*: la DNF minima della parità ha esattamente 2^(n−1) termini — caso base esatto di «parità ∉ AC0» (Furst–Saxe–Sipser, Håstad), che **aggira la barriera Natural Proofs**. Genera 2 grafici SVG. `pnp_lab/circuits/`. |
 | 7 | **Algebrization Sandbox** | ✅ fatto | La **terza barriera** (Aaronson–Wigderson 2008), eseguibile. *Estensione multilineare* di una funzione booleana su GF(p) + il protocollo *sum-check* (motore di **IP = PSPACE**) eseguito davvero: verifica una somma su 2^n termini con **una sola query**, prover onesto accettato e bugiardo smascherato (soundness ≤ d/p). È la tecnica che **scavalca la relativizzazione**. Genera 1 grafico SVG. `pnp_lab/algebrization/`. |
 | 8 | **Switching Lemma Lab** | ✅ fatto | Lo **switching lemma di Håstad** in azione, il meccanismo dietro «parità ∉ AC0». Applica restrizioni casuali e misura la profondità dell'albero di decisione *ottimo*: una DNF di larghezza w **collassa** (verifica empirica del bound `Pr[D ≥ s] ≤ (5pw)^s`), mentre la **parità resiste** — la sua profondità resta = numero di variabili libere. Genera 1 grafico SVG. `pnp_lab/switching/`. |
+| 9 | **Algebraic Query Model** | ✅ fatto | I **«mondi algebrici»** della barriera dell'algebrizzazione (estende il Modulo 7). Il motore — **Schwartz–Zippel** su GF(p) — verificato in modo esatto. *Mondo potenza*: rilevare un bit piantato costa 2^m query booleane ma **una** algebrica (prob. `(1−1/p)^m`). *Mondo limite*: determinare l'oracolo richiede comunque ~2^m query — **lower bound di interpolazione esatto** su GF(p), con un avversario che esibisce due oracoli indistinguibili. Genera 1 grafico SVG. `pnp_lab/algebraic_worlds/`. |
 
 ## Pagina divulgativa
 
 In `web/index.html` c'è una pagina (stile *La Logica dei Sistemi*) che spiega P vs NP
-in modo semplice, le tre barriere, cosa fanno gli otto moduli e i risultati raggiunti.
+in modo semplice, le tre barriere, cosa fanno i nove moduli e i risultati raggiunti.
 Apri il file in un browser; i grafici sono inclusi come SVG in `web/assets/`.
 
 ## La barriera Natural Proofs in una riga
@@ -49,6 +50,7 @@ py examples/run_proof_complexity.py  # Modulo 5: Proof Complexity Lab (piccionai
 py examples/run_circuits.py          # Modulo 6: Circuit Complexity Sandbox (Shannon, parità)
 py examples/run_algebrization.py     # Modulo 7: Algebrization Sandbox (estensione + sum-check)
 py examples/run_switching.py         # Modulo 8: Switching Lemma Lab (restrizioni, Håstad)
+py examples/run_algebraic_worlds.py  # Modulo 9: Algebraic Query Model (Schwartz–Zippel)
 
 cd formalization && lake build # Modulo 4: formalizzazione Lean 4 (kernel-verified)
 ```

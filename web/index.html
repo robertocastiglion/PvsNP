@@ -517,7 +517,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>8 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>9 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -691,6 +691,30 @@
             <span class="lbl">contrasto &gt;</span> DNF media ≈ 0–1 di profondità · parità = #variabili-libere (la diagonale)
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">9</div>
+            <div>
+              <div class="module-title">Algebraic Query Model</div>
+              <div class="module-sub">// i «mondi algebrici» di Aaronson–Wigderson</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            Estende il Modulo 7 ai <b>due mondi opposti</b> dell'accesso algebrico, col
+            motore — <b>Schwartz–Zippel</b> su GF(p) — verificato in modo esatto.
+            <b>Mondo potenza</b>: rilevare un bit «piantato» costa fino a 2^m query
+            booleane, ma <b>una sola</b> query all'estensione (prob. <code>(1−1/p)^m</code>) —
+            è il motivo per cui l'arithmetization <b>scavalca la relativizzazione</b>.
+            <b>Mondo limite</b>: determinare l'oracolo richiede comunque ~2^m query — un
+            <b>lower bound di interpolazione esatto</b> su GF(p), con un avversario che
+            esibisce due oracoli indistinguibili. L'accesso algebrico cambia il paesaggio
+            ma non lo banalizza: il senso della barriera dell'algebrizzazione.
+          </div>
+          <div class="module-out">
+            <span class="lbl">potenza/limite &gt;</span> 1 query algebrica ≈ 2^m booleane · ma servono 2^m query per l'oracolo (rango pieno su GF(p))
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -722,6 +746,11 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/switching_contrast.svg" alt="Switching lemma: la DNF si appiattisce sotto restrizione casuale, la parità no" />
       </div>
+
+      <!-- MONDI ALGEBRICI -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/algebraic_worlds.svg" alt="Mondi algebrici: una query algebrica vale 2^m booleane, ma servono 2^m query per determinare l'oracolo" />
+      </div>
     </div>
   </section>
 
@@ -739,12 +768,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">8</div>
+          <div class="result-num">9</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere (relativizzazione, natural proofs, algebrizzazione), la formalizzazione, la proof complexity, i circuiti e lo switching lemma.</div>
+          <div class="result-desc">Le 3 barriere (con i mondi algebrici), la formalizzazione, la proof complexity, i circuiti, lo switching lemma e Schwartz–Zippel.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">78</div>
+          <div class="result-num green">87</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -850,19 +879,26 @@
                 terza barriera. Il trittico è completo. <span style="color:var(--grey-warm);">12 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 8 · Switching Lemma Lab &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 8 · Switching Lemma Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Restrizioni casuali: la DNF collassa (bound di Håstad verificato), la parità
                 no. Il meccanismo dietro «parità ∉ AC0». <span style="color:var(--grey-warm);">11 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 9 · Algebraic Query Model &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                I mondi algebrici: Schwartz–Zippel esatto, la potenza (1 query algebrica =
+                2^m booleane) e il limite (lower bound di interpolazione). <span style="color:var(--grey-warm);">9 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                78 test verdi in totale.</div>
+                87 test verdi in totale.</div>
             </li>
           </ol>
         </div>
@@ -877,11 +913,11 @@
                      border-left:2px dashed rgba(255,175,75,0.4); padding-left:24px;">
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
-                Separare i mondi algebrici</div>
+                La separazione P^Ã ≠ NP^Ã completa</div>
               <div style="font-size:14px; color:var(--grey-warm);">
-                Oggi il Modulo 7 <em>esegue</em> l'arithmetization ma <em>cita</em> il teorema di
-                separazione: il passo successivo è costruire davvero i due oracoli algebrici
-                con esiti opposti su P vs NP.</div>
+                Il Modulo 9 esegue il <em>motore</em> (Schwartz–Zippel, potenza e limite delle
+                query algebriche); resta da costruire per intero i due oracoli algebrici con
+                esiti opposti su P vs NP — la costruzione completa di Aaronson–Wigderson.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white-dim);">
