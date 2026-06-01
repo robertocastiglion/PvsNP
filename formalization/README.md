@@ -16,7 +16,8 @@ dimostrati per davvero.
 
 ## Cosa è dimostrato
 
-Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 7 job).
+Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 9 job).
+**22 dichiarazioni `theorem`** in totale.
 
 | File | Contenuto |
 |------|-----------|
@@ -24,14 +25,25 @@ Compilato e verificato dal kernel di Lean 4.30.0 (`lake build` → exit 0, 7 job
 | `PvsNP/Classes.lean` | `P`, `NP`, **`P_subset_NP`** (P ⊆ NP), `PEqNP`, `PNeqNP`. |
 | `PvsNP/Reductions.lean` | riduzioni poly-time, **`reduces_refl`** + **`reduces_trans`** (preordine), **`P_closed_reduction`**, NP-completezza, **`complete_in_P_implies_PEqNP`** (collasso di Cook), il suo converso **`PEqNP_complete_in_P`** e la caratterizzazione **`complete_in_P_iff_PEqNP`** (`L ∈ P ↔ P = NP` per `L` NP-completo). |
 | `PvsNP/Barriers.lean` | `RelativizationBarrier` (forma astratta di Baker–Gill–Solovay) e **`relativizing_cannot_settle`**: nessuna dimostrazione valida in *ogni* modello può decidere P vs NP. |
+| `PvsNP/Concrete.lean` | **Un `Model` concreto** (il modello *senza limiti di tempo*) che soddisfa tutti gli assiomi della struttura, con enumerazione costruttiva dei testimoni (`stringsOfLen`/`allUpTo`). **`unbounded_NP_subset_P`**: la forza bruta decide ogni problema NP ⇒ **`unbounded_PEqNP`** (P = NP nel modello senza limiti) ⇒ **`collapse_world_exists`** (il "mondo P = NP" della barriera, ora abitato). Chiude la lacuna di *non vacuità* del framework. |
+| `PvsNP/SAT.lean` | **CNF-SAT concreto** — il bersaglio di Cook–Levin reso tangibile: `Lit`/`Clause`/`CNF`, valutatore, `Sat`. Teoremi: **`sat_iff_witness`** (la forma-NP: testimone = assegnamento, verificatore = valutatore), **`not_sat_of_nil_clause`** (la clausola vuota ⊥ è insoddisfacibile), **`eval_append`** + **`sat_append_left`** (semantica AND e monotonìa), e la riduzione verificata **`eval_rename`** / **`sat_of_sat_rename`** (sostituzione delle variabili, il mattone di ogni riduzione fra istanze SAT). |
 
-### Verifica di onestà
+### Verifica di onestà (con `#print axioms`, vedi `Check.lean`)
 
-Nessun `sorry` nel codice, e `#print axioms` (vedi `Check.lean`) conferma che
-**tutti i teoremi non dipendono da alcun assioma** — nemmeno `propext` o
-`Classical.choice`: sono dimostrazioni completamente costruttive. I predicati
-poly-time del `Model` sono ipotesi esplicite (campi della struttura), non assiomi
-globali.
+Nessun `sorry` in tutto il codice. Sugli assiomi siamo precisi:
+
+- **Il nucleo astratto** (gli 8 teoremi di `Classes`/`Reductions`/`Barriers`)
+  **non dipende da ALCUN assioma** — nemmeno `propext` o `Classical.choice`:
+  sono dimostrazioni puramente logiche.
+- **Il livello concreto** (`Concrete`, `SAT`) usa soltanto **`propext`** e
+  **`Quot.sound`** — i due assiomi *standard* del kernel di Lean, inevitabili
+  appena si calcola con liste e booleani, e accettati da qualunque sviluppo
+  (mathlib compreso). **Mai `Classical.choice`**: tutto resta costruttivo (la
+  forza bruta è un algoritmo che gira davvero). `eval_rename` e
+  `sat_of_sat_rename` sono perfino a **zero assiomi**.
+
+I predicati poly-time del `Model` sono ipotesi esplicite (campi della struttura),
+non assiomi globali.
 
 Il teorema `relativizing_cannot_settle` è il ponte col **Modulo 2**: lì rendiamo
 *eseguibili* i due mondi (oracolo TQBF per P^A = NP^A, diagonalizzazione per

@@ -8,3 +8,13 @@ import PvsNP
 #print axioms PvsNP.complete_in_P_implies_PEqNP
 #print axioms PvsNP.complete_in_P_iff_PEqNP
 #print axioms PvsNP.relativizing_cannot_settle
+
+-- Modello concreto: il framework è non vacuo, e il "mondo P = NP" è abitato.
+#print axioms PvsNP.unbounded_PEqNP
+#print axioms PvsNP.collapse_world_exists
+
+-- CNF-SAT concreto (il bersaglio di Cook–Levin) e la riduzione verificata.
+#print axioms PvsNP.SAT.not_sat_of_nil_clause
+#print axioms PvsNP.SAT.eval_append
+#print axioms PvsNP.SAT.eval_rename
+#print axioms PvsNP.SAT.sat_of_sat_rename

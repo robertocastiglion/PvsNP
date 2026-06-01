@@ -6,6 +6,11 @@
     - Classes     : P, NP, teorema P ⊆ NP, PEqNP / PNeqNP
     - Reductions  : riduzioni poly-time, NP-completezza, collasso di Cook
     - Barriers    : barriera di relativizzazione (forma astratta) e meta-teorema
+    - Concrete    : un Model concreto (modello senza limiti) → P = NP per forza
+                    bruta; prova che il framework è non vacuo e realizza il
+                    "mondo P = NP" della barriera
+    - SAT         : sintassi/semantica concrete di CNF-SAT (il bersaglio di
+                    Cook–Levin) con forma-NP e una riduzione verificata
 
   Tutto SOLO con Lean core (niente mathlib): compila con `lake build`.
 -/
@@ -13,3 +18,5 @@ import PvsNP.Basic
 import PvsNP.Classes
 import PvsNP.Reductions
 import PvsNP.Barriers
+import PvsNP.Concrete
+import PvsNP.SAT
