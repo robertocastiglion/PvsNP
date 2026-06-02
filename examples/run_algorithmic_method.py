@@ -19,6 +19,7 @@ from pnp_lab.algorithmic_method import (  # noqa: E402
     analyze_all,
     ascii_speedup,
     ascii_winwin,
+    benchmark,
     conj_poly,
     disjoint_dnf_poly,
     evasion_report,
@@ -41,6 +42,16 @@ def main() -> None:
         ("OR di 14 var (denso)", or_poly(14)),
     ]
     print(ascii_speedup(examples))
+    print()
+
+    # 1b) #SAT esplicito per profondità-2 (DNF), con TEMPI REALI
+    print("=" * 72)
+    print("  #SAT esplicito profondità-2 (DNF) — forza bruta vs inclusione-esclusione:")
+    print(f"  {'n':>3} {'m':>3} {'brute (ms)':>12} {'IE (ms)':>10} {'speedup':>10} {'ok':>4}")
+    for r in benchmark(num_terms=4, term_width=3, ns=[10, 14, 18]):
+        print(f"  {r.n:>3} {r.m:>3} {r.brute_seconds*1000:>12.1f} {r.ie_seconds*1000:>10.3f} "
+              f"{r.speedup_measured:>9.0f}x {'sì' if r.agree else 'NO':>4}")
+    print("  → m fisso, n cresce: la forza bruta esplode (2^n), l'IE resta piatta (2^m).")
     print()
 
     # 2) la soglia win-win

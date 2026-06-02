@@ -34,6 +34,16 @@ from .winwin import (
 )
 from .barrier import BarrierEvasion, evasion_report, algorithmic_method_summary
 from .lab import ascii_speedup, ascii_winwin, to_svg_speedup, write_svg
+from .depth2 import (
+    BenchRow,
+    CountResult,
+    analytic_speedup,
+    benchmark,
+    count_sat_bruteforce,
+    count_sat_inclusion_exclusion,
+    disjoint_terms_dnf,
+    dnf_true,
+)
 
 __all__ = [
     "SparsePoly", "SatCount", "count_bruteforce", "count_fast", "speedup_factor",
@@ -41,4 +51,8 @@ __all__ = [
     "SpeedupClass", "WinWin", "standard_speedups", "ratio_table", "win_win", "analyze_all",
     "BarrierEvasion", "evasion_report", "algorithmic_method_summary",
     "ascii_speedup", "ascii_winwin", "to_svg_speedup", "write_svg",
+    # depth-2 #SAT esplicito (strada 2)
+    "BenchRow", "CountResult", "analytic_speedup", "benchmark",
+    "count_sat_bruteforce", "count_sat_inclusion_exclusion",
+    "disjoint_terms_dnf", "dnf_true",
 ]
