@@ -271,6 +271,14 @@
       border-top: 1px solid rgba(255,128,18,0.12);
     }
     .graph-cap b { color: var(--white); font-weight: 600; }
+    .atto-index { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .atto-chip {
+      font-family: var(--font-mono); font-size: 12px; color: var(--orange-neon);
+      border: 1px solid rgba(255,128,18,0.35); padding: 7px 13px; text-decoration: none;
+      letter-spacing: 0.03em; background: rgba(255,128,18,0.04); transition: all 0.15s;
+    }
+    .atto-chip:hover { background: var(--orange-neon); color: var(--bg); }
+    .atto-chip b { font-weight: 700; }
 
     /* ======================== RISULTATI ======================== */
     .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
@@ -925,11 +933,19 @@
         un pezzo alla volta. Ecco la storia.
       </p>
 
+      <nav class="atto-index" aria-label="Indice degli atti">
+        <a class="atto-chip" href="#atto-1"><b>1</b> · La domanda</a>
+        <a class="atto-chip" href="#atto-2"><b>2</b> · Perché nessuno ci riesce</a>
+        <a class="atto-chip" href="#atto-3"><b>3</b> · Dove i conti tornano</a>
+        <a class="atto-chip" href="#atto-4"><b>4</b> · Niente trucchi</a>
+        <a class="atto-chip" href="#atto-5"><b>5</b> · La frontiera</a>
+      </nav>
+
       <div style="display:flex; flex-direction:column; gap:20px; margin-top:48px;
                   border-left:2px solid rgba(255,128,18,0.25); padding-left:28px;">
 
         <!-- Atto 1 -->
-        <div>
+        <div id="atto-1" style="scroll-margin-top:90px;">
           <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
                       letter-spacing:0.1em;">ATTO 1 — LA DOMANDA</div>
           <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
@@ -943,7 +959,7 @@
         </div>
 
         <!-- Atto 2 -->
-        <div>
+        <div id="atto-2" style="scroll-margin-top:90px;">
           <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
                       letter-spacing:0.1em;">ATTO 2 — PERCHÉ NESSUNO CI RIESCE</div>
           <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
@@ -960,7 +976,7 @@
         </div>
 
         <!-- Atto 3 -->
-        <div>
+        <div id="atto-3" style="scroll-margin-top:90px;">
           <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
                       letter-spacing:0.1em;">ATTO 3 — DOVE INVECE I CONTI TORNANO</div>
           <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
@@ -975,7 +991,7 @@
         </div>
 
         <!-- Atto 4 -->
-        <div>
+        <div id="atto-4" style="scroll-margin-top:90px;">
           <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
                       letter-spacing:0.1em;">ATTO 4 — NIENTE TRUCCHI</div>
           <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
@@ -990,7 +1006,7 @@
         </div>
 
         <!-- Atto 5 -->
-        <div>
+        <div id="atto-5" style="scroll-margin-top:90px;">
           <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
                       letter-spacing:0.1em;">ATTO 5 — LA FRONTIERA</div>
           <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
