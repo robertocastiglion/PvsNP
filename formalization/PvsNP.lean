@@ -13,6 +13,9 @@
                     Cook–Levin) con forma-NP e una riduzione verificata
     - CookLevin   : il cuore verificato della riduzione di Cook–Levin
                     (vincolo locale → CNF: ogni funzione booleana è una CNF)
+    - Tableau     : il modello di macchina con limite di tempo e lo scheletro a
+                    tableau di Cook–Levin (computazione ⟺ tableau valido
+                    accettante); aggancia il livello-riga al livello-cella
     - NaturalProofs : il nucleo logico della barriera di Razborov–Rudich
                     (Useful/Large/Constructive verificati; barriera come teorema)
 
@@ -25,4 +28,5 @@ import PvsNP.Barriers
 import PvsNP.Concrete
 import PvsNP.SAT
 import PvsNP.CookLevin
+import PvsNP.Tableau
 import PvsNP.NaturalProofs

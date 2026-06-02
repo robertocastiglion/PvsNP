@@ -24,6 +24,13 @@ import PvsNP
 #print axioms PvsNP.SAT.canonical_correct
 #print axioms PvsNP.SAT.canonical_sat
 
+-- Tableau: modello con limite di tempo + equivalenza computazione ⟺ tableau valido.
+#print axioms PvsNP.Tableau.run_validUpTo
+#print axioms PvsNP.Tableau.validUpTo_eq_run
+#print axioms PvsNP.Tableau.accepts_iff_validUpTo
+#print axioms PvsNP.Tableau.counter_accepts_at_3
+#print axioms PvsNP.Tableau.counter_has_accepting_tableau
+
 -- Nucleo di Razborov–Rudich (Natural Proofs): conteggio funzioni, utilità,
 -- larghezza, e la barriera verificata.
 #print axioms PvsNP.NaturalProofs.card_allFns

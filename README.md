@@ -15,7 +15,7 @@ attempt must overcome.
 > This repository contains the **executable toolkit for the P vs NP barriers**:
 > Python modules that *run* the relativization / natural-proofs / algebrization
 > obstructions and the lower bounds that *do* work, plus a **Lean 4**
-> formalization with **34 kernel-verified theorems**, zero `sorry`, and **no
+> formalization with **41 kernel-verified theorems**, zero `sorry`, and **no
 > `Classical.choice`**. Architecture, modules and build instructions below.
 
 ---
@@ -34,7 +34,7 @@ attempt must overcome.
 | 1 | **Natural Proofs Analyzer** | ✅ | Given a combinatorial property of Boolean functions, checks whether it is *constructive* and *large* — i.e. whether it falls into the Razborov–Rudich barrier and therefore **can never separate P from NP**. |
 | 2 | **Oracle Separation Sandbox** | ✅ | Builds, by diagonalization, an oracle `B` with `P^B ≠ NP^B` (executed and verified) and uses the PSPACE-complete oracle TQBF to illustrate `P^A = NP^A`. Makes the **relativization** barrier visible. |
 | 3 | **Knowledge Graph** | ✅ | A navigable, queryable graph of barriers, approaches, techniques, results and open problems (with references). Knows who blocks whom, who evades whom, and the promising "frontier". Exports Markdown/JSON/Graphviz **+ SVG** in the brand palette. |
-| 4 | **Lean 4 Formalization** | ✅ | Rigorous definitions (P, NP, reductions, NP-completeness) and **34 kernel-verified theorems**. Abstract core (zero axioms): `P ⊆ NP`, reductions as a preorder, Cook collapse **and its characterization** (`L∈P ↔ P=NP`), the relativization barrier. **Towards Cook–Levin**: a concrete "unbounded" `Model` where **P = NP by brute force** (`collapse_world_exists`), **concrete CNF-SAT** with its NP-form and a verified reduction, and the **heart of Cook–Levin** (`canonical_correct`: local constraint → CNF). **Razborov–Rudich core** (`NaturalProofs.lean`): Boolean functions as truth tables (count verified `2^(2^n)`), `Useful`, `Large`, abstract `Constructive`, and the **barrier as a theorem** (`rr_barrier`: if cryptography is secure, no natural proof exists). Zero `sorry`; only `propext`/`Quot.sound`, never `Classical.choice`. See `formalization/`. |
+| 4 | **Lean 4 Formalization** | ✅ | Rigorous definitions (P, NP, reductions, NP-completeness) and **41 kernel-verified theorems**. Abstract core (zero axioms): `P ⊆ NP`, reductions as a preorder, Cook collapse **and its characterization** (`L∈P ↔ P=NP`), the relativization barrier. **Towards Cook–Levin**: a concrete "unbounded" `Model` where **P = NP by brute force** (`collapse_world_exists`), **concrete CNF-SAT** with its NP-form and a verified reduction, the **heart of Cook–Levin** (`canonical_correct`: local constraint → CNF), and a **time-bounded machine model with the tableau equivalence** (`Tableau.lean`: `accepts_iff_validUpTo` — a computation accepts within `T` steps iff a valid accepting tableau exists; validity = a conjunction of local step constraints). **Razborov–Rudich core** (`NaturalProofs.lean`): Boolean functions as truth tables (count verified `2^(2^n)`), `Useful`, `Large`, abstract `Constructive`, and the **barrier as a theorem** (`rr_barrier`: if cryptography is secure, no natural proof exists). Zero `sorry`; only `propext`/`Quot.sound`, never `Classical.choice`. See `formalization/` and `docs/cook-levin-tableau.md`. |
 | 5 | **Proof Complexity Lab** | ✅ | The other half of the story: a lower bound that **actually works**. Refutes the pigeonhole principle (PHP) with resolution/DPLL and measures proof size, which grows **exponentially** (1·3·11·47·239·1439… nodes — Haken 1985). Via Cook–Reckhow this is a route to `NP ≠ coNP ⇒ P ≠ NP`. SVG output. `pnp_lab/proof_complexity/`. |
 | 6 | **Circuit Complexity Sandbox** | ✅ | Two **exact** circuit lower bounds. *Shannon spectrum*: minimal formula size of **all** small functions (almost all hard, yet none explicit). *Parity wall*: the minimal DNF of parity has exactly `2^(n−1)` terms — the exact base case of "parity ∉ AC⁰" (Furst–Saxe–Sipser, Håstad), which **bypasses the Natural Proofs barrier**. Two SVGs. `pnp_lab/circuits/`. |
 | 7 | **Algebrization Sandbox** | ✅ | The **third barrier** (Aaronson–Wigderson 2008), executable. *Multilinear extension* of a Boolean function over GF(p) + the *sum-check* protocol (the engine of **IP = PSPACE**) actually run: verifies a sum over `2^n` terms with **a single query**, honest prover accepted and cheater exposed (soundness ≤ d/p). The technique that **bypasses relativization**. SVG output. `pnp_lab/algebrization/`. |
@@ -101,6 +101,7 @@ axioms**, the concrete layer only on `propext`/`Quot.sound`, and **nothing uses
 
 - `docs/switching-profondita-d.md` — iterated switching in depth `d` (Module 8, EN).
 - `docs/lift-query-to-tm.md` — lifting the query core to an oracle TM (Module 10, EN).
+- `docs/cook-levin-tableau.md` — time-bounded machine + tableau equivalence (Module 4, EN).
 - `docs/analisi-metacomplessita.md` — full meta-complexity analysis & critique (IT).
 - **Interactive divulgative site (IT):** <https://robertocastiglion.github.io/PvsNP/>
 
