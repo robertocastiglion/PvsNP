@@ -263,14 +263,34 @@ strutturale è reale (S-supporting), come *nuovo* invariante è **(B)** — ridu
 barriera nota. La frazione numerica dipende dalla classe di feature; il limite →1 è
 dell'argomento di counting, non del modulo.
 
-### 6.3 Sintesi delle due strade
+### 6.2bis Strada #3 — certificate/query complexity della durezza
+
+"Classe più ricca" significa, al limite, leggere più posizioni della tavola di
+verità. Domanda duale delle collisioni: **quante query a f servono per separare il
+duro dal facile** sullo strato? = il più piccolo insieme di coordinate S con
+proiezioni di dure/facili disgiunte. Codice `pnp_lab/enriched_meta/queries.py`
+(5 test); `exact_min_separating_set` enumera i sottoinsiemi (esatto su N piccolo).
+
+Risultato **esatto** (non greedy): n=3 → **8/8** (serve l'INTERA tavola di verità;
+nessun sottoinsieme di <8 coordinate separa); n=4 → **>5/16** (lower bound esatto).
+La durezza non ha certificati piccoli sullo strato: devi leggere (quasi) tutta f
+per sapere se è dura. È la faccia query-complexity della barriera, duale di §6.2.
+
+**Onestà.** Nessun risultato nuovo: è il fatto noto "MCSP/durezza non ha certificati
+piccoli" reso eseguibile ed esatto su n piccolo. Il greedy è solo upper bound;
+l'esatto è limitato a N piccolo; due punti non sono un teorema.
+
+### 6.3 Sintesi delle tre strade
 
 Tre forme dello stesso difetto, tre comportamenti:
 - **media uniforme** (v1) → 0 per concentrazione = **artefatto (V)**;
 - **media stratificata** (riparazione + strada #1) → residuo che cresce con n
   (0, 0.05, 0.17) ma fragile/relativo alla classe = **(S)-candidato**;
 - **caso peggiore ∃/∀** (strada #2) → ostruzione robusta → 1 per counting, ma
-  **coincide con la barriera natural-proofs** = strutturale ma **(B)** come invariante.
+  **coincide con la barriera natural-proofs** = strutturale ma **(B)** come invariante;
+- **certificate/query complexity** (strada #3) → per separare la durezza servono
+  ~tutte le query (n=3: 8/8 esatto) = la durezza non ha certificati piccoli, faccia
+  duale della stessa barriera = **(B)**.
 
 **Verdetto complessivo onesto.** M14 non è un *nuovo* invariante: nella sua forma
 matematicamente corretta (worst-case) il difetto È la barriera di Razborov–Rudich,

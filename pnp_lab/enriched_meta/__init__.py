@@ -105,6 +105,14 @@ from .worstcase import (
     useful_largeness,
     worstcase_summary,
 )
+from .queries import (
+    CertificateFinding,
+    SeparatingSet,
+    certificate_summary,
+    exact_min_separating_set,
+    greedy_separating_set,
+    separates,
+)
 
 __all__ = [
     # category
@@ -132,4 +140,7 @@ __all__ = [
     # worst-case / exists (strada #2)
     "FeatureCollisions", "UsefulLargeness", "WorstcaseFinding",
     "feature_collisions", "useful_largeness", "worstcase_summary",
+    # certificate / query complexity (strada #3)
+    "CertificateFinding", "SeparatingSet", "certificate_summary",
+    "exact_min_separating_set", "greedy_separating_set", "separates",
 ]
