@@ -532,7 +532,7 @@
   <section id="tool">
     <div class="wrap">
       <div class="section-tag">./il_toolkit</div>
-      <h2 class="section-title">P/NP Research Lab — <span>13 moduli che girano</span></h2>
+      <h2 class="section-title">P/NP Research Lab — <span>14 moduli che girano</span></h2>
       <p class="section-sub">
         Non un programma che "trova la dimostrazione" — quello nessuno sa farlo. Ma un
         toolkit che trasforma le barriere da concetti astratti in <em>codice eseguibile e
@@ -850,6 +850,33 @@
             ma <b>non lo risolve</b>.
           </div>
         </div>
+
+        <div class="module" style="grid-column: 1 / -1;">
+          <div class="module-head">
+            <div class="module-num">14</div>
+            <div>
+              <div class="module-title">Enriched Meta-Category <span style="font-size:11px; background:var(--orange-neon); color:var(--bg); padding:2px 8px; vertical-align:middle;">VISUALIZZAZIONE</span></div>
+              <div class="module-sub">// le tre lenti come morfismi · un esperimento, non un risultato</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            Un <b>esperimento esplorativo</b>: e se calcolare, dimostrare e riconoscere la
+            difficoltà non fossero tre problemi diversi ma la <b>stessa freccia</b> vista con
+            tre «metri» diversi? Lo mettiamo alla prova su funzioni piccole (n=3), misurando
+            il <b>difetto di composizione</b> tra le tre lenti: dove vale 0 coincidono, dove è
+            positivo divergono.
+          </div>
+          <div class="module-out">
+            <span class="lbl">lenti &gt;</span> calcolare · dimostrare · riconoscere — matrice del difetto su n=3 (esatto)
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà — questo NON è un risultato.</b> Il numero del difetto è una
+            <em>visualizzazione utile, non un invariante</em>: è un artefatto della dimensione finita
+            (per n→∞ collassa a zero, per concentrazione + Shannon) e dipende da scelte di misura non
+            canoniche. Serve a <em>vedere</em> la differenza tra le tre lenti, non a misurarla. La critica
+            severa e completa è nel repo (<code>docs/analisi-metacomplessita.md</code>).
+          </div>
+        </div>
       </div>
 
       <!-- GRAFO -->
@@ -916,6 +943,12 @@
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/meta_complexity.svg" alt="MCSP: quante funzioni restano dure al crescere della soglia di dimensione" />
         <div class="graph-cap"><b>Misurare la difficoltà è il problema stesso.</b> Più si abbassa l'asticella, più funzioni restano «difficili» (area rossa): quantificarlo è MCSP, dove il problema guarda sé stesso.</div>
+      </div>
+
+      <!-- ENRICHED META-CATEGORY -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/enriched_metacategory.svg" alt="Matrice del difetto di composizione tra le tre lenti: calcolare, dimostrare, riconoscere" />
+        <div class="graph-cap"><b>Le tre lenti coincidono?</b> Verde = stessa freccia (difetto 0), arancio/rosso = divergono. <em>Attenzione: visualizzazione, non un invariante</em> — il numero dipende dalla dimensione finita e svanisce per n grandi (vedi la nota di onestà del Modulo 14).</div>
       </div>
     </div>
   </section>
@@ -1050,12 +1083,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">13</div>
+          <div class="result-num">14</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico e meta-complessità.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità e l'esperimento sulle tre lenti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">124</div>
+          <div class="result-num green">136</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -1199,19 +1232,27 @@
                 super-poly, e aggira tutte e tre le barriere. La crepa nel muro. <span style="color:var(--grey-warm);">10 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 13 · Meta-Complexity Lab &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 13 · Meta-Complexity Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 MCSP esatto + il legame con Natural Proofs + hardness magnification. Dove il
                 cerchio si chiude: il problema guarda sé stesso. <span style="color:var(--grey-warm);">9 test.</span></div>
+            </li>
+            <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 14 · Enriched Meta-Category &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                Le tre lenti (calcolare/dimostrare/riconoscere) come morfismi: matrice del difetto
+                su n=3. <b>Visualizzazione, non un invariante</b> — verdetto onesto (V), critica nel repo.
+                <span style="color:var(--grey-warm);">12 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                124 test verdi in totale.</div>
+                136 test verdi in totale.</div>
             </li>
           </ol>
         </div>

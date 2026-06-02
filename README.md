@@ -26,11 +26,12 @@ problema P vs NP — comprese le *barriere* che ogni tentativo di dimostrazione 
 | 11 | **Proof-Search Lab** | ✅ fatto | Proof-search **trasparente** (stile AlphaProof/LeanDojo) su un mini-prover di riscrittura equazionale **sound**. Un loop best-first esplora lo spazio delle prove, guidato da una **policy** che propone tattiche; ogni prova trovata è **riverificata**. Metriche oneste: una policy migliore *genera meno stati* (euristica 68 vs baseline 243 sui benchmark). L'**LLM è una policy opzionale e pluggable** (`LLMPolicy`, interfaccia `build_prompt`/`parse_tactics`), **mai nel percorso verificato**: il core non dipende da reti né chiavi. NON dimostra P vs NP — è una demo onesta della tecnica. Genera 1 grafico SVG. `pnp_lab/proof_search/`. |
 | 12 | **Algorithmic Method Lab** | ✅ fatto | Il **metodo di Ryan Williams** (NEXP ⊄ ACC⁰, 2011): «un algoritmo SAT più veloce della forza bruta ⇒ un lower bound» — l'unico approccio che **aggira tutte e tre le barriere**. Cuore eseguibile (esatto): i circuiti strutturati hanno **polinomi sparsi**, quindi si conta #SAT su tutti i 2ⁿ input *senza enumerarli* (AND: 4096× più veloce; OR denso: nessun guadagno). Più la **catena win-win** e la soglia (serve speedup **super-polinomiale**). Onestà: eseguiamo il meccanismo; Easy Witness Lemma, PCP, gerarchia e l'algoritmo ACC⁰ vero sono **citati**. Genera 1 grafico SVG. `pnp_lab/algorithmic_method/`. |
 | 13 | **Meta-Complexity Lab** | ✅ fatto | **MCSP & hardness magnification** — la frontiera più viva, dove il cerchio si chiude. MCSP («quanto è complessa questa funzione?») calcolato **esatto** (riuso del Modulo 6), MCSP ∈ NP (testimone = circuito, verifica = N valutazioni). Il **legame esatto con Natural Proofs** (M1): la proprietà «f è dura» è utile+larga, ma renderla *costruttiva* = risolvere MCSP = rompere i PRG (Razborov–Rudich). Più l'**hardness magnification** (citata): lower bound minuscoli `n^{1+ε}` si amplificano in P ≠ NP, ma restano bloccati dalla «barriera di magnificazione». Genera 1 grafico SVG. `pnp_lab/meta_complexity/`. |
+| 14 | **Enriched Meta-Category** | ✅ fatto · ⚠ *visualizzazione* | Esperimento sulle **tre lenti** (calcolare/dimostrare/riconoscere la durezza) viste come morfismi di un'unica categoria `C` arricchita su quantali (Lawvere). Su n=3, esatto: `C` = funzioni booleane + rinomine S_n, le tre realizzazioni del predicato «f è dura», e la **matrice del difetto di composizione**. **Onestà — verdetto (V)**: il numero del difetto è una *visualizzazione utile, NON un invariante strutturale*; è un artefatto finite-size (per n→∞ il difetto calcolare↔riconoscere →0 per concentrazione+Shannon) e dipende da metriche non canoniche. Serve a *vedere* la differenza tra le lenti, non a misurarla. Analisi critica completa in `docs/analisi-metacomplessita.md`. Genera 1 grafico SVG. `pnp_lab/enriched_meta/`. |
 
 ## Pagina divulgativa
 
 In `web/index.html` c'è una pagina (stile *La Logica dei Sistemi*) che spiega P vs NP
-in modo semplice, le tre barriere, cosa fanno i tredici moduli e i risultati raggiunti.
+in modo semplice, le tre barriere, cosa fanno i quattordici moduli e i risultati raggiunti.
 Apri il file in un browser; i grafici sono inclusi come SVG in `web/assets/`.
 
 ## La barriera Natural Proofs in una riga
@@ -59,6 +60,7 @@ py examples/run_algebraic_separation.py  # Modulo 10: separazione P^Ã ≠ NP^Ã
 py examples/run_proof_search.py      # Modulo 11: Proof-Search Lab (policy + verificatore sound)
 py examples/run_algorithmic_method.py # Modulo 12: Algorithmic Method Lab (Williams)
 py examples/run_meta_complexity.py   # Modulo 13: Meta-Complexity Lab (MCSP)
+py examples/run_enriched_meta.py     # Modulo 14: Enriched Meta-Category (difetto di composizione)
 
 cd formalization && lake build # Modulo 4: formalizzazione Lean 4 (kernel-verified)
 ```
