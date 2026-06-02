@@ -46,8 +46,15 @@ def _luby(x: int) -> int:
     return 1 << seq
 
 
-def solve(cnf: CNF, conflict_budget: Optional[int] = None) -> CdclResult:
-    """Decide la CNF con CDCL. ``conflict_budget`` interrompe (→ UNSAT/abort)."""
+def solve(cnf: CNF, conflict_budget: Optional[int] = None,
+          decide=None) -> CdclResult:
+    """Decide la CNF con CDCL. ``conflict_budget`` interrompe (→ UNSAT/abort).
+
+    ``decide`` (opzionale) è la POLICY DI BRANCHING: una funzione
+    ``(unassigned: list[int], activity: dict[int,float], nvars: int) → int`` che
+    ritorna il literale (con segno) su cui ramificare. Se ``None`` si usa VSIDS.
+    Questo è l'aggancio per la strada #3 (policy alternative: random, LLM, RL).
+    """
     clauses: List[List[int]] = [list(c) for c in cnf.clauses]
 
     # clausola vuota = insoddisfacibile subito
@@ -252,15 +259,25 @@ def solve(cnf: CNF, conflict_budget: Optional[int] = None) -> CdclResult:
                 stats["restarts"] += 1
                 backjump(0)
         else:
-            # scelta della variabile (VSIDS)
-            best, best_act = None, -1.0
-            for v in range(1, nvars + 1):
-                if value[v] is None and activity[v] > best_act:
-                    best, best_act = v, activity[v]
-            if best is None:
-                model = {v: bool(value[v]) for v in range(1, nvars + 1)}
-                return CdclResult(True, model, stats["conflicts"], stats["decisions"],
-                                  stats["learned"], stats["restarts"])
+            if decide is None:
+                # scelta della variabile (VSIDS), polarità positiva
+                best, best_act = None, -1.0
+                for v in range(1, nvars + 1):
+                    if value[v] is None and activity[v] > best_act:
+                        best, best_act = v, activity[v]
+                if best is None:
+                    model = {v: bool(value[v]) for v in range(1, nvars + 1)}
+                    return CdclResult(True, model, stats["conflicts"], stats["decisions"],
+                                      stats["learned"], stats["restarts"])
+                lit = best
+            else:
+                # policy di branching pluggable (strada #3)
+                unassigned = [v for v in range(1, nvars + 1) if value[v] is None]
+                if not unassigned:
+                    model = {v: bool(value[v]) for v in range(1, nvars + 1)}
+                    return CdclResult(True, model, stats["conflicts"], stats["decisions"],
+                                      stats["learned"], stats["restarts"])
+                lit = decide(unassigned, activity, nvars)
             trail_lim.append(len(trail))
             stats["decisions"] += 1
-            enqueue(best, None)            # polarità: positiva
+            enqueue(lit, None)

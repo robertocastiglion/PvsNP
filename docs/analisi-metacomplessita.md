@@ -280,6 +280,26 @@ per sapere se è dura. È la faccia query-complexity della barriera, duale di §
 piccoli" reso eseguibile ed esatto su n piccolo. Il greedy è solo upper bound;
 l'esatto è limitato a N piccolo; due punti non sono un teorema.
 
+### 6.2ter Policy di branching (M11 ↔ CDCL): l'LLM può aiutare?
+
+Il CDCL della strada #1 esplode sulle istanze UNSAT dure. Domanda (stile
+AlphaProof / Modulo 11): una policy di branching più intelligente — appresa o un
+LLM — guida meglio la ricerca di refutazioni? Codice `pnp_lab/enriched_meta/branch.py`
+(7 test): il branching del CDCL è ora **pluggable** (`decide`); policy fornite:
+VSIDS, statica, casuale, e `LLMBranchPolicy` (opzionale, mai nel percorso di
+correttezza, fallback a VSIDS — stile `proof_search.LLMPolicy`).
+
+Misura (stessa istanza, conflitti per policy): PHP(5,4) → 26–37; XOR2 `size>2` →
+46–93. Le policy cambiano i conflitti solo di **fattori costanti** (≤ ~2×), mai
+ordini di grandezza; il verdetto è sempre identico.
+
+**Predizione confermata.** Il numero di conflitti del CDCL è ≥ la dimensione della
+refutazione (general resolution), proprietà del **sistema di prova**, indipendente
+dal branching: nessuna policy — LLM-oracolo incluso — rende facile un'istanza con
+refutazione esponenziale. *Proof complexity ≠ euristica di ricerca.* Esito onesto:
+conferma una barriera nota, nessun risultato nuovo; l'LLM è uno stub pluggable
+(nessun modello reale nei test).
+
 ### 6.3 Sintesi delle tre strade
 
 Tre forme dello stesso difetto, tre comportamenti:

@@ -113,6 +113,16 @@ from .queries import (
     greedy_separating_set,
     separates,
 )
+from .branch import (
+    BranchFinding,
+    LLMBranchPolicy,
+    PolicyResult,
+    branch_summary,
+    compare_policies,
+    random_policy,
+    static_policy,
+    vsids_policy,
+)
 
 __all__ = [
     # category
@@ -143,4 +153,7 @@ __all__ = [
     # certificate / query complexity (strada #3)
     "CertificateFinding", "SeparatingSet", "certificate_summary",
     "exact_min_separating_set", "greedy_separating_set", "separates",
+    # policy di branching pluggabili (strada #3 / M11)
+    "BranchFinding", "LLMBranchPolicy", "PolicyResult", "branch_summary",
+    "compare_policies", "random_policy", "static_policy", "vsids_policy",
 ]
