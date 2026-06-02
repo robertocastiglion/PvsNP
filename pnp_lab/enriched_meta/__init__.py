@@ -97,6 +97,14 @@ from .repaired import (
 )
 from .synthesis_sat import circuit_size_cdcl
 from .cdcl import CdclResult, solve as cdcl_solve
+from .worstcase import (
+    FeatureCollisions,
+    UsefulLargeness,
+    WorstcaseFinding,
+    feature_collisions,
+    useful_largeness,
+    worstcase_summary,
+)
 
 __all__ = [
     # category
@@ -121,4 +129,7 @@ __all__ = [
     "proof_axis", "recognize_axis", "relative_threshold", "residual_scaling",
     "reverdict", "shared_measure", "size_distribution",
     "circuit_size_cdcl", "CdclResult", "cdcl_solve",
+    # worst-case / exists (strada #2)
+    "FeatureCollisions", "UsefulLargeness", "WorstcaseFinding",
+    "feature_collisions", "useful_largeness", "worstcase_summary",
 ]

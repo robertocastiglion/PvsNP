@@ -231,6 +231,54 @@ classe di 4 feature. Tre punti (n=2,3,4) non sono invarianza asintotica. **Verde
 invariato: (S)-candidato rafforzato, non (S) confermato.** Per (S) servirebbe
 l'andamento al regime mediano e per n→∞, fuori dalla portata del calcolo esatto.
 
+### 6.2 Strada #2 — l'enunciato di caso peggiore (∃/∀)
+
+La barriera natural-proofs non è una media: la *utilità* è un ∀ (rifiutare TUTTE le
+funzioni facili). Codice in `pnp_lab/enriched_meta/worstcase.py` (5 test). Due
+oggetti distribution-free:
+
+**Collisioni di feature** (ostruzione ∃). Una funzione dura con lo stesso vettore di
+feature di una facile non è separabile da NESSUNA proprietà nello spazio, a qualsiasi
+risorsa. Misura:
+
+| n | s | frazione di collisioni | larghezza utile max (=1−frac) |
+|---|---|---|---|
+| 2 | 1 | 0.000 | 1.000 |
+| 3 | 3 | 0.100 | 0.900 |
+| 4 | 6 | **0.914** | **0.086** |
+
+**Quasi un teorema, non solo empirico**: k feature con poly(N) valori danno
+2^O(k·log N) vettori distinti contro 2^(2^n) funzioni ⇒ per pigeonhole la frazione di
+collisioni → 1 per n→∞, per QUALUNQUE classe di feature fissa. Il salto 0.10→0.91 ne
+è l'istanza calcolata.
+
+**Tradeoff utilità-larghezza**: la massima larghezza di una proprietà *utile* (∀
+facili rifiutate) a risorse d resta bassa (n=4, d=3: ~0.30 su campione, ≤0.086 sul
+window pieno per le collisioni). La classe costruttiva non può essere utile *e* larga.
+
+**Interpretazione (onesta).** Nella forma worst-case l'ostruzione è **robusta e
+cresce con n** — il segnale strutturale che la media non dava. MA è esattamente la
+condizione di utilità di **Razborov–Rudich** resa eseguibile: come oggetto
+strutturale è reale (S-supporting), come *nuovo* invariante è **(B)** — riduce alla
+barriera nota. La frazione numerica dipende dalla classe di feature; il limite →1 è
+dell'argomento di counting, non del modulo.
+
+### 6.3 Sintesi delle due strade
+
+Tre forme dello stesso difetto, tre comportamenti:
+- **media uniforme** (v1) → 0 per concentrazione = **artefatto (V)**;
+- **media stratificata** (riparazione + strada #1) → residuo che cresce con n
+  (0, 0.05, 0.17) ma fragile/relativo alla classe = **(S)-candidato**;
+- **caso peggiore ∃/∀** (strada #2) → ostruzione robusta → 1 per counting, ma
+  **coincide con la barriera natural-proofs** = strutturale ma **(B)** come invariante.
+
+**Verdetto complessivo onesto.** M14 non è un *nuovo* invariante: nella sua forma
+matematicamente corretta (worst-case) il difetto È la barriera di Razborov–Rudich,
+resa eseguibile e quantificata su n piccolo. Questo è un esito di valore — un
+*rendering* fedele e misurabile di un teorema profondo — ma non una nuova struttura.
+La domanda (S) originale ("invariante categoriale stabile") resta non dimostrata; la
+sua versione difendibile è: *il difetto worst-case è strutturale e noto*.
+
 ---
 
 ## 7. Riferimenti citati
