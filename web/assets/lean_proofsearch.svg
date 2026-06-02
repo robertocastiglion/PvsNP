@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="460" fill="#0A0502"/>
+<text x="70" y="40" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; PROOF-SEARCH su LEAN VERO // la policy propone, Lean verifica</text>
+<text x="70" y="68" fill="#FCF2E6" font-size="22" font-weight="700">Verifiche Lean per chiudere il benchmark — meno = policy migliore</text>
+<line x1="70" y1="390" x2="870" y2="390" stroke="#876244"/>
+<line x1="70" y1="100" x2="70" y2="390" stroke="#876244"/>
+<rect x="180" y="100" width="180" height="290" fill="#FF8012" opacity="0.85"/>
+<text x="270" y="92" fill="#FCF2E6" font-size="13" text-anchor="middle">22</text>
+<text x="270" y="412" fill="#876244" font-size="12" text-anchor="middle">esaustiva</text>
+<rect x="580" y="298" width="180" height="92" fill="#4AF626" opacity="0.85"/>
+<text x="670" y="290" fill="#FCF2E6" font-size="13" text-anchor="middle">7</text>
+<text x="670" y="412" fill="#876244" font-size="12" text-anchor="middle">euristica</text>
+<text x="20" y="245" fill="#876244" font-size="12" text-anchor="middle" transform="rotate(-90 20 245)">verifiche Lean totali</text>
+</svg>

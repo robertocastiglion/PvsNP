@@ -51,6 +51,25 @@ from .lab import (
     to_svg_benchmark,
     write_svg,
 )
+from .lean_bridge import (
+    LeanGoal,
+    CheckFn,
+    DEFAULT_TACTICS,
+    LeanProofResult,
+    LeanChecker,
+    PolicyComparison,
+    exhaustive_lean_policy,
+    heuristic_lean_policy,
+    LLMLeanPolicy,
+    build_prompt as build_lean_prompt,
+    parse_indices,
+    prove_with_lean,
+    benchmark_lean_goals,
+    compare_lean_policies,
+    ascii_comparison,
+    to_svg_comparison,
+    lean_bridge_summary,
+)
 
 __all__ = [
     "Var", "Term", "Rule", "Tactic", "Goal",
@@ -60,4 +79,9 @@ __all__ = [
     "SearchState", "SearchResult", "search", "replay",
     "exhaustive_policy", "heuristic_policy", "build_prompt", "parse_tactics", "LLMPolicy",
     "PolicyReport", "run_policy", "run_benchmark", "ascii_report", "to_svg_benchmark", "write_svg",
+    # — proof-search su Lean vero (passo #4) —
+    "LeanGoal", "CheckFn", "DEFAULT_TACTICS", "LeanProofResult", "LeanChecker",
+    "PolicyComparison", "exhaustive_lean_policy", "heuristic_lean_policy", "LLMLeanPolicy",
+    "build_lean_prompt", "parse_indices", "prove_with_lean", "benchmark_lean_goals",
+    "compare_lean_policies", "ascii_comparison", "to_svg_comparison", "lean_bridge_summary",
 ]
