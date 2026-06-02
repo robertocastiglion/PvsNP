@@ -704,8 +704,27 @@
             <b>meccanismo</b> che genera il muro della parità: gli AC0 si appiattiscono sotto
             restrizione, la parità no.
           </div>
+          <div class="module-desc">
+            <b>Iterato in profondità d.</b> Lo switching non si ferma a un livello: lo
+            <b>concateniamo</b> su un vero <b>circuito AC0 a profondità d</b>, una restrizione
+            per livello. Ogni round abbassa la profondità di 1 (il blocco al fondo switcha e si
+            fonde col livello sopra) finché l'intero circuito <b>collassa</b> a qualcosa che
+            dipende da pochissime variabili. La parità, sotto le <em>stesse</em> restrizioni,
+            resta <em>esattamente</em> sulla diagonale (deve leggere tutte le superstiti):
+            la separazione <b>parità ∉ AC0</b>, ora <b>quantitativa</b> — fino alla soglia
+            <code>n ≳ 5^(d-1)·w^d</code> che porta a <code>size ≥ 2^Ω(n^(1/(d-1)))</code>.
+          </div>
           <div class="module-out">
             <span class="lbl">contrasto &gt;</span> DNF media ≈ 0–1 di profondità · parità = #variabili-libere (la diagonale)
+          </div>
+          <div class="module-out" style="margin-top:10px;">
+            <span class="lbl">iterato &gt;</span> AC0 collassa ~99% in d-1 round · parità D/#liberi resta = 1.0 (le legge tutte)
+          </div>
+          <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Onestà sul confine.</b> Eseguiamo in modo <em>esatto</em> (tabella di verità +
+            albero di decisione ottimo) il collasso iterato e la sopravvivenza della parità, e la
+            parte finita del conto. La costante asintotica della forma <code>2^Ω(n^(1/(d-1)))</code>
+            è il teorema di Håstad: quella la <em>citiamo</em>.
           </div>
         </div>
 
@@ -925,6 +944,12 @@
         <div class="graph-cap"><b>Chi crolla e chi resiste.</b> Sotto perturbazioni casuali una formula comune si semplifica e si appiattisce (verde); la parità invece resta dura (rosso).</div>
       </div>
 
+      <!-- SWITCHING ITERATO IN PROFONDITÀ d -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/switching_iterated.svg" alt="Switching iterato in profondità d: l'AC0 collassa round dopo round, la parità resta a 1.0" />
+        <div class="graph-cap"><b>Un livello alla volta.</b> Concatenando lo switching su un circuito a più livelli, l'AC0 si appiattisce round dopo round (verde → 0), mentre la parità deve leggere <em>tutte</em> le variabili superstiti (rosso, costante a 1.0): è «parità ∉ AC0», resa quantitativa.</div>
+      </div>
+
       <!-- MONDI ALGEBRICI -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebraic_worlds.svg" alt="Mondi algebrici: una query algebrica vale 2^m booleane, ma servono 2^m query per determinare l'oracolo" />
@@ -1098,7 +1123,7 @@
           <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità e l'esperimento sulle tre lenti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">160</div>
+          <div class="result-num green">188</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -1211,7 +1236,9 @@
                 Modulo 8 · Switching Lemma Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Restrizioni casuali: la DNF collassa (bound di Håstad verificato), la parità
-                no. Il meccanismo dietro «parità ∉ AC0». <span style="color:var(--grey-warm);">11 test.</span></div>
+                no. <b>Ora iterato in profondità d</b>: lo switching concatenato livello dopo
+                livello fa collassare un AC0 e chiude quantitativamente «parità ∉ AC0».
+                <span style="color:var(--grey-warm);">21 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">

@@ -17,11 +17,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from pnp_lab.switching import (  # noqa: E402
     ascii_report,
+    ascii_report_iterated,
+    bound_report,
+    depth_reduction_demo,
     parity_depth_under_restriction,
+    parity_lower_bound,
+    random_ac0,
     random_dnf,
     run_switching,
     switching_summary,
+    iterate_summary,
     to_svg_contrast,
+    to_svg_trajectory,
     write_svg,
 )
 
@@ -50,6 +57,25 @@ def main() -> None:
     print()
 
     print(switching_summary())
+    print()
+
+    # ── Passo #2: switching ITERATO in profondità d ──────────────────────
+    print("=" * 72)
+    print("  SWITCHING ITERATO  —  collasso di un AC0 a profondità d, livello dopo livello")
+    print("=" * 72)
+    rng2 = random.Random(7)
+    circuit = random_ac0(n=50, depth=3, bottom_fanin=2, rng=rng2, bottom_terms=14, fanin=3)
+    print(f"  circuito AC0: profondità {circuit.depth}, fan-in al fondo {circuit.bottom_fanin}, "
+          f"dimensione {circuit.size}")
+    ac0, par = depth_reduction_demo(circuit, rng2, trials=400, schedule=[0.18, 0.18])
+    print(ascii_report_iterated(ac0, par))
+    print()
+    out2 = write_svg(to_svg_trajectory(ac0, par), str(assets / "switching_iterated.svg"))
+    print(f"  SVG salvato: {out2}")
+    print()
+    print(bound_report(parity_lower_bound(n=1000, depth=3)))
+    print()
+    print(iterate_summary())
 
 
 if __name__ == "__main__":
