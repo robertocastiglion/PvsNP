@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="520" fill="#0A0502"/>
+<text x="40" y="44" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; ENRICHED META-CATEGORY // difetto di composizione delle tre lenti</text>
+<text x="40" y="74" fill="#FCF2E6" font-size="22" font-weight="700">Le tre lenti sono la stessa freccia? (0 = sì, &gt;0 = no)</text>
+<text x="275" y="138" fill="#876244" font-size="13" text-anchor="middle">calcolare</text>
+<text x="385" y="138" fill="#876244" font-size="13" text-anchor="middle">dimostrare</text>
+<text x="495" y="138" fill="#876244" font-size="13" text-anchor="middle">riconoscere</text>
+<text x="206" y="209" fill="#876244" font-size="13" text-anchor="end">calcolare</text>
+<rect x="220" y="150" width="104" height="104" rx="6" fill="#4AF626" opacity="0.22"/>
+<text x="272" y="207" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">—</text>
+<rect x="330" y="150" width="104" height="104" rx="6" fill="#4AF626" opacity="0.9"/>
+<text x="382" y="207" fill="#0A0502" font-size="18" font-weight="700" text-anchor="middle">0.000</text>
+<rect x="440" y="150" width="104" height="104" rx="6" fill="#FF8012" opacity="0.9"/>
+<text x="492" y="207" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">0.117</text>
+<text x="206" y="319" fill="#876244" font-size="13" text-anchor="end">dimostrare</text>
+<rect x="220" y="260" width="104" height="104" rx="6" fill="#4AF626" opacity="0.9"/>
+<text x="272" y="317" fill="#0A0502" font-size="18" font-weight="700" text-anchor="middle">0.000</text>
+<rect x="330" y="260" width="104" height="104" rx="6" fill="#4AF626" opacity="0.22"/>
+<text x="382" y="317" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">—</text>
+<rect x="440" y="260" width="104" height="104" rx="6" fill="#FF8012" opacity="0.9"/>
+<text x="492" y="317" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">0.117</text>
+<text x="206" y="429" fill="#876244" font-size="13" text-anchor="end">riconoscere</text>
+<rect x="220" y="370" width="104" height="104" rx="6" fill="#FF8012" opacity="0.9"/>
+<text x="272" y="427" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">0.117</text>
+<rect x="330" y="370" width="104" height="104" rx="6" fill="#FF8012" opacity="0.9"/>
+<text x="382" y="427" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">0.117</text>
+<rect x="440" y="370" width="104" height="104" rx="6" fill="#4AF626" opacity="0.22"/>
+<text x="492" y="427" fill="#FCF2E6" font-size="18" font-weight="700" text-anchor="middle">—</text>
+<text x="40" y="530" fill="#4AF626" font-size="14" font-family="ui-monospace, Consolas, monospace">riconoscere ⟺ apprendere (CIKK 2016): difetto round-trip = 0.000 → EQUIVALENZA stretta</text>
+<text x="40" y="556" fill="#876244" font-size="12">verde = stessa freccia · arancio/rosso = lente lassa (relazione, non identità)</text>
+</svg>
