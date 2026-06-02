@@ -342,6 +342,7 @@
       <li><a href="#problema">./problema</a></li>
       <li><a href="#barriere">./barriere</a></li>
       <li><a href="#tool">./tool</a></li>
+      <li><a href="#viaggio">./il_viaggio</a></li>
       <li><a href="#risultati">./risultati</a></li>
       <li><a href="https://youtube.com/@robertocastiglion" target="_blank" class="nav-cta">Il canale →</a></li>
     </ul>
@@ -896,6 +897,114 @@
 
   <div class="divider"></div>
 
+  <!-- IL VIAGGIO (divulgativo) -->
+  <section id="viaggio">
+    <div class="wrap">
+      <div class="section-tag">./il_viaggio</div>
+      <h2 class="section-title">Il viaggio, in <span>parole semplici</span></h2>
+      <p class="section-sub">
+        Tredici tappe per capire — senza essere matematici — perché questo problema resiste
+        da mezzo secolo, e cosa si può davvero fare. Non lo risolviamo: lo <em>capiamo</em>,
+        un pezzo alla volta. Ecco la storia.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:20px; margin-top:48px;
+                  border-left:2px solid rgba(255,128,18,0.25); padding-left:28px;">
+
+        <!-- Atto 1 -->
+        <div>
+          <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
+                      letter-spacing:0.1em;">ATTO 1 — LA DOMANDA</div>
+          <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
+                      font-size:18px; margin:4px 0 8px;">Trovare è più difficile che controllare?</div>
+          <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
+            Controllare un sudoku già risolto è facile; <em>risolverlo</em> da zero, su una griglia
+            enorme, può diventare impossibile. La domanda da un milione di dollari è se questa
+            differenza sia reale per <strong>tutti</strong> i problemi. Sembra ovvio di sì — ma
+            in cinquant'anni nessuno l'ha dimostrato.
+          </p>
+        </div>
+
+        <!-- Atto 2 -->
+        <div>
+          <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
+                      letter-spacing:0.1em;">ATTO 2 — PERCHÉ NESSUNO CI RIESCE</div>
+          <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
+                      font-size:18px; margin:4px 0 8px;">Tre muri invisibili</div>
+          <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
+            La scoperta sorprendente è che sappiamo <em>perché</em> le strade ovvie falliscono:
+            esistono tre «muri» (relativizzazione, natural proofs, algebrizzazione). Ogni volta
+            che provi un attacco generico, uno dei tre lo respinge — è come tre lucchetti diversi
+            sulla stessa porta. Qui i muri non li raccontiamo soltanto: li facciamo
+            <strong>toccare con mano</strong>, costruendo i mondi-trappola in cui ogni scorciatoia
+            si rompe.
+            <span style="color:var(--grey-warm);">→ Moduli 1, 2, 7, 9, 10.</span>
+          </p>
+        </div>
+
+        <!-- Atto 3 -->
+        <div>
+          <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
+                      letter-spacing:0.1em;">ATTO 3 — DOVE INVECE I CONTI TORNANO</div>
+          <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
+                      font-size:18px; margin:4px 0 8px;">A volte la difficoltà si dimostra</div>
+          <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
+            Non è tutto buio: in certi casi sappiamo <strong>dimostrare</strong> che una
+            scorciatoia non esiste. Per alcuni rompicapi la prova più breve esplode di dimensione;
+            certe funzioni (come la «parità») restano dure comunque le si semplifichi. Sono le
+            vittorie reali — i lower bound «che funzionano» — e qui le si vede crescere passo passo.
+            <span style="color:var(--grey-warm);">→ Moduli 5, 6, 8.</span>
+          </p>
+        </div>
+
+        <!-- Atto 4 -->
+        <div>
+          <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
+                      letter-spacing:0.1em;">ATTO 4 — NIENTE TRUCCHI</div>
+          <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
+                      font-size:18px; margin:4px 0 8px;">Far controllare la matematica al computer</div>
+          <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
+            Come essere sicuri di non barare? Si scrivono le dimostrazioni in un linguaggio che un
+            <strong>revisore implacabile</strong> — il «kernel» di un assistente di prova (Lean) —
+            controlla riga per riga, senza accettare nessun «fidati». Qui 26 teoremi passano questo
+            esame, fino al cuore di un risultato classico (Cook–Levin).
+            <span style="color:var(--grey-warm);">→ Modulo 4.</span>
+          </p>
+        </div>
+
+        <!-- Atto 5 -->
+        <div>
+          <div style="font-family:var(--font-mono); color:var(--orange-neon); font-size:13px;
+                      letter-spacing:0.1em;">ATTO 5 — LA FRONTIERA</div>
+          <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);
+                      font-size:18px; margin:4px 0 8px;">L'unica crepa nel muro, e lo specchio</div>
+          <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
+            Dove spinge la ricerca oggi? C'è un'idea sorprendente — il metodo di Williams — che dice:
+            «se trovi un modo anche solo un po' più furbo di provare tutte le possibilità, ne segue
+            automaticamente un risultato di impossibilità». È l'unico attacco che ha scavalcato tutti
+            e tre i muri. E poi c'è lo <strong>specchio</strong>: studiare quanto è difficile
+            <em>misurare la difficoltà stessa</em> (la meta-complessità) — il punto in cui il
+            problema finisce per guardare sé stesso.
+            <span style="color:var(--grey-warm);">→ Moduli 11, 12, 13.</span>
+          </p>
+        </div>
+
+        <!-- chiusura -->
+        <div style="border-left:2px solid var(--orange-neon); padding-left:18px; margin-top:8px;">
+          <p style="font-size:15px; color:var(--white); line-height:1.75; max-width:760px;">
+            <strong>La morale, onesta.</strong> Niente di tutto questo risolve P vs NP — e prometterlo
+            sarebbe disonesto. Ma trasforma un mistero astratto in qualcosa che puoi
+            <strong>eseguire, vedere e verificare</strong>: capire <em>perché</em> è difficile è già
+            una forma di conoscenza. Sotto trovi la stessa storia in versione tecnica, tappa per tappa.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- RISULTATI -->
   <section id="risultati">
     <div class="wrap">
@@ -954,9 +1063,10 @@
       <div class="section-tag">./percorso</div>
       <h2 class="section-title">Il <span>percorso</span>: cosa è fatto, cosa viene dopo</h2>
       <p class="section-sub">
-        Un modulo alla volta, ognuno eseguibile e testato da solo. Prima le barriere
-        (perché le strade falliscono), poi i lower bound che <em>funzionano</em>. Sotto:
-        la timeline completa, in chiaro.
+        La stessa storia di <a href="#viaggio" style="color:var(--orange-neon);">«Il viaggio»</a>,
+        ora in versione tecnica: un modulo alla volta, ognuno eseguibile e testato da solo. Prima le
+        barriere (perché le strade falliscono), poi i lower bound che <em>funzionano</em>, infine la
+        frontiera. Sotto: la timeline completa, in chiaro.
       </p>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:56px;">
