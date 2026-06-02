@@ -51,7 +51,7 @@
     }
 
     /* ============================ NAV ============================ */
-    nav {
+    body > nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px; height: 64px;
@@ -272,7 +272,7 @@
       border-top: 1px solid rgba(255,128,18,0.12);
     }
     .graph-cap b { color: var(--white); font-weight: 600; }
-    .atto-index { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .atto-index { position: static; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
     .atto-chip {
       font-family: var(--font-mono); font-size: 12px; color: var(--orange-neon);
       border: 1px solid rgba(255,128,18,0.35); padding: 7px 13px; text-decoration: none;
