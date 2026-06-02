@@ -873,8 +873,17 @@
             <b style="color:var(--white-dim);">Onestà — questo NON è un risultato.</b> Il numero del difetto è una
             <em>visualizzazione utile, non un invariante</em>: è un artefatto della dimensione finita
             (per n→∞ collassa a zero, per concentrazione + Shannon) e dipende da scelte di misura non
-            canoniche. Serve a <em>vedere</em> la differenza tra le tre lenti, non a misurarla. La critica
-            severa e completa è nel repo (<code>docs/analisi-metacomplessita.md</code>).
+            canoniche. Serve a <em>vedere</em> la differenza tra le tre lenti, non a misurarla.
+          </div>
+          <div style="margin-top:12px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(74,246,38,0.3); padding-left:14px;">
+            <b style="color:var(--white-dim);">Abbiamo provato a salvarlo.</b> Riformulando il difetto in modo
+            rigoroso (refutazione vera del lower bound via un solver <b>CDCL</b> scritto da zero;
+            soglia relativa; e infine la forma di <b>caso peggiore</b>) il segnale diventa robusto e cresce
+            con n — ma <b>coincide con una barriera nota</b>: è il teorema di <b>Razborov–Rudich</b> reso
+            eseguibile, non una nuova struttura. La frazione di funzioni «dure» indistinguibili da quelle
+            «facili» con strumenti efficienti passa da 0% (n=2) a 91% (n=4): esattamente ciò che la teoria
+            prevede. Esito onesto: un <em>rendering</em> fedele di un risultato profondo, non un risultato
+            nuovo. Analisi completa nel repo (<code>docs/analisi-metacomplessita.md</code>).
           </div>
         </div>
       </div>
@@ -1088,7 +1097,7 @@
           <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità e l'esperimento sulle tre lenti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">136</div>
+          <div class="result-num green">160</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -1244,15 +1253,17 @@
                 background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Le tre lenti (calcolare/dimostrare/riconoscere) come morfismi: matrice del difetto
-                su n=3. <b>Visualizzazione, non un invariante</b> — verdetto onesto (V), critica nel repo.
-                <span style="color:var(--grey-warm);">12 test.</span></div>
+                su n=3. <b>Visualizzazione, non un invariante</b>. Il tentativo di renderlo rigoroso
+                (solver CDCL da zero, refutazione vera, caso peggiore) mostra che il segnale è reale
+                ma <b>coincide con la barriera di Razborov–Rudich</b> — reso eseguibile, non nuovo.
+                <span style="color:var(--grey-warm);">36 test (v1 + riparazione + CDCL + caso peggiore).</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                136 test verdi in totale.</div>
+                160 test verdi in totale.</div>
             </li>
           </ol>
         </div>
