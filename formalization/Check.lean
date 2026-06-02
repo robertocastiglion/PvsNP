@@ -23,3 +23,11 @@ import PvsNP
 #print axioms PvsNP.SAT.forbid_eval_false
 #print axioms PvsNP.SAT.canonical_correct
 #print axioms PvsNP.SAT.canonical_sat
+
+-- Nucleo di Razborov–Rudich (Natural Proofs): conteggio funzioni, utilità,
+-- larghezza, e la barriera verificata.
+#print axioms PvsNP.NaturalProofs.card_allFns
+#print axioms PvsNP.NaturalProofs.hardnessProperty_useful
+#print axioms PvsNP.NaturalProofs.hardnessProperty_large
+#print axioms PvsNP.NaturalProofs.rr_barrier
+#print axioms PvsNP.NaturalProofs.natural_property_breaks_crypto

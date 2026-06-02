@@ -13,6 +13,8 @@
                     Cook–Levin) con forma-NP e una riduzione verificata
     - CookLevin   : il cuore verificato della riduzione di Cook–Levin
                     (vincolo locale → CNF: ogni funzione booleana è una CNF)
+    - NaturalProofs : il nucleo logico della barriera di Razborov–Rudich
+                    (Useful/Large/Constructive verificati; barriera come teorema)
 
   Tutto SOLO con Lean core (niente mathlib): compila con `lake build`.
 -/
@@ -23,3 +25,4 @@ import PvsNP.Barriers
 import PvsNP.Concrete
 import PvsNP.SAT
 import PvsNP.CookLevin
+import PvsNP.NaturalProofs
