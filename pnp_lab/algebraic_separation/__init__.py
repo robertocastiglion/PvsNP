@@ -6,12 +6,15 @@ qui li si combina nella SEPARAZIONE vera e propria, nel modello a query.
   - ``separation`` : il modello (funzionali di valutazione χ_·(r)), il lato NP
                      (1 query), il lato P (lower bound κ via avversario di
                      cancellazione), tutto esatto.
-  - ``barrier``    : la morale e il confine onesto (sollevamento a oracolo TM e
-                     teorema di Aaronson–Wigderson: citati).
+  - ``barrier``    : la morale e il confine onesto (versione forte = AW, citata).
   - ``lab``        : ASCII + SVG del divario NP=1 vs P≥κ.
+  - ``lift``       : il SOLLEVAMENTO (passo #1) — l'avversario di cancellazione
+                     diventa il gadget di una diagonalizzazione che costruisce un
+                     oracolo O e una lingua in NP^Ã \\ P^Ã.
 
-ESEGUIAMO il cuore combinatorio; la costruzione completa dell'oracolo per
-macchine di Turing resta citata.
+ESEGUIAMO il cuore combinatorio e ora anche la diagonalizzazione (su macchine
+concrete). Il teorema su TUTTE le macchine e la versione forte con communication
+complexity (Aaronson–Wigderson) restano citati.
 """
 
 from .separation import (
@@ -29,6 +32,22 @@ from .separation import (
 )
 from .barrier import separation_summary
 from .lab import ascii_separation, to_svg_separation, write_svg
+from .lift import (
+    NamedMachine,
+    StageResult,
+    LiftResult,
+    NPCertificate,
+    const_machine,
+    cube_scan_machine,
+    field_probe_machine,
+    default_adversary_machines,
+    diagonalize_stage,
+    build_oracle,
+    np_certificate,
+    ascii_lift,
+    to_svg_lift,
+    lift_summary,
+)
 
 __all__ = [
     "CancellationAdversary",
@@ -46,4 +65,19 @@ __all__ = [
     "ascii_separation",
     "to_svg_separation",
     "write_svg",
+    # — sollevamento query → oracolo TM (passo #1) —
+    "NamedMachine",
+    "StageResult",
+    "LiftResult",
+    "NPCertificate",
+    "const_machine",
+    "cube_scan_machine",
+    "field_probe_machine",
+    "default_adversary_machines",
+    "diagonalize_stage",
+    "build_oracle",
+    "np_certificate",
+    "ascii_lift",
+    "to_svg_lift",
+    "lift_summary",
 ]

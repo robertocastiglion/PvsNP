@@ -16,10 +16,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from pnp_lab.algebraic_separation import (  # noqa: E402
     ascii_separation,
+    ascii_lift,
+    build_oracle,
     cancellation_example,
     deterministic_lower_bound,
+    lift_summary,
     separation_summary,
     to_svg_separation,
+    to_svg_lift,
     write_svg,
 )
 
@@ -48,6 +52,19 @@ def main() -> None:
     print()
 
     print(separation_summary())
+    print()
+
+    # ── Passo #1: sollevamento query → oracolo TM ────────────────────────
+    print("=" * 72)
+    print("  SOLLEVAMENTO  —  da cuore a query a una lingua in NP^Ã \\ P^Ã")
+    print("=" * 72)
+    lift = build_oracle(p=3, m=2, base_n=2)
+    print(ascii_lift(lift))
+    print()
+    out2 = write_svg(to_svg_lift(lift), str(assets / "algebraic_lift.svg"))
+    print(f"  SVG salvato: {out2}")
+    print()
+    print(lift_summary())
 
 
 if __name__ == "__main__":
