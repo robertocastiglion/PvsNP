@@ -260,11 +260,17 @@
       padding: 12px; position: relative;
     }
     .graph-frame::before {
-      content: '// knowledge_graph.svg — generato dal Modulo 3';
+      content: '// grafico SVG generato dal toolkit (zero dipendenze)';
       display: block; font-family: var(--font-mono); font-size: 10px; color: var(--orange-neon);
       letter-spacing: 0.12em; padding: 8px 10px 14px;
     }
     .graph-frame img { width: 100%; height: auto; display: block; }
+    .graph-cap {
+      font-size: 13px; color: var(--white-dim); line-height: 1.6;
+      padding: 14px 10px 6px; margin-top: 6px;
+      border-top: 1px solid rgba(255,128,18,0.12);
+    }
+    .graph-cap b { color: var(--white); font-weight: 600; }
 
     /* ======================== RISULTATI ======================== */
     .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
@@ -841,56 +847,67 @@
       <!-- GRAFO -->
       <div class="graph-frame">
         <img src="assets/knowledge_graph.svg" alt="Knowledge graph delle barriere e degli approcci a P vs NP" />
+        <div class="graph-cap"><b>La mappa del problema.</b> In arancione le tre barriere; le frecce mostrano chi blocca chi e quali idee riescono ad aggirarle.</div>
       </div>
 
       <!-- MURO DI HAKEN -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/proof_growth.svg" alt="Crescita esponenziale della dimensione della prova per la piccionaia" />
+        <div class="graph-cap"><b>Più grande il rompicapo, più la prova esplode.</b> La dimostrazione cresce a valanga: è così che sappiamo che certi problemi sono <em>davvero</em> duri.</div>
       </div>
 
       <!-- SPETTRO DI SHANNON -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/circuit_spectrum.svg" alt="Spettro di Shannon: complessità di formula di tutte le funzioni booleane piccole" />
+        <div class="graph-cap"><b>Quasi tutto è difficile.</b> La gran parte delle funzioni si ammassa sui valori alti (dure) — eppure non sappiamo indicarne <em>una</em> precisa: è il muro.</div>
       </div>
 
       <!-- MURO DELLA PARITÀ -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/parity_wall.svg" alt="Il muro della parità: la DNF minima cresce come 2^(n-1)" />
+        <div class="graph-cap"><b>Il muro della parità.</b> Il costo raddoppia ad ogni variabile in più: una difficoltà che cresce senza scampo, dimostrata esattamente.</div>
       </div>
 
       <!-- SCALA DELL'ARITHMETIZATION -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebrization_ladder.svg" alt="La scala dell'arithmetization: il sum-check riduce 2^n termini a una sola query" />
+        <div class="graph-cap"><b>Da una montagna a una domanda.</b> Un trucco algebrico controlla una somma enorme (2ⁿ pezzi) con una sola verifica finale: la scala scende fino a 1.</div>
       </div>
 
       <!-- SWITCHING LEMMA -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/switching_contrast.svg" alt="Switching lemma: la DNF si appiattisce sotto restrizione casuale, la parità no" />
+        <div class="graph-cap"><b>Chi crolla e chi resiste.</b> Sotto perturbazioni casuali una formula comune si semplifica e si appiattisce (verde); la parità invece resta dura (rosso).</div>
       </div>
 
       <!-- MONDI ALGEBRICI -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebraic_worlds.svg" alt="Mondi algebrici: una query algebrica vale 2^m booleane, ma servono 2^m query per determinare l'oracolo" />
+        <div class="graph-cap"><b>Potente, ma non onnipotente.</b> Una domanda «algebrica» vale come 2ᵐ domande normali (sinistra) — ma per conoscere <em>tutto</em> ne servono comunque 2ᵐ (destra).</div>
       </div>
 
       <!-- SEPARAZIONE ALGEBRICA -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algebraic_separation.svg" alt="Separazione P^A ≠ NP^A: NP basta 1 query, P ne richiede κ che cresce con N" />
+        <div class="graph-cap"><b>Verificare è facile, risolvere no.</b> Controllare costa 1 domanda (verde), risolvere ne costa molte di più (rosso) — e il divario cresce: una separazione, in piccolo.</div>
       </div>
 
       <!-- PROOF SEARCH -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/proof_search.svg" alt="Proof-search: una policy migliore genera meno stati per chiudere ogni lemma" />
+        <div class="graph-cap"><b>Una guida migliore esplora meno strade.</b> Con una buona «politica» di ricerca (verde) si trova la dimostrazione provando molte meno possibilità che cercando alla cieca (grigio).</div>
       </div>
 
       <!-- METODO ALGORITMICO -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/algorithmic_method.svg" alt="Metodo algoritmico: contare #SAT, forza bruta 2^n vs polinomio sparso" />
+        <div class="graph-cap"><b>Contare senza provare tutto.</b> Sui problemi «strutturati» il metodo furbo (verde) resta piatto mentre la forza bruta (rosso) esplode: è la crepa nel muro.</div>
       </div>
 
       <!-- META-COMPLESSITÀ -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/meta_complexity.svg" alt="MCSP: quante funzioni restano dure al crescere della soglia di dimensione" />
+        <div class="graph-cap"><b>Misurare la difficoltà è il problema stesso.</b> Più si abbassa l'asticella, più funzioni restano «difficili» (area rossa): quantificarlo è MCSP, dove il problema guarda sé stesso.</div>
       </div>
     </div>
   </section>
