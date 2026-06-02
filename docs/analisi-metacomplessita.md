@@ -157,7 +157,50 @@ interpretabile come invariante.
 
 ---
 
-## 6. Riferimenti citati
+## 6. Modulo 14 riparato verso (S)
+
+Risposta operativa alla critica (V): si attaccano i tre difetti identificati, su
+un'unica misura (dimensione di **circuito**, calcolata esatta). Codice in
+`pnp_lab/enriched_meta/synthesis_sat.py`, `recognize_class.py`, `repaired.py`
+(11 test, demo `examples/run_enriched_meta_repaired.py`).
+
+**Fix (iii) — "dimostrare" = refutazione reale.** "∃ circuito di ≤ s gate per f" è
+codificato come CNF di *exact synthesis*; `size(f) > s` ⟺ UNSAT, e la lunghezza
+della refutazione (resolution tree-like, via il DPLL del Modulo 5) è la vera proof
+complexity del lower bound. Misure: XOR2 (n=2) refuta `size>2` in **2055 nodi**;
+AND3 (n=3) refuta `size>1` in **71 nodi**. Non più tautologico.
+
+**Fix (ii) — "riconoscere" = classe, non statistica.** La lente è il *minimo errore*
+della miglior proprietà di una classe a risorse limitate (alberi di decisione prof.
+≤ d su feature costruttive), non l'influenza arbitraria. Si misura la curva
+errore(d) = **prezzo della costruttività**.
+
+**Fix (i) — metrica stratificata.** Errore misurato sulla *finestra critica*
+attorno alla soglia, non sulla media uniforme che la concentrazione rende triviale.
+
+**Risultati.** n=2 (tutto esatto via SAT): la classe separa, errore →0. n=3 (finestra
+critica): a s=3 errore(d) = **[0.46, 0.17, 0.05, 0.05]** — *non scende a 0* e fa
+**plateau** a ~0.05 aumentando d. A s=2 invece svanisce (regime piccolo). La lente
+"dimostrare" a n=3 sulle funzioni dure (size ~6) **esplode** (refutazione oltre
+budget, ~60s): il muro reale della proof complexity.
+
+**Regimi di calcolabilità (onesti).** n=2: tre lenti esatte sulla stessa misura
+(circuito via SAT, 16 funzioni). n=3: "riconoscere" esatta su dimensione di *formula*
+M6 (proxy); "dimostrare" esatta solo sullo strato a bassa complessità.
+
+**Ri-verdetto: (S)-candidato, non (S).** I due artefatti della v1 sono rimossi — la
+lente "dimostrare" non è più tautologica e quella "riconoscere" non svanisce sulla
+metrica stratificata (resta un residuo ~0.05 che non cala con le risorse, il
+fenomeno natural-proofs). Nuovo modo di fallimento *strutturale* (non artefatto): la
+lente "dimostrare" esplode (proof complexity). **Limite onesto**: con n ≤ 3
+calcolabile, l'invarianza asintotica del residuo NON è verificata — due punti (n=2:
+0; n=3: ~0.05) suggeriscono ma non dimostrano stabilità. Per (S) servirebbe mostrare
+che il residuo stratificato è stabile per n→∞, fuori dalla portata del calcolo
+esatto. Il modulo è quindi salito da **(V) artefatto** a **(S)-candidato difendibile**.
+
+---
+
+## 7. Riferimenti citati
 
 Baker–Gill–Solovay 1975 · Razborov–Rudich 1994 · Aaronson–Wigderson 2008 ·
 Cook–Reckhow 1979 · Haken 1985 · Razborov 1995 · Kabanets–Cai 2000 ·

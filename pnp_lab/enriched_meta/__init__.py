@@ -65,6 +65,33 @@ from .lab import (
     to_svg_matrix,
     write_svg,
 )
+# --- M14 riparato verso (S) ---
+from .synthesis_sat import (
+    ProofResult,
+    SizeResult,
+    circuit_exists_cnf,
+    circuit_size,
+    refutation_length,
+)
+from .recognize_class import (
+    FEATURE_NAMES,
+    RecognizeError,
+    critical_window,
+    feature_vector,
+    price_of_constructivity,
+    recognize_error,
+)
+from .repaired import (
+    ProofAxisPoint,
+    RecognizeAxis,
+    RepairedReport,
+    Reverdict,
+    proof_axis,
+    recognize_axis,
+    reverdict,
+    shared_measure,
+    size_distribution,
+)
 
 __all__ = [
     # category
@@ -81,4 +108,10 @@ __all__ = [
     "Citation", "Verdict", "enriched_metacategory_summary", "framework_citations",
     # lab
     "ascii_cikk", "ascii_gap", "ascii_matrix", "to_svg_matrix", "write_svg",
+    # repaired toward (S)
+    "ProofResult", "SizeResult", "circuit_exists_cnf", "circuit_size", "refutation_length",
+    "FEATURE_NAMES", "RecognizeError", "critical_window", "feature_vector",
+    "price_of_constructivity", "recognize_error",
+    "ProofAxisPoint", "RecognizeAxis", "RepairedReport", "Reverdict",
+    "proof_axis", "recognize_axis", "reverdict", "shared_measure", "size_distribution",
 ]
