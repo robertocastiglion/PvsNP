@@ -25,8 +25,10 @@ calcolabile, però, l'invarianza asintotica NON è verificata: (S)-candidato, no
 
 from __future__ import annotations
 
+import random
 from collections import Counter
 from dataclasses import dataclass, field
+from statistics import median
 from typing import Dict, List, Optional
 
 from .recognize_class import RecognizeError, critical_window, price_of_constructivity
@@ -91,12 +93,55 @@ class RecognizeAxis:
 
 
 def recognize_axis(size_map: Dict[int, int], n: int, s: int,
-                   max_depth: int = 3, half_width: int = 1) -> RecognizeAxis:
+                   max_depth: int = 3, half_width: int = 1,
+                   sample: Optional[int] = None, seed: int = 0) -> RecognizeAxis:
     win = critical_window(size_map, s, half_width=half_width)
-    curve = price_of_constructivity(size_map, n, s, max_depth=max_depth, stratum=win)
+    used = win
+    if sample is not None and len(win) > sample:
+        used = random.Random(seed).sample(win, sample)
+    curve = price_of_constructivity(size_map, n, s, max_depth=max_depth, stratum=used)
     residual = curve[-1].error_rate if curve else 0.0
-    return RecognizeAxis(n=n, s=s, window_size=len(win), curve=curve,
+    return RecognizeAxis(n=n, s=s, window_size=len(used), curve=curve,
                          residual=residual, vanishes=(residual == 0.0))
+
+
+def relative_threshold(size_map: Dict[int, int], frac: float = 0.5) -> int:
+    """Soglia RELATIVA: il quantile ``frac`` della distribuzione delle dimensioni.
+
+    Una soglia assoluta fissa (es. s=3) non è comparabile tra n diversi: a n=3 è
+    medio-bassa, a n=4 è banale. Per confrontare il residuo al variare di n serve
+    ancorare s a un quantile della complessità (default: la mediana)."""
+    vals = sorted(size_map.values())
+    idx = min(len(vals) - 1, int(frac * len(vals)))
+    return vals[idx]
+
+
+@dataclass
+class ScalingPoint:
+    n: int
+    threshold: int
+    window_size: int
+    residual: float
+
+
+def residual_scaling(size_maps: Dict[int, Dict[int, int]], frac: float = 0.5,
+                     max_depth: int = 3, half_width: int = 1,
+                     sample: int = 300, seed: int = 0) -> List[ScalingPoint]:
+    """Il residuo della lente 'riconoscere' a soglia RELATIVA (quantile ``frac``)
+    al variare di n: il dato che discrimina (S) da (V). Finestre grandi campionate.
+
+    ⚠ Con n piccolo calcolabile (≤4) restano pochi punti: tendenza, non prova di
+    invarianza asintotica.
+    """
+    out: List[ScalingPoint] = []
+    for n in sorted(size_maps):
+        sm = size_maps[n]
+        s = relative_threshold(sm, frac)
+        ax = recognize_axis(sm, n, s, max_depth=max_depth, half_width=half_width,
+                            sample=sample, seed=seed)
+        out.append(ScalingPoint(n=n, threshold=s, window_size=ax.window_size,
+                                residual=ax.residual))
+    return out
 
 
 # ── ri-verdetto ───────────────────────────────────────────────────────────
@@ -121,16 +166,21 @@ def reverdict() -> Reverdict:
                           "sulla finestra critica: a n=3 resta un residuo ~0.05 che NON "
                           "svanisce aumentando d — non la media uniforme che →0 per "
                           "concentrazione.",
-        new_failure_mode="la lente 'dimostrare' a n=3 sulle funzioni dure ESPLODE "
-                         "(refutazione oltre budget): è il muro reale della proof "
-                         "complexity, non un artefatto.",
-        open_point="con n ≤ 3 calcolabile, l'invarianza asintotica del residuo NON è "
-                   "verificata: due punti (n=2: 0; n=3: ~0.05) suggeriscono ma non "
-                   "dimostrano stabilità.",
-        conclusion="I due artefatti della v1 sono rimossi e il difetto non collassa più "
-                   "trivialmente; ma per (S) serve mostrare che il residuo stratificato è "
-                   "stabile per n→∞ — fuori dalla portata del calcolo esatto. Onesto: "
-                   "(S)-candidato.",
+        new_failure_mode="la lente 'dimostrare' sulle funzioni dure ESPLODE "
+                         "(refutazione oltre budget, anche con CDCL): è il muro reale "
+                         "della proof complexity, non un artefatto.",
+        open_point="terzo punto (strada #1, solver CDCL + DP capped n=4): su finestre "
+                   "interne il residuo CRESCE con n — n=2:0, n=3:~0.05, n=4:~0.17 — e a "
+                   "n=4 è robusto su più soglie (non svanisce con le risorse). Caveat: "
+                   "finestre n=4 sotto la mediana vera (size>8 fuori portata) e "
+                   "campionate; residuo relativo alla classe di feature; 3 punti, non "
+                   "invarianza asintotica.",
+        conclusion="I due artefatti della v1 sono rimossi, il difetto non collassa più "
+                   "trivialmente, e il terzo punto mostra un residuo CRESCENTE con n — "
+                   "coerente con un prezzo strutturale della costruttività (natural "
+                   "proofs). Ma per (S) confermato serve l'andamento al regime mediano e "
+                   "per n→∞, fuori dalla portata del calcolo. Onesto: (S)-candidato "
+                   "rafforzato, non (S).",
     )
 
 

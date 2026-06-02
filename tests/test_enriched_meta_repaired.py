@@ -12,6 +12,8 @@ from pnp_lab.enriched_meta import (
     proof_axis,
     recognize_axis,
     refutation_length,
+    relative_threshold,
+    residual_scaling,
     reverdict,
     shared_measure,
     size_distribution,
@@ -121,3 +123,24 @@ def test_reverdict_is_honest():
     # i due artefatti della v1 sono dichiarati rimossi
     assert "brute" in rv.tautology_removed.lower()
     assert "concentrazione" in rv.vanishing_removed.lower()
+
+
+# ── scaling a soglia relativa (strada #1: terzo punto) ────────────────────
+
+def test_relative_threshold_is_a_quantile():
+    ct = complexity_map(3)
+    lo = relative_threshold(ct.cost, frac=0.0)
+    mid = relative_threshold(ct.cost, frac=0.5)
+    hi = relative_threshold(ct.cost, frac=0.99)
+    assert lo <= mid <= hi
+    assert lo == min(ct.cost.values())
+
+
+def test_residual_scaling_runs_and_is_sampled():
+    # mappe piccole (n=2 via M6 formula, n=3) per restare veloci
+    from pnp_lab.circuits import min_formula_sizes
+    maps = {2: min_formula_sizes(2).cost, 3: min_formula_sizes(3).cost}
+    pts = residual_scaling(maps, frac=0.4, max_depth=2, sample=120, seed=0)
+    assert [p.n for p in pts] == [2, 3]
+    assert all(p.window_size <= 120 for p in pts)
+    assert all(0.0 <= p.residual <= 1.0 for p in pts)

@@ -86,12 +86,17 @@ from .repaired import (
     RecognizeAxis,
     RepairedReport,
     Reverdict,
+    ScalingPoint,
     proof_axis,
     recognize_axis,
+    relative_threshold,
+    residual_scaling,
     reverdict,
     shared_measure,
     size_distribution,
 )
+from .synthesis_sat import circuit_size_cdcl
+from .cdcl import CdclResult, solve as cdcl_solve
 
 __all__ = [
     # category
@@ -112,6 +117,8 @@ __all__ = [
     "ProofResult", "SizeResult", "circuit_exists_cnf", "circuit_size", "refutation_length",
     "FEATURE_NAMES", "RecognizeError", "critical_window", "feature_vector",
     "price_of_constructivity", "recognize_error",
-    "ProofAxisPoint", "RecognizeAxis", "RepairedReport", "Reverdict",
-    "proof_axis", "recognize_axis", "reverdict", "shared_measure", "size_distribution",
+    "ProofAxisPoint", "RecognizeAxis", "RepairedReport", "Reverdict", "ScalingPoint",
+    "proof_axis", "recognize_axis", "relative_threshold", "residual_scaling",
+    "reverdict", "shared_measure", "size_distribution",
+    "circuit_size_cdcl", "CdclResult", "cdcl_solve",
 ]

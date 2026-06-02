@@ -198,6 +198,39 @@ calcolabile, l'invarianza asintotica del residuo NON è verificata — due punti
 che il residuo stratificato è stabile per n→∞, fuori dalla portata del calcolo
 esatto. Il modulo è quindi salito da **(V) artefatto** a **(S)-candidato difendibile**.
 
+### 6.1 Strada #1 — solver più forte (CDCL) e il terzo punto
+
+Per dare un terzo punto al residuo serviva spingere oltre n=3. Costruito un **CDCL
+da zero** (`pnp_lab/enriched_meta/cdcl.py`: 2-watched literals, 1-UIP, backjump,
+VSIDS, restart di Luby; 6 test, concorda col DPLL del M5 su PHP, modelli validi).
+
+Esito sul *lato dimostrare*: anche il CDCL **esplode** sulle istanze di sintesi
+UNSAT delle funzioni dure (provare `size>s` vicino al vero è un lower bound
+genuino) — conferma che il muro è reale, non ingegneria debole. La misura a n=4 è
+quindi ottenuta non via SAT ma con la **DP capped del Modulo 6** (formula size fino
+a un cap; cap=8 → 39 582 funzioni in ~7s). La DP *completa* a n=4 non termina in
+tempi interattivi (esplosione combinatoria) — un altro muro onesto.
+
+Terzo punto, residuo della lente "riconoscere" su finestre interne (soglia
+relativa, campione 300):
+
+| n | finestra | residuo |
+|---|---|---|
+| 2 | (banale) | 0 |
+| 3 | s=3 centrale | 0.046 |
+| 4 | s=6 interna | 0.173 (0.097–0.167 su s∈{5,6,7}) |
+
+Il residuo **cresce con n** e a n=4 è **robusto** (non svanisce aumentando le
+risorse della classe, plateau ~0.1–0.17). Questo rafforza il (S)-candidato:
+coerente con un prezzo *strutturale* della costruttività (natural proofs).
+
+**Caveat onesti.** A n=3 il residuo è positivo solo nella banda centrale (s=3) e
+nullo a s=5,6: dipende dalla posizione. Le finestre n=4 sono *sotto la mediana
+vera* (size>8 fuori portata) e *campionate*; il residuo è relativo a *questa*
+classe di 4 feature. Tre punti (n=2,3,4) non sono invarianza asintotica. **Verdetto
+invariato: (S)-candidato rafforzato, non (S) confermato.** Per (S) servirebbe
+l'andamento al regime mediano e per n→∞, fuori dalla portata del calcolo esatto.
+
 ---
 
 ## 7. Riferimenti citati

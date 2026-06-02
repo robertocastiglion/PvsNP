@@ -164,6 +164,23 @@ def circuit_size(tt: int, n: int, cap: int = 6,
     return SizeResult(tt, n, cap, True)
 
 
+def circuit_size_cdcl(tt: int, n: int, cap: int = 12,
+                      conflict_budget: int = 200_000) -> SizeResult:
+    """Come ``circuit_size`` ma con il solver CDCL — abbastanza forte da arrivare
+    a n=4 (il DPLL naïf del Modulo 5 esplode già su molte funzioni di n=3).
+
+    Si usa CDCL come *oracolo di decisione* per la misura; la lente "dimostrare"
+    (refutazione tree-resolution) resta affidata a ``refutation_length``.
+    """
+    from .cdcl import solve
+    if _is_literal(tt, n):
+        return SizeResult(tt, n, 0, False)
+    for s in range(1, cap + 1):
+        if solve(circuit_exists_cnf(tt, n, s), conflict_budget=conflict_budget).satisfiable:
+            return SizeResult(tt, n, s, False)
+    return SizeResult(tt, n, cap, True)
+
+
 # ── la lente "dimostrare": lunghezza di refutazione del lower bound ───────
 
 @dataclass
