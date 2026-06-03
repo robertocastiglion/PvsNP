@@ -45,6 +45,7 @@ attempt must overcome.
 | 12 | **Algorithmic Method Lab** | ✅ | **Ryan Williams' method** (NEXP ⊄ ACC⁰, 2011): "a SAT algorithm faster than brute force ⇒ a lower bound" — the only approach that **bypasses all three barriers**. Exact executable core: structured circuits have **sparse polynomials**, so `#SAT` over all `2ⁿ` inputs is counted *without enumerating them* (AND: 4096× faster; dense OR: no gain), plus the **win-win chain** and the **super-polynomial** threshold. **Explicit depth-2 #SAT** (`depth2.py`): a DNF solver via inclusion–exclusion, `O(2^m)` instead of `O(2^n)`, with **measured timings** (~38000× at m=4). Easy Witness Lemma, PCP, hierarchy, and the real ACC⁰ algorithm (`2^{n−n^δ}`) are cited. SVG. `pnp_lab/algorithmic_method/`. |
 | 13 | **Meta-Complexity Lab** | ✅ | **MCSP & hardness magnification** — the liveliest frontier, where the circle closes. MCSP computed **exactly** (reusing Module 6), MCSP ∈ NP. The **exact link to Natural Proofs** (M1): "f is hard" is useful+large, but making it *constructive* = solving MCSP = breaking PRGs (Razborov–Rudich). Plus **hardness magnification** (cited): tiny `n^{1+ε}` lower bounds amplify to P ≠ NP but stay blocked by the "magnification barrier". SVG. `pnp_lab/meta_complexity/`. |
 | 14 | **Enriched Meta-Category** | ✅ · ⚠ *visualization* | An experiment on the **three lenses** (compute/prove/recognize hardness) as morphisms of one quantale-enriched category `C` (Lawvere). On n=3, exact: `C` = Boolean functions + `S_n` renamings, the three realizations of "f is hard", and the **composition-defect matrix**. **Honesty — verdict (V)**: the defect number is a *useful visualization, not a structural invariant* (a finite-size artifact: compute↔recognize → 0 as n→∞; metric not canonical). Full critical analysis in `docs/analisi-metacomplessita.md`. SVG. `pnp_lab/enriched_meta/`. |
+| 15 | **Distinguishing Advantage Sandbox** | ✅ · ⚠ *finite-size* | Makes the *correct* lens on the barriers executable: not "information extracted" `I(T,f)` (which is **blind** to Natural Proofs — it sees all `2^n` bits yet is blocked) but **indistinguishability against a resource-bounded observer**, on two **orthogonal** axes. An observer separates **hard** (high formula complexity, MCSP) from **easy** functions on n=3; we measure the advantage `ε(ℓ,s)` as we vary **information** ℓ (oracle-gate fan-in) and **computation** s (number of combining gates). Exact result: the corner (high ℓ *and* s) **strictly beats** both the "info-only" and "compute-only" edges — *both* axes are needed. Reuses Module 6's exact engine. **Honesty**: exact measurement on **finite size** (n=3), **not** the asymptotic barrier; large cells are certified **lower bounds** (`≥`). See `docs/distinguishing-advantage.md`. Does **not** prove P vs NP. SVG. `pnp_lab/distinguishing/`. |
 
 ## The Natural Proofs barrier in one line
 
@@ -74,8 +75,9 @@ py examples/run_lean_proofsearch.py      # M11 proof-search on REAL Lean (needs 
 py examples/run_algorithmic_method.py    # M12 Algorithmic Method Lab (Williams)
 py examples/run_meta_complexity.py       # M13 Meta-Complexity Lab (MCSP)
 py examples/run_enriched_meta.py         # M14 Enriched Meta-Category (composition defect)
+py examples/run_distinguishing_advantage.py  # M15 Distinguishing Advantage (info × computation)
 
-py -m pytest -q                          # full Python test suite (203 tests)
+py -m pytest -q                          # full Python test suite (213 tests)
 
 cd formalization && lake build           # M4  Lean 4 formalization (kernel-verified)
 ```
@@ -104,6 +106,7 @@ axioms**, the concrete layer only on `propext`/`Quot.sound`, and **nothing uses
 - `docs/lift-query-to-tm.md` — lifting the query core to an oracle TM (Module 10, EN).
 - `docs/cook-levin-tableau.md` — time-bounded machine + tableau equivalence (Module 4, EN).
 - `docs/proof-search-lean.md` — proof-search driving real Lean 4 (Module 11, EN).
+- `docs/distinguishing-advantage.md` — info × computation distinguishing advantage (Module 15, EN).
 - `docs/analisi-metacomplessita.md` — full meta-complexity analysis & critique (IT).
 - **Interactive divulgative site (IT):** <https://robertocastiglion.github.io/PvsNP/>
 

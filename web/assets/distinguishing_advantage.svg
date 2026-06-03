@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="820" height="560" fill="#0A0502"/>
+<text x="110" y="42" fill="#FF8012" font-size="13" font-family="ui-monospace, Consolas, monospace" letter-spacing="2">&gt; MODULO 15 // DISTINGUISHING ADVANTAGE</text>
+<text x="110" y="72" fill="#FCF2E6" font-size="22" font-weight="700">ε(ℓ, s): servono insieme informazione e calcolo?</text>
+<text x="110" y="98" fill="#876244" font-size="13">distinguere 130 funzioni DURE da 126 FACILI (n=3) · misura esatta su finite size</text>
+<rect x="110.0" y="353.3" width="217.3" height="110.7" rx="6" fill="#B56016" stroke="#0A0502" stroke-width="2"/>
+<text x="218.7" y="413.7" fill="#FCF2E6" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.102</text>
+<rect x="333.3" y="353.3" width="217.3" height="110.7" rx="6" fill="#CD6A15" stroke="#0A0502" stroke-width="2"/>
+<text x="442.0" y="413.7" fill="#FCF2E6" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.121</text>
+<rect x="556.7" y="353.3" width="217.3" height="110.7" rx="6" fill="#ACB61B" stroke="#0A0502" stroke-width="2"/>
+<text x="665.3" y="413.7" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.236</text>
+<rect x="110.0" y="236.7" width="217.3" height="110.7" rx="6" fill="#94C61E" stroke="#0A0502" stroke-width="2"/>
+<text x="218.7" y="297.0" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.258</text>
+<rect x="333.3" y="236.7" width="217.3" height="110.7" rx="6" fill="#4AF626" stroke="#0A0502" stroke-width="2"/>
+<text x="442.0" y="297.0" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.324</text>
+<rect x="556.7" y="236.7" width="217.3" height="110.7" rx="6" fill="#4AF626" stroke="#0A0502" stroke-width="2"/>
+<text x="665.3" y="297.0" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">≥ 0.324</text>
+<text x="665.3" y="319.0" fill="#0A0502" font-size="10" text-anchor="middle" opacity="0.8">cota inf.</text>
+<rect x="110.0" y="120.0" width="217.3" height="110.7" rx="6" fill="#8ECA1F" stroke="#0A0502" stroke-width="2"/>
+<text x="218.7" y="180.3" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">0.264</text>
+<rect x="333.3" y="120.0" width="217.3" height="110.7" rx="6" fill="#4AF626" stroke="#0A0502" stroke-width="2"/>
+<text x="442.0" y="180.3" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">≥ 0.324</text>
+<text x="442.0" y="202.3" fill="#0A0502" font-size="10" text-anchor="middle" opacity="0.8">cota inf.</text>
+<rect x="556.7" y="120.0" width="217.3" height="110.7" rx="6" fill="#4AF626" stroke="#0A0502" stroke-width="2"/>
+<text x="665.3" y="180.3" fill="#0A0502" font-size="22" font-weight="700" text-anchor="middle" font-family="ui-monospace, Consolas, monospace">≥ 0.324</text>
+<text x="665.3" y="202.3" fill="#0A0502" font-size="10" text-anchor="middle" opacity="0.8">cota inf.</text>
+<text x="218.7" y="498" fill="#876244" font-size="14" text-anchor="middle">s=1</text>
+<text x="442.0" y="498" fill="#876244" font-size="14" text-anchor="middle">s=2</text>
+<text x="665.3" y="498" fill="#876244" font-size="14" text-anchor="middle">s=3</text>
+<text x="94" y="416.7" fill="#876244" font-size="14" text-anchor="end">ℓ=1</text>
+<text x="94" y="300.0" fill="#876244" font-size="14" text-anchor="end">ℓ=2</text>
+<text x="94" y="183.3" fill="#876244" font-size="14" text-anchor="end">ℓ=3</text>
+<text x="445" y="530" fill="#FCF2E6" font-size="13" text-anchor="middle">CALCOLO → numero di gate s</text>
+<text x="34" y="295" fill="#FCF2E6" font-size="13" text-anchor="middle" transform="rotate(-90 34 295)">INFORMAZIONE → fan-in ℓ</text>
+</svg>

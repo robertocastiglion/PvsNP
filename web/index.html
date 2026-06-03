@@ -1021,6 +1021,12 @@
         <img src="assets/enriched_metacategory.svg" alt="Matrice del difetto di composizione tra le tre lenti: calcolare, dimostrare, riconoscere" />
         <div class="graph-cap"><b>Le tre lenti coincidono?</b> Verde = stessa freccia (difetto 0), arancio/rosso = divergono. <em>Attenzione: visualizzazione, non un invariante</em> — il numero dipende dalla dimensione finita e svanisce per n grandi (vedi la nota di onestà del Modulo 14).</div>
       </div>
+
+      <!-- DISTINGUISHING ADVANTAGE -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/distinguishing_advantage.svg" alt="Matrice del vantaggio di distinzione al variare di informazione (fan-in) e calcolo (numero di gate)" />
+        <div class="graph-cap"><b>Servono insieme informazione e calcolo?</b> Un osservatore prova a separare funzioni «dure» da «facili» con due budget: quanti bit legge per volta (informazione, in alto) e quante porte usa per combinarli (calcolo, a destra). Il colore è quanto ci riesce. L'<em>angolo</em> (entrambi alti) batte sia il bordo «solo informazione» sia «solo calcolo»: nessuno dei due basta da solo. <em>Misura esatta su un caso minuscolo (n=3), non la barriera asintotica.</em></div>
+      </div>
     </div>
   </section>
 
@@ -1154,12 +1160,12 @@
 
       <div class="results">
         <div class="result-card">
-          <div class="result-num">14</div>
+          <div class="result-num">15</div>
           <div class="result-label">Moduli eseguibili</div>
-          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità e l'esperimento sulle tre lenti.</div>
+          <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità, l'esperimento sulle tre lenti e la misura del vantaggio di distinzione informazione↔calcolo.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">203</div>
+          <div class="result-num green">213</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
@@ -1319,9 +1325,8 @@
                 cerchio si chiude: il problema guarda sé stesso. <span style="color:var(--grey-warm);">9 test.</span></div>
             </li>
             <li>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
-                Modulo 14 · Enriched Meta-Category &nbsp;<span style="font-size:11px;
-                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
+                Modulo 14 · Enriched Meta-Category</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Le tre lenti (calcolare/dimostrare/riconoscere) come morfismi: matrice del difetto
                 su n=3. <b>Visualizzazione, non un invariante</b>. Il tentativo di renderlo rigoroso
@@ -1330,11 +1335,23 @@
                 <span style="color:var(--grey-warm);">36 test (v1 + riparazione + CDCL + caso peggiore).</span></div>
             </li>
             <li>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--orange-neon);">
+                Modulo 15 · Distinguishing Advantage &nbsp;<span style="font-size:11px;
+                background:var(--orange-neon); color:var(--bg); padding:2px 8px;">NUOVO</span></div>
+              <div style="font-size:14px; color:var(--white-dim);">
+                La lente corretta sulle barriere resa eseguibile: non «informazione estratta» ma
+                <b>indistinguibilità contro un osservatore a risorse limitate</b>, su due assi
+                ortogonali — informazione (fan-in ℓ) e calcolo (numero di gate s). Misura esatta
+                su n=3: l'angolo (ℓ e s alti insieme) batte sia «solo informazione» sia «solo
+                calcolo». <b>Geometria del trade-off, non la barriera asintotica.</b>
+                <span style="color:var(--grey-warm);">10 test.</span></div>
+            </li>
+            <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Infrastruttura</div>
               <div style="font-size:14px; color:var(--white-dim);">
-                Repo Git su GitHub (privato), questa pagina divulgativa con i grafici SVG,
-                160 test verdi in totale.</div>
+                Repo Git su GitHub (pubblico), questa pagina divulgativa con i grafici SVG,
+                213 test verdi in totale.</div>
             </li>
           </ol>
         </div>
