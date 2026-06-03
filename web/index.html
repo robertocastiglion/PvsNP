@@ -606,17 +606,20 @@
             </div>
           </div>
           <div class="module-desc">
-            Definizioni rigorose di P, NP, riduzioni e NP-completezza, con <b>26 teoremi
+            Definizioni rigorose di P, NP, riduzioni e NP-completezza, con <b>41 teoremi
             controllati dal kernel di Lean</b>: P ⊆ NP, il collasso di Cook e la sua
             caratterizzazione, la barriera di relativizzazione. <b>Verso Cook–Levin</b>:
             un modello di calcolo concreto «senza limiti» in cui <b>P = NP per forza bruta</b>
             (così il framework non è vacuo), <b>CNF-SAT concreto</b> con la sua forma-NP, e
             <b>il cuore di Cook–Levin</b> verificato: ogni <em>vincolo locale</em> (una finestra
-            del tableau) diventa una CNF, e quindi «computazione valida ⟺ formula
-            soddisfacibile». Zero <code>sorry</code>.
+            del tableau) diventa una CNF. <b>E ora il livello-riga</b>: un <b>modello di macchina
+            con limite di tempo</b> e l'<b>equivalenza col tableau</b> — «una computazione accetta
+            in T passi ⟺ esiste un tableau valido accettante» (la validità è una congiunzione di
+            vincoli locali). Più il <b>nucleo di Razborov–Rudich</b> (Natural Proofs), verificato
+            come teorema. Zero <code>sorry</code>, mai <code>Classical.choice</code>.
           </div>
           <div class="module-out">
-            <span class="lbl">lake build &gt;</span> 26 teoremi · nucleo a zero assiomi, livello concreto solo propext/Quot.sound (mai Classical.choice)
+            <span class="lbl">lake build &gt;</span> 41 teoremi · nucleo a zero assiomi, livello concreto solo propext/Quot.sound (mai Classical.choice)
           </div>
         </div>
 
@@ -770,14 +773,25 @@
             distingue «ci sono 1» da «tutto zero». E κ <b>cresce con N=2^m</b> quando il campo
             è piccolo — il regime di Aaronson–Wigderson.
           </div>
+          <div class="module-desc">
+            <b>E ora il sollevamento a un vero oracolo.</b> L'avversario di cancellazione diventa il
+            <b>gadget di una diagonalizzazione</b>: stadio dopo stadio si fa girare una macchina
+            contro l'oracolo nullo e le si <b>pianta un nucleo invisibile</b> che la fa sbagliare —
+            costruendo un oracolo O e una vera lingua <b>L<sub>O</sub> ∈ NP^Ã \ P^Ã</b>. Ogni
+            macchina diagonalizzata, rieseguita contro l'oracolo fissato, ripete la stessa risposta
+            (non distingue): la prova che è davvero ingannata.
+          </div>
           <div class="module-out">
             <span class="lbl">separazione &gt;</span> NP = 1 query · P ≥ κ (2 a m=2, 4 a m=3, GF(3)) · l'avversario rende cieca ogni query
           </div>
+          <div class="module-out" style="margin-top:10px;">
+            <span class="lbl">sollevamento &gt;</span> oracolo O costruito · L_O ∈ NP^Ã \ P^Ã · ogni macchina (poche query) diagonalizzata
+          </div>
           <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
             <b style="color:var(--white-dim);">Onestà sul confine.</b> Eseguiamo il <em>cuore a query</em>
-            (testimone + avversario, esatti). Il sollevamento a un oracolo per macchine di Turing e la
-            versione forte (con il lower bound di communication complexity) sono il teorema di
-            Aaronson–Wigderson: quelli li <em>citiamo</em>, non li simuliamo.
+            (testimone + avversario) e ora anche la <em>diagonalizzazione</em> su macchine concrete. Il
+            teorema su <em>tutte</em> le macchine e la versione forte (lower bound di communication
+            complexity) sono il teorema di Aaronson–Wigderson: quelli li <em>citiamo</em>.
           </div>
         </div>
 
@@ -801,12 +815,22 @@
           <div class="module-out">
             <span class="lbl">benchmark &gt;</span> 12/12 lemmi chiusi e riverificati · euristica 68 stati vs baseline 243 (meno = policy migliore)
           </div>
+          <div class="module-desc" style="margin-top:18px;">
+            <b>E ora su Lean vero (stile LeanDojo).</b> La <em>stessa</em> idea di policy, ma il
+            verificatore non è più un giocattolo: è <b>Lean 4</b> col suo kernel. La policy propone
+            blocchi <code>by …</code> e <b>Lean li accetta o rifiuta</b> (<code>lake env lean</code>).
+            Stessa metrica onesta — meno verifiche = policy migliore: su un benchmark di lemmi base
+            l'euristica chiude in <b>7 verifiche</b> contro le <b>22</b> della ricerca cieca.
+          </div>
+          <div class="module-out" style="margin-top:10px;">
+            <span class="lbl">su Lean vero &gt;</span> euristica 7 verifiche vs baseline 22 · la policy propone, Lean dispone
+          </div>
           <div style="margin-top:16px; font-size:13px; color:var(--grey-warm); border-left:2px solid rgba(255,128,18,0.3); padding-left:14px;">
             <b style="color:var(--white-dim);">Onestà, prima di tutto.</b> Questo <em>non</em> dimostra P vs NP e
-            <em>non</em> «risolve la matematica con un LLM». L'LLM è una <b>policy opzionale e pluggable</b>
-            (<code>LLMPolicy</code>): il core non dipende da reti né chiavi, i test non usano mai un modello,
-            e se la policy esterna fallisce la ricerca ripiega sull'euristica. A verificare resta sempre
-            il motore sound.
+            <em>non</em> «risolve la matematica con un LLM». L'LLM è una <b>policy opzionale e pluggable</b>:
+            il core non dipende da reti né chiavi, i test non usano mai un modello, e se la policy esterna
+            fallisce la ricerca ripiega sull'euristica. A verificare resta sempre il motore sound — il
+            giocattolo, o Lean stesso.
           </div>
         </div>
 
@@ -962,10 +986,22 @@
         <div class="graph-cap"><b>Verificare è facile, risolvere no.</b> Controllare costa 1 domanda (verde), risolvere ne costa molte di più (rosso) — e il divario cresce: una separazione, in piccolo.</div>
       </div>
 
+      <!-- SOLLEVAMENTO A ORACOLO TM -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/algebraic_lift.svg" alt="Sollevamento: ogni macchina con poche query viene diagonalizzata, costruendo una lingua in NP^A meno P^A" />
+        <div class="graph-cap"><b>Dal piccolo al grande.</b> Ogni macchina che fa poche domande (barre) viene <em>ingannata</em>: le si nasconde un indizio invisibile. Cucendo insieme questi inganni si costruisce un mondo dove «verificare» è facile ma «risolvere» no — una vera separazione relativizzata.</div>
+      </div>
+
       <!-- PROOF SEARCH -->
       <div class="graph-frame" style="margin-top:24px;">
         <img src="assets/proof_search.svg" alt="Proof-search: una policy migliore genera meno stati per chiudere ogni lemma" />
         <div class="graph-cap"><b>Una guida migliore esplora meno strade.</b> Con una buona «politica» di ricerca (verde) si trova la dimostrazione provando molte meno possibilità che cercando alla cieca (grigio).</div>
+      </div>
+
+      <!-- PROOF SEARCH SU LEAN VERO -->
+      <div class="graph-frame" style="margin-top:24px;">
+        <img src="assets/lean_proofsearch.svg" alt="Proof-search su Lean vero: l'euristica chiude i lemmi con meno verifiche della ricerca cieca" />
+        <div class="graph-cap"><b>La stessa guida, ma con Lean vero.</b> Qui a verificare le mosse è <em>Lean 4</em> in persona: una buona politica chiude gli stessi lemmi con molte <em>meno</em> verifiche (verde) della ricerca cieca (arancione). La policy propone, Lean dispone.</div>
       </div>
 
       <!-- METODO ALGORITMICO -->
@@ -1067,8 +1103,8 @@
           <p style="font-size:15px; color:var(--white-dim); line-height:1.75; max-width:760px;">
             Come essere sicuri di non barare? Si scrivono le dimostrazioni in un linguaggio che un
             <strong>revisore implacabile</strong> — il «kernel» di un assistente di prova (Lean) —
-            controlla riga per riga, senza accettare nessun «fidati». Qui 26 teoremi passano questo
-            esame, fino al cuore di un risultato classico (Cook–Levin).
+            controlla riga per riga, senza accettare nessun «fidati». Qui 41 teoremi passano questo
+            esame, fino al cuore di un risultato classico (Cook–Levin) e al suo scheletro a tableau.
             <span style="color:var(--grey-warm);">→ Modulo 4.</span>
           </p>
         </div>
@@ -1123,14 +1159,14 @@
           <div class="result-desc">Le 3 barriere, la formalizzazione, proof e circuit complexity, switching lemma, Schwartz–Zippel, separazione algebrica, proof-search guidata, metodo algoritmico, meta-complessità e l'esperimento sulle tre lenti.</div>
         </div>
         <div class="result-card">
-          <div class="result-num green">188</div>
+          <div class="result-num green">203</div>
           <div class="result-label">Test verdi</div>
           <div class="result-desc">Suite Python completa, tutta passante.</div>
         </div>
         <div class="result-card">
-          <div class="result-num">34</div>
+          <div class="result-num">41</div>
           <div class="result-label">Teoremi Lean</div>
-          <div class="result-desc">Controllati dal kernel: nucleo P/NP, cuore di Cook–Levin e ora il nucleo logico di Razborov–Rudich (Natural Proofs). Molti a zero assiomi; gli altri solo propext/Quot.sound, mai Classical.choice.</div>
+          <div class="result-desc">Controllati dal kernel: nucleo P/NP, cuore di Cook–Levin, il modello di macchina con limite di tempo + tableau, e il nucleo logico di Razborov–Rudich (Natural Proofs). Molti a zero assiomi; gli altri solo propext/Quot.sound, mai Classical.choice.</div>
         </div>
         <div class="result-card">
           <div class="result-num green">0</div>
@@ -1151,7 +1187,12 @@
         <div><span class="kw">theorem</span> <span class="nm">sat_iff_witness</span> <span class="c">-- la forma-NP di CNF-SAT: testimone = assegnamento</span></div>
         <div><span class="kw">theorem</span> <span class="nm">canonical_correct</span> <span class="c">-- cuore di Cook–Levin: ogni vincolo locale è una CNF</span></div>
         <div><span class="kw">theorem</span> <span class="nm">eval_rename</span> / <span class="nm">sat_of_sat_rename</span> <span class="c">-- riduzione SAT verificata (zero assiomi)</span></div>
-        <div style="margin-top:10px;"><span class="ok">✓ 26 teoremi · #print axioms: nucleo a zero assiomi, livello concreto solo propext/Quot.sound, mai Classical.choice</span></div>
+        <div style="margin-top:14px;"><span class="c">-- Tableau.lean (nuovo) · modello con limite di tempo + scheletro a tableau</span></div>
+        <div><span class="kw">theorem</span> <span class="nm">accepts_iff_validUpTo</span> <span class="c">-- accetta in T passi ⟺ ∃ tableau valido accettante</span></div>
+        <div><span class="kw">theorem</span> <span class="nm">validUpTo_eq_run</span> <span class="c">-- il determinismo fissa il tableau (zero assiomi)</span></div>
+        <div style="margin-top:14px;"><span class="c">-- NaturalProofs.lean · nucleo logico della barriera Razborov–Rudich</span></div>
+        <div><span class="kw">theorem</span> <span class="nm">rr_barrier</span> <span class="c">-- crittografia sicura ⇒ nessuna prova naturale (zero assiomi)</span></div>
+        <div style="margin-top:10px;"><span class="ok">✓ 41 teoremi · #print axioms: nucleo a zero assiomi, livello concreto solo propext/Quot.sound, mai Classical.choice</span></div>
       </div>
     </div>
   </section>
@@ -1205,10 +1246,10 @@
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Modulo 4 · Formalizzazione Lean 4</div>
               <div style="font-size:14px; color:var(--white-dim);">
-                26 teoremi verificati dal kernel: il nucleo astratto (P⊆NP, Cook,
-                relativizzazione) <em>più</em> il livello verso Cook–Levin — modello concreto
-                con P=NP per forza bruta, CNF-SAT, e il cuore «vincolo locale → CNF».
-                Zero <code>sorry</code>.</div>
+                41 teoremi verificati dal kernel: il nucleo astratto (P⊆NP, Cook,
+                relativizzazione), il livello verso Cook–Levin (modello concreto, CNF-SAT,
+                «vincolo locale → CNF»), il <b>modello di macchina con limite di tempo + tableau</b>
+                e il nucleo di Razborov–Rudich. Zero <code>sorry</code>.</div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
@@ -1252,14 +1293,16 @@
                 Modulo 10 · Algebraic Separation</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Il cuore di query complexity di P^Ã ≠ NP^Ã: NP = 1 query, P ≥ κ via
-                avversario di cancellazione (κ cresce con N). <span style="color:var(--grey-warm);">8 test.</span></div>
+                avversario di cancellazione. <b>E il sollevamento</b>: diagonalizzazione che
+                costruisce una lingua in NP^Ã \ P^Ã. <span style="color:var(--grey-warm);">15 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
                 Modulo 11 · Proof-Search Lab</div>
               <div style="font-size:14px; color:var(--white-dim);">
                 Proof-search trasparente con policy pluggable (LLM opzionale, mai nel percorso
-                verificato). Euristica 68 stati vs baseline 243, prove riverificate. <span style="color:var(--grey-warm);">10 test.</span></div>
+                verificato). Euristica 68 stati vs baseline 243. <b>E ora su Lean vero</b>: la policy
+                propone, Lean verifica (7 vs 22 verifiche). <span style="color:var(--grey-warm);">18 test.</span></div>
             </li>
             <li>
               <div style="font-family:var(--font-mono); font-weight:700; color:var(--white);">
