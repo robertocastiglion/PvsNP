@@ -526,3 +526,57 @@ umana: cristallizzare e committare). Scratch `_cycle6_*`/`_probe_*`/`_cost_n4.pk
 cercato esaustivamente a n≤4 e NON esiste (l'unico candidato collassa in σ(cost)). Il
 loop resta CHIUSO. Ripresa solo su una direzione genuinamente fuori dal dizionario μ_R,
 con falsificatore dichiarato in anticipo, e su n≥5 (oltre la portata esatta attuale).
+
+---
+
+## Entry 9 — Restart program, direzione A: geometria dello spazio delle soluzioni (2026-06-13)
+
+**Decisione umana:** ripartire col restart program out-of-dictionary (E→A→B,
+ricostruito in `prompts/restart-out-of-dictionary.md` dopo che i file 2026-06-12 erano
+andati persi). Diagnosi del programma: i discriminanti collassano perché tutti (1)
+scalari, (2) minimi di copertura/gradienti, (3) unari; una direzione è ammessa solo se ne
+rompe una. Scelta la **direzione A** (geometria dell'INSIEME delle formule ottime): rompe
+(1) [insieme/grafo] e (3) [relazionale].
+
+**Ipotesi H-A (Explorer):** la geometria dello spazio delle soluzioni separa funzioni di
+pari (cost, |orbita B_n±|, N_min). Oggetto esatto e canonico: il DAG degli SPLIT OTTIMI
+`OptSplit(f)={(op,a,b):op(a,b)=f, cost[a]+cost[b]+1=cost[f]}`, ricostruito dal cost table.
+Invarianti su FUNZIONI (non stringhe) → già encoding-indipendenti. Killer dichiarati: K1
+ricostruibile dagli scalari; K2 verdetto instabile ordinato↔non-ordinato; K3 = Aut(f)/orbita.
+
+**Costruito (Builder):** `pnp_lab/meta_complexity/solution_geometry.py` (optimal_splits +
+builder DP per n=4; reach/DAG; n_min ordinato e AC-quozientato; geometria = dag_size +
+branching + frontier; analyze + check adversariale `sigma_cost_dominated`) +
+`tests/test_solution_geometry.py` (8 fast + 1 slow n=4) + `examples/run_solution_geometry.py`.
+
+**Numeri esatti misurati:**
+- n=3 (256 funz): SOTTO-SOGLIA — chiave-scalare già 14 classi == |P_orbit±|=14, nessuno
+  spazio per la geometria (test vacuo). K2 canonico.
+- n=4 (65536 funz, ~28 min): geometria raffina 209 → **222 == |P_orbit±|**, separa **12+**
+  coppie di pari (cost,|orbita|,N_min), K2-canonica → verdetto INGENUO "candidate new content".
+
+**Verdetto Adversary (verificato in codice):** RESTATEMENT. (1) Il K1 ingenuo era troppo
+debole: il criterio di Entry 7 è "NON ricostruibile da cost". La geometria è costruita
+INTERAMENTE dal cost table → σ(cost) per costruzione. (2) Essendo B_n±-invariante, ogni
+coppia separata sta in orbite diverse; il dizionario del Ciclo 6 è orbit-completo a n=4
+(|P_Σ|=222) → separa GIÀ tutte quelle coppie. Verifica: il solo `cofactor_cost_profile`
+(∈ σ(cost)) separa tutte e 12 le coppie (cover#/fracLP 10/12, fourier 12/12). Bug
+corretto nel modulo (`sigma_cost_dominated`). K2 NON scatta (canonico), K3 assorbito in K1.
+
+**Evaluator:** RESTATEMENT-OF-KNOWN, robustness alta come negativo (≈7/10): l'adversary ha
+trovato un bug definitorio reale (weak-K1 → false signal) e l'ha ucciso con garanzia
+logica + verifica per-coppia; l'invariante è K2-canonico (a differenza di S/d_flip). 7°
+collasso consecutivo. LEZIONE DI METODO: la direzione A era STRUTTURALMENTE incapace di
+produrre il falsificatore — ogni suo invariante è a valle della formula-size (σ(cost));
+rompe scalare+unario ma NON "ricostruibile-da-cost", l'asse richiesto. Per uscire da
+σ(cost) serve una struttura NON derivata dal costo → direzione B.
+
+**Scritto/committato:** modulo + test + esempio + `prompts/restart-out-of-dictionary.md`
+(programma ricostruito) + questa entry + memoria → COMMITTATI come negativo onesto
+(decisione umana). Scratch `_run_geometry_n4.py`/`_geometry_n4.out` rimossi.
+
+**NEXT unstable direction:** PIVOT a **direzione B (politomorfismi / cloni-minion,
+Bulatov–Zhuk)** — l'unica del programma che rompe σ(cost) (lascia il mondo formula-size/
+copertura per l'algebra delle CSP). Parent-killer dichiarato: BLP ⟺ politomorfismi
+simmetrici. Se anche B collassa su un teorema noto → forte evidenza meta che "tutto è una
+dualità/algebra nota" e STOP.
