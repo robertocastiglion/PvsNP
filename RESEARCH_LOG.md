@@ -463,3 +463,66 @@ toolbox attuale. Niente più cicli automatici senza una direzione fuori-dizionar
 
 **NEXT unstable direction:** NESSUNA (loop chiuso). Eventuale ripresa solo su una
 direzione genuinamente fuori dal dizionario μ_R, con falsificatore dichiarato in anticipo.
+
+---
+
+## Entry 8 — Ciclo 6: caccia al falsificatore (la ripresa dichiarata) (2026-06-13)
+
+**Direzione testata:** l'UNICA ripresa ammessa da Entry 7 — cercare ATTIVAMENTE il
+FALSIFICATORE esplicito (un discriminante su n≤4 che separi due funzioni di pari
+MCSP-size ∧ pari cover-LP NON ricostruibile da `cost`/μ_R). Finora `falsifier_status`
+(collapse.py) ASSUMEVA, senza cercare, che il resto della toolbox fosse dizionarizzato.
+
+**Ipotesi/setup (Explorer+Builder, reso TEST FINITO):** μ_R = insieme GENERATORE di
+invarianti, tutti B_n±-invarianti (B_n± = perm × neg-input × {id, neg-output} = gruppo
+degli automorfismi del costo). P_Σ = partizione per vettore-dizionario congiunto;
+P_orbit± = partizione per orbita B_n±. Poiché ogni generatore è B_n±-invariante,
+P_orbit± RAFFINA SEMPRE P_Σ (|P_Σ| ≤ |P_orbit±|). Allora: FALSIFICATORE ESISTE ⟺ una
+classe di P_Σ si spezza in ≥2 orbite (due funzioni identiche su TUTTO μ_R ma in orbite
+diverse). Killer dichiarato: P_Σ == P_orbit± → nessun falsificatore, collasso indurito.
+
+**Costruito (Builder):** `pnp_lab/meta_complexity/falsifier_hunt.py` (cost_orbit/orbit_canon
+B_n±, comm_matrix + multiset G★/cover/frac-cover ripiegati su neg-output, support_folded,
+generatori "forti" cover_number/frac_cover/average_sensitivity/real_degree/
+fourier_fingerprint, dictionary_vector, hunt, named_separators) + `tests/test_falsifier_hunt.py`
++ `examples/run_falsifier_hunt.py`. + `docs/falsifier-hunt.md`.
+
+**Numeri esatti misurati (rigenerabili):**
+- n=3 (256 funz): NAIVE(B_n) 8 split → B_n± 1 split (coppia 24,30) → B_n±+support
+  0 split, P_Σ==P_orbit±. ENTRAMBE le chiusure (neg-output, support) necessarie.
+- n=4 (65536 funz, esaustivo, ~52 min): |P_orbit±|=222. Dizionario STRONG a 11
+  generatori → |P_Σ|=221, **UN SOLO split**: coppia (2025, 5742), cost 11,
+  `named_separators=[]` (identica su tutti gli 11 generatori), orbite B_n± disgiunte
+  (96 ciascuna), g≠¬f. → CANDIDATO FALSIFICATORE.
+
+**Verdetto Adversary (verificato in codice, cache della tabella costi in pickle):** il
+candidato è UCCISO, dentro σ(cost). Aggiunto il 12° generatore `cofactor_cost_profile`
+(multiset su i di sorted(cost(f|xi=0),cost(f|xi=1)) con cost = formula-size esatta a
+(n-1)-var = la RICORSIONE stessa di formula-size, dentro σ(cost)): |P_Σ|=222,
+#splits=0, **P_Σ==P_orbit±==222 ESATTAMENTE** → collasso COMPLETO anche a n=4. cofactor
+f={(2,7),(2,7),(5,5),(5,5)} ≠ g={(4,5),(4,5),(4,7),(4,7)}. Lo stesso split è ucciso,
+indipendentemente, dal sensitivity-profile per-punto (raffinamento di sensitivity/
+average_sensitivity già nel dizionario). Il dizionario codificato falliva SOLO perché
+usava le versioni SCALARI COARSE (cost scalare, sens max/somma) dei propri invarianti.
+
+**Bug intercettato dalla guardia (onestà di processo):** un cofactor "ingenuo" che legge
+i costi dei cofattori (n-1)-var sulla tabella a n var misura il costo dell'embedding
+`g∧¬xi` (NON B_n±-invariante) → produsse |P_Σ|=243>222, #splits=0 VACUO. La guardia di
+legittimità `|P_Σ| ≤ |P_orbit±|` lo ha smascherato; la versione corretta usa la tabella
+a (n-1) var. Test di regressione: `test_naive_cofactor_would_over_refine`.
+
+**Evaluator:** RESTATEMENT-OF-KNOWN / COLLAPSE-HARDENED. Nessun falsificatore genuino
+fuori-dizionario a n≤4. La meta-conclusione "tiny-instance collapse" (Module 19) esce
+RAFFORZATA: persino l'unica apparente via di fuga a n=4 muore per un raffinamento di
+`cost`. SESTO esito collapse-hardened consecutivo. Honesty boundary: metodo su istanze
+FINITE, NON un claim su P vs NP.
+
+**Scritto/committato:** modulo falsifier_hunt + 12° generatore cofactor_cost_profile +
+test (22 fast verdi + 1 slow n=4 collasso completo) + esempio + docs/falsifier-hunt.md +
+questa entry + memoria aggiornata → COMMITTATI come risultato negativo onesto (decisione
+umana: cristallizzare e committare). Scratch `_cycle6_*`/`_probe_*`/`_cost_n4.pkl` rimossi.
+
+**NEXT unstable direction:** NESSUNA. Il falsificatore dichiarato da Entry 7 è stato
+cercato esaustivamente a n≤4 e NON esiste (l'unico candidato collassa in σ(cost)). Il
+loop resta CHIUSO. Ripresa solo su una direzione genuinamente fuori dal dizionario μ_R,
+con falsificatore dichiarato in anticipo, e su n≥5 (oltre la portata esatta attuale).
