@@ -4,6 +4,16 @@ New research program, opened 2026-06-14 after the CSP/algebraic branch closed
 (`docs/collapse-theorem.md`, RESEARCH_LOG Entries 1–12, ten collapses). Human PI
 chose direction ① (hardness magnification + the locality barrier).
 
+> **STATUS (2026-06-14).** The **locality-barrier sub-branch is CLOSED** —
+> crystallized as **Module 21** (`docs/locality-barrier.md`), RESEARCH_LOG Entries
+> 13–15. Two cycles (staircase ρ=1; fixed-fraction level-invariance) both collapsed:
+> the locality *mechanism* is faithfully exact (genuine `N`-junta), but every
+> *leverage* quantity reduces to a global statistic of the hard set, because
+> `MCSP[s]` is permutation-invariant. The **program as a whole stays OPEN but in
+> STOP-and-ask**: reopening needs a meta-level object that is **not**
+> permutation-invariant (or a measure that is not a global statistic of the hard
+> set), else it re-enters the dictionary. No auto-cycle without a pre-declared killer.
+
 ## Why this program is DIFFERENT from the loop that just closed
 
 The CSP loop was a **discovery** loop: it hunted for a *local discriminant with new

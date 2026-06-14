@@ -966,3 +966,38 @@ permutazione-invariante o una misura che non sia una statistica globale del set 
 rientra comunque nel dizionario); (3) STOP del programma magnification nel suo insieme (5ª arena,
 stesso collasso: muro citabile reso esatto, meccanismo gira ma amplificazione asintotica sfugge al
 tiny). NESSUN auto-ciclo senza falsificatore dichiarato in anticipo.
+
+---
+
+## Entry 15 — CHIUSURA: cristallizzazione del sotto-ramo locality come Module 21 (2026-06-14)
+
+**Decisione umana (2026-06-14):** opzione (1) di Entry 14 — CHIUDERE il sotto-ramo locality e
+cristallizzare il risultato negativo onesto come Module. Il sotto-ramo è collassato due volte
+sullo stesso modulo (Entry 13 staircase ρ=1 → artefatto banda-dura degenere H=2; Entry 14
+level-invariance → average sensitivity + artefatto di densità), e la causa è STRUTTURALE, non di
+parametrizzazione: MCSP[s] è invariante per permutazione delle coordinate, quindi ogni
+discriminante "best k-local" collassa a una funzione simmetrica del set duro (statistica globale
+= oggetto del dizionario). Un terzo ciclo nello stesso modulo ricadrebbe nella stessa classe.
+
+**Cristallizzato:** `docs/locality-barrier.md` (Module 21, EN-first con Honesty boundary). Stato:
+- Il MECCANISMO della barriera di località è reso ESATTO e FEDELE: MCSP[s] è un N-junta genuino
+  (loc=N: 4/4, 8/8, 16/16, killer-fidelity superato), certified(k) raggiunge H solo al junta
+  pieno. Questo regge e resta nel repo come modello eseguibile fedele di un muro NOTO (come
+  Module 1 per le natural proofs).
+- La LEVA (l'operatore che avrebbe dovuto portare contenuto di magnification attraverso i livelli)
+  collassa: entrambi i cicli riducono a statistiche globali note del set duro. 5ª arena del
+  Collapse Theorem, al meta-livello.
+- L'amplificazione vera (small LB → big separation) è asintotica e CITATA; sfugge al tiny per
+  costruzione. NESSUN claim su P vs NP.
+
+**Aggiornamenti repo (questa entry):** `docs/locality-barrier.md` creato; README aggiornato (riga
+Module 21 nella tabella + voce nella lista docs + conteggio test). I file di codice/test/esempio
+del ciclo 2 erano già committati (54ae483); le entry 13–14 già nel log. Memoria aggiornata
+(magnification-frontier.md → sotto-ramo CLOSED/Module 21; MEMORY.md; tiny-instance-collapse.md;
+prompts/magnification-frontier.md → stato programma). Suite verde.
+
+**Stato del PROGRAMMA Magnification Frontier (non solo del sotto-ramo):** il sotto-ramo locality è
+CHIUSO. Il programma nel suo insieme resta APERTO ma in STOP-and-ask: per riaprire serve un oggetto
+meta-livello NON permutazione-invariante (o una misura che non sia una statistica globale del set
+duro), altrimenti rientra nel dizionario — esattamente la lezione strutturale di questo Module.
+Decisione futura dell'umano; nessun auto-ciclo.
