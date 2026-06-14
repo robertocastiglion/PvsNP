@@ -864,3 +864,105 @@ al variare di n, accettando che a n finito non c'è regime ma solo punti; (3) ST
 magnification (la barriera di località, come la natural-proofs di Module 1, è un muro CITABILE
 reso esatto: il meccanismo gira ma l'amplificazione è asintotica e sfugge al tiny — 5° arena,
 stesso collasso). NESSUN auto-ciclo senza una direzione con falsificatore dichiarato in anticipo.
+
+---
+
+## Entry 14 — Magnification Frontier ciclo 2: il taglio orizzontale onesto (frazione fissa θ=0.5) — curva di ostruzione normalizzata c(j) (2026-06-14)
+
+**Contesto:** dopo Entry 13 (ciclo 1: staircase rho=1 FALSIFICATA, artefatto della banda-dura
+degenere H=2, non monotona attraverso i livelli), l'umano ha lanciato il ciclo 2 = l'opzione (1)
+del NEXT precedente, il "taglio orizzontale ONESTO": abbandonare la policy banda-dura (H=maxcost−1,
+H non monotona) per una policy a FRAZIONE FISSA s=round(maxcost·θ), θ=0.5, che mantenga H
+NON-degenere e confrontabile tra i livelli, e misurare se la pendenza dell'ostruzione ha una
+tendenza pulita o resta combinatoria del set duro.
+
+**Oggetto (Builder, `pnp_lab/meta_complexity/locality.py`):** aggiunti `fixed_fraction_threshold(ct,
+theta=0.5)` (round banker's: s=2,4,8 a n=2,3,4), `obstruction_curve(meta,N,jmax=2)` → [c(0),c(1),
+c(2)] con la curva normalizzata c(j)=certified(N−j)/H in `Fraction` ESATTE (no float), dataclass
+`LevelCurve`, `level_curves`. Test nuovi in `tests/test_locality.py` (5, incl. lo slow decisivo
+`test_level_invariance_n3_vs_n4_KILLER_A` con `@pytest.mark.timeout(300)` che carica la cache
+`.cache/ct4.pkl`). Esempio aggiornato. Suite: 11 fast + slow verdi.
+
+**Ipotesi H (Explorer):** con θ=0.5 la curva normalizzata c(j)=certified(N−j)/H è un INVARIANTE DI
+LIVELLO — c(j) indipendente da n, ovvero c(1) e c(2) COINCIDONO tra n=3 e n=4. Killer dichiarati:
+KILLER-A (c(1)@n3 ≠ c(1)@n4 → riduzione a istogramma del set duro); KILLER-B (degenerazione a n
+piccolo: loc<N oppure H<3); KILLER-C (c(j) derivabile da H/2^N con formula chiusa → invarianza
+aritmetica). Policy scelta = frazione fissa, NON gap-MCSP (che a n=4 con maxcost=15 darebbe la
+finestra dura cost≥16 VUOTA).
+
+**Numeri esatti misurati (razionali; riprodotti indipendentemente dall'Adversary dal raw cost dict):**
+
+    n   N   s   H        loc      c(0)   c(1)            c(2)
+    2   4   2   2        4/4      1      0               0
+    3   8   4   50       8/8      1      8/25            4/25
+    4  16   8   25954    16/16    1      8990/12977      6068/12977
+
+KILLER-A SCATTATO: c(1)@n3 = 8/25 = 0.320 ≠ c(1)@n4 = 8990/12977 ≈ 0.693; c(2)@n3 = 4/25 = 0.160 ≠
+c(2)@n4 = 6068/12977 ≈ 0.468. **Ipotesi level-invariant FALSIFICATA.** Solo c(0)=1 regge (banale: il
+junta pieno certifica per costruzione tutto H). KILLER-B SUPERATO (loc=N, H non degenere ovunque).
+Indipendentemente verificati: certified(N−1)@n4 = 17980, certified(N−2)@n4 = 12136.
+
+**Verdetto Adversary = RESTATEMENT/KILLED (collasso #11 del lab), tutto misurato in codice:**
+- **KILL STRUTTURALE (solo j=1):** MCSP[s] è invariante per permutazione delle coordinate ⇒
+  certified(N−1) è IDENTICO su tutti gli assi (tutti = 17980 a n=4, tutti = 16 a n=3) ⇒ la
+  massimizzazione "best k-local set S" è VACUA a j=1. CORREZIONE dell'Evaluator: vale SOLO per j=1;
+  a j≥2 il max MORDE (a n=3 le coppie danno certified(N−2) ∈ {0,8}, max=8 > media) ⇒ NON estendere
+  "max vacuo" a j≥2.
+- **RIDUZIONE-A-NOTO:** c(1) = 2·E_axis/H = 1 − AvgSensitivity_restricted/N = densità degli archi
+  del set duro nell'ipercubo = average sensitivity di MCSP[s], oggetto Fourier/influence da manuale,
+  NON località.
+- **NULL-MODEL:** per un set duro random di densità p, c(j) ≈ 2^j·p^(2^j−1) → predice la crescita
+  misurata (c(1): 0.39→0.79; c(2): 0.030→0.248). "c(j) cresce con n" = concentrazione triviale.
+- **ARTEFATTO DI SOGLIA:** θ=0.5 NON fissa la densità (p=0.195 a n=3, 0.396 a n=4); c(1) traccia p →
+  il gap è un confronto fra densità NON appaiate.
+- **STRAW-MAN:** l'invarianza-di-livello non era mai stata plausibile.
+
+**Evaluator: robustness 8/10. VERDETTO = RESTATEMENT-of-known** (falsificazione GENUINA: sì;
+contenuto residuo nuovo: no). Flag APERTI: off-tiny-instance, straw-man, artefatto-di-soglia,
+vacuità-del-max (solo j=1; NON dimostrata a j≥2), overfitting (lieve). Flag CHIUSI: circolarità
+(numeri rigenerati indip. dal raw cost dict), confirmation-bias (il team ha cercato e dichiarato il
+proprio kill).
+
+**Misura residua j≥2 (inline dopo l'Evaluator, per chiudere il regime dove il max morde):** eccesso
+di clustering c(2)−null(4p^3): n=3 → 0.1600−0.0298 = +0.1302; n=4 → 0.4676−0.2484 = +0.2191.
+L'eccesso CRESCE (non è invariante di livello) ⇒ anche il regime j≥2 collassa: nessun segnale di
+livello sopravvive. Chiusura pulita.
+
+**Fix d'igiene applicato:** il test slow del ciclo 1 `test_leverage_staircase_FALSIFIED_at_n4` ora
+carica `.cache/ct4.pkl` (se presente) + `@pytest.mark.timeout(900)` invece di ricostruire n=4 →
+passa in ~240s (prima andava in timeout a 120s, non eseguibile). La falsificazione del ciclo 1 è
+ora CI-rigenerabile.
+
+**Honesty boundary (inglese, per il doc se si cristallizza):** This cycle COMPUTES, as exact
+rationals (no floats), the normalized obstruction curve c(j)=certified(N−j)/H of MCSP[s]:{0,1}^N→
+{0,1}, N=2^n, at n=2,3,4 under the fixed-fraction threshold s=round(maxcost·θ), θ=0.5. The measured
+rationals (c(1)@n3=8/25, c(1)@n4=8990/12977; c(2)@n3=4/25, c(2)@n4=6068/12977) are reproduced
+independently and exactly falsify the level-invariance hypothesis: only c(0)=1 holds (trivially).
+The c(1) datum is permutation-invariant in the coordinates of MCSP[s] (certified(N−1) identical for
+every dropped axis), so the best-k-local-set maximization is vacuous at j=1 and c(1) reduces exactly
+to a global statistic — the average sensitivity / hypercube edge-density of the hard set, a textbook
+Fourier/influence quantity, not a locality effect. θ=0.5 does not hold the hard-set density fixed
+across levels (≈0.195 at n=3 vs 0.396 at n=4), so the observed growth of c(j) tracks unmatched
+densities and is reproduced by a random-hard-set concentration null model 2^j·p^(2^j−1). For j≥2 the
+subset maximization is NOT vacuous, but the excess over the null model also grows with n
+(0.130→0.219), so no level-invariant signal survives there either. The asymptotic magnification
+theorems (Oliveira–Pich 2019; Chen–Jin–Williams 2019/2020; McKay–Murray–Williams 2019) and the
+locality barrier (Chen–Hirahara–Ren–Santhanam–Vyas) are CITED, never computed; at finite n the
+threshold is a single integer, not a regime. No P vs NP claim. A faithful finite measurement method,
+not a result.
+
+**STOP-and-ask:** SCATTA. Il sotto-ramo "locality barrier" del programma magnification ha ora
+collassato DUE volte sullo stesso modulo (Entry 13 staircase→artefatto banda-dura H=2; Entry 14
+level-invariance→average sensitivity + artefatto di densità), entrambe riducibili a statistiche
+globali note. Diagnosi STRUTTURALE: MCSP[s] è permutazione-invariante, quindi ogni discriminante
+"best k-local" collassa a una funzione simmetrica del set duro. Scratch da rimuovere: NESSUNO
+(working tree pulita; gli script di misura sono in /tmp, fuori dal repo; `.cache/` è gitignorato).
+Decisione di commit del ciclo 2 PENDENTE sull'umano.
+
+**NEXT unstable direction (decisione umana):** (1) CHIUDERE il sotto-ramo locality (raccomandazione
+netta dell'Evaluator: 2 collassi strutturali, un terzo giro ricadrebbe nella stessa classe);
+(2) cambiare arena DENTRO il programma magnification meta-livello, ma serve un oggetto NON
+permutazione-invariante o una misura che non sia una statistica globale del set duro (rischio:
+rientra comunque nel dizionario); (3) STOP del programma magnification nel suo insieme (5ª arena,
+stesso collasso: muro citabile reso esatto, meccanismo gira ma amplificazione asintotica sfugge al
+tiny). NESSUN auto-ciclo senza falsificatore dichiarato in anticipo.

@@ -66,6 +66,32 @@ def main() -> None:
     print("    pieno (cert(15)=24, cert(14)=8) e rho<1. La leva misura taglia+disper-")
     print("    sione della banda dura (H=2,2,114, non monotona), non l'amplificazione.")
 
+    # ── CICLO 2: il taglio ORIZZONTALE (policy frazione fissa) ────────────
+    print("\n  IL TAGLIO ORIZZONTALE (ciclo 2): policy a FRAZIONE FISSA s=round(maxcost·θ),")
+    print("  θ=0.5. Tiene H non degenere (≈ mezzo spazio). Ipotesi Explorer: la curva")
+    print("  normalizzata c(j)=certified(N-j)/H e' un INVARIANTE DI LIVELLO (c(j) indip.")
+    print("  da n). Razionali ESATTI:\n")
+    import pickle
+    from pathlib import Path
+    rows2 = locality.level_curves([min_formula_sizes(2), min_formula_sizes(3)])
+    cache = Path(__file__).resolve().parent.parent / ".cache" / "ct4.pkl"
+    if cache.exists():
+        with open(cache, "rb") as f:
+            ct4 = pickle.load(f)
+        rows2 = locality.level_curves([min_formula_sizes(2), min_formula_sizes(3), ct4])
+    print("     n   N=2^n   s     H       loc      c(0)   c(1)            c(2)")
+    for r in rows2:
+        cc = [str(x) for x in r.c]
+        print(f"    {r.n:2d}   {r.N:3d}   {r.s:3d}  {r.H:6d}   {r.loc:2d}/{r.N:<2d}"
+              f"   {cc[0]:<5s}  {cc[1]:<14s}  {cc[2]}")
+    if not cache.exists():
+        print("    (n=4 saltato: cache .cache/ct4.pkl assente)")
+    print("\n    ESITO ONESTO: KILLER-A E' SCATTATO. c(1) e c(2) NON coincidono tra n=3 e")
+    print("    n=4 (8/25=0.320 vs 8990/12977=0.693; 4/25=0.160 vs 6068/12977=0.468). Solo")
+    print("    c(0)=1 regge (banale: junta pieno). c(j) NON e' un invariante di livello:")
+    print("    la frazione certificabile (N-1)/(N-2)-locale CRESCE con n. Il muro c(0)=1")
+    print("    solo al junta pieno regge; la sua NORMALIZZAZIONE non e' level-invariant.")
+
     print("\n  " + locality.magnification_threshold_note())
     print("=" * 72)
 

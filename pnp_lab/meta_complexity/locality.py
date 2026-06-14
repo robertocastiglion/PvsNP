@@ -64,6 +64,7 @@ Honesty boundary.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from fractions import Fraction
 from itertools import combinations
 from typing import Dict, List, Sequence, Set, Tuple
 
@@ -279,6 +280,96 @@ def leverage(cts: Sequence[ComplexityTable]) -> List[LeverageRow]:
         ks = k_star(meta, N)
         rows.append(LeverageRow(n=ct.n, N=N, s=s, H=H, loc=loc_v,
                                 k_star=ks, rho=(ks / N if ks is not None else None)))
+    return rows
+
+
+# ── ciclo 2: il taglio ORIZZONTALE onesto (policy a frazione fissa) ───────
+#
+# Il ciclo 1 (banda-dura, s = maxcost-1) isola la coda piu' dura, ma a n<=3 quella
+# coda e' DEGENERE (H=2: solo parita' e ¬parita'), e rho=1 e' un artefatto del
+# conteggio, non il muro. Il ciclo 2 cambia POLICY: s = round(maxcost * theta) con
+# theta=0.5 tiene la popolazione dura NON degenere (s a meta' scala -> H circa meta'
+# spazio: H = 2, 50, 25954 a n = 2, 3, 4), cosi' le fibre pura-dura esistono gia' a
+# n=3 e la curva di ostruzione e' MISURABILE a ogni livello, non solo a n=4.
+#
+# L'IPOTESI testata (Explorer ciclo 2): la curva normalizzata
+#     c(j) := certified(N-j) / H
+# (frazione di istanze dure certificabili da un argomento (N-j)-locale) sarebbe un
+# INVARIANTE DI LIVELLO: c(j) indipendente da n una volta diviso per H. Predizione:
+# c(0)=1 ovunque (il junta pieno certifica tutto), e c(1),c(2) coincidenti come
+# RAZIONALI tra n=3 e n=4.
+#
+# ESITO MISURATO (esatto, razionali; rigenerabile: vedi tests/test_locality.py):
+#
+#     n   N    s   H       c(0)   c(1)            c(2)
+#     2   4    2   2       1      0               0
+#     3   8    4   50      1      8/25            4/25
+#     4  16    8   25954   1      8990/12977      6068/12977
+#
+# KILLER-A E' SCATTATO. c(1)@n3 = 8/25 = 0.320  !=  c(1)@n4 = 8990/12977 = 0.6928.
+# c(2)@n3 = 4/25 = 0.160  !=  c(2)@n4 = 6068/12977 = 0.4676. L'IPOTESI E' FALSIFICATA:
+# c(j) NON e' un invariante di livello. Solo c(0)=1 regge (banale: junta pieno). La
+# frazione certificabile da un argomento (N-1)- o (N-2)-locale CRESCE con n (da .32 a
+# .69, da .16 a .47): a popolazione dura piu' ricca le fibre quasi-piene sono molto
+# piu' spesso pura-dura. Negativo ed esatto, nessun claim su P vs NP: il MECCANISMO
+# (c(0)=1 solo al junta pieno) regge, ma il muro normalizzato NON e' level-invariant.
+
+
+def fixed_fraction_threshold(ct: ComplexityTable, theta: float = 0.5) -> int:
+    """Policy di soglia a FRAZIONE FISSA: s = round(maxcost * theta).
+
+    A differenza di ``hardest_band_threshold`` (banda-dura, s = maxcost-1, che a n<=3
+    degenera a H=2 = parita' e ¬parita'), la frazione fissa pone s a meta' scala di
+    complessita': la popolazione dura resta NON degenere (circa meta' spazio,
+    H = 2, 50, 25954 a n = 2, 3, 4) e le fibre pura-dura esistono gia' a n=3, rendendo
+    la curva di ostruzione c(j) misurabile a ogni livello.
+
+    ATTENZIONE: ``round`` di Python e' banker's rounding (round(7.5)=8 ma round(4.5)=4).
+    Con theta=0.5: maxcost 3 -> s=2, maxcost 9 -> s=round(4.5)=4, maxcost 15 -> s=8.
+    """
+    return round(max(ct.cost.values()) * theta)
+
+
+def obstruction_curve(meta: Sequence[bool], N: int, *, jmax: int = 2) -> List[Fraction]:
+    """La curva normalizzata di ostruzione [c(0), c(1), ..., c(jmax)].
+
+    c(j) = Fraction(certified(N-j), H) = frazione di istanze dure che un argomento
+    (N-j)-locale certifica con certezza (fibra pura-dura). RAZIONALI ESATTI
+    (``fractions.Fraction``), niente float. c(0)=1 sempre (junta pieno certifica H).
+
+    Se H==0 ritorna lista VUOTA (nessuna istanza dura -> curva non definita)."""
+    H = hard_count(meta)
+    if H == 0:
+        return []
+    return [Fraction(certified_k_local(meta, N, N - j), H) for j in range(jmax + 1)]
+
+
+@dataclass
+class LevelCurve:
+    n: int
+    N: int                 # 2^n = lunghezza del truth-table (input di MCSP)
+    s: int                 # soglia (policy frazione-fissa)
+    H: int                 # # istanze dure
+    loc: int               # coordinate rilevanti (=N => junta non degenere)
+    c: List[Fraction]      # curva [c(0), c(1), ..., c(jmax)] come razionali esatti
+
+
+def level_curves(cts: Sequence[ComplexityTable], theta: float = 0.5,
+                 *, jmax: int = 2) -> List[LevelCurve]:
+    """La curva di ostruzione c(j) attraverso i livelli, policy frazione-fissa.
+
+    Per ogni ComplexityTable emette (n, N, s, H, loc, [c(0..jmax)]). MISURATO: c(j)
+    NON e' un invariante di livello (KILLER-A scattato: c(1)@n3=8/25 != c(1)@n4=
+    8990/12977). Solo c(0)=1 regge. Vedi il blocco-commento sopra."""
+    rows: List[LevelCurve] = []
+    for ct in cts:
+        N = 1 << ct.n
+        s = fixed_fraction_threshold(ct, theta)
+        meta = meta_truth_table(ct, s)
+        H = hard_count(meta)
+        loc_v = loc(meta, N)
+        c = obstruction_curve(meta, N, jmax=jmax)
+        rows.append(LevelCurve(n=ct.n, N=N, s=s, H=H, loc=loc_v, c=c))
     return rows
 
 
