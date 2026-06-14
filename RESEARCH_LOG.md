@@ -783,3 +783,84 @@ forza-bruta), unica via per toccare il cuore di Bulatov–Zhuk; (3) STOP globale
 4 arene = punto fermo robusto: il metodo del loop su istanze finite collassa sempre su un
 oggetto del dizionario). NESSUN auto-ciclo senza una direzione genuinamente fuori-dizionario
 con falsificatore dichiarato in anticipo.
+
+---
+
+## Entry 13 — Magnification Frontier ciclo 1: la barriera di località esatta su MCSP[s] — FALSIFICAZIONE della leva (2026-06-14)
+
+**Contesto-programma:** dopo la chiusura del ramo CSP (Collapse Theorem capstone, bb0e052),
+l'umano ha aperto il NUOVO programma "Magnification Frontier" (ea5f391): far GIRARE esattamente
+al meta-livello la hardness magnification + barriera di località su MCSP[s] (truth-table di
+funzioni n-bit come N=2^n coordinate), faithful-not-new-content, misurando la LEVA attraverso i
+livelli n=2→3→4 invece di un muro statico (il "terzo taglio della torta"). Questo è il
+completamento del ciclo 1, il cui Builder era in pausa per limite di sessione.
+
+**Oggetto (Builder, `pnp_lab/meta_complexity/locality.py`):** meta-funzione MCSP[s]:{0,1}^N→{0,1},
+N=2^n, HARD = (formula minima esatta di Module 6 > s). Misure esatte: `relevant_coordinates`/`loc`
+(junta), `best_k_local` A(k), `certified_k_local` (istanze dure che un argomento k-locale certifica
+con CERTEZZA = fibra pura-dura), tabella `obstruction`, e la LEVA `leverage` su più livelli con la
+policy banda-dura s=maxcost-1. + `tests/test_locality.py` + `examples/run_locality.py`.
+
+**Ipotesi H (la staircase):** per la funzione PIÙ DURA serve leggere l'INTERO truth-table a ogni
+livello (k*=N, rho=1), e k* RADDOPPIA 4→8→16. Killer-fidelity dichiarato: loc=N (junta genuino,
+non degenere). Predizione esplicita codificata nel test slow: cert(N−1)=0 ⇒ k*=16, rho=1 a n=4.
+
+**Numeri esatti misurati (build n=4 completo: complete=True, max_cost=15, 65536 funzioni; cachato
+in `.cache/ct4.pkl`, ~500–900s):**
+
+    n   N    H     k*   rho      coda cert(N−j)/H (j=0..3)
+    2   4    2      4   1.000    1.00, 0,    0,    0
+    3   8    2      8   1.000    1.00, 0,    0,    0
+    4  16  114     14   0.875    1.00, 0.21, 0.07, 0     (cert: 114, 24, 8, 0)
+
+loc=16/16 a n=4 → killer-fidelity SUPERATO (junta genuino, muro reale). MA cert(15)=24≠0 e
+cert(14)=8≠0 ⇒ per monotonia k*=14<16, rho=0.875<1.
+
+**Verdetto: IPOTESI DELLA LEVA FALSIFICATA esattamente a n=4** (terzo punto-dato). La staircase
+"rho=1 a ogni livello, k* raddoppia 4→8→16" è FALSA. **Diagnosi esatta (il taglio orizzontale):**
+il rho=1 a n≤3 era l'ARTEFATTO della banda-dura degenere H=2 (solo la parità e la sua negazione
+sono massimamente dure; con 2 sole istanze, massimamente sparse, nessuna fibra di N−1 bit è
+pura-dura → cert(N−1)=0 → rho=1 banale). Appena la popolazione dura è reale (H=114 a n=4)
+compaiono fibre pura-dura sotto il junta pieno e rho<1. La leva NON misura un operatore di
+magnification ma la TAGLIA+dispersione della banda più dura: H=2,2,114, NON monotona. Il
+MECCANISMO di località (cert(k) basso finché k<N, junta genuino) regge; cade la STORIA "staircase
+rho=1". È l'undicesima volta che il segnale tiny si riduce a un oggetto noto/banale — qui visto
+ATTRAVERSO i livelli (la pendenza), non a un livello solo.
+
+**Correzioni applicate (faithful):** `k_star` riscritto a DISCESA dall'alto (corretto + efficiente:
+nel regime banda-dura k* è vicino a N, si toccano solo C(16,15),C(16,14),…, niente C(16,8)
+catastrofico); blocco-leva, docstring di `leverage()` e `magnification_threshold_note()` aggiornati
+con la falsificazione; esempio riscritto coi numeri reali; test `test_leverage_staircase_FALSIFIED_at_n4`
+asserisce k*=[4,8,14], rho=[1,1,0.875], H=[2,2,114] e la coda [114,24,8,0] (era k*=[4,8,16],rho=1).
+Suite verde (7 test veloci + 1 slow). Cache `.cache/ct4.pkl` evita il rebuild da 500–900s.
+
+**Honesty boundary (inglese, per il doc se si cristallizza):** This cycle makes the locality
+obstruction of hardness magnification EXACT on the meta-function MCSP[s] and makes NO claim about
+P vs NP. The locality MECHANISM holds exactly (certified(k) stays low until the full junta;
+MCSP[s] is a genuine N-junta, loc=N). But the "leverage staircase" hypothesis — rho=k*/N=1 at
+every level, k* doubling 4→8→16 — is EXACTLY FALSIFIED at n=4: k*=14, rho=0.875. The rho=1 at
+n≤3 is an artifact of the degenerate hardest band H=2 (only parity and its negation are maximally
+hard; with two maximally-spread instances no (N−1)-subset has a pure-hard fibre). Once H is a real
+population (H=114 at n=4) pure-hard fibres appear below the full junta. The leverage measure
+tracks the size/spread of the hardest band (H=2,2,114, non-monotone), not a magnification
+operator. The amplification (sub-quadratic LB ⇒ NP⊄P/poly) is asymptotic and CITED (Oliveira–Pich
+2019; Chen–Jin–Williams 2019/2020; locality barrier Chen–Hirahara–Ren–Santhanam–Vyas); it escapes
+tiny n. A negative, exact, faithful finite-instance result: the tiny-instance leverage signal
+reduces to a band-population artifact — the lab's recurring collapse, seen across levels.
+
+**STOP-and-ask:** SCATTA. Il ciclo 1 ha prodotto una FALSIFICAZIONE pulita (non un RESTATEMENT
+crystallizzabile come FATTO): la leva-come-staircase non regge, e ciò che regge (meccanismo di
+località + collasso su artefatto di banda) è il pattern già noto del lab. Scratch da rimuovere
+prima di un eventuale commit: NESSUNO nel tree principale (modulo/test/esempio + `.cache/ct4.pkl`,
+da .gitignorare o committare come cache opzionale; gli script di misura stanno in /tmp). Decisione
+di commit PENDENTE sull'umano.
+
+**NEXT unstable direction (STOP-and-ask — decisione umana):** (1) il taglio orizzontale ONESTO —
+non la banda-dura (H non monotona, degenere a n piccolo) ma una FRAZIONE FISSA o un GAP-MCSP
+(s = maxcost/2, gap-MCSP[s,2s]) che mantenga H confrontabile attraverso i livelli, per vedere se
+la pendenza cert(N−1)/H ha una tendenza pulita o resta governata dalla combinatoria della banda;
+(2) misurare l'OPERATORE giusto — non k* (min) ma l'intera curva certified(k)/H e la sua pendenza
+al variare di n, accettando che a n finito non c'è regime ma solo punti; (3) STOP del programma
+magnification (la barriera di località, come la natural-proofs di Module 1, è un muro CITABILE
+reso esatto: il meccanismo gira ma l'amplificazione è asintotica e sfugge al tiny — 5° arena,
+stesso collasso). NESSUN auto-ciclo senza una direzione con falsificatore dichiarato in anticipo.
