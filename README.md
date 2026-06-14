@@ -124,6 +124,7 @@ axioms**, the concrete layer only on `propext`/`Quot.sound`, and **nothing uses
 - `docs/exactness-composes.md` — the killer search resolving the post-audit `G★=Cov−LP` conjecture: TRUE for tensor (corollary of LP multiplicativity), FALSE for lifting (Module 18, EN).
 - `docs/tiny-instance-collapse.md` — the closing meta-conclusion of the research loop: on `n≤4` every local discriminant reduces (by an exact identity) to a dictionary invariant; deprecates `d_flip` (Module 19, EN).
 - `docs/invpol-collapse.md` — the collapse transcends `σ(cost)`: on the ternary CSP domain `D={0,1,2}`, `g(Γ)` reduces to the clone-slice cardinality `|Pol₂^{comm,idem}(Γ)|` (Inv–Pol); ninth collapse, fourth arena (Module 20, EN).
+- `docs/collapse-theorem.md` — **capstone**: the closing meta-conclusion of the autonomous loop. Ten RESTATEMENT cycles across four arenas reduce to dictionary objects; the sharp diagnostic is that **exact enumerability is the trap** (the regime, not the invariant). Falsifiable; CSP/algebraic branch closed; the non-enumerable certified-bound regime left open (EN).
 - `docs/analisi-metacomplessita.md` — full meta-complexity analysis & critique (IT).
 - **Interactive divulgative site (IT):** <https://robertocastiglion.github.io/PvsNP/>
 
