@@ -625,3 +625,80 @@ come negativo onesto. Nessuno scratch.
 dove il profilo dei politomorfismi (WNU/Taylor/simmetrici) dia un discriminante NON
 riducibile alla dicotomia nota. Se anche lì collassa → la meta-conclusione "tutto-è-noto"
 trascende σ(cost) ed è robusta su 4 arene → STOP globale con forte evidenza.
+
+---
+
+## Entry 11 — Restart program, direzione B ciclo 2: politomorfismi ternari, |D|=3 (2026-06-14)
+
+**Direzione testata:** dominio |D|=3 (il vero banco di Bulatov–Zhuk), continuazione della
+direzione B = il NEXT dichiarato da Entry 10. L'arena algebrica CSP fuori da σ(cost), ora
+nel regime genuinamente non-classico (dove la dicotomia booleana Post/Schaefer non si applica).
+
+**Ipotesi H-B2 (Explorer):** g(Γ) = #WNU binari idempotenti commutativi (27 candidati su
+D={0,1,2}) che preservano Γ, quozientato per gli automorfismi unari di Γ. H: g separa coppie
+marker-identiche e NON è funzione del profilo simmetrico né di |Aut|. Killer dichiarati in
+anticipo: K-marker, K-σ, K-aut, K-feasibility.
+
+**Costruito (Builder):** `pnp_lab/csp/polymorphism3.py` (op_value3 base-3, preserves3,
+commutative_idempotent_binary_ops=27, unary_automorphisms, count_wnu_witnesses, g col
+quoziente per orbite Aut, has_wnu k=2 esatto/k=3 limitato, symmetric_idempotent_ops +
+symmetric_profile3 esatto fino k=4, CATALOG di 8 relazioni, analyze3 coi 3 killer) +
+`tests/test_polymorphism3.py` (10 test default + 1 slow) + `examples/run_polymorphism3.py`.
+Suite intera verde (`py -m pytest -q`), nessuna regressione.
+
+**Numeri esatti misurati (tabella g, da `py examples/run_polymorphism3.py`):**
+alldiff3 g=0 σ=() |Aut|=6; between g=8 σ=(2,3) |Aut|=1; cycle3 g=3 σ=(2,) |Aut|=3;
+leq g=8 σ=(2,3) |Aut|=1; lt g=9 σ=(2,3) |Aut|=1; min_graph g=1 σ=(2,3) |Aut|=1; nae3 g=0;
+neq g=0. Testimoni H: (between,lt) e (leq,lt) con firma-marker identica
+(wnu2,wnu3,σ,|Aut|)=(T,T,(2,3),1) ma g∈{8,8,9}. In prima battuta NESSUNO dei 3 killer
+scatta (verdetto numerico del Builder).
+
+**Verdetto Adversary: RESTATEMENT (riduzione esibita), NONO collasso.** 5 vettori tutti
+misurati in codice:
+1. Marker grossolano corretto: enumerando le 2187 WNU ternarie idempotenti reali, wnu3=True
+   è corretto su between/leq/lt (la sotto-stima majority/median NON ha falsato la firma); ma
+   la firma "identica" è separata da marker NOTI banali — riflessività (leq g=8 / lt g=9) e
+   arietà (between/leq).
+2. Artefatto bordo riflessivo: aggiungendo elementi diagonali (rumore pp-banale) a lt, g
+   salta 9→10→12→6→8 non-monotono → g dipende dalla diagonale.
+3. Quoziente Aut VACUO: su tutte le 8 righe g==count_wnu_witnesses; su tutte le testimoni
+   |Aut|=1; persino nell'unico caso |Aut|>1 con testimoni (cycle3, C₃) ogni orbita ha size 1
+   → il quoziente non riduce mai sul catalogo → g qui ≡ scalare-conteggio (viola
+   l'ammissibilità della regola di restart (1)).
+4. Non encoding-invariante: between/leq/lt = 3 codifiche dello stesso ordine lineare → g le
+   separa ma non è invariante per ricodifica = killer K2 di Entry 9.
+5. RIDUZIONE ESIBITA: la colonna indipendente |{f binaria comm idem ∈ Pol(R)}| riproduce g
+   esattamente su 8/8 righe → g(Γ) = |Pol₂^{comm,idem}(Γ)|, cardinalità di una fetta del
+   clone (Inv-Pol). Zero contenuto predittivo nuovo.
+
+**Evaluator: RESTATEMENT-OF-KNOWN, robustness 8.5/10.** Flag APERTI: off-tiny-instance
+(catalogo 8 relazioni, |D|=3, WNU binari; il regime decisivo Bulatov–Zhuk = WNU alta arietà
+/ |D| grande resta fuori portata esatta — le 3^27 operazioni ternarie non sono mai
+enumerate); circolarità residua (g vive dentro il linguaggio Inv-Pol che doveva
+trascendere); overfitting catalogo a mano (quoziente vacuo "qui", non teorema generale —
+l'Adversary ha killato g-come-misurato, non g-in-generale); confirmation-bias mitigato. Flag
+CHIUSO: has_wnu3 sotto-stima (verificato con enum 2187).
+
+**Honesty boundary (inglese, per il doc se si cristallizza):** This cycle establishes a
+negative, exact result on a tiny finite arena and makes NO claim about P vs NP. g(Γ) reduces
+exactly to |Pol₂^{comm,idem}(Γ)| on the 8-relation catalog over D={0,1,2}; the intended
+Aut-quotient is structurally vacuous (verified including cycle3, Aut≅C₃, all orbits size 1).
+|D|=3 is the genuinely non-classical Bulatov–Zhuk regime, but the decisive content lives in
+high-arity WNU operations and larger domains, out of exact reach here (the 3^27 ternary
+operations are never enumerated). A reusable exact finite-instance diagnostic for
+Inv–Pol-dictionary collapse — not a separation result.
+
+**STOP-and-ask:** SCATTA. NONO collasso; secondo RESTATEMENT consecutivo senza nuova
+direzione plausibile (Entry 9 dir-A, Entry 10 dir-B booleano, ora Entry 11 dir-B ternario).
+Meta-conclusione "tutto-è-noto su istanze tiny/finite" corroborata trasversalmente: 4 arene,
+9 collassi. Scratch da rimuovere prima del commit: NESSUNO (la working tree ha solo i file di
+modulo/test/esempio; nessun `_*.py`/`_*.out`/probe presente).
+
+**NEXT unstable direction (STOP-and-ask — decisione umana):** (1) cristallizzare in un Module
+g(Γ)=|Pol₂^{comm,idem}| come diagnostico esatto di collasso Inv-Pol su istanze finite
+(deprecando il quoziente Aut come vacuo); (2) cambiare regime FUORI-esatto = WNU alta arietà
+/ |D| grande (le 3^27 ternarie non enumerabili a mano → serve struttura simbolica, non
+forza-bruta), unica via per toccare il cuore di Bulatov–Zhuk; (3) STOP globale (9 collassi su
+4 arene = punto fermo robusto: il metodo del loop su istanze finite collassa sempre su un
+oggetto del dizionario). NESSUN auto-ciclo senza una direzione genuinamente fuori-dizionario
+con falsificatore dichiarato in anticipo.
