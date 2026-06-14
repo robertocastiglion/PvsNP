@@ -1,4 +1,8 @@
-"""Direzione B, ciclo TERNARIO — politomorfismi su dominio D={0,1,2} (|D|=3).
+"""Module 20 (Inv-Pol Collapse) — Direzione B, ciclo TERNARIO — politomorfismi su D={0,1,2}.
+
+Crystallized 2026-06-14. Verdetto: RESTATEMENT (g = |Pol2^{comm,idem}|, fetta del clone
+Inv-Pol). Nono collasso, quarta arena. NON un claim su P vs NP. Vedi docs/invpol-collapse.md
+e RESEARCH_LOG Entry 11.
 
 Contesto. Il modulo booleano ``polymorphism.py`` ha mostrato che, nel setting idempotente,
 il profilo dei politomorfismi simmetrici coincide con la BLP-risolvibilita` (parent-killer
