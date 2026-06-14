@@ -580,3 +580,48 @@ Bulatov–Zhuk)** — l'unica del programma che rompe σ(cost) (lascia il mondo 
 copertura per l'algebra delle CSP). Parent-killer dichiarato: BLP ⟺ politomorfismi
 simmetrici. Se anche B collassa su un teorema noto → forte evidenza meta che "tutto è una
 dualità/algebra nota" e STOP.
+
+---
+
+## Entry 10 — Restart program, direzione B: politomorfismi (fuori da σ(cost)) (2026-06-13)
+
+**Direzione testata:** B del restart program — i POLITOMORFISMI di una relazione (la sua
+chiusura algebrica), oggetto NON derivato dal costo → unica direzione che lascia σ(cost),
+nell'arena CSP/Bulatov–Zhuk. Parent-killer dichiarato: BLP ⟺ politomorfismi simmetrici di
+ogni arità (Kun et al./Barto–Kozik).
+
+**Ipotesi H-B (Explorer):** il profilo simmetrico di Γ (per quali arità esiste un
+politomorfismo simmetrico idempotente) porta informazione OLTRE i marker noti.
+
+**Costruito (Builder):** `pnp_lab/csp/` (nuovo package) + `pnp_lab/csp/polymorphism.py`
+(preserves/op_value, symmetric_ops, has_symmetric_polymorphism, symmetric_profile,
+marker noti AND2/OR2/MAJ3/MINORITY3, schaefer_tractable, blp_solvable, is_degenerate,
+analyze su tutte le relazioni booleane di arità data) + `tests/test_polymorphism.py` (7 test).
+
+**Numeri esatti misurati (dominio booleano D={0,1}):**
+- arità 2 (3 relazioni non degeneri) e arità 3 (63 non degeneri): nel setting IDEMPOTENTE
+  il profilo simmetrico (avere simmetrici per OGNI arità fino a 6-7) coincide ESATTAMENTE
+  con la BLP-risolvibilità → **parent-killer REGGE, 0 mismatch**.
+- ≠={(0,1),(1,0)}: ha simmetrici solo di arità DISPARI (parità) → non BLP (coerente).
+
+**Verdetto Adversary (3 errori miei intercettati, tutti = killer dichiarati):**
+(1) marker SBAGLIATO Schaefer (=P) vs BLP: divergeva sull'affine = noto gap BLP⊊P, non
+contenuto. (2) marker ancora sbagliato: MAJ (bounded-width, 2-SAT) ≠ BLP (semilattice);
+≠ è MAJ-chiusa ma non BLP. Corretto blp_solvable = 0/1-valid o AND/OR (semilattice). (3)
+K-deg: le 0/1-valid sono BLP-banali via la costante NON-idempotente → mismatch artefatto,
+escluse col setting idempotente. Dopo le correzioni: coincidenza esatta → RESTATEMENT.
+
+**Evaluator:** RESTATEMENT-OF-KNOWN (parent-killer confermato). **OTTAVO collasso.**
+SIGNIFICATO: il pattern "tutto è una dualità/dicotomia nota" trascende anche σ(cost) — n
+all'arena algebrica CSP il discriminante si riduce al teorema BLP⟺simmetrici. CAVEAT
+(off-threshold): il dominio BOOLEANO è completamente classificato (Post/Schaefer), lì il
+parent-killer è un teorema → confermarlo è quasi tautologico. Il test DECISIVO della
+direzione B (dove Bulatov–Zhuk è profondo) è su dominio |D|≥3, non ancora fatto.
+
+**Scritto/committato:** package csp + modulo + test + questa entry + memoria → COMMITTATI
+come negativo onesto. Nessuno scratch.
+
+**NEXT unstable direction:** dominio |D|=3 (il vero banco di Bulatov–Zhuk): un Γ ternario
+dove il profilo dei politomorfismi (WNU/Taylor/simmetrici) dia un discriminante NON
+riducibile alla dicotomia nota. Se anche lì collassa → la meta-conclusione "tutto-è-noto"
+trascende σ(cost) ed è robusta su 4 arene → STOP globale con forte evidenza.
