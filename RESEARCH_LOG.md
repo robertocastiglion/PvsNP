@@ -424,6 +424,87 @@ pari-MCSP ∧ pari-cover-LP NON ricostruibile da cost) come ULTIMO ciclo prima d
 
 ---
 
+## Entry 12 — PRIMO ciclo del pivot di regime: larghezza di consistenza locale CSP, |D|=3 (2026-06-14)
+
+**Contesto-pivot:** dopo Entry 11 (RESTATEMENT #9, cristallizzata come Module 20 "Inv-Pol
+Collapse"), l'umano ha deciso (1) cristallizzare il [FATTO] poi (2) PIVOTARE fuori
+dall'esatto-finito verso il regime Bulatov–Zhuk-hard, dove la dicotomia è muta sul VALORE
+(non sul verdetto). Questo è il PRIMO ciclo del pivot. Cambio dichiarato di arena: dai
+politomorfismi (Inv-Pol) alla LARGHEZZA DI CONSISTENZA locale.
+
+**Ipotesi H (Explorer):** w*(Γ) = min{k : ∀Φ∈T(Γ) (≤6 var su D=3),
+(k,k+1)-consistenza(Φ) ⟺ is_sat(Φ)} — la larghezza di consistenza locale misurata DENTRO
+la classe bounded-width. H: w* separa Γ marker-equivalenti (stesso g, stesso profilo
+simmetrico, tutti WNU) e non è ricostruibile da |Pol-slice| né dal verdetto. Regime
+dichiarato (a): esatto-per-istanza su campione. Killer principale dichiarato in anticipo:
+K-bw23 (Barto–Kozik: bounded width = (2,3) → w*≤2).
+
+**Costruito (Builder):** `pnp_lab/csp/local_consistency3.py` (CSP, is_sat forza-bruta esatta
+≤3^6=729, kk1_consistent = (k,k+1)-minimalità di Barto–Kozik a punto fisso, T batteria
+congelata di istanze-test incl. gadget ciclici UNSAT-ma-localmente-consistenti, w_star,
+analyze_consistency + 4 predicati-killer) + `tests/test_local_consistency3.py` (9 test, incl.
+gap esibito: 4-ciclo di C3={(0,1),(1,2),(2,0)} UNSAT ma 1-consistente, scoperto solo da k=2)
++ `examples/run_local_consistency3.py`. Suite verde.
+
+**Numeri esatti misurati (Builder, 7 Γ; rigenerabili da `py examples/run_local_consistency3.py`):**
+between w*=1, cycle3 w*=2, eq012 w*=1, impl01 w*=1, leq w*=1, lt w*=1, min_graph w*=1.
+K-bw23=True (w*≤2 ovunque), w1_tracks_majority=False (min_graph semilattice w*=1 senza
+maggioranza), K-Pol-slice=True, h_separates=False.
+
+**Verdetto Adversary: RESTATEMENT (decimo collasso); esito "campione magro" ESCLUSO
+costruttivamente.** Ha ALLARGATO il campione 67× → tutte le 472 relazioni binarie WNU su D=3
+(universo 2^9 completo filtrato WNU): distribuzione w*={1:455, 2:17}, zero None, zero w*≥3.
+h_separates=False su tutte le 17 classi (g,σ) → FATTO non artefatto. **Matrice di confusione
+w* ↔ marker width-1 PERFETTA: (1,width-1)=455, (2,non-width-1)=17, off-diagonale=0.**
+Riduzione esibita: w*=1 ⟺ width-1 (Feder–Vardi 1998 / Dalmau–Pearson 1999:
+arc-consistency/Datalog ⟺ politomorfismi totalmente simmetrici di OGNI arietà); w*=2 ⟺
+bounded-width-non-width-1 (Barto–Kozik JACM 2014). w* è il GRADINO width-1 vs width-2 noto, un
+verdetto binario {1,2} rietichettato come intero — NON la grandezza quantitativa ricca
+promessa. Vettore batteria: per width-1 nessuna batteria alza w* (arc-consistency
+sound&complete) → w* non è artefatto-batteria. w*=2 = fenomeno odd-cycle di 2-colorazione
+(triangolo di ≠: UNSAT, 1-consistente, catturato da k=2).
+
+**Evaluator: RESTATEMENT-OF-KNOWN, robustness 8.5/10.** Ha RIPRODOTTO indipendentemente la
+matrice di confusione perfetta su 472 punti. Imprecisione dell'Adversary CORRETTA: il claim
+"confermato ad arietà 4" è impreciso — 2 dei 17 (C3 e il suo inverso) HANNO un TSI di arietà 4
+(profilo non-monotono True/False/True) ma falliscono all'arietà 3, quindi correttamente
+non-width-1; la riduzione regge SOLO col profilo simmetrico pieno "TSI di OGNI arietà", non con
+un marker a singola arietà (con la sola arietà-3 la confusione si sporca a (2,True)=15).
+FLAG-CHIAVE: **il pivot di regime è rimasto ESATTO/ENUMERABILE** (472 binarie = 2^9, simmetriche
+fino arietà 4 = ≤531441, tutto forza-bruta) → il regime DECISIVO Bulatov–Zhuk-hard (WNU alta
+arietà, |D|≥4, dove l'enumerazione è genuinamente impossibile e servono BOUND CERTIFICATI) NON
+è stato testato. Il pivot ha cambiato ARENA, non REGIME.
+
+**Honesty boundary (inglese, per il doc se si cristallizza):** w*(Γ) is exact only over the
+ENUMERABLE regime on D={0,1,2}: all 472 binary WNU relations (complete 2^9 universe) and
+symmetric-idempotent ops up to arity 4 (brute force). w*∈{1,2} with a perfect confusion matrix
+against the width-1 marker: w*=1 ⟺ full totally-symmetric-idempotent profile (Dalmau–Pearson
+width-1), w*=2 ⟺ bounded-width-not-width-1 (Barto–Kozik, bounded width=(2,3)). w* carries NO
+information beyond the known width-1/width-2 step — a binary verdict relabeled as an integer.
+h_separates=False on all 17 frontier classes (a fact, not small-sample). The regime pivot did
+NOT reach the decisive arena: "exact-per-instance on a sample" stayed entirely inside the
+enumerable, with no certified bounds; the Bulatov–Zhuk-hard regime (high-arity WNU, |D|≥4)
+remains untested. The pivot changed the arena, not the regime. NO claim about P vs NP. One
+imprecision corrected: single fixed-arity markers do NOT reconstruct w* (C3 has an arity-4
+TSI); only the full "TSI at every arity" characterization does.
+
+**STOP-and-ask:** SCATTA. DECIMO collasso; il pivot ha riprodotto il collasso al primo ciclo
+perché è rimasto nell'enumerabile. Diagnosi: su tiny+enumerabile la dicotomia è muta sul valore
+ma assorbe ogni nuova quantità (tutto si riduce al profilo polimorfico). Scratch da rimuovere
+prima di un eventuale commit: NESSUNO nella working tree principale (solo i file di modulo/test/
+esempio; l'unico `_*.out` residuo, `.claude/worktrees/crazy-jones-cc416e/_cycle1E_n4.out`, sta
+nel worktree stale, fuori dal tree principale). Decisione di commit PENDENTE sull'umano.
+
+**NEXT unstable direction (STOP-and-ask — decisione umana, raccomandazioni dell'Evaluator):**
+(1) cristallizzare il meta-risultato "su istanze tiny-enumerabili ogni discriminante locale
+collassa sul profilo polimorfico noto" e CHIUDERE il ramo CSP; (2) il VERO pivot — abbandonare
+l'enumerazione, |D|≥4 con WNU alta arietà via bound CERTIFICATI (rischio: serve dimostrazione,
+non esperimento); (3) cambiare arena (lasciare CSP/algebra, satura di teoremi-attrattore, p.es.
+proof-complexity su famiglie esplicite). Raccomandazione netta Evaluator: NON iterare un
+undicesimo ciclo nell'enumerabile (RESTATEMENT #11 quasi certo).
+
+---
+
 ## Entry 7 — CHIUSURA: cristallizzazione della meta-conclusione (2026-06-09)
 
 **Decisione umana:** opzione (1) di Entry 6 — cristallizzare SOLO la meta-conclusione
