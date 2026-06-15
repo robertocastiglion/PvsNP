@@ -1001,3 +1001,206 @@ CHIUSO. Il programma nel suo insieme resta APERTO ma in STOP-and-ask: per riapri
 meta-livello NON permutazione-invariante (o una misura che non sia una statistica globale del set
 duro), altrimenti rientra nel dizionario — esattamente la lezione strutturale di questo Module.
 Decisione futura dell'umano; nessun auto-ciclo.
+
+---
+
+## Entry 16 — Magnification Frontier ciclo 3: RIAPERTURA con MBPSP[s] a ordine fisso — l'oggetto NON permutazione-invariante (2026-06-15)
+
+**Decisione umana (2026-06-15):** riaprire il programma magnification col candidato ① proposto —
+`MBPSP[s]` a **ordine di variabili fissato**. Il criterio di riapertura (Entry 15) era esatto:
+serve un oggetto meta-livello **non permutazione-invariante**. Questo ciclo lo fornisce, col
+minimo cambiamento alla macchina esistente: stessa cornice meta di Module 21 (input = truth-table
+di `N=2^n` bit), ma la misura di complessità è la **dimensione dell'OBDD ridotto a ordine fisso**
+`π = (x_{n-1},…,x_0)` invece della dimensione di formula. HARD = "nessun OBDD piccolo".
+
+**Explorer (fidelity-killer dichiarato in anticipo).** `MBPSP[s]` è non-permutazione-invariante
+⟺ la sua pair-influence `pairinf(d)` dipende dal **supporto** del vettore differenza `d` (quali
+variabili, dunque la loro posizione nell'ordine), non solo dal peso di Hamming ⟺ lo **spread**
+`max−min` di `pairinf(d)` entro una classe di ugual peso è `> 0`. KILLER FIRES (6° collasso) se lo
+spread = 0 ovunque anche a n=4 (l'ordine si laverebbe via in aggregato). PASS se spread > 0 e
+strutturato dall'ordine. Controllo obbligatorio: la STESSA misura su MCSP (formula) deve dare
+spread = 0 (permutazione-invariante), per isolare l'effetto all'ordine OBDD.
+
+**Builder (esatto, interi, riproducibile).** `pnp_lab/meta_complexity/order_locality.py`:
+`min_obdd_size(t,n)` = conteggio nodi del ROBDD canonico a ordine fisso (sotto-funzioni distinte
+non-costanti + terminali, nodi ridondanti rimossi; verificato su x0→3, costante→1, AND→4); nessuna
+DP, quindi n=4 (tutte le 2^16 truth-table) gira in <1s — **MBPSP è più economico di MCSP**.
+`variable_swap`, `meta_truth_table_obdd`, `fixed_fraction_threshold` (θ=0.5, banker's rounding),
+`pair_influence` (base coord 0 per traslazione-invarianza, dimostrata), `weight_class_spread`,
+`order_asymmetry`. Test `tests/test_order_locality.py` + esempio `examples/run_order_locality.py`.
+
+**Prova fondante (non-invarianza, n=4).** La STESSA funzione con due variabili scambiate è una
+truth-table diversa con OBDD di taglia diversa allo stesso ordine: `(x0∧x1)∨(x2∧x3)` → 6 nodi;
+scambiando le var 1,2 → `(x0∧x2)∨(x1∧x3)` → 8 nodi. La formula non può distinguerle (è simmetrica).
+La dimensione OBDD è invece invariante per NEGAZIONE di variabile (scambia i due figli di un nodo) —
+verificato in test — il che è perché l'influenza di singola coordinata è inutile (traslazione-
+invarianza) e serve la pair-influence.
+
+**MISURA DECISIVA (esatta, congelata; veloce, niente cache per il titolo):**
+
+    n   N    s    H        spread per peso w=1,2,3,4      verdetto
+    2   4    2    14       0, 0                           ordine silente
+    3   8    4    224      0, 0, 0                        ordine silente
+    4  16    6    64282    184, 176, 16, 0                ORDINE SOPRAVVIVE
+    --- controllo: MCSP[s] (formula, Module 21) ---
+    4  16    8    25954    0, 0, 0, 0                     lavato via (simmetrico)
+
+**KILLER PASSATO.** A n=4 `pairinf(d)` distingue differenze di ugual peso per il supporto
+(w=1: differire in x3 = variabile in cima → 4056; in x1 → 3872; spread 184), mentre il controllo
+MCSP a formula è piatto (spread 0 ovunque). Il criterio di riapertura è **SODDISFATTO**: MBPSP[s]
+è l'oggetto meta-livello non-permutazione-invariante richiesto. È il PRIMO esito non-collassante di
+questo tipo nel lab (finora solo collassi/falsificazioni).
+
+**Adversary.** (1) Fedeltà ROBDD: verificata su funzioni note + testimone d'ordine textbook.
+(2) È un artefatto della mia misura? NO: il controllo MCSP sulla stessa `pairinf`/soglia/n dà spread
+0 — l'effetto è specificamente l'ordine OBDD. (3) Robustezza alla soglia: spread > 0 per OGNI
+s∈[5,10] (tutta la banda non-degenere), piatto solo a s≤4 dove HARD satura (H≈65534, meta-funzione
+quasi-costante). NON è un punto isolato a s=6. (4) Vacuità: l'asimmetria si ACCENDE a n=4, l'ultimo
+livello brute-forzabile (n=5 = 2^32) → un solo livello non-nullo, NON ancora un invariante di
+livello misurato. (5) Over-claim: spread > 0 RIMUOVE la causa strutturale del collasso precedente
+(permutazione-invarianza) ma NON prova che la prossima ostruzione di località porti contenuto di
+livello — resta aperto al prossimo ciclo.
+
+**Evaluator — verdetto: SUCCESSO (riapertura).** Fedeltà ALTA (calcolo esatto, testimone textbook,
+controllo MCSP isola l'effetto, robusto alla soglia). Tangibilità ALTA (interi esatti, veloce, niente
+cache per il titolo, valori congelati nei test, suite verde).
+
+**Honesty boundary (EN, per l'eventuale doc).** COMPUTED (exact integers, no floats): min-OBDD-size
+at a fixed order; its non-invariance under variable permutation (n=4 witness 6≠8) and invariance
+under negation; MBPSP[s] as a meta-function; pair_influence and its weight-class spread for n=2,3,4,
+robust across thresholds s∈[5,10], with the MCSP formula control flat (spread 0). The reopening
+criterion — a non-permutation-invariant meta object — is MET, exactly and reproducibly. LIMITS:
+(1) the asymmetry switches on only at n=4, the last brute-forceable level, so it is a single
+non-zero level — the onset is LOCATED, a cross-level invariant of the asymmetry is NOT yet measured
+(the cake's "leverage" is opened, not yet quantified). (2) The spread is modest in relative terms
+(~4.5% of the base at n=4, w=1) and shrinks with weight (vanishing at w=4, a singleton class).
+(3) spread>0 removes the STRUCTURAL cause of the prior collapse; it does NOT prove the next locality
+obstruction on MBPSP carries level-content — open. (4) The asymptotic magnification / locality
+theorems for branching programs and OBDDs (Oliveira–Pich 2019; Chen–Jin–Williams 2019/2020;
+Chen–Hirahara–Ren–Santhanam–Vyas) are CITED, never computed; at finite n the threshold is a single
+integer, not a regime; no separation, no P vs NP claim.
+
+**Stato repo (questa entry):** creati `pnp_lab/meta_complexity/order_locality.py`,
+`tests/test_order_locality.py`, `examples/run_order_locality.py`. Suite verde (un solo skip = il
+controllo MCSP slow, gated sulla cache `.cache/ct4.pkl`). Scratch in /tmp (fuori dal repo). NON
+ancora cristallizzato come Module/doc né aggiunto al README (cristallizzazione = decisione umana,
+come per Module 21).
+
+**STOP-and-ask (decisione umana):** il programma è RIAPERTO con un oggetto sano. Tre direzioni:
+(1) **CICLO 4 — la leva vera**: far girare l'ostruzione di località (`certified_k_local`,
+`best_k_local` di `locality.py`) su MBPSP[s] e verificare se i coordinate-set ottimi sono
+order-strutturati e se la curva di ostruzione NON ricade in una statistica del dizionario (il test
+che la riapertura merita); (2) **cristallizzare** ora il risultato di riapertura come Module 22 + doc
++ README; (3) **STOP**. Nessun auto-ciclo senza fidelity-killer dichiarato in anticipo.
+
+---
+
+## Entry 17 — Magnification Frontier ciclo 4: l'ordine RAGGIUNGE il muro FEDELE di Module 21 (2026-06-15)
+
+**Decisione umana (2026-06-15):** opzione (1) dopo Entry 16 — il CICLO 4, "la leva vera". Il ciclo 3
+ha mostrato che l'OGGETTO `MBPSP[s]` è non-permutazione-invariante via una misura d'influenza custom
+(`pair_influence`). Il ciclo 4 chiede se l'ordine arriva fino al MURO che il programma cura davvero:
+l'ostruzione di certificazione di Module 21 (`locality.certified_k_local`) — # di istanze dure che un
+argomento k-locale certifica con CERTEZZA (fibra pura-dura).
+
+**Explorer (killer dichiarato in anticipo).** Si misura al livello j=2 (si RILASCIA una coppia di
+coordinate, k=N-2 lette): a j=1 il gruppo di traslazione (negazione di variabile = permutazione delle
+posizioni x→x⊕v, simmetria di MBPSP) è transitivo sulle singole coordinate ⇒ `certified(N-1)` è
+isotropico per costruzione. Per traslazione `certified_drop(a,b)=certified_drop(0,a⊕b)`, quindi il
+muro dipende solo dal vettore differenza `d`. IPOTESI: `certified_drop(d)` dipende dal SUPPORTO di d
+(spread > 0 entro una classe di ugual peso). KILLER FIRES se spread=0 ovunque anche a n=4 (la
+massimizzazione resterebbe vacua SUL MURO nonostante l'oggetto sia non-invariante ⇒ ricaduta nella
+trappola simmetrica di Module 21 ⇒ 12° collasso, informativo). PASS se spread>0.
+
+**Builder (esatto, riproducibile).** Aggiunti a `pnp_lab/meta_complexity/order_locality.py`:
+`certified_drop_pair`, `DropClass`, `certified_drop_spread`, `WallAnisotropyRow`, `wall_anisotropy`.
++5 test (incl. cross-check `max_pairs certified_drop == locality.certified_k_local(N-2)` = la PROVA
+che è il muro di Module 21, non una ridefinizione; +1 controllo MCSP slow gated su cache). Esempio
+aggiornato.
+
+**MISURA DECISIVA (esatta, congelata; veloce, niente cache per il titolo):**
+
+    n   N    s    H        spread del muro (w=1,2,3,4)    verdetto
+    3   8    4    224      0, 0, 0                        isotropico (ordine silente)
+    4  16    6    64282    144, 144, 16, 0                MURO VEDE L'ORDINE
+    --- controllo: MCSP[s] (formula, Module 21) ---
+    4  16    8    25954    0, 0, 0, 0                     isotropico (trappola simmetrica)
+
+**KILLER PASSATO.** A n=4 il MURO FEDELE (non solo la pair-influence custom del ciclo 3) è
+order-anisotropico: `certified_drop(d)` distingue differenze di ugual peso per il supporto (w=1:
+differire in x1/x2 → 61592; in x3 → 61448; in x0 → 61480), mentre il controllo MCSP a formula è
+piatto in ogni classe. La massimizzazione sui coordinate-set è GENUINAMENTE non-vacua su MBPSP: drop
+di ugual peso certificano numeri DIVERSI di istanze dure. La riapertura è validata SUL MURO STESSO del
+programma, non solo su una misura ausiliaria.
+
+**Cross-check di fedeltà (in test):** `max_{a<b} certified_drop_pair(a,b) == locality.certified_k_local
+(meta, N, N-2) == 152` a n=3 ⇒ `certified_drop_pair` È esattamente il muro di Module 21. Traslazione-
+invarianza `certified_drop(a,b)==certified_drop(0,a⊕b)` verificata su tutte le coppie.
+
+**Adversary.** (1) Fedeltà: provata col cross-check sopra — è il muro di Module 21. (2) Artefatto della
+misura? NO: MCSP sulla STESSA misura `certified_drop` è piatto (0,0,0,0) ⇒ l'effetto è specificamente
+l'ordine OBDD. (3) Robustezza alla soglia: anisotropico per OGNI s∈[5,10] (banda non-degenere),
+isotropico solo a s≤4 dove HARD satura (H≈65534). (4) Ridondanza col ciclo 3? NO: `pair_influence`
+(sensibilità locale su un 2-cubo) e `certified_drop` (conteggio globale di certificazione pura-dura)
+sono quantità DIVERSE; pairinf anisotropico non FORZA certified anisotropico ⇒ evidenza indipendente.
+(5) Vacuità/over-claim: anisotropia REALE ma ESILE (~0.23% del valore base a n=4, w=1, più debole del
+~4.5% della pair-influence) e solo a n=4 (n=5 = 2^32, infattibile) ⇒ il muro raggiunge l'ordine al
+livello più profondo misurabile, NESSUN invariante di livello. Non prova che l'ostruzione porti
+contenuto di magnification NUOVO o amplifichi — solo che non è isotropica.
+
+**Evaluator — verdetto: SUCCESSO.** La riapertura (ciclo 3) è ora DOPPIAMENTE validata: due misure
+indipendenti (pair-influence del ciclo 3; muro certified del ciclo 4) mostrano entrambe che l'ordine
+sopravvive a n=4, col controllo MCSP piatto per entrambe. Fedeltà ALTA (cross-check col muro di
+Module 21, controllo MCSP, robustezza alla soglia). Tangibilità ALTA (interi esatti, veloce, niente
+cache per il titolo, valori congelati, suite verde).
+
+**Honesty boundary (EN, per l'eventuale doc).** COMPUTED (exact integers, no floats): the Module-21
+faithful certification wall `certified_drop(d)` (= `locality.certified_k_local(N-2)`, cross-checked)
+on MBPSP[s], its weight-class spread for n=3,4 (0,0,0 / 144,144,16,0), robust across thresholds
+s∈[5,10], with the MCSP formula control flat (0,0,0,0). The order reaches the program's OWN faithful
+locality wall — the maximization over coordinate-sets is non-vacuous on MBPSP, INDEPENDENT of the
+Cycle-3 influence measure. LIMITS: (1) the wall-anisotropy is modest (~0.23% at n=4, w=1, fainter
+than Cycle 3's ~4.5%) and appears only at n=4, the last brute-forceable level (n=5=2^32) → the wall
+reaches the order at the deepest measurable level, a cross-level invariant is NOT measured; (2) j=1
+is isotropic by construction (translation transitivity) — the effect lives at j≥2; (3) the result
+shows the wall is non-isotropic; it does NOT show the certified obstruction carries NEW magnification
+content or amplifies. The asymptotic magnification / locality theorems (Oliveira–Pich 2019;
+Chen–Jin–Williams 2019/2020; Chen–Hirahara–Ren–Santhanam–Vyas) are CITED, never computed; no
+separation, no P vs NP claim.
+
+**Stato repo (questa entry):** estesi `pnp_lab/meta_complexity/order_locality.py`,
+`tests/test_order_locality.py`, `examples/run_order_locality.py`. Suite verde (exit 0, gli unici skip
+= i 2 controlli MCSP slow gated su `.cache/ct4.pkl`). Scratch in /tmp (fuori dal repo). NON ancora
+cristallizzato come Module/doc né nel README (decisione umana).
+
+**STOP-and-ask (decisione umana).** La riapertura è solida e doppiamente validata; il programma ha ora
+raggiunto il suo VERO soffitto al tiny: l'asimmetria d'ordine è stabilita a n=4 su due misure
+indipendenti, ma la LEVA attraverso i livelli (small LB → big separation, il cuore della
+magnification) è asintotica e sfugge a n=5+ per costruzione — esattamente come i teoremi citati. Tre
+direzioni: (1) **cristallizzare** ciclo 3+4 come Module 22 ("Order-Locality: la barriera resa
+non-invariante") + doc + README — chiusura onesta e positiva del programma magnification; (2)
+**cambiare misura di leva** restando a n≤4 (rischio: rientro nel dizionario, l'anisotropia è già
+esile); (3) **STOP**. Raccomandazione dell'Evaluator: (1) — il programma ha prodotto il suo primo
+esito non-collassante e un secondo livello di validazione; un terzo ciclo a n≤4 non aggiungerebbe un
+invariante di livello (il vincolo è computazionale, non di idea). Nessun auto-ciclo.
+
+---
+
+## Entry 18 — Cristallizzazione: Module 22 "Order-Locality" (2026-06-15)
+
+**Decisione umana (2026-06-15):** opzione (1) dopo Entry 17 — cristallizzare i cicli 3+4 come
+Module 22, chiusura onesta e positiva del programma Magnification Frontier.
+
+**Fatto.** Creato `docs/order-locality.md` (Module 22, EN-first): la riapertura come **primo esito
+non-collassante** del lab — la trappola del dizionario di Module 21 evasa **rompendo la simmetria**
+(l'ordine OBDD), non con un nuovo discriminante. Documenta l'oggetto `MBPSP[s]` (min-OBDD-size a
+ordine fisso, non-permutazione-invariante; prova fondante 6≠8), le due conferme indipendenti (C3
+`pair_influence` 184,176,16,0; C4 muro fedele `certified_drop` 144,144,16,0 a n=4, controllo MCSP
+piatto su entrambe), il cross-check col muro di Module 21, e il **soffitto onesto** (anisotropia esile
+~4.5%/~0.23%, solo a n=4, nessun invariante di livello; leva asintotica CITATA). Aggiornato `README.md`
+(riga 22 nella tabella moduli + voce nella lista `Documentation`). Codice/test/esempio già committati
+in questa entry-set (order_locality.py, test_order_locality.py, run_order_locality.py). Suite verde.
+
+**Stato del programma:** Magnification Frontier RIAPERTA e poi CHIUSA al suo soffitto onesto
+(computazionale, non concettuale). Nessun auto-ciclo. Il vincolo per una leva cross-livello è n=5=2^32,
+infattibile per brute force — esattamente come i teoremi asintotici citati.

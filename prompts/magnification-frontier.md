@@ -4,15 +4,34 @@ New research program, opened 2026-06-14 after the CSP/algebraic branch closed
 (`docs/collapse-theorem.md`, RESEARCH_LOG Entries 1–12, ten collapses). Human PI
 chose direction ① (hardness magnification + the locality barrier).
 
-> **STATUS (2026-06-14).** The **locality-barrier sub-branch is CLOSED** —
+> **STATUS (2026-06-15).** The **locality-barrier sub-branch is CLOSED** —
 > crystallized as **Module 21** (`docs/locality-barrier.md`), RESEARCH_LOG Entries
 > 13–15. Two cycles (staircase ρ=1; fixed-fraction level-invariance) both collapsed:
 > the locality *mechanism* is faithfully exact (genuine `N`-junta), but every
 > *leverage* quantity reduces to a global statistic of the hard set, because
-> `MCSP[s]` is permutation-invariant. The **program as a whole stays OPEN but in
-> STOP-and-ask**: reopening needs a meta-level object that is **not**
-> permutation-invariant (or a measure that is not a global statistic of the hard
-> set), else it re-enters the dictionary. No auto-cycle without a pre-declared killer.
+> `MCSP[s]` is permutation-invariant.
+>
+> **REOPENED — Cycle 3 (Entry 16, human-launched candidate ①).** The reopening
+> criterion is MET: `MBPSP[s]` = min-OBDD-size at a **fixed variable order**
+> (HARD = "no small OBDD") is the non-permutation-invariant meta object. Built
+> `pnp_lab/meta_complexity/order_locality.py` (+ tests + example). Decisive measure:
+> the pair-influence spread within a Hamming-weight class is `0,0 / 0,0,0 /
+> 184,176,16,0` at `n=2,3,4` (ORDER SURVIVES at n=4), vs the MCSP formula control
+> flat (`0,0,0,0`); robust across thresholds `s∈[5,10]`. FIRST non-collapse outcome.
+>
+> **Cycle 4 (Entry 17) — the order REACHES the program's faithful wall.** Ran the
+> Module-21 certification wall (`locality.certified_k_local`, cross-checked:
+> `max_pairs certified_drop == certified_k_local(N-2) == 152` @n3) on `MBPSP[s]` at
+> j=2 (j=1 isotropic by construction). The wall-anisotropy spread is `0,0,0` @n3 and
+> `144,144,16,0` @n4 (WALL SEES ORDER), MCSP control flat — the maximization over
+> coordinate-sets is genuinely non-vacuous on MBPSP, INDEPENDENT of Cycle-3's custom
+> measure. Reopening DOUBLY validated.
+>
+> **STOP-and-ask — the program has hit its tiny ceiling.** The order-asymmetry is
+> established at n=4 on two independent measures, but the LEVERAGE across levels
+> (small LB → big separation) is asymptotic and escapes n=5+ (2^32 truth tables) by
+> construction. Recommended: crystallize Cycle 3+4 as **Module 22** ("Order-Locality:
+> the barrier made non-invariant") — an honest, positive close. No auto-cycle.
 
 ## Why this program is DIFFERENT from the loop that just closed
 
