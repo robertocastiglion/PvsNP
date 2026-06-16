@@ -1204,3 +1204,54 @@ in questa entry-set (order_locality.py, test_order_locality.py, run_order_locali
 **Stato del programma:** Magnification Frontier RIAPERTA e poi CHIUSA al suo soffitto onesto
 (computazionale, non concettuale). Nessun auto-ciclo. Il vincolo per una leva cross-livello è n=5=2^32,
 infattibile per brute force — esattamente come i teoremi asintotici citati.
+
+---
+
+## Entry 19 — Cristallizzazione: Module 23 "Certified-Bounds Regime" (2026-06-16)
+
+**Decisione umana (2026-06-16):** opzione (1) dopo lo scoping (Entry implicita / commit
+c4b3ebb) — cristallizzare il Cycle 1 del regime certified-bounds come Module 23, chiusura
+onesta dell'ULTIMA porta out-of-the-box del lab.
+
+**Verdetto: RESTATEMENT #12** (l'esito pre-dichiarato e accettabile dal brief).
+
+**Oggetto.** `family_or_and(n)` (n pari), la famiglia fondante di Module 22:
+`f_n(x) = OR_k ( x_{2k} AND x_{2k+1} )`, letta a due ordini di variabili (relabelling +
+`min_obdd_size` a frame fisso): ordine BUONO π ⇒ `size_good = n+2` CERTIFICATO; ordine
+CATTIVO π' interlacciato ⇒ `size_bad = 2^(n/2+1)` CERTIFICATO. Entrambi da una ricorrenza
+CONTROLLATA + cross-check con l'esatto a n=2,4,6,8 (anchor di fedeltà). Prova fondante: 6 ≠ 8
+a n=4 (stesso testimone di Module 22).
+
+**La misura valida (l'unica).** Il gap certificato `g(n) = 2^(n/2+1) − (n+2) = 0,2,8,22` —
+istanza FINITA ESATTA del bound asintotico CITATO (Bryant 1991 / Wegener, `2^Ω(n)`), SENZA
+enumerazione di alcuno spazio di funzioni. Il regime RESTATES Bryant ⇒ RESTATEMENT #12.
+
+**STRUCK (category error).** L'evidenza-muro del primo draft (`A(n)` = spread del muro fedele
+`certified_drop_spread` su tt_π') è cancellata: quel muro è una statistica della META-funzione
+`MBPSP[s]` sull'INSIEME di tutte le `2^N` funzioni — gli era data UNA singola funzione (la
+chiamata fedele solleva sul mismatch N-vs-n). Adversary + Evaluator KILL.
+
+**Il finding reale — il soffitto del regime.** La certificazione rende cheap (`O(N)`) la
+taglia OBDD di UNA funzione, evadendo lo sweep — e SOLO lì. Un invariante di MURO (Module
+21/22) è irriducibilmente una proprietà della meta-funzione sull'INSIEME: serve un insieme
+duro da certificare. Reintrodurre l'insieme a n≥5 reintroduce esattamente l'enumerazione
+`2^(2^n)` che il regime voleva evitare. La certificazione compra cheapness PER-ISTANZA, non
+l'invariante cross-livello: appena la quantità è una proprietà del muro, lo sweep ritorna. È
+lo stesso muro computazionale, ristabilito.
+
+**Honesty boundary (EN).** COMPUTED (exact integers, no floats): the certified recurrence
+`size_good = n+2`, `size_bad = 2^(n/2+1)`, cross-checked vs exact `min_obdd_size` at
+n=2,4,6,8; the gap `g(n)`. Finite exact instance of Bryant/Wegener (CITED, never re-proved)
+⇒ RESTATEMENT #12. Wall-anisotropy STRUCK (category error). No separation, no cross-level
+invariant, NO P vs NP claim.
+
+**Fatto.** Creato `docs/certified-bounds.md` (Module 23, EN-first). Aggiornato `README.md`
+(riga 23 nella tabella moduli + voce nella lista Documentation). Codice/test/esempio committati
+in questa entry-set (certified_obdd.py, test_certified_obdd.py, run_certified_obdd.py). Suite
+del modulo verde (8 passed).
+
+**Stato del programma:** TUTTE le porte note del lab sono ora CHIUSE — i due rami principali
+(Collapse Theorem; Magnification Frontier/Module 22) + l'ultima porta out-of-the-box
+(certified-bounds/Module 23), tutte sullo STESSO muro computazionale (enumerazione brute-force
+su tiny instances). Nessun auto-ciclo. Il lab è una METODOLOGIA con 12 RESTATEMENT + 1
+falsificazione + 1 esito non-collassante (Module 22), non un attacco a P vs NP.
