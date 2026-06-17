@@ -117,6 +117,46 @@ def test_cross_level_survives_to_n6():
     assert abs(r.control_z) < s5.Z99                     # null control stays flat
 
 
+# ── iso-hardness control (Module 26): disentangle leverage from the H-confound ─
+
+def test_iso_hardness_threshold_targets_n4_exact():
+    """The iso-hardness threshold is the integer whose hard-fraction is closest to the
+    target; exact (full sweep) at n=4.  frac>9 = 0.526 (closest to 0.5), frac>10 = 0.170
+    (closest to 0.2) — the coarse OBDD-size jumps make these the achievable points."""
+    assert s5.iso_hardness_threshold(4, 0.5) == 9
+    assert s5.iso_hardness_threshold(4, 0.2) == 10
+
+
+def test_iso_hardness_n4_exact_frozen():
+    """The n=4 row of the iso-hardness table is EXACT and frozen.  At H_target=0.5 the
+    threshold is s=9 (H=0.526), the pre-registered top(x3)-vs-x0 difference is 2016
+    (base 36640, rel +5.5%); the popcount control is exactly 0 by symmetry.  At
+    H_target=0.2 the row coincides with Module 25's n=4 (s=10, diff 1536)."""
+    r = s5.iso_hardness_row(4, H_target=0.5)
+    assert r.exact and r.s == 9
+    assert round(r.diff_prob * (1 << r.N)) == 2016
+    assert round(r.base_prob * (1 << r.N)) == 36640
+    assert abs(r.rel - 0.0550) < 0.001
+    assert r.control_z == 0.0                            # exact-0 by symmetry
+    # the H_target=0.2 slice reproduces Module 25's n=4 (same threshold s=10)
+    r2 = s5.iso_hardness_row(4, H_target=0.2)
+    assert r2.s == 10 and round(r2.diff_prob * (1 << r2.N)) == 1536
+
+
+@pytest.mark.slow
+@pytest.mark.timeout(600)
+def test_iso_hardness_survival_is_H_robust_at_n6():
+    """The frozen Module-26 result: holding H fixed (not the median), the order-
+    anisotropy STILL survives to n=6 and the killer does NOT fire — Module 25's survival
+    is not an H-artifact.  Deterministic (base_seed=760): significant, control flat.
+    Run at H_target=0.5.  ~3 min."""
+    r = s5.iso_hardness_row(6, H_target=0.5, seeds=3, M=100000, base_seed=760)
+    assert r.significant and r.z > s5.Z99
+    assert r.frac_positive >= 0.66
+    assert abs(r.control_z) < s5.Z99                     # null control stays flat
+    assert 0.30 < r.H_frac < 0.55                        # H held near 0.5 (not the median)
+
+
 @pytest.mark.slow
 @pytest.mark.timeout(300)
 def test_threshold_regime_degenerates_at_n6():

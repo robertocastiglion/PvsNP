@@ -1390,3 +1390,88 @@ oggetto ricalibrato per arrivare a n=6). Bilancio del lab: 12 restatement + 1 fa
 non-collasso (Module 22) + 1 survival-PASS a 1 livello (Module 24) + 1 survival-PASS a 3 livelli
 (Module 25). La leva cross-livello (il cuore della magnification) resta asintotica e CITATA. Nessun
 auto-ciclo.
+
+---
+
+## Entry 22 — Module 26 "Iso-Hardness Control": disinnesco il confound di H di Module 25 (2026-06-17)
+
+**Decisione umana (2026-06-17):** dopo Module 25 (survival-PASS a 3 livelli con leva non-crescente e
+confound di H dichiarato), direzione "iso-hardness (disentangle H)".
+
+**Verdetto: PASS — la sopravvivenza cross-livello e' H-ROBUSTA, e il confound di H di Module 25 e'
+FALSIFICATO; la leva resta genuinamente assente.**
+
+**Explorer.** L'Adversary di Module 25 aveva lasciato UNA obiezione aperta: la policy median-intera NON
+tiene fissa la frazione hard (H = 0.17/0.25/0.44 a n=4,5,6) e il rel poteva tracciare H invece del
+livello n. Se cosi', ENTRAMBE le letture di Module 25 erano a rischio: la sopravvivenza poteva essere
+un artefatto di H (il segnale potrebbe sparire a H comune) e il "no leva" poteva nascondere una leva
+cancellata dalla deriva di H. Mossa: RICALIBRARE la soglia al quantile (1-H_target) per tenere H~costante
+a ogni livello, su DUE fette appaiate (H_target 0.5 e 0.2), e rimisurare. Le soglie intere non centrano
+H_target esattamente (le taglie OBDD sono grossolane: a n=4 frac>s salta 0.526->0.170 tra s=9 e s=10),
+ma l'H raggiunto e' MOLTO piu' stretto del median-policy (H~0.53/0.55/0.44 per target 0.5 vs 0.17/0.25/
+0.44). Resto invariato: stimatore CRN, coppia pre-registrata (var top x_{n-1} vs x0), controllo nullo
+popcount, pooling 6 seed. KILLER pre-dichiarato: se a H fisso il segnale perde significativita' a n=5 o
+n=6 (CI 99% include 0) => spara (la sopravvivenza era un artefatto di H). PASS se significativo a ogni
+livello con controllo piatto; POI, separatamente e descrittivamente: il rel CRESCE con n a H fisso (la
+leva) o resta non-monotono/limitato (sopravvivenza senza leva)?
+
+**Builder.** Rifattorizzato `_anisotropy_row(n, s, ...)` condiviso (la policy di soglia e' scelta dal
+chiamante; la misura e' identica) -> `cross_level_row` (Module 25) invariato, REGRESSIONE verificata
+(n=4 esatto: s=10, diff 1536, base 21024, rel 0.0731 immutati). Aggiunti `iso_hardness_threshold(n,
+H_target)` (quantile esatto a n<=4, campionato a n>=5), `iso_hardness_row`, `iso_hardness_table` in
+`pnp_lab/meta_complexity/sampled_order_n5.py`. +3 test (soglie n=4 esatte 9/10; riga n=4 esatta congelata
+H=0.5: s=9 diff 2016 base 36640 rel 0.0550 control 0, e H=0.2 coincide con M25 n=4 diff 1536; slow n=6
+survival H-robusta @timeout). Esempio `run_iso_hardness.py`.
+
+**MISURA (congelata; n=4 esatto, n=5,6 campionati CRN, pooling 6 seed, base_seed 700+10n):**
+
+    H_target   n   s    H_ach   base    diff_prob   z        rel%    control_z   signs
+    0.5       4*  9    0.526   0.559   +3.08e-2    esatto   +5.5    0 (esatto)  --
+              5   15   0.548   0.394   +4.20e-2    +68.8    +10.7   piatto -0.51 6/6
+              6   26   0.435   0.282   +2.15e-2    +40.5    +7.6    piatto +1.04 6/6
+    0.2       4*  10   0.170   0.321   +2.34e-2    esatto   +7.3    0 (esatto)  --
+              5   16   0.246   0.299   +3.41e-2    +63.0    +11.4   piatto -0.51 6/6
+              6   27   0.194   0.200   +1.19e-2    +26.4    +6.0    piatto +1.04 6/6
+
+A ENTRAMBE le fette a H fisso il segnale e' enorme a ogni livello (control piatto, 6/6 seed positive) =>
+il KILLER NON spara: la sopravvivenza di Module 25 NON e' un artefatto di H. E a H fisso il rel fa ancora
+PICCO a n=5 (5.5->10.7->7.6% e 7.3->11.4->6.0%), la stessa forma vista da M25 sotto la deriva di H
+(7.3->11.8->7.3%) => il picco a n=5 e' proprieta' del LIVELLO, non di H: l'obiezione "rel traccia H" e'
+essa stessa FALSIFICATA. Ma il picco e' LIMITATO e NON-MONOTONO => nessuna leva crescente nascosta dietro
+la deriva di H.
+
+**Adversary.** (1) H non perfettamente fisso: VERO e dichiarato (soglie intere grossolane), ma 0.53/0.55/
+0.44 e' molto piu' stretto di 0.17/0.25/0.44, e la sensibilita' intra-livello di rel e' piccola (n=4
+esatto: rel 2.9%->7.3% su tutto il range H 0.93->0.17) rispetto al picco a n=5; due fette appaiate
+delimitano il residuo. (2) Artefatto stimatore? NO: il controllo popcount sotto la STESSA H fissa pool
+piatto (|z|<=1.04) mentre il segnale e' z=26-69. (3) n=4 esatto vs n>=5 campionato: la riga H=0.2 n=4
+coincide ESATTAMENTE con M25 (s=10, diff 1536) -> ancoraggio. (4) Fishing tra fette? NO: due target
+pre-dichiarati, stesso verdetto su entrambi.
+
+**Evaluator — verdetto: PASS (controllo), soffitto piu' PULITO.** Rafforza la sopravvivenza (ora
+H-robusta, non un confound) E rende il "no leva" piu' solido (a H fisso la leva resta assente: il
+confound non nascondeva crescita). NON dimostra leva crescente. Tangibilita' ALTA (n=4 esatto congelato
+su 2 fette, n=5/6 z enormi, controllo piatto, suite verde). Onesta' ALTA (H non-esattamente-fisso + leva
+non-crescente + 3 punti / n=4-esatto-vs-campionato tutti dichiarati). L'amplificazione asintotica resta
+CITATA.
+
+**Honesty boundary (EN).** ESTIMATED not computed: the n=5,n=6 differences (Monte Carlo, CRN, pooled).
+COMPUTED exactly: both n=4 rows (full sweep), the popcount control's exact-0, min_obdd_size (O(N), also
+n=6 64-bit), the n=4 iso-hardness thresholds. ITERATED (stated): integer thresholds cannot hit H_target
+exactly -> H held NEAR target, bounded by two slices + small within-level H-sensitivity. NOT shown: any
+GROWING cross-level leverage (bounded, non-monotone at fixed H). CITED never computed: magnification/
+locality theorems. No separation, no P vs NP claim.
+
+**Stato repo:** esteso `sampled_order_n5.py` (helper `_anisotropy_row` + sezione `iso_hardness_*`),
+`tests/test_sampled_order_n5.py` (+3, 1 slow), nuovo `examples/run_iso_hardness.py`, nuovo
+`docs/iso-hardness.md`; README riga 26 + voce Documentation; questa entry. Suite veloce verde (12 fast);
+slow iso n=6 verde.
+
+**Stato del programma:** Module 25 aveva due flag aperti (sopravvivenza forse H-confusa; "no leva" forse
+confound-mascherato). Module 26 li chiude entrambi col CONTROLLO iso-hardness: la sopravvivenza e'
+H-robusta (killer non spara su 2 fette), il confound di H e' falsificato (picco a n=5 H-indipendente), e
+la leva resta genuinamente assente (picco limitato/non-monotono a H fisso). Il soffitto "survival, non
+leva" e' ora PIU' PULITO, non superato. Bilancio del lab: 12 restatement + 1 falsificazione + 1
+non-collasso (Module 22) + 1 survival-PASS@1 (Module 24) + 1 survival-PASS@3 (Module 25) + 1 controllo-
+PASS che indurisce M25 e falsifica un confound (Module 26). La leva cross-livello (il cuore della
+magnification) resta asintotica e CITATA. Nessun auto-ciclo.

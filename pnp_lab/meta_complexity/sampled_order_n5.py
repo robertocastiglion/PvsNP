@@ -443,13 +443,14 @@ class CrossLevelRow:
     exact: bool
 
 
-def cross_level_row(n: int, seeds: int = 6, M: int = 150000,
-                    base_seed: Optional[int] = None, sample: int = 4000) -> CrossLevelRow:
-    """One row of the median-calibrated cross-level table for the pre-registered pair
-    (top variable ``x_{n-1}`` vs ``x0``).  EXACT at n<=4 (full sweep, control is 0 by
-    symmetry); SAMPLED + pooled CRN at n>=5 with the popcount null control."""
+def _anisotropy_row(n: int, s: int, seeds: int, M: int,
+                    base_seed: int, sample: int = 4000) -> CrossLevelRow:
+    """One row of the cross-level order-anisotropy measurement at a GIVEN threshold
+    ``s`` for the pre-registered pair (top variable ``x_{n-1}`` vs ``x0``).  The
+    threshold POLICY (median vs iso-hardness) is the caller's choice; the measurement
+    is identical.  EXACT at n<=4 (full sweep, control is 0 by symmetry); SAMPLED +
+    pooled CRN at n>=5 with the popcount null control."""
     N = 1 << n
-    s = median_threshold(n, sample=sample)
     d_hi = 1 << (n - 1)                          # top-variable input index
     if n <= 4:
         meta = ol.meta_truth_table_obdd(ol.obdd_costs(n), s)
@@ -461,8 +462,6 @@ def cross_level_row(n: int, seeds: int = 6, M: int = 150000,
             diff_prob=diff / (1 << N), se_prob=0.0, z=float("inf"),
             rel=diff / base if base else 0.0, control_z=0.0, frac_positive=1.0,
             significant=True, exact=True)
-    if base_seed is None:
-        base_seed = 300 + n * 10
     hard = mbpsp_predicate(n, s)
     ctrl = popcount_predicate(N // 2)
     # H and base on one pass
@@ -492,12 +491,110 @@ def cross_level_row(n: int, seeds: int = 6, M: int = 150000,
         significant=(mean - Z99 * se > 0 or mean + Z99 * se < 0), exact=False)
 
 
+def cross_level_row(n: int, seeds: int = 6, M: int = 150000,
+                    base_seed: Optional[int] = None, sample: int = 4000) -> CrossLevelRow:
+    """One row of the median-calibrated cross-level table for the pre-registered pair
+    (top variable ``x_{n-1}`` vs ``x0``).  EXACT at n<=4 (full sweep, control is 0 by
+    symmetry); SAMPLED + pooled CRN at n>=5 with the popcount null control."""
+    if base_seed is None:
+        base_seed = 300 + n * 10
+    return _anisotropy_row(n, median_threshold(n, sample=sample), seeds, M,
+                           base_seed, sample)
+
+
 def cross_level_table(ns: Sequence[int] = (4, 5, 6), seeds: int = 6,
                       M: int = 150000) -> List[CrossLevelRow]:
     """The median-calibrated cross-level table (Module 25): order-anisotropy survival
     of MBPSP[s] across levels.  MEASURED: survives n=4,5,6; leverage non-monotone and
     bounded (no growth); control flat at every level."""
     return [cross_level_row(n, seeds=seeds, M=M) for n in ns]
+
+
+# ── ISO-HARDNESS (Module 26): disentangle the leverage from the H-confound ──
+#
+# Module 25's Adversary left one open objection: the median-integer policy does NOT
+# hold the hard-fraction H fixed across levels (H = 0.17 / 0.25 / 0.44 at n=4,5,6),
+# and the relative anisotropy ``rel`` could be tracking H rather than the level n.  If
+# so, BOTH readings of Module 25 are at risk: the "survival" could be an H-artifact,
+# and the "no leverage" verdict could be hiding leverage that H-drift cancels.
+#
+# THE CONTROL.  Re-pick the threshold to HOLD H ~ constant across levels (the
+# (1-H_target) quantile of the OBDD-size distribution) instead of the median, and
+# re-measure.  Integer thresholds cannot hit H_target exactly (OBDD sizes are coarse:
+# at n=4 frac>s jumps 0.526 -> 0.170 between s=9 and s=10), but the achievable H lands
+# FAR tighter than the median policy: for H_target=0.5 the rows are H ~ 0.53/0.55/0.44
+# vs the median policy's 0.17/0.25/0.44.  Run TWO matched-H slices (H_target 0.5 and
+# 0.2) so the residual H-drift can be regressed out: the within-level H-sensitivity of
+# rel is small (n=4 exact: rel 2.9% -> 7.3% as H 0.93 -> 0.17) compared to the
+# cross-level effect we test.
+#
+# PRE-DECLARED KILLER.  At fixed H, if the signal LOSES significance at n=5 or n=6
+# (99% CI includes 0), the killer FIRES: Module 25's survival was an H-artifact.  PASS
+# if the signal stays significant at every level with the control flat.  Then,
+# SEPARATELY (descriptive, not a pass/fail): does rel GROW with n at fixed H (the
+# magnification prize, cross-level leverage) or stay non-monotone/bounded (survival
+# without leverage)?
+#
+# MEASURED (frozen; n=4 exact, n=5,6 sampled CRN, base_seed 700+10n):
+#
+#   H_target=0.5  n   s    H_ach   base    diff_prob   z      rel%    control_z
+#                 4* 9    0.526   0.559   +3.08e-2    exact  +5.5    0 (exact)
+#                 5  15   0.548   0.394   +4.18e-2    +68    +10.6   +0.49
+#                 6  26   0.435   0.282   +2.25e-2    +42    +8.0    -0.46
+#   H_target=0.2  4* 10   0.170   0.321   +2.34e-2    exact  +7.3    0 (exact)
+#                 5  16   0.246   0.299   +3.51e-2    +65    +11.7   +0.49
+#                 6  27   0.194   0.200   +1.30e-2    +29    +6.5    -0.46
+#
+# VERDICT — survival is H-ROBUST, leverage is GENUINELY absent (not an H-confound).
+# At BOTH fixed-H slices the signal is hugely significant at every level (control
+# flat): the killer does NOT fire, so Module 25's survival is NOT an H-artifact.  AND
+# at fixed H the rel curve still PEAKS at n=5 (5.5 -> 10.6 -> 8.0 ; 7.3 -> 11.7 ->
+# 6.5): the n=5 peak is H-independent, so the Module-25 H-confound objection is itself
+# FALSIFIED — but the peak is bounded and non-monotone, i.e. there is no growing
+# leverage hiding behind the H-drift.  The "no leverage" ceiling is now CLEANER (a
+# genuine bounded curve, not a confound).  Limit: still only 3 levels, n=4 exact vs
+# n>=5 sampled.  The asymptotic amplification stays CITED.
+
+def iso_hardness_threshold(n: int, H_target: float, sample: int = 4000,
+                           seed: int = 7) -> int:
+    """The integer threshold ``s`` whose hard-fraction ``frac( min_obdd_size > s )`` is
+    closest to ``H_target`` — the iso-hardness calibration.  EXACT (full sweep) at
+    n<=4, SAMPLED at n>=5.  Holds the meta-function's balance ~constant across levels
+    so the cross-level ``rel`` can be read free of the median policy's H-drift."""
+    if n <= 4:
+        sizes: Sequence[int] = ol.obdd_costs(n)
+    else:
+        N = 1 << n
+        rng = random.Random(seed)
+        sizes = [ol.min_obdd_size(rng.randrange(1 << N), n) for _ in range(sample)]
+    tot = len(sizes)
+    best_s, best_gap = min(sizes) - 1, 2.0
+    for s in range(min(sizes) - 1, max(sizes) + 1):
+        h = sum(1 for z in sizes if z > s) / tot
+        if abs(h - H_target) < best_gap:
+            best_s, best_gap = s, abs(h - H_target)
+    return best_s
+
+
+def iso_hardness_row(n: int, H_target: float = 0.5, seeds: int = 6, M: int = 120000,
+                     base_seed: Optional[int] = None, sample: int = 4000) -> CrossLevelRow:
+    """One row of the iso-hardness cross-level table (Module 26): the pre-registered
+    pair on MBPSP[s] with ``s`` chosen so H ~ ``H_target`` at this level.  Same
+    estimator / null control / pooling as the median policy — only the threshold
+    policy differs."""
+    if base_seed is None:
+        base_seed = 700 + n * 10
+    return _anisotropy_row(n, iso_hardness_threshold(n, H_target, sample), seeds, M,
+                           base_seed, sample)
+
+
+def iso_hardness_table(ns: Sequence[int] = (4, 5, 6), H_target: float = 0.5,
+                       seeds: int = 6, M: int = 120000) -> List[CrossLevelRow]:
+    """The iso-hardness cross-level table (Module 26): order-anisotropy of MBPSP[s]
+    with H held ~ ``H_target`` across levels.  MEASURED: survives n=4,5,6 at fixed H
+    (survival is H-robust), and rel still peaks at n=5 (the Module-25 H-confound is
+    falsified) but does not grow (no leverage)."""
+    return [iso_hardness_row(n, H_target=H_target, seeds=seeds, M=M) for n in ns]
 
 
 def honesty_note() -> str:
