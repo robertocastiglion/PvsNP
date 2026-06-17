@@ -1255,3 +1255,76 @@ del modulo verde (8 passed).
 (certified-bounds/Module 23), tutte sullo STESSO muro computazionale (enumerazione brute-force
 su tiny instances). Nessun auto-ciclo. Il lab è una METODOLOGIA con 12 RESTATEMENT + 1
 falsificazione + 1 esito non-collassante (Module 22), non un attacco a P vs NP.
+
+---
+
+## Entry 20 — Module 24 "Sampled Order-Anisotropy at n=5": il PRIMO PASS cross-livello (2026-06-17)
+
+**Decisione umana (2026-06-16/17):** dopo la chiusura di tutte le porte note (Entry 19), la
+direzione scelta dal PI e' il **pivot statistico a n=5** — abbandonare deliberatamente la regola
+dell'intero-esatto e CAMPIONARE, per ottenere l'unico dato cross-livello che Module 22 non poteva
+(n=5 = 2^32, non enumerabile). La tesi del lab ("exactness is the trap") usata COME metodo: si SPENDE
+esattezza per guadagnare portata.
+
+**Verdetto: PASS (qualificato) — il primo esito non-collassante che SOPRAVVIVE anche un livello.**
+
+**Explorer (killer pre-dichiarato).** Le statistiche di Module 22 sono SOMME DI INDICATORI sullo
+spazio meta uniforme t in {0,...,2^N-1}; una somma di indicatori e' esattamente cio' che Monte Carlo
+stima, e min_obdd_size e' O(N) per truth-table. Stimatore = Common Random Numbers (stessi t per d_hi
+e d_lo, i due indicatori condividono 2 dei 4 vertici del cubo => Var(D) piccola => differenza piccola
+risolvibile). Coppia PRE-REGISTRATA (niente max-min, che e' gonfiato dal rumore = l'artefatto del
+ciclo 1): peso-1 variabile top vs bottom (n=5: d_hi=16=x4 vs d_lo=1=x0). KILLER: se la CI 99% pooled
+include 0 => spara (anisotropia non risolvibile cross-livello, n=4 non dimostrato persistente). PASS
+se la coppia differisce significativamente E il controllo nullo resta compatibile con 0.
+
+**Builder (esatto dove possibile, stimato dove necessario).** `pnp_lab/meta_complexity/
+sampled_order_n5.py`: predicati hardness (mbpsp / popcount-control), `crn_pair_diff` (stimatore CRN
+con SE), `anchor_n4` (riproduce l'esatto noto dentro CI), `replicate_n5` (pooling inverse-variance
+multi-seed + controllo), `threshold_regime` (la degenerazione). +5 test veloci (anchor deterministico,
+controllo nullo ESATTO=0 a n=4, semantica CRN) +2 slow (riproduzione PASS + degenerazione).
+
+**MISURA DECISIVA (stimata, CI 99%, congelata):**
+
+    stage                                              risultato
+    ANCHOR n=4 (verita' esatta dentro CI)              PASS (184 in CI 99%)
+    SEGNALE n=5 s=10 coppia x4-vs-x0, 8 seed x 300k     diff prob ~ +1.7e-4, pooled z ~ +4.9,
+                                                        CI 99% esclude 0, 7/8 seed positivi
+    CONTROLLO nullo popcount, stessa coppia            pooled ~ 0, non significativo
+    KILLER                                             NON spara -> PASS
+
+Replicato 3 volte indipendentemente (z=4.92, z=4.38, single-run z=3.3; segni 7/8, 7/8). L'anisotropia
+d'ordine di MBPSP[s] SOPRAVVIVE da n=4 a n=5: la prima volta che una quantita' misurata nel lab supera
+un livello invece di collassare su un oggetto noto. Module 22 NON era un artefatto di n=4.
+
+**Adversary.** (1) Instabilita' single-run: vera (z flippa segno tra 80k e 1.2M) -> risolta col
+pooling multi-seed + check dei segni. (2) Artefatto dello stimatore? NO: il controllo nullo popcount
+(permutazione-invariante, ESATTAMENTE 0 per simmetria, verificato a n=4) pool ~0 mentre il segnale
+pool z~4.9. (3) Fishing? NO: coppia pre-registrata UNICA, fissata dalla struttura d'ordine di n=4, non
+max-min. (4) Anchor: il sampler riproduce l'esatto 184 dentro CI -> stimatore non distorto.
+
+**Soffitto (Evaluator) — SOPRAVVIVENZA, NON LEVA.** (1) La tendenza cross-livello e' AMBIGUA per
+normalizzazione: la differenza assoluta DECADE (n=4 4.9e-4 -> n=5 1.4e-4, stessa coppia) ma quella
+relativa al boundary CRESCE (0.8% -> 3.7%); nessuna "leva" canonica. (2) Sotto la policy fedele di
+Module 22 (s=round(0.5*max)) la misura DEGENERA a n>=6: le dimensioni OBDD di funzioni random si
+concentrano vicino al massimo (n=6 sample min=20 > s=16) => meta costante-HARD => base_prob=0
+(tabella: n=4 6.1e-2, n=5 3.7e-3, n=6 0, n=7 0). Il sampling compra ESATTAMENTE UN livello sopra l'n=4
+esatto; l'amplificazione asintotica resta CITATA. Stesso pattern "il regime degenera / il muro
+ritorna", ma raggiunto un livello piu' in profondita' del metodo esatto, col PRIMO PASS a quel livello.
+
+**Honesty boundary (EN).** ESTIMATED not computed: the n=5 difference (Monte Carlo, 99% CI, CRN),
+validated by the exact n=4 anchor. COMPUTED exactly: min_obdd_size, the full n=4 ground truth, the
+popcount control's exact-0 difference, the threshold-regime table. NOT measured: the certified wall
+(~0.23%, beyond budget); any n>=6 point under the faithful policy (degenerate). CITED never computed:
+the magnification/locality theorems (Oliveira-Pich; Chen-Jin-Williams; CHRSV). No separation, no P vs
+NP claim.
+
+**Stato repo:** nuovi `pnp_lab/meta_complexity/sampled_order_n5.py`, `tests/test_sampled_order_n5.py`,
+`examples/run_sampled_order_n5.py`, `docs/sampled-order-n5.md`; README riga 24 + voce Documentation;
+questa entry. Test veloci verdi; gli slow riproducono il verdetto congelato.
+
+**Stato del programma:** il lab ha prodotto il suo PRIMO PASS cross-livello. La Magnification Frontier,
+chiusa a n=4 (Module 22) e poi al soffitto out-of-the-box (Module 23), e' stata spinta UN livello piu'
+in profondita' col sampling: l'anisotropia d'ordine sopravvive a n=5, ma come SOPRAVVIVENZA non come
+LEVA (nessun invariante di livello monotono; il regime fedele degenera a n>=6). Bilancio del lab: 12
+restatement + 1 falsificazione + 1 non-collasso (Module 22) + 1 PASS-di-sopravvivenza (Module 24).
+Nessun auto-ciclo.
