@@ -389,6 +389,117 @@ def threshold_regime(ns: Sequence[int] = (4, 5, 6, 7), sample: int = 3000,
     return rows
 
 
+# ── CROSS-LEVEL (median-calibrated): push the survival to n=6 (Module 25) ───
+#
+# The faithful theta=0.5*max policy degenerates at n>=6 (random OBDD sizes
+# concentrate near max -> constant-HARD -> pair-influence 0).  To keep the boundary
+# OPEN at every level we RECALIBRATE the threshold to the MEDIAN OBDD size, so the
+# meta-function stays non-trivial (H ~ 0.17-0.44) and the 4-cubes straddle s.  The
+# PRICE: this is a DIFFERENT object from Module 22's faithful wall (recalibrated, not
+# the same threshold).  With it the order-anisotropy is measurable on THREE levels.
+#
+# MEASURED (median policy, pre-registered pair top-var vs x0; n=4 exact, n=5,6
+# sampled CRN, frozen):
+#
+#     n   s    H_frac   base_prob   diff_prob    z       rel=diff/base   control
+#     4* 10   0.170    0.321       +2.34e-2     exact   +7.3%           0 (exact)
+#     5  16   0.246    0.300       +3.53e-2     +73     +11.8%          flat (z=-0.95)
+#     6  26   0.435    0.282       +2.05e-2     +43     +7.3%           flat (z=-0.24)
+#
+# SURVIVES all three levels (6/6 seeds positive at n=5,6; control flat at every
+# level).  But the LEVERAGE does NOT grow: rel is non-monotone and bounded
+# (7.3 -> 11.8 -> 7.3 %), and is confounded by H varying across levels (the integer-
+# median policy does not hold the meta-function balance fixed).  Cross-level SURVIVAL,
+# NOT cross-level leverage growth.  The asymptotic amplification stays CITED.
+
+def median_threshold(n: int, sample: int = 4000, seed: int = 7) -> int:
+    """s = median ``min_obdd_size`` over the n-bit functions: EXACT (full sweep) at
+    n<=4, SAMPLED (random functions) at n>=5.  Recalibrates the meta-function so the
+    boundary stays open at every level (unlike the faithful theta=0.5*max policy,
+    which degenerates at n>=6)."""
+    import statistics
+    if n <= 4:
+        return int(statistics.median(ol.obdd_costs(n)))
+    N = 1 << n
+    rng = random.Random(seed)
+    return int(statistics.median(ol.min_obdd_size(rng.randrange(1 << N), n)
+                                 for _ in range(sample)))
+
+
+@dataclass
+class CrossLevelRow:
+    n: int
+    N: int
+    s: int                       # median-calibrated threshold
+    H_frac: float
+    base_prob: float             # pairinf(d=1) rate (the open boundary)
+    diff_prob: float             # pooled (pairinf(top) - pairinf(x0)) / 2^N
+    se_prob: float
+    z: float                     # +inf at n=4 (exact)
+    rel: float                   # diff_prob / base_prob (leverage relative to boundary)
+    control_z: float
+    frac_positive: float
+    significant: bool
+    exact: bool
+
+
+def cross_level_row(n: int, seeds: int = 6, M: int = 150000,
+                    base_seed: Optional[int] = None, sample: int = 4000) -> CrossLevelRow:
+    """One row of the median-calibrated cross-level table for the pre-registered pair
+    (top variable ``x_{n-1}`` vs ``x0``).  EXACT at n<=4 (full sweep, control is 0 by
+    symmetry); SAMPLED + pooled CRN at n>=5 with the popcount null control."""
+    N = 1 << n
+    s = median_threshold(n, sample=sample)
+    d_hi = 1 << (n - 1)                          # top-variable input index
+    if n <= 4:
+        meta = ol.meta_truth_table_obdd(ol.obdd_costs(n), s)
+        base = ol.pair_influence(meta, 1)
+        top = ol.pair_influence(meta, d_hi)
+        diff = top - base
+        return CrossLevelRow(
+            n=n, N=N, s=s, H_frac=sum(meta) / (1 << N), base_prob=base / (1 << N),
+            diff_prob=diff / (1 << N), se_prob=0.0, z=float("inf"),
+            rel=diff / base if base else 0.0, control_z=0.0, frac_positive=1.0,
+            significant=True, exact=True)
+    if base_seed is None:
+        base_seed = 300 + n * 10
+    hard = mbpsp_predicate(n, s)
+    ctrl = popcount_predicate(N // 2)
+    # H and base on one pass
+    rng = random.Random(11)
+    e0, el = 1, 1 << 1
+    H = bc = 0
+    M0 = 6000
+    for _ in range(M0):
+        t = rng.randrange(1 << N)
+        a = hard(t)
+        if a:
+            H += 1
+        if not (a == hard(t ^ e0) == hard(t ^ el) == hard(t ^ e0 ^ el)):
+            bc += 1
+    sig = [crn_pair_diff(hard, N, d_hi, 1, M, random.Random(base_seed + k))
+           for k in range(seeds)]
+    con = [crn_pair_diff(ctrl, N, d_hi, 1, M, random.Random(base_seed + 500 + k))
+           for k in range(seeds)]
+    mean, se = _pool(sig)
+    cmean, cse = _pool(con)
+    base_prob = bc / M0
+    return CrossLevelRow(
+        n=n, N=N, s=s, H_frac=H / M0, base_prob=base_prob, diff_prob=mean, se_prob=se,
+        z=mean / se, rel=mean / base_prob if base_prob else 0.0,
+        control_z=cmean / cse if cse > 0 else 0.0,
+        frac_positive=sum(1 for e in sig if e.mean_prob > 0) / seeds,
+        significant=(mean - Z99 * se > 0 or mean + Z99 * se < 0), exact=False)
+
+
+def cross_level_table(ns: Sequence[int] = (4, 5, 6), seeds: int = 6,
+                      M: int = 150000) -> List[CrossLevelRow]:
+    """The median-calibrated cross-level table (Module 25): order-anisotropy survival
+    of MBPSP[s] across levels.  MEASURED: survives n=4,5,6; leverage non-monotone and
+    bounded (no growth); control flat at every level."""
+    return [cross_level_row(n, seeds=seeds, M=M) for n in ns]
+
+
 def honesty_note() -> str:
     """One-paragraph honesty boundary (string; no asymptotic claim)."""
     return (

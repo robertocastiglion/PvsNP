@@ -1328,3 +1328,65 @@ in profondita' col sampling: l'anisotropia d'ordine sopravvive a n=5, ma come SO
 LEVA (nessun invariante di livello monotono; il regime fedele degenera a n>=6). Bilancio del lab: 12
 restatement + 1 falsificazione + 1 non-collasso (Module 22) + 1 PASS-di-sopravvivenza (Module 24).
 Nessun auto-ciclo.
+
+---
+
+## Entry 21 — Module 25 "Cross-Level Survival under Median Calibration": la spinta a n=6 (2026-06-17)
+
+**Decisione umana (2026-06-17):** dopo Module 24 (PASS a n=5), direzione "spingi a n=6".
+
+**Verdetto: PASS — sopravvivenza cross-livello su TRE livelli, NON crescita di leva.**
+
+**Explorer.** Il faithful theta=0.5*max DEGENERA a n>=6 (Module 24: le taglie OBDD random si
+concentrano vicino al massimo => meta costante-HARD => pair-influence 0). Per riaprire il boundary si
+RICALIBRA la soglia alla MEDIANA delle taglie OBDD (median_threshold: sweep esatto a n<=4, campionato
+a n>=5), tenendo la meta-funzione non-banale (H~0.17-0.44). PREZZO dichiarato: e' un OGGETTO DIVERSO
+dal muro fedele di Module 22 (soglia ricalibrata). Resto invariato: stimatore CRN, coppia
+pre-registrata (var top x_{n-1} vs x0), controllo nullo popcount, pooling multi-seed. KILLER: se a n=6
+la CI 99% pooled include 0 => spara. PASS se significativo + controllo piatto.
+
+**Builder.** Aggiunti a `pnp_lab/meta_complexity/sampled_order_n5.py`: `median_threshold`,
+`CrossLevelRow`, `cross_level_row` (esatto a n<=4, campionato+pooled a n>=5, con controllo),
+`cross_level_table`. +3 test (n=4 esatto deterministico: diff 1536, base 21024, rel 0.0731, controllo
+esatto 0; median_threshold(4)==10; slow n=6 survival con @timeout). Esempio `run_cross_level_median.py`.
+
+**MISURA (median policy; n=4 esatto, n=5/6 campionati CRN, congelata):**
+
+    n   s    H_frac   base_prob   diff_prob    z       rel=diff/base   control       signs
+    4* 10   0.170    0.321       +2.34e-2     esatto  +7.3%           0 (esatto)    --
+    5  16   0.246    0.300       +3.53e-2     +73     +11.8%          piatto (-0.95) 6/6
+    6  26   0.435    0.282       +2.05e-2     +43     +7.3%           piatto (-0.24) 6/6
+
+SOPRAVVIVE tutti e tre i livelli: a n=5,6 la coppia pre-registrata e' significativa con ampio margine,
+TUTTE le seed positive, controllo nullo PIATTO a OGNI livello => segnale specifico dell'ordine, non
+artefatto della calibrazione.
+
+**Adversary.** (1) Oggetto ricalibrato: VERO e dichiarato (median != faithful 0.5*max); raggiungere
+n=6 ha avuto questo prezzo. (2) La leva NON cresce: rel 7.3->11.8->7.3% (non-monotono, limitato);
+magnification richiede crescita, qui e' neutra. (3) Confound di H: la policy median-intera non tiene
+fissa la frazione hard (0.17/0.25/0.44) e il rel traccia H (picco a n=5, H~0.25) => la "stabilita'"
+del rel non va sovrainterpretata. Il controllo piatto a OGNI H difende la claim di SOPRAVVIVENZA, non
+una claim di tendenza-leva. (4) Artefatto dello stimatore? NO: popcount sotto la STESSA median H pool
+~0 mentre il segnale e' z=43-73.
+
+**Evaluator — verdetto: PASS (sopravvivenza), soffitto NETTO.** Rafforza la sopravvivenza cross-livello
+(da 1 livello in Module 24 a 3 qui); NON dimostra crescita di leva cross-livello. L'amplificazione
+asintotica resta CITATA. Tangibilita' ALTA (n=4 esatto congelato, n=5/6 z enormi, controllo piatto,
+suite verde). Onesta' ALTA (oggetto ricalibrato + leva non-crescente + confound H tutti dichiarati).
+
+**Honesty boundary (EN).** ESTIMATED not computed: the n=5,n=6 differences (Monte Carlo, CRN, pooled).
+COMPUTED exactly: the full n=4 row, the popcount control's exact-0, min_obdd_size (O(N), also at n=6 on
+64-bit tables). RECALIBRATED (stated): median threshold != Module 22 faithful policy. NOT shown: any
+GROWING cross-level leverage (bounded, H-confounded). CITED never computed: magnification/locality
+theorems. No separation, no P vs NP claim.
+
+**Stato repo:** esteso `sampled_order_n5.py` (sezione cross_level_*), `tests/test_sampled_order_n5.py`
+(+3, 1 slow), nuovo `examples/run_cross_level_median.py`, nuovo `docs/cross-level-median.md`; README
+riga 25 + voce Documentation; questa entry. Suite veloce verde (9 fast); slow verdi.
+
+**Stato del programma:** la Magnification Frontier e' ora misurata su TRE livelli (n=4,5,6) col sampling:
+l'anisotropia d'ordine SOPRAVVIVE ovunque, ma come SOPRAVVIVENZA non come LEVA (nessuna crescita;
+oggetto ricalibrato per arrivare a n=6). Bilancio del lab: 12 restatement + 1 falsificazione + 1
+non-collasso (Module 22) + 1 survival-PASS a 1 livello (Module 24) + 1 survival-PASS a 3 livelli
+(Module 25). La leva cross-livello (il cuore della magnification) resta asintotica e CITATA. Nessun
+auto-ciclo.

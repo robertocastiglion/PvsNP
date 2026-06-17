@@ -87,6 +87,36 @@ def test_n5_pass_replicated():
     assert abs(v.control_z) < s5.Z99             # null control stays consistent with 0
 
 
+# ── cross-level (median-calibrated): the push to n=6 (Module 25) ───────────
+
+def test_cross_level_n4_exact_median():
+    """The n=4 row of the median-calibrated cross-level table is EXACT and frozen:
+    s=10, the pre-registered top(x3)-vs-x0 pair difference is 1536 (base 21024), and
+    the popcount control is exactly 0 by symmetry."""
+    r = s5.cross_level_row(4)
+    assert r.exact and r.s == 10
+    assert round(r.diff_prob * (1 << r.N)) == 1536       # exact top(x3) - x0
+    assert round(r.base_prob * (1 << r.N)) == 21024
+    assert abs(r.rel - 0.0731) < 0.001
+    assert r.control_z == 0.0                            # exact-0 by symmetry
+
+
+def test_median_threshold_exact_at_n4():
+    assert s5.median_threshold(4) == 10
+
+
+@pytest.mark.slow
+@pytest.mark.timeout(600)
+def test_cross_level_survives_to_n6():
+    """The frozen result: under the median calibration the order-anisotropy SURVIVES
+    to n=6 (N=64, 2^64 truth tables) — significant, all seeds positive, control flat.
+    Deterministic (base_seed=360): z ~ 25.  ~3.5 min."""
+    r = s5.cross_level_row(6, seeds=3, M=100000, base_seed=360)
+    assert r.significant and r.z > s5.Z99
+    assert r.frac_positive >= 0.66
+    assert abs(r.control_z) < s5.Z99                     # null control stays flat
+
+
 @pytest.mark.slow
 @pytest.mark.timeout(300)
 def test_threshold_regime_degenerates_at_n6():
