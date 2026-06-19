@@ -80,6 +80,33 @@ def test_freshness_schedule_defeats_all_and_matches_greedy():
     assert fs.lengths == fs.greedy_lengths
 
 
+# ── Cycle 2: fidelity stress-test against adaptive cross-length machines ────
+
+def test_bgs_defeats_hard_machines_and_is_stable():
+    """FIDELITY: the existing BGS construction defeats the harder class (adaptive +
+    cross-length), AND the stability theorem holds — re-running each machine against the
+    FINAL B still defeats it (later plants never perturb earlier machines)."""
+    fr = lev.fidelity_stress_test(lev.HARD_MACHINES)
+    assert fr.all_defeated_in_construction
+    assert fr.stable_under_final_B
+
+
+def test_cross_length_machines_make_schedule_jump():
+    """The cross-length probe machines reach beyond their input length, so the schedule is
+    no longer the trivial n+1: realized reaches exceed the stage lengths for the probes."""
+    fr = lev.fidelity_stress_test([lev.make_probe_long(2), lev.make_probe_long(3)])
+    # each probe reaches reach_factor * n > n
+    assert fr.reaches[0] > fr.schedule[0]
+    assert fr.reaches[1] > fr.schedule[1]
+
+
+def test_empty_oracle_reach_is_deterministic():
+    """A non-adaptive cross-length probe has a fixed reach = reach_factor * n at empty
+    oracle (sanity for the execution-dependence comparison)."""
+    m = lev.make_probe_long(2)
+    assert lev._empty_oracle_reach(m, 4) == 8
+
+
 def test_honesty_note_has_no_pvsnp_claim():
     note = lev.honesty_note()
     assert "No separation, no P vs NP claim" in note

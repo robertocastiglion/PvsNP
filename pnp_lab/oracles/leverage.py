@@ -205,6 +205,135 @@ def freshness_schedule(machines: Sequence[OracleMachine] = tuple(EXAMPLE_MACHINE
         all_defeated=res.all_machines_defeated)
 
 
+# ── CYCLE 2: fidelity stress-test against adaptive cross-length machines ────
+#
+# EXAMPLE_MACHINES (separation.py) are all simple and never query above their input
+# length n.  Cycle 2 stresses the EXISTING BGS construction against a strictly harder
+# class — ADAPTIVE (next query depends on prior answers) and CROSS-LENGTH (queries
+# strings longer/shorter than n) machines — to test two things:
+#   (FIDELITY) does build_separating_oracle still defeat them, and does the STABILITY
+#     theorem hold (re-running each machine against the FINAL B still defeats it — i.e.
+#     later stages' plants never perturb an earlier machine, the freshness invariant)?
+#   (LEVERAGE) is the freshness length-schedule now EXECUTION-DEPENDENT (reach varies
+#     with the oracle built so far), or still closed-form budget arithmetic?
+
+def _binary(k: int, n: int) -> str:
+    return format(k, "b").zfill(n)
+
+
+def make_probe_long(reach_factor: int = 2, per_len: int = 2) -> OracleMachine:
+    """Macchina CROSS-LUNGHEZZA non adattiva: su 1^n interroga ``per_len`` stringhe a ogni
+    lunghezza da n a reach_factor*n e accetta se ne trova una in B.  Reach = reach_factor*n
+    (oltre n) ⇒ forza la pianificazione a saltare; budget alla lunghezza n = per_len."""
+    def decide(n: int, query: QueryFn) -> bool:
+        for L in range(n, reach_factor * n + 1):
+            for k in range(min(per_len, 1 << L)):
+                if query(_binary(k, L)):
+                    return True
+        return False
+    return OracleMachine(name=f"probe_long_x{reach_factor}", decide=decide,
+                         budget=lambda n: per_len,
+                         description="cross-length: interroga fino a reach_factor*n")
+
+
+def make_adaptive(per_len: int = 3) -> OracleMachine:
+    """Macchina ADATTIVA: la prossima query dipende dalla risposta precedente.  Su 1^n
+    interroga 0^n; se in B prova 0^{n}1.. variando, altrimenti scende; reach <= n
+    (resta alla lunghezza n) ma il pattern di query dipende dall'oracolo."""
+    def decide(n: int, query: QueryFn) -> bool:
+        k = 0
+        for _ in range(per_len):
+            s = _binary(k % (1 << n), n)
+            if query(s):
+                return True
+            k = k * 2 + 1            # prossima stringa scelta in base al fallimento
+        return False
+    return OracleMachine(name="adaptive", decide=decide, budget=lambda n: per_len,
+                         description="adattiva alla lunghezza n")
+
+
+def make_backscan(look_back: int = 2, per_len: int = 1) -> OracleMachine:
+    """Macchina che interroga stringhe PIÙ CORTE (lunghezza n-1, n-2, ...), dove stadi
+    PRECEDENTI potrebbero aver piantato stringhe ⇒ la sua risposta (e reach) dipende dal B
+    già costruito.  Non interroga la lunghezza n ⇒ reach < n, niente salto in avanti."""
+    def decide(n: int, query: QueryFn) -> bool:
+        for d in range(1, look_back + 1):
+            L = n - d
+            if L < 1:
+                break
+            for k in range(min(per_len, 1 << L)):
+                if query(_binary(k, L)):
+                    return True
+        return False
+    return OracleMachine(name="backscan", decide=decide, budget=lambda n: 0,
+                         description="interroga stringhe più corte (plant precedenti)")
+
+
+#: Classe più dura di EXAMPLE_MACHINES: adattive + cross-lunghezza.
+HARD_MACHINES: List[OracleMachine] = [
+    make_probe_long(2),
+    make_adaptive(),
+    make_backscan(),
+    make_probe_long(3),
+]
+
+
+@dataclass
+class FidelityResult:
+    all_defeated_in_construction: bool   # ogni macchina sbaglia durante la costruzione
+    stable_under_final_B: bool           # re-eseguita contro il B FINALE, sbaglia ancora
+    schedule: Tuple[int, ...]            # lunghezze scelte attraverso gli stadi
+    reaches: Tuple[int, ...]             # max_query_length realizzato per stadio
+    execution_dependent_reach: bool      # qualche reach != reach a oracolo VUOTO?
+
+
+def _empty_oracle_reach(machine: OracleMachine, n: int) -> int:
+    """La reach (massima lunghezza interrogata) della macchina su 1^n con oracolo VUOTO."""
+    reach = 0
+    def q(s: str) -> bool:
+        nonlocal reach
+        reach = max(reach, len(s))
+        return False
+    machine.decide(n, q)
+    return reach
+
+
+def fidelity_stress_test(machines: Sequence[OracleMachine] = tuple(HARD_MACHINES),
+                         start_length: int = 1) -> FidelityResult:
+    """Cycle 2 — stress-test della costruzione BGS esistente contro ``machines`` dure.
+
+    FEDELTÀ: ogni macchina è sconfitta durante la costruzione, e — ri-eseguendola contro il
+    B FINALE — resta sconfitta (teorema di stabilità: la freshness impedisce agli stadi
+    successivi di perturbare le macchine precedenti).  LEVA: la reach realizzata per stadio
+    è confrontata con la reach a oracolo vuoto; se differiscono la pianificazione è
+    esecuzione-dipendente (non aritmetica chiusa)."""
+    res = build_separating_oracle(machines, start_length=start_length)
+    all_def = res.all_machines_defeated
+    # stabilità: ri-esegui ogni macchina contro il B finale, deve ancora sbagliare
+    stable = True
+    reaches: List[int] = []
+    exec_dep = False
+    for machine, stage in zip(machines, res.stages):
+        reach = 0
+        def q(s: str, _r=None) -> bool:
+            nonlocal reach
+            reach = max(reach, len(s))
+            return s in res.B
+        accepts_final = bool(machine.decide(stage.length, q))
+        lb_final = any(len(s) == stage.length for s in res.B)
+        if accepts_final == lb_final:      # non più sbagliata ⇒ instabile
+            stable = False
+        reaches.append(reach)
+        if reach != _empty_oracle_reach(machine, stage.length):
+            exec_dep = True
+    return FidelityResult(
+        all_defeated_in_construction=all_def,
+        stable_under_final_B=stable,
+        schedule=tuple(s.length for s in res.stages),
+        reaches=tuple(reaches),
+        execution_dependent_reach=exec_dep)
+
+
 def honesty_note() -> str:
     """One-paragraph honesty boundary (string; no asymptotic / P-vs-NP claim)."""
     return (

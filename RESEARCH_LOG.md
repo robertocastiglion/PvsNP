@@ -1697,3 +1697,62 @@ Magnification) + il contrasto tra le due barriere come contenuto onesto; (b) PIV
 la freshness schedule con macchine che fanno query CROSS-LUNGHEZZA (max_query_length > n), l'unico modo
 per cui lo schedule non sia il banale n+1 (rischio: comunque aritmetica greedy del reach); oppure il lato
 P^A=NP^A (collapse) come operatore; (c) STOP / nuova direzione/barriera. Nessun auto-ciclo.
+
+---
+
+## Entry 26 — Relativization-leverage Cycle 2 (pivot b): FIDELITY-PASS + leva RESTATEMENT (2026-06-19)
+
+**Decisione umana:** "b" — pivot dentro il programma. Eseguito il candidato pre-dichiarato in Entry 25: la
+freshness schedule con macchine ADATTIVE e CROSS-LUNGHEZZA (la classe che EXAMPLE_MACHINES non esercita
+mai). Doppio obiettivo: (FEDELTÀ) la diagonalizzazione BGS di `separation.py` sconfigge adversari più duri
+e regge il teorema di stabilità? (LEVA) lo schedule diventa esecuzione-dipendente o resta forma chiusa?
+
+**Builder.** Esteso `pnp_lab/oracles/leverage.py`: macchine `make_probe_long` (cross-lunghezza, reach=
+k*n), `make_adaptive` (query successiva dipende dalla risposta), `make_backscan` (interroga stringhe più
+corte, dove stadi precedenti possono aver piantato), set `HARD_MACHINES`; `fidelity_stress_test`
+(ricostruisce B, verifica all_defeated, STABILITÀ = ri-esegue ogni macchina contro il B FINALE e deve
+ancora sbagliare, e confronta la reach realizzata con la reach a oracolo vuoto). +3 test (13 fast totali
+nel modulo, verdi).
+
+**MISURA (congelata, HARD_MACHINES = probe_long_x2, adaptive, backscan, probe_long_x3):**
+
+    all_defeated_in_construction : True
+    stable_under_final_B         : True       <- teorema di stabilità REGGE
+    schedule lengths             : (2, 5, 6, 7)
+    realized reaches             : (4, 5, 5, 21)
+    execution_dependent_reach    : False
+
+**Adversary/Evaluator — due esiti distinti.**
+- FEDELTÀ = PASS (positivo, genuino, non-duplicativo, on-model "rendi il muro fedele"): la costruzione BGS
+  esistente — testata finora solo su macchine-giocattolo non adattive — sconfigge la classe più dura
+  (adattive + cross-lunghezza + backscan) E soddisfa la stabilità (la freshness impedisce agli stadi
+  successivi di perturbare le macchine precedenti: re-run contro B finale ⇒ ancora sbagliate). È il
+  contenuto onesto del ciclo.
+- LEVA = RESTATEMENT (confermato, più netto di Cycle 1): execution_dependent_reach=False ⇒ la reach
+  realizzata = reach a oracolo vuoto. La freshness schedule è determinata dalla MAX-QUERY-LENGTH di
+  ciascuna macchina — proprietà strutturale/sintattica INDIPENDENTE dall'oracolo ⇒ forma chiusa di (reach,
+  budget). Il candidato non-collassante pre-dichiarato collassa del tutto. (La dipendenza a livello di
+  VERDETTO — backscan può colpire un plant precedente — esiste ma è assorbita dalla costruzione.)
+
+Robustness ~8/10. Onestà ALTA (entrambi gli esiti dichiarati; nessun over-claim; nessun claim P vs NP).
+
+**Honesty boundary (EN).** COMPUTED exactly: the stress-test (defeat + stability re-run against the final
+B) and the empty-oracle reach comparison, reusing the verified BGS construction. CITED: BGS 1975. NOT
+shown: any non-trivial leverage operator — the freshness schedule is a closed-form function of each
+machine's syntactic reach + budget. No separation, no P vs NP claim.
+
+**Stato repo:** esteso `leverage.py` (sezione Cycle 2) + `tests/test_oracles_leverage.py` (+3, 13 fast),
+questa entry. README NON modificato. Suite verde.
+
+**Stato del programma + GATE — DUE RESTATEMENT consecutivi sull'angolo-leva (Cycle 1 + Cycle 2).** Il gate
+graduato (pattern "due restatement consecutivi senza nuova direzione plausibile") consiglia la CHIUSURA. La
+leva della relativizzazione è esatta-ma-triviale e la sua unica struttura non-banale (lo schedule online)
+è forma chiusa: nessun operatore di leva non-triviale esiste in questa arena. Il contenuto onesto residuo
+nel repo: (i) la lente della leva applicata a BGS (`leverage.py`), (ii) lo stress-test di fedeltà +
+stabilità contro adversari duri (un rafforzamento genuino di `oracles`), (iii) il contrasto tra le due
+barriere (Magnification = leva assente; Relativizzazione = leva triviale-ma-esatta).
+
+**NEXT unstable direction (decisione umana — gate ROSSO):** RACCOMANDATO (a) CHIUDERE il programma
+cristallizzando un piccolo Module che unisce il contrasto-tra-barriere + lo stress-test di fedeltà come
+contenuto positivo onesto; oppure (b) una barriera/direzione del tutto nuova; oppure (c) STOP secco. Nessun
+auto-ciclo.
