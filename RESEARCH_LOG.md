@@ -1615,3 +1615,85 @@ cross-livello (cuore della magnification) e' irriducibilmente asintotica e fuori
 Riapertura possibile SOLO con un oggetto meta genuinamente nuovo (non MBPSP[s], non MCSP[s]) o un livello
 raggiungibile oltre n=6 — entrambi non disponibili oggi. Stato: PROGRAMMA CHIUSO. Nessun auto-ciclo;
 attendere un'eventuale nuova direzione umana.
+
+---
+
+## Entry 25 — NUOVO PROGRAMMA "Relativization Obstruction as a Leverage Operator", Cycle 1 = RESTATEMENT (2026-06-19)
+
+**Decisione umana (2026-06-19):** "pusha i 20 commit e apri un nuovo programma, proposto da te". Pushati i
+20 commit (24786cf..3e80b22). Il PI-modello ha proposto di rendere eseguibile la barriera della
+RELATIVIZZAZIONE (Baker-Gill-Solovay) — la prima delle tre barriere classiche.
+
+**CORREZIONE DI ROTTA (dichiarata per onesta').** La premessa "il lab non ha mai toccato la
+relativizzazione" era FALSA: tutte e tre le barriere classiche sono GIA' eseguibili — relativizzazione in
+`pnp_lab/oracles/` (BGS `separation` = diagonalizzazione P^B!=NP^B verificata, `collapse` = TQBF per
+P^A=NP^A), algebrizzazione in `pnp_lab/algebrization` + `algebraic_worlds` + `algebraic_separation`.
+Ricostruire BGS sarebbe stato un DUPLICATO. Il programma e' stato RI-SCOPATO all'unico angolo non
+duplicativo: applicare la LENTE DELLA LEVA (lo strumento piu' nuovo del lab, nato dalla Magnification
+Frontier appena chiusa) alla costruzione BGS gia' eseguibile, riusandola.
+
+**Explorer.** La relativizzazione e' il crogiolo naturale: la sua ostruzione e' il piu' pulito divario di
+conteggio (poly(n) query vs 2^n stringhe) ed e' ESATTA E CON CRESCITA ESPLICITA (h(n,k)=2^n-n^k cresce),
+a differenza dell'oggetto della Magnification Frontier (leva asintotica/irraggiungibile). Ipotesi L:
+misurata come operatore cross-livello, l'ostruzione e' una leva genuina che NON e' un'etichetta di un
+bound totale. KILLER pre-dichiarato (la tensione del lab): tutto si riduce al fatto totale singolo
+depth(OR_m)=m istanziato a m=2^n + aritmetica di 2^n vs n^k => RESTATEMENT (collasso nell'arena della
+relativizzazione). Candidato NON-collassante pre-dichiarato: la pianificazione ONLINE delle lunghezze
+attraverso gli stadi (oggetto cross-stadio che la depth(OR) di una singola funzione non vede).
+
+**Builder.** Nuovo `pnp_lab/oracles/leverage.py` (RIUSA `separation.build_separating_oracle`/
+`EXAMPLE_MACHINES`): `or_decision_tree_depth(n)` (depth(OR) su 2^n var, VERIFICATA da ricorsione DT
+generica memoizzata per n<=3), `reservation(n,q)`, `headroom(n,k)`, `break_even_length(k)`,
+`leverage_staircase`, `freshness_schedule`. +10 test (tutti fast, verdi), esempio
+`run_oracle_leverage.py`.
+
+**MISURA (congelata, esatta):**
+
+    n   2^n  depth(OR)   h(n,1)  h(n,2)  h(n,3)
+    1    2      2          1       1       1
+    2    4      4          2       0      -4
+    3    8      8          5      -1     -19
+    4   16     16         12       0     -48
+    5   32     32         27       7     -93
+    6   64     64         58      28    -152
+
+    break-even n*(k): k=1 -> 1,  k=2 -> 5,  k=3 -> 10
+    freshness schedule (always_accept, always_reject, query_zeros, query_prefix_n2):
+       diag lengths (1,2,3,5) == greedy lengths (1,2,3,5);  matches_greedy=True; all_defeated=True
+
+**Adversary — RESTATEMENT.** (1) `obstruction_height` = depth(OR) = 2^n PER DEFINIZIONE; (2) h(n,k) =
+2^n-n^k = pura aritmetica; (3) n*(k)=1,5,10 = il sorpasso esponenziale-su-polinomio da manuale; (4) il
+candidato non-collassante (freshness schedule) ha matches_greedy=True => si riduce all'aritmetica greedy
+del reach di query (per queste macchine = n+1, perche' non fanno query cross-lunghezza). Tutto collassa
+sul fatto totale singolo depth(OR_m)=m + aritmetica. CONTRASTO illuminante tra le due barriere: la
+Magnification ha leva ASSENTE (survival not leverage; oggetto quasi-permutation-invariant, leva vera
+asintotica), la Relativizzazione ha leva PRESENTE ED ESATTA (h cresce, n* e' una scala reale) ma TRIVIALE
+(collassa su depth(OR)=2^n). Due estremita': nessuna leva misurabile vs leva misurabile ma triviale;
+nessuna delle due da' contenuto nuovo.
+
+**Evaluator — verdetto: RESTATEMENT-of-known, robustness ~8/10.** Affila il Collapse Theorem (anche la
+barriera con ostruzione esatta-e-crescente collassa sotto la lente della leva). Fedelta' ALTA (riusa BGS
+verificato; depth(OR) verificata genericamente; nessun over-claim; nessun duplicato — riuso esplicito).
+Onesta' ALTA (correzione di rotta dichiarata; killer pre-dichiarato; esito RESTATEMENT; nessun claim P vs
+NP).
+
+**Honesty boundary (EN).** COMPUTED exactly: depth(OR) on 2^n vars (generic DT recursion for n<=3), the
+reservation counts, h(n,k), n*(k), the freshness schedule (reusing the verified BGS diagonalization).
+CITED never re-proved: BGS 1975 and depth(OR_m)=m for m>8 (textbook; generic check explodes as 3^m). No
+separation, no P vs NP claim.
+
+**Stato repo:** nuovo `prompts/relativization-barrier.md` (brief, ri-scopato), nuovo
+`pnp_lab/oracles/leverage.py`, nuovo `tests/test_oracles_leverage.py` (+10 fast), nuovo
+`examples/run_oracle_leverage.py`, questa entry. README NON modificato (non e' ancora un Module numerato:
+crystallizzazione = gate ROSSO). Suite del modulo verde.
+
+**Stato del programma + GATE.** Applicato il gate graduato appena codificato, regola B2: STOP IMMEDIATO al
+primo RESTATEMENT diagnosticato dall'adversary, niente auto-rilancio. Lab tally aggiornato: + 1 RESTATEMENT
+nell'arena della relativizzazione (il 13esimo collasso complessivo, primo fuori dai rami CSP/magnification).
+
+**NEXT unstable direction (decisione umana — gate ROSSO):** (a) CRISTALLIZZARE Cycle 1 come piccolo Module
+("Relativization Leverage = trivial-but-exact", il contrappunto esatto al "survival not leverage" della
+Magnification) + il contrasto tra le due barriere come contenuto onesto; (b) PIVOT dentro il programma —
+la freshness schedule con macchine che fanno query CROSS-LUNGHEZZA (max_query_length > n), l'unico modo
+per cui lo schedule non sia il banale n+1 (rischio: comunque aritmetica greedy del reach); oppure il lato
+P^A=NP^A (collapse) come operatore; (c) STOP / nuova direzione/barriera. Nessun auto-ciclo.
