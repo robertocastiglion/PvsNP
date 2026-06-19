@@ -1569,3 +1569,49 @@ programma al suo soffitto positivo onesto (raccomandato — analogo alla chiusur
 ULTIMO tentativo di leva con un OGGETTO diverso (non MBPSP[s]/order-anisotropy) dove l'amplificazione
 potrebbe non essere permutation-quasi-invariante — rischio alto di ennesimo restatement; (c) STOP. Nessun
 auto-ciclo: attendere la scelta umana.
+
+---
+
+## Entry 24 — Capstone "Cross-Level Survival Arc": cristallizzo M24-27 e CHIUDO il programma (2026-06-19)
+
+**Decisione umana (2026-06-19):** direzione (a) — cristallizzare M24-27 come capstone e chiudere la
+Magnification Frontier al suo soffitto positivo onesto (analogo alla chiusura del sotto-ramo locality in
+Module 22 e del ramo CSP/algebrico nel Collapse Theorem).
+
+**Atto.** Nessun nuovo esperimento: passo di sintesi/Archivist. Creato `docs/cross-level-survival-arc.md`
+che unifica le quattro cicli in una tesi a due facce:
+- **SOPRAVVIVENZA — stabilita e difesa da ogni lato a n<=6.** L'anisotropia d'ordine di `MBPSP[s]` (l'unico
+  oggetto meta non-permutation-invariant del lab, Module 22) e' significativa a ogni livello raggiungibile
+  (z da ~5 a ~73), tutte le seed positive, controllo nullo popcount piatto ovunque. TRE confound
+  pre-registrati come killer — artefatto n=4 (M24), deriva di H (M26), scelta di normalizzazione (M27) —
+  NESSUNO spara. Modello eseguibile fedele, riproducibile, multiplo-controllato della SOPRAVVIVENZA.
+- **LEVA — genuinamente assente sui livelli raggiungibili.** L'effetto NON cresce: `rel` limitato e
+  non-monotono, picco a n=5, e quel picco e' ora gauge-invariante (proprieta' del livello, non del
+  denominatore). La magnification richiede leva CRESCENTE; qui sale e poi scende.
+
+**Perche' il programma chiude qui (il soffitto strutturale).** L'operatore di amplificazione di cui la
+magnification PARLA e' asintotico. L'arco rende eseguibile esattamente la SOPRAVVIVENZA del suo
+ingrediente non-invariante; NON puo' rendere la LEVA: esistono solo tre livelli (n=4 ultimo esatto, n=5
+2^32 e n=6 2^64 solo campionati, n=7=2^128 fuori portata per costruzione). Tre punti non possono esibire
+una pendenza asintotica. I controlli M26-M27 non sollevano il soffitto: rimuovono le due vie per
+AGGIRARLO ("forse e' la deriva di H", "forse e' la tua normalizzazione"). Chiusura positiva onesta: un
+NEGATIVO ben difeso sulla leva + un POSITIVO ben difeso sulla sopravvivenza. La leva resta CITATA
+(Oliveira-Pich; Chen-Jin-Williams; McKay-Murray-Williams; CHRSV).
+
+**Stato repo:** nuovo `docs/cross-level-survival-arc.md` (capstone); README voce Documentation (capstone);
+questa entry. Nessun codice/test nuovo (passo di sintesi). Suite invariata verde.
+
+**Stato del programma — CHIUSO.** La Magnification Frontier (aperta 2026-06-14, Entries 13-24) e' ora
+chiusa al suo soffitto positivo onesto, come il ramo CSP/algebrico (Collapse Theorem) e il sotto-ramo
+locality (Module 22). Bilancio finale del lab sui due rami: 12 restatement + 1 falsificazione + 1
+non-collasso (Module 22) + survival-PASS@1 (Module 24) + survival-PASS@3 (Module 25) + 2 controllo-PASS
+che induriscono il soffitto falsificando un confound (Module 26 = H-confound; Module 27 = gauge-confound),
+sintetizzati nel capstone Module "Cross-Level Survival Arc". Il lab e' una METODOLOGIA — rendere un
+fenomeno asintotico profondo eseguibile, esatto, su istanze minuscole, e dichiarare con precisione dove
+il contenuto asintotico sfugge — NON un attacco a P vs NP. Nessuna separazione, nessun claim su P vs NP.
+
+**NEXT unstable direction:** NESSUNA porta out-of-the-box resta aperta su entrambi i rami; la leva
+cross-livello (cuore della magnification) e' irriducibilmente asintotica e fuori dalla portata eseguibile.
+Riapertura possibile SOLO con un oggetto meta genuinamente nuovo (non MBPSP[s], non MCSP[s]) o un livello
+raggiungibile oltre n=6 — entrambi non disponibili oggi. Stato: PROGRAMMA CHIUSO. Nessun auto-ciclo;
+attendere un'eventuale nuova direzione umana.
