@@ -157,6 +157,60 @@ def test_iso_hardness_survival_is_H_robust_at_n6():
     assert 0.30 < r.H_frac < 0.55                        # H held near 0.5 (not the median)
 
 
+# ── gauge-invariance of the leverage trend (Module 27) ─────────────────────
+
+def _row(n, diff_prob, base_prob, se_prob=0.0, exact=False):
+    """A minimal CrossLevelRow carrying just the fields the gauge analysis reads."""
+    N = 1 << n
+    return s5.CrossLevelRow(
+        n=n, N=N, s=0, H_frac=0.0, base_prob=base_prob, diff_prob=diff_prob,
+        se_prob=se_prob, z=0.0, rel=diff_prob / base_prob, control_z=0.0,
+        frac_positive=1.0, significant=True, exact=exact)
+
+
+def test_gauge_alpha_star_and_same_sign_math():
+    """The gauge math on the frozen Module-26 numbers (deterministic, no sampling):
+    4->5 both endpoints rise (same_sign, alpha* < 0), 5->6 both fall (same_sign,
+    alpha* = 1.85 > 1) => the n=5 peak is gauge-invariant over [0,1]."""
+    rows = [_row(4, 0.0308, 0.559, exact=True),
+            _row(5, 0.0418, 0.394, se_prob=6e-4),
+            _row(6, 0.0225, 0.282, se_prob=5e-4)]
+    v = s5.leverage_gauge(rows, H_target=0.5, mc=20000, seed=0)
+    p45, p56 = v.pairs
+    assert p45.same_sign and p45.delta_abs > 0 and p45.delta_rel > 0
+    assert p56.same_sign and p56.delta_abs < 0 and p56.delta_rel < 0
+    assert abs(p56.alpha_star - 1.852) < 0.01           # the decisive flip exponent
+    assert v.alpha_star_5_6 > 1.0 and not v.killer_fires
+    assert v.gauge_invariant_peak                        # same argmax (n=5) for all alpha
+    assert all(n == 5 for n in v.peak_n_by_alpha.values())
+
+
+def test_gauge_killer_fires_when_relative_grows():
+    """KILLER sanity: a synthetic series where rel GROWS monotonically (alpha*_{5->6}
+    inside [0,1]) must FIRE the killer — proving the test can fail."""
+    # diff falls but base falls faster => rel rises 5->6; alpha*_{5->6} lands in (0,1)
+    rows = [_row(4, 0.030, 0.55, exact=True),
+            _row(5, 0.040, 0.40, se_prob=1e-4),
+            _row(6, 0.038, 0.20, se_prob=1e-4)]
+    v = s5.leverage_gauge(rows, H_target=0.5, mc=20000, seed=1)
+    assert 0.0 < v.alpha_star_5_6 <= 1.0
+    assert v.killer_fires and not v.passes
+    assert not v.gauge_invariant_peak                    # abs and rel disagree 5->6
+
+
+@pytest.mark.slow
+@pytest.mark.timeout(600)
+def test_gauge_invariant_peak_both_slices():
+    """The frozen Module-27 result on the REAL sampled iso-hardness series: on both H
+    slices the n=5 peak is gauge-invariant (alpha*_{5->6} > 1) and the killer does NOT
+    fire under sampling-error propagation (p_killer small).  ~5 min (two 3-level series)."""
+    for H in (0.5, 0.2):
+        v = s5.leverage_gauge_table(H_target=H, seeds=4, M=120000)
+        assert v.alpha_star_5_6 > 1.0, (H, v.alpha_star_5_6)
+        assert v.gauge_invariant_peak, (H, v.peak_n_by_alpha)
+        assert not v.killer_fires and v.p_killer < 0.05, (H, v.p_killer)
+
+
 @pytest.mark.slow
 @pytest.mark.timeout(300)
 def test_threshold_regime_degenerates_at_n6():

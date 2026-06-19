@@ -1475,3 +1475,97 @@ leva" e' ora PIU' PULITO, non superato. Bilancio del lab: 12 restatement + 1 fal
 non-collasso (Module 22) + 1 survival-PASS@1 (Module 24) + 1 survival-PASS@3 (Module 25) + 1 controllo-
 PASS che indurisce M25 e falsifica un confound (Module 26). La leva cross-livello (il cuore della
 magnification) resta asintotica e CITATA. Nessun auto-ciclo.
+
+---
+
+## Entry 23 — Module 27 "Leverage Gauge-Invariance": chiudo il flag di normalizzazione di Module 24 (2026-06-19)
+
+**Decisione (ripresa autonoma del ciclo "continua la ricerca", 2026-06-19):** dopo Module 26 il flag
+APERTO piu' affilato dell'intero arco-sopravvivenza restava quello di Module 24 — il trend cross-livello
+era stato definito NORMALIZATION-DEPENDENT ("la differenza assoluta DECADE, quella relativa-al-confine
+CRESCE"). Se vero, la domanda "c'e' leva?" sarebbe MAL POSTA (gauge-dependent). Ma quell'osservazione
+confrontava DUE policy di soglia diverse su soli DUE punti. Direzione: settare la questione gauge sulla
+serie iso-hardness CONSISTENTE di Module 26 (3 livelli, 2 fette H).
+
+**Verdetto: PASS (controllo) — il trend cross-livello e' NORMALIZATION-ROBUSTO; il "no leva" e'
+gauge-indipendente, non una scelta di denominatore.**
+
+**Explorer.** Interpolare le due normalizzazioni nominate da M24 con un solo esponente:
+`L_alpha(n) = diff_prob(n) / base_prob(n)^alpha`, alpha in [0,1] (alpha=0 = assoluto, alpha=1 =
+relativo-al-confine). Poiche' `log L_alpha(n) = log diff - alpha*log base` e' LINEARE in alpha, il trend
+su una coppia di livelli `Delta(alpha) = A - alpha*B` ha SEGNO COSTANTE su [0,1] sse i due estremi
+Delta(0)=A (abs) e Delta(1)=A-B (rel) condividono il segno; equivalentemente flippa all'esponente
+critico `alpha* = A/B`, e se alpha* e' FUORI [0,1] tutto l'intervallo concorda. KILLER pre-dichiarato:
+se alpha*_{5->6} <= 1 su ANCHE UNA fetta, entro il range gauge naturale una normalizzazione produce
+crescita monotona => leva gauge-DEPENDENT, flag di M24 RESTA. PASS sse alpha*_{5->6} > 1 su ENTRAMBE le
+fette E la conclusione sopravvive all'errore di campionamento n=5,6 (P(alpha*<=1) piccola).
+
+**Builder.** Aggiunta sezione gauge in `pnp_lab/meta_complexity/sampled_order_n5.py`: dataclass
+`GaugePair`/`GaugeVerdict`, `leverage_gauge(rows, ...)` (post-analisi ESATTA delle righe M26 — NESSUN
+nuovo campionamento della meta-funzione; propaga l'errore CRN + binomiale di base su alpha* via 200k
+draw Monte-Carlo), `leverage_gauge_table(H_target)`. Esempio `run_leverage_gauge.py`. +3 test: 2 fast
+(la matematica gauge su righe sintetiche congelate; un test-KILLER che SPARA su una serie sintetica con
+rel crescente, a prova che il test puo' fallire) + 1 slow (serie iso-hardness reale, entrambe le fette).
+
+**MISURA (serie iso-hardness campionata; n=4 esatto, n=5,6 CRN pooled 6 seed, M=120k; gauge esatta):**
+
+    H_target   coppia   Delta_abs(a=0)   Delta_rel(a=1)   alpha*     same_sign su [0,1]
+    0.5        4->5      +0.312           +0.662           -0.89      si' (salgono entrambi)
+    0.5        5->6      -0.671           -0.335           +2.00      si' (calano entrambi)
+    0.2        4->5      +0.376           +0.444           -5.47      si' (salgono entrambi)
+    0.2        5->6      -1.051           -0.649           +2.61      si' (calano entrambi)
+
+    => peak per alpha in {0,.25,.5,.75,1} = n=5 a OGNI alpha, su entrambe le fette;
+       gauge_invariant_peak=True; alpha*_{5->6}=2.00/2.61; P(alpha*<=1)=0.0000 (200k MC); PASS.
+
+Su ENTRAMBE le fette abs e rel salgono insieme 4->5 e calano insieme 5->6 => L_alpha fa picco a n=5 per
+OGNI alpha in [0,1]; alpha*_{5->6}=2.00/2.61 (ben oltre 1): servirebbe SOVRA-normalizzare per base^~2-2.6
+(fuori dal range abs<->rel) per fabbricare crescita monotona. Il KILLER NON spara.
+
+**Adversary.** (1) Post-hoc / circolare? La gauge e' pura post-analisi delle righe M26 (nessun nuovo
+sample). DIFESA: testa un flag PRE-REGISTRATO (M24) con killer pre-dichiarato (alpha*<=1) che PUO'
+sparare (il test sintetico lo dimostra) — non vacua. (2) E' [0,1] il range giusto? alpha=0 e alpha=1
+sono ESATTAMENTE le due normalizzazioni nominate da M24, l'intervallo e' VINCOLATO dal flag, non scelto
+per vincere; alpha*~2-2.6 e' lontano fuori. (3) Solo 3 punti, n=4 esatto vs campionato: limite EREDITATO
+da M24/25/26, dichiarato; la gauge-invarianza e' sui MEDESIMI 3 livelli, non asintotica. (4) Il picco a
+n=5 potrebbe essere esso stesso un artefatto di taglia finita (l'asintoto vero monotono, visibile oltre
+n=6=2^128, fuori portata): VERO e dichiarato — questo ciclo RIMUOVE UNA spiegazione alternativa
+(gauge-dependence) del non-monotono osservato, NON stabilisce l'assenza asintotica di leva. (5)
+Fabbricazione dello stimatore? P(alpha*<=1)=0 su 200k draw propagando se CRN + errore binomiale di base.
+
+**Evaluator — verdetto: PASS (controllo), soffitto INVARIATO ma PIU' SOLIDO.** Chiude una delle ultime
+vie per AGGIRARE il soffitto: il non-monotono (picco a n=5) e' una proprieta' reale di questi 3 livelli,
+non una scelta di denominatore. NON solleva il soffitto, NON dimostra leva. Tangibilita' ALTA (post-
+analisi esatta, ancora n=4 esatta, killer puo' sparare, propagazione MC dell'errore, suite verde).
+Onesta' ALTA (natura post-hoc + 3 punti + caveat taglia-finita + asintoto CITATO, tutti dichiarati).
+
+**Honesty boundary (EN).** ESTIMATED not computed: the n=5,n=6 diff_prob (Monte Carlo, CRN, pooled 6
+seeds) feeding the analysis. COMPUTED exactly: both n=4 rows (full sweep); the gauge post-analysis
+(Delta_abs, Delta_rel, alpha*) is an exact function of the rows. PROPAGATED: P(alpha*_{5->6}<=1) over
+200k MC draws of the CRN + binomial-base error (=0 both slices). PINNED not chosen: the gauge interval
+[0,1] = Module 24's two named normalizations. NOT shown: any asymptotic statement; the result is the
+gauge-robustness of the trend across the THREE available levels only. CITED never computed:
+magnification/locality theorems. No separation, no P vs NP claim.
+
+**Stato repo:** esteso `sampled_order_n5.py` (sezione `GaugePair`/`GaugeVerdict`/`leverage_gauge*`),
+`tests/test_sampled_order_n5.py` (+3, 1 slow), nuovo `examples/run_leverage_gauge.py`, nuovo
+`docs/leverage-gauge.md`; README riga 27 + voce Documentation; questa entry. Suite veloce verde (11 fast
+del modulo); slow gauge verde.
+
+**Stato del programma:** Module 24 aveva lasciato il flag piu' affilato (trend gauge-dependent => "c'e'
+leva?" mal posta). Module 27 lo CHIUDE col controllo gauge: a policy fissa il trend e' identico per ogni
+normalizzazione naturale alpha in [0,1] (picco a n=5 gauge-invariante, alpha*_{5->6}=2.0/2.6>1,
+P(alpha*<=1)=0). La divergenza di M24 era TRA POLICY, non TRA NORMALIZZAZIONI. Il soffitto "survival, non
+leva" e' ora il piu' solido finora — gauge-indipendente. Bilancio del lab: 12 restatement + 1
+falsificazione + 1 non-collasso (Module 22) + 1 survival-PASS@1 (Module 24) + 1 survival-PASS@3 (Module
+25) + 2 controllo-PASS che induriscono il soffitto falsificando un confound (Module 26 = H-confound;
+Module 27 = gauge-confound). La leva cross-livello (il cuore della magnification) resta asintotica e
+CITATA. Nessun auto-ciclo.
+
+**NEXT unstable direction (decisione umana):** i tre flag aperti lasciati da M24-26 (H-confound, gauge-
+confound) sono ora chiusi; il soffitto "survival non leverage" e' difeso da ogni lato a n<=6. Le porte
+plausibili restanti: (a) CRISTALLIZZARE M24-27 come capstone "Cross-Level Survival Arc" e chiudere il
+programma al suo soffitto positivo onesto (raccomandato — analogo alla chiusura di Module 22); (b) un
+ULTIMO tentativo di leva con un OGGETTO diverso (non MBPSP[s]/order-anisotropy) dove l'amplificazione
+potrebbe non essere permutation-quasi-invariante — rischio alto di ennesimo restatement; (c) STOP. Nessun
+auto-ciclo: attendere la scelta umana.

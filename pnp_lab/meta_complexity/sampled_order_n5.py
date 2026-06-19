@@ -597,6 +597,168 @@ def iso_hardness_table(ns: Sequence[int] = (4, 5, 6), H_target: float = 0.5,
     return [iso_hardness_row(n, H_target=H_target, seeds=seeds, M=M) for n in ns]
 
 
+# ── GAUGE-INVARIANCE of the leverage trend (Module 27) ──────────────────────
+#
+# Module 24 left the sharpest open flag of the whole survival arc: it called the
+# cross-level trend NORMALIZATION-DEPENDENT — "absolute pair-influence difference
+# DECAYS (n=4 4.9e-4 -> n=5 1.4e-4) while the difference relative to the boundary
+# GROWS (0.8% -> 3.7%)".  If that divergence were real, the question "is there
+# cross-level LEVERAGE?" would be ILL-POSED (gauge-dependent): the answer would be
+# whatever the chooser of the normalization wants.  But that observation compared
+# TWO DIFFERENT threshold policies (the faithful theta=0.5*max wall) over only TWO
+# levels.  Module 26 now gives a CONSISTENT iso-hardness series at THREE levels for
+# two H slices, so the gauge question can be settled.
+#
+# THE GAUGE FAMILY.  Interpolate absolute and relative with one exponent:
+#
+#     L_alpha(n) = diff_prob(n) / base_prob(n) ** alpha ,   alpha in [0, 1]
+#
+# alpha=0 is the absolute difference (Module 24's "abs"); alpha=1 is the
+# difference-relative-to-boundary (Module 24's "rel").  Because
+#
+#     log L_alpha(n) = log diff(n) - alpha * log base(n)
+#
+# is LINEAR in alpha, the trend across a level pair, Delta(alpha) = log L_alpha(n+1)
+# - log L_alpha(n) = A - alpha*B with A = log(diff_{n+1}/diff_n), B =
+# log(base_{n+1}/base_n), keeps a CONSTANT SIGN over alpha in [0,1] iff its two
+# endpoints Delta(0)=A and Delta(1)=A-B share a sign.  Equivalently the trend FLIPS
+# at the critical exponent alpha* = A/B; if alpha* is OUTSIDE [0,1] the level-pair
+# trend is the same for every natural normalization.  So checking the abs and rel
+# endpoints PROVES the whole interval.
+#
+# PRE-DECLARED KILLER.  Compute alpha*_{5->6} on both H slices.  If alpha*_{5->6} <=
+# 1 on EITHER slice, then within the natural gauge range some normalization turns the
+# n=5 peak into monotone growth => the leverage is GAUGE-DEPENDENT and Module 24's
+# flag STANDS (we cannot claim a gauge-robust "no leverage").  PASS iff alpha*_{5->6}
+# > 1 on BOTH slices (the n=5 peak is gauge-invariant over [0,1]), AND that conclusion
+# survives the sampling error of the n=5,6 estimates (Monte-Carlo propagation:
+# P(alpha*_{5->6} <= 1) small).
+#
+# MEASURED (sampled iso-hardness series, n=4 exact + n=5,6 CRN pooled over 6 seeds,
+# M=120k; gauge post-analysis is exact, p_killer over 200k MC error-propagation draws):
+#
+#   H_target   pair   Delta_abs(a=0)  Delta_rel(a=1)  alpha*    same_sign over [0,1]
+#   0.5        4->5      +0.31           +0.66         -0.89     yes (both rise)
+#   0.5        5->6      -0.67           -0.33         +2.00     yes (both fall)
+#   0.2        4->5      +0.38           +0.44         -5.47     yes (both rise)
+#   0.2        5->6      -1.05           -0.65         +2.61     yes (both fall)
+#
+#   => peak level n=5 for every alpha in {0,.25,.5,.75,1}, p_killer = 0.0000 both slices.
+#
+# VERDICT — the n=5 peak is GAUGE-INVARIANT, the leverage is genuinely absent.  On
+# BOTH slices abs and rel rise together 4->5 and fall together 5->6, so L_alpha peaks
+# at n=5 for EVERY alpha in [0,1]; alpha*_{5->6} = 2.00 / 2.61 both exceed 1 (you would
+# have to OVER-normalize by base^~2-2.6, outside the abs<->rel range, to manufacture
+# monotone growth).  Module 24's "abs decays / rel grows" divergence was an artifact of
+# comparing two DIFFERENT threshold policies over two points, NOT a real gauge freedom:
+# under one fixed policy the trend is normalization-robust.  The "survival not leverage"
+# ceiling is now the CLEANEST it has been — gauge-independent, not a normalization
+# choice.  The asymptotic amplification stays CITED.
+
+@dataclass
+class GaugePair:
+    n_lo: int
+    n_hi: int
+    delta_abs: float             # Delta(0) = log(diff_hi / diff_lo)  (absolute trend)
+    delta_rel: float             # Delta(1) = log(rel_hi  / rel_lo)   (relative trend)
+    alpha_star: float            # exponent where the trend flips (Delta(alpha*) = 0)
+
+    @property
+    def same_sign(self) -> bool:
+        """True iff the absolute and relative trends agree => the level-pair trend is
+        the same for every alpha in [0,1] (alpha* outside (0,1))."""
+        return (self.delta_abs > 0) == (self.delta_rel > 0)
+
+
+@dataclass
+class GaugeVerdict:
+    H_target: float
+    pairs: List[GaugePair]
+    peak_n_by_alpha: dict        # alpha (grid) -> argmax_n L_alpha(n)
+    gauge_invariant_peak: bool   # same argmax for every alpha in the grid AND endpoints
+    alpha_star_5_6: float        # the decisive flip exponent for the 5->6 pair
+    p_killer: float              # P(alpha*_{5->6} <= 1) under sampling error (MC)
+    killer_fires: bool           # alpha*_{5->6} <= 1 (gauge-dependent leverage)
+    passes: bool                 # gauge-invariant peak AND alpha*_{5->6} > 1 robustly
+
+
+def _alpha_star(diff_lo: float, base_lo: float, diff_hi: float, base_hi: float) -> float:
+    """The exponent alpha at which L_alpha(hi) == L_alpha(lo); nan if base is unchanged."""
+    import math
+    B = math.log(base_hi / base_lo)
+    if B == 0.0:
+        return float("nan")
+    return math.log(diff_hi / diff_lo) / B
+
+
+def leverage_gauge(rows: Sequence[CrossLevelRow], H_target: float,
+                   alpha_grid: Sequence[float] = (0.0, 0.25, 0.5, 0.75, 1.0),
+                   mc: int = 200000, base_M: int = 6000,
+                   seed: int = 0) -> GaugeVerdict:
+    """Settle Module 24's gauge flag on a CONSISTENT iso-hardness series (Module 27).
+
+    Given the three iso-hardness ``CrossLevelRow`` (n=4 exact, n=5,6 sampled CRN) for one
+    H slice, decide whether the cross-level trend of ``L_alpha(n) = diff/base**alpha`` is
+    the SAME for every natural normalization ``alpha in [0,1]``.  Returns the per-pair
+    endpoint trends + flip exponent, the argmax level per alpha on a grid, the decisive
+    ``alpha*_{5->6}`` with a Monte-Carlo propagation of the n=5,6 sampling error
+    (``p_killer`` = P(alpha*_{5->6} <= 1)), and the PASS/killer verdict.  No new sampling
+    of the meta-function: this is an exact post-analysis of the frozen rows."""
+    import math
+    by_n = {r.n: r for r in rows}
+    ordered = sorted(by_n)
+    pairs: List[GaugePair] = []
+    for lo, hi in zip(ordered, ordered[1:]):
+        rl, rh = by_n[lo], by_n[hi]
+        pairs.append(GaugePair(
+            n_lo=lo, n_hi=hi,
+            delta_abs=math.log(rh.diff_prob / rl.diff_prob),
+            delta_rel=math.log(rh.rel / rl.rel),
+            alpha_star=_alpha_star(rl.diff_prob, rl.base_prob, rh.diff_prob, rh.base_prob)))
+    # peak (argmax) level for each alpha on the grid
+    peak: dict = {}
+    for a in alpha_grid:
+        vals = {n: by_n[n].diff_prob / by_n[n].base_prob ** a for n in ordered}
+        peak[a] = max(vals, key=vals.get)
+    invariant = (len(set(peak.values())) == 1) and all(p.same_sign for p in pairs)
+    # the decisive pair: 5->6 (or the top pair if n=6 absent)
+    top = pairs[-1]
+    astar = top.alpha_star
+    # Monte-Carlo propagation of the n=5,6 sampling error onto alpha*_{5->6}
+    rl, rh = by_n[top.n_lo], by_n[top.n_hi]
+    rng = random.Random(seed)
+    def _bse(p: float) -> float:                       # binomial se of a base_prob count
+        return (p * (1 - p) / base_M) ** 0.5
+    fires = 0
+    valid = 0
+    for _ in range(mc):
+        dl = rl.diff_prob if rl.exact else rng.gauss(rl.diff_prob, rl.se_prob)
+        dh = rh.diff_prob if rh.exact else rng.gauss(rh.diff_prob, rh.se_prob)
+        bl = rl.base_prob if rl.exact else rng.gauss(rl.base_prob, _bse(rl.base_prob))
+        bh = rh.base_prob if rh.exact else rng.gauss(rh.base_prob, _bse(rh.base_prob))
+        if dl <= 0 or dh <= 0 or bl <= 0 or bh <= 0:   # log undefined -> skip degenerate draw
+            continue
+        valid += 1
+        a = _alpha_star(dl, bl, dh, bh)
+        if a == a and a <= 1.0:                        # a==a excludes nan (base unchanged)
+            fires += 1
+    p_killer = fires / valid if valid else 1.0
+    killer = (astar != astar) or astar <= 1.0
+    return GaugeVerdict(
+        H_target=H_target, pairs=pairs, peak_n_by_alpha=peak,
+        gauge_invariant_peak=invariant, alpha_star_5_6=astar,
+        p_killer=p_killer, killer_fires=killer,
+        passes=invariant and (not killer) and p_killer < 0.01)
+
+
+def leverage_gauge_table(H_target: float = 0.5, seeds: int = 6, M: int = 120000,
+                         ns: Sequence[int] = (4, 5, 6)) -> GaugeVerdict:
+    """Convenience: build the iso-hardness rows for one H slice and run ``leverage_gauge``
+    (Module 27).  EXACT n=4 anchor + sampled CRN n=5,6, then the exact gauge post-analysis."""
+    rows = [iso_hardness_row(n, H_target=H_target, seeds=seeds, M=M) for n in ns]
+    return leverage_gauge(rows, H_target=H_target)
+
+
 def honesty_note() -> str:
     """One-paragraph honesty boundary (string; no asymptotic claim)."""
     return (
