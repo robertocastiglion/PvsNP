@@ -39,7 +39,10 @@ passando solo il contesto necessario, e raccogli gli output:
 (e) adversary → prova a uccidere/ridurre-a-noto.
 (f) evaluator → score + flag + verdetto + honesty boundary.
 (g) archivist → append log + update memory.
-(h) PI → cristallizzare in Module / iterare / cambiare direzione / FERMARSI.
+(h) PI → applica il GATE GRADUATO (vedi "AUTONOMIA NEL TEMPO"): VERDE = auto-ciclo
+    consentito (solo controllo-confound pre-dichiarato, stessa arena, nessun claim/chiusura);
+    ROSSO = FERMATI e chiedi (pivot, new content, chiusura/capstone, commit/scope). Poi:
+    cristallizzare in Module / iterare / cambiare direzione / FERMARSI.
 
 ## "RISULTATO RILEVANTE" (criterio di successo, verificato da adversary+evaluator)
 - congettura NUOVA, falsificabile, non implicata dai parent, testabile sul piccolo; o
@@ -55,14 +58,45 @@ dello stesso invariante già flaggato.
 - Ogni numero deve essere rigenerabile da codice presente/committato.
 - Non committare/pushare senza dirlo nel log; lavora su branch se tocchi main.
 
-## AUTONOMIA NEL TEMPO
-- Lo STATO vive nei file (RESEARCH_LOG.md + memory/), non nella conversazione.
-  All'avvio ricostruiscilo da lì.
-- FERMATI e chiedi all'umano quando:
-  (1) due cicli consecutivi → KILLED/RESTATEMENT senza nuova direzione plausibile;
-  (2) un ciclo → candidato NEW CONTENT con robustness ≥ 7 e nessun flag aperto;
-  (3) serve una decisione su commit/push o scope.
-  Altrimenti continua al ciclo successivo.
+## AUTONOMIA NEL TEMPO — gate graduato (ibrido)
+Lo STATO vive nei file (RESEARCH_LOG.md + memory/), non nella conversazione: all'avvio
+ricostruiscilo da lì. La regola NON è on/off ("mai auto-ciclo" vs "tutto autonomo"): è un
+gate GRADUATO. Il principio: **il loop ESEGUE da solo, ma non DECIDE la direzione da solo.**
+Motivo (vincolante, dalla storia del lab): il fallimento-tipo è generare RESTATEMENT
+plausibili che collassano su teoremi noti (vedi Collapse Theorem, 12 restatement). Il gate
+umano è il principale meccanismo di onestà; l'adversary è interno al sistema e NON lo
+sostituisce per "questo collassa su un teorema noto?".
+
+### VERDE — auto-ciclo CONSENTITO senza chiedere (eseguire e basta)
+Procedi al ciclo successivo da solo SE E SOLO SE tutte queste valgono:
+  (V1) il prossimo passo è un CONTROLLO/CONFOUND pre-dichiarato da un flag aperto
+       dell'evaluator del ciclo precedente (es. Module 26 dopo il flag-H, Module 27 dopo il
+       flag-normalizzazione);
+  (V2) ha un KILLER esplicito e falsificabile dichiarato PRIMA di misurare;
+  (V3) resta nella STESSA arena / stesso oggetto / stesso regime (nessun pivot);
+  (V4) non produce un claim positivo né una chiusura di programma;
+  (V5) sei dentro il budget autonomo (sotto).
+
+### ROSSO — FERMATI e chiedi all'umano (decisione di merito)
+Ferma SEMPRE il loop e chiedi quando ricorre anche solo una di queste:
+  (R1) PIVOT: cambio di arena / oggetto meta / regime / normalizzazione, o nuova ipotesi
+       "out-of-the-box" (sono le scelte di valore: storicamente sempre umane);
+  (R2) candidato NEW CONTENT con robustness ≥ 7 e nessun flag aperto;
+  (R3) CHIUSURA di un programma/sotto-ramo o cristallizzazione di un CAPSTONE;
+  (R4) decisione su commit/push o scope;
+  (R5) STOP automatico da budget o da diagnosi di restatement (sotto).
+
+### BUDGET e STOP automatico (criteri di terminazione duri)
+  (B1) max 3 cicli VERDI consecutivi senza passare da un gate ROSSO → poi FERMATI e
+       riassumi, anche se altri controlli sarebbero possibili;
+  (B2) STOP IMMEDIATO al primo ciclo che l'adversary diagnostica come RESTATEMENT/ridotto-a-
+       noto: è il segnale che stai girando "in verticale" nello stesso piano → non
+       auto-rilanciare, chiedi una nuova direzione;
+  (B3) ogni auto-ciclo VERDE è comunque committato e loggato (Archivist) con la sua entry,
+       così l'umano può revisionare a posteriori la catena autonoma.
+
+In dubbio fra VERDE e ROSSO → tratta come ROSSO. Un gate ROSSO mancato (pivot o chiusura
+auto-decisi) è l'errore costoso; un VERDE trattato come ROSSO costa solo una domanda.
 
 ## OUTPUT DI OGNI CICLO (conciso)
 Direzione · ipotesi+killer · cosa costruito · numeri esatti · verdetto adversary ·
