@@ -1973,3 +1973,92 @@ input umano con un oggetto che fugga il dizionario PER COSTRUZIONE: o un vanishi
 d>=7 (non coperto da NESSUNA formula chiusa nota sotto ogni g-simmetria) misurato senza il muro brute-force,
 oppure una leva non-enumerabile (falsifier door 2/3). Previsione: ulteriori arene esatte tiny ricadranno nel
 dizionario congiunto/nelle formule note (Attractor Thesis sempre piu' robusta).
+
+---
+
+## Entry 31 — lever-A via BIPARTIZIONE "bipartite_rigidity": Module-22-redux, KILLED dal witness d'orbita S_4 (Entry-only, NON un Module) (2026-06-20)
+
+**Decisione (umano):** dopo il grand capstone, l'umano ha scelto di ESERCITARE la **leva (A)** della
+porta di riapertura ("vai con la A") = un oggetto non-perm-invariant ∧ non-statistica-globale ∧
+non-enumerabile, tutti e tre insieme. Le istanziazioni di lever A via ORDINE (Moduli 22, 23, 24-27)
+erano gia' esaurite; questo ciclo ha provato una STRUTTURA FISSA DIVERSA: la **BIPARTIZIONE** delle
+variabili (regime della complessita' di comunicazione), non l'ordine.
+
+**Explorer + killer.** Ipotesi-lab: la **RIGIDITA' di matrice** R_M(r) della matrice di comunicazione
+di inner-product/Hadamard a **bipartizione FISSA** (target r=2^{k-1}) porta contenuto FUORI dizionario
+/ mostra leva cross-level. Il rango da solo = log-rank (parent gia' dichiarato) → l'oggetto DOVEVA
+essere la rigidita', non il rango. 3 killer pre-dichiarati: **killer-1** (rigidita' riducibile ai soli
+ranghi), **killer-2** (ricostruibile dal dizionario congiunto del lab), **killer-leva** (ρ
+bounded/non-monotono → survival-no-leverage).
+
+**Builder.** `pnp_lab/bipartite_rigidity/` (`rigidity.py` + `killers.py`): motore esatto rank_gf2 (interi
+GF(2)), rank_q (Fraction su Q), rigidita' R_M(r) via subset-search di sign-flip. Ancore verdi:
+rank_gf2(IP_k)=k, rank_q(H_k)=2^k (k=1,2,3), R(H_1,1)=1, R(H_2,2)=3. Esatto SOLO k=1,2 (matrici 4×4);
+k=3 (8×8) ESPLODE (solo R>2 budgetato, halt onesto); k≥4 = lower bound CITED (de Wolf 2006 /
+Midrijanis / Lokam, R_{H_k}(r) ≥ n²/(4(r+1))). Riportava "non-collasso strutturale" (killer-1/2 non
+sparano sul confronto col dizionario congiunto) + survival-no-leverage (λ<1).
+
+**MISURA.** Confronto col dizionario S_{2k} congiunto (il claim iniziale del builder): killer-1 5
+split, killer-2 34 split → APPARENTE non-collasso. Witness d'orbita esatto auto-contenuto:
+**tt=0001011101111000** (m=4), orbita S_4 → rigidita' assume valori {0,2} mentre la sensitivity (e ogni
+firma del dizionario S_{2k}) resta PIATTA, firma dizionario unica (3,4,4). Col dizionario DELLA STESSA
+SIMMETRIA della rigidita' (rank_gf2, rank_q, multiset ordinato dei pesi-di-lato, invarianti S_k×S_k):
+killer-1 5→0 split, killer-2 34→0 split, reconstructible=True → rigidita' INTERAMENTE ricostruibile da
+invarianti S_k×S_k. Leva λ a k≥4 = pura algebra del bound CITED: numeratori = 2^{k-1}−1,
+ρ_LB=(2^{k-1}−1)/4^k, λ→1/2 tautologico, NESSUNA rigidita' misurata oltre k=2. Rigenera:
+`from pnp_lab.bipartite_rigidity import rig_rows, reducible_from_rank, dict_table, side_mixing_spread, leverage`.
+
+**Adversary — KILLED = Module-22-redux + non-risultato-sulla-leva.** Il dizionario congiunto del lab e'
+**S_{2k}-invariante**, ma la rigidita' a bipartizione FISSA e' solo **S_k×S_k-invariante** → e'
+A-PRIORI non ricostruibile dal dizionario S_{2k} per lo STESSO meccanismo di Module 22 (rottura di
+simmetria con struttura fissa). Il "non-collasso strutturale" del builder era un ARTEFATTO del
+confrontare un oggetto S_k×S_k contro un dizionario S_{2k}: sotto la simmetria CORRETTA la rigidita' non
+porta NESSUN contenuto fuori dal proprio dizionario d'orbita (killer-1/2 → 0 split). Il witness d'orbita
+S_4 forza killer-2 via un teorema d'orbita, non via campione. La leva — unica novita' possibile — e'
+pura algebra del bound CITED, non misurata oltre k=2.
+
+**Evaluator + GATE.** robustness 6.5/10, KILLED collapse-onto-known, RESTATEMENT classificato
+**Module-22-redux**. **GATE: Entry-only, NON un Module numerato** (stessa decisione di Entry 12 "w*
+bench, RESTATEMENT not a Module"): nessun contenuto nuovo, e' un redux di Module 22 con una struttura
+fissa diversa (bipartizione invece di ordine). `pnp_lab/bipartite_rigidity/` resta come **probe CITATO**,
+NON si cristallizza un docs/<module>.md. Lever A rompe la perm-invarianza come previsto (requisito 1,
+ATTESO, non informativo) ma la leva e' strutturalmente non misurabile. La porta di riapertura "lever A
+(asse struttura-fissa)" e' CHIUSA allo STESSO muro brute-force delle istanziazioni-ordine (k=3 = matrici
+8×8 = la subset-search esplode, motore halt onesto).
+
+**Honesty boundary (EN).** COMPUTED exactly (GF(2) ints, Fraction over Q, no floats): GF(2)-rank and
+rational rank of the inner-product/Hadamard communication matrix at a FIXED bipartition, and rigidity
+R_M(r) (min sign-flips to rank ≤ r) for enumerable instances — k≤2 fully (4×4) + a self-contained
+S_4-orbit witness on m=4 (tt=0001011101111000). Green anchors: rank_gf2(IP_k)=k, rank_q(H_k)=2^k
+(k=1,2,3), R_q(H_1,1)=1, R_q(H_2,2)=3. Established: fixed-bipartition rigidity is genuinely
+non-permutation-invariant (orbit values {0,2} vs sensitivity flat {4}) — lever-A requirement 1, holds BY
+CONSTRUCTION, not new content. On the same orbit the S_{2k}-invariant joint dictionary is constant yet
+rigidity splits, whereas the MATCHING-symmetry S_k×S_k invariant (GF(2)-rank + sorted side-weight
+multisets) reconstructs rigidity with ZERO splits. The 'structural non-collapse' was an artifact of
+comparing an S_k×S_k object against an S_{2k} dictionary; under the correct symmetry rigidity carries NO
+content outside its own orbit-invariant dictionary (same mechanism as Module 22). CITED, never
+re-proved: spectral rigidity LB for Hadamard (de Wolf 2006/Midrijanis/Lokam), R_{H_k}(r)≥n²/(4(r+1));
+the log-rank reduction. NOT shown (ceiling): any cross-level LEVERAGE — exact rigidity only k≤2, k=3
+(8×8) is the subset-search brute-force wall (engine halts honestly), k≥4 ρ is pure algebra of the CITED
+bound (ρ_LB=(2^{k-1}−1)/4^k, λ→1/2 tautologically), so 'survival-no-leverage' is asserted from a
+closed-form bound, not measured. No claim about P vs NP, no separation.
+
+**Stato repo:** `pnp_lab/bipartite_rigidity/` (`__init__.py`, `rigidity.py`, `killers.py`) resta come
+probe CITATO della lever A (NON un Module: nessun docs/<module>.md, nessuna riga Module nel README,
+nessun conteggio test cristallizzato). Questa entry. Suite veloce invariata.
+
+**Stato del programma + GATE.** **Entry-only** (Module-22-redux). Bilancio aggiornato: **16 collassi (di
+cui il 16°, lever-A bipartite-rigidity, e' Entry-only / Module-22-redux / NON una nuova arena) / 7 arene**
++ 1 falsificazione (Module 18) + 1 non-collasso (Module 22) + survival-PASS@1 (M24) + survival-PASS@3
+(M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). L'arena-count NON sale (la rigidita' a
+bipartizione fissa non e' una nuova arena, e' lo stesso meccanismo di Module 22 con struttura fissa
+diversa). L'asse "struttura-fissa" della porta di riapertura (A) — ordine nei Moduli 22-27, bipartizione
+qui — e' empiricamente ESAURITO: ogni istanziazione di lever A da' la STESSA forma (oggetto a simmetria
+rotta, ricostruibile dal dizionario della PROPRIA simmetria, leva non misurabile oltre il muro esatto).
+
+**NEXT unstable direction:** door A (asse struttura-fissa) e' CHIUSA allo stesso muro brute-force delle
+istanziazioni-ordine. Restano aperte solo: (B) una barriera con una ragione A-PRIORI di sfuggire al
+dizionario / alle formule chiuse note (Module 30 ha mostrato che una barriera nuova RESTATES comunque);
+oppure (C) un regime che renda la LEVA STESSA esatta a ≥2 livelli (NON un bound asintotico CITED) —
+falsifier door 2/3. Previsione: ulteriori istanziazioni di lever A (qualunque struttura fissa)
+RESTATERANNO come Module-22-redux. Il lab resta chiuso come metodologia.
