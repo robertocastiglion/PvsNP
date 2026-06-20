@@ -334,6 +334,22 @@ def fidelity_stress_test(machines: Sequence[OracleMachine] = tuple(HARD_MACHINES
         execution_dependent_reach=exec_dep)
 
 
+def barrier_contrast() -> str:
+    """La sintesi onesta di chiusura del programma: il contrasto fra le due barriere lette
+    con la STESSA lente della leva cross-livello.
+
+      * MAGNIFICATION (docs/cross-level-survival-arc.md): leva ASSENTE — l'order-anisotropy
+        di MBPSP[s] sopravvive ma non amplifica; la leva vera e' asintotica (n=7=2^128 fuori
+        portata).  Quasi-permutation-invariante.
+      * RELATIVIZATION (questo programma): leva PRESENTE ED ESATTA (h(n,k)=2^n-n^k cresce,
+        n*(k)=1,5,10 e' una scala reale) ma TRIVIALE — collassa su depth(OR)=2^n + aritmetica;
+        persino lo schedule online di BGS e' forma chiusa del reach sintattico (Cycle 2).
+
+    Due estremita' della stessa lente; NESSUNA delle due da' contenuto nuovo.  Esito
+    positivo collaterale: lo stress-test di fedelta'+stabilita' rafforza `oracles`."""
+    return barrier_contrast.__doc__
+
+
 def honesty_note() -> str:
     """One-paragraph honesty boundary (string; no asymptotic / P-vs-NP claim)."""
     return (

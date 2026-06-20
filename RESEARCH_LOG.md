@@ -1756,3 +1756,47 @@ barriere (Magnification = leva assente; Relativizzazione = leva triviale-ma-esat
 cristallizzando un piccolo Module che unisce il contrasto-tra-barriere + lo stress-test di fedeltà come
 contenuto positivo onesto; oppure (b) una barriera/direzione del tutto nuova; oppure (c) STOP secco. Nessun
 auto-ciclo.
+
+---
+
+## Entry 27 — Module 28 "The Two Barriers' Leverage" + AUTOMAZIONE dello stratega (2026-06-20)
+
+**Decisione umana:** (1) "a" = chiudere e cristallizzare il programma relativization-leverage; (2)
+automatizzare il ruolo dello STRATEGA facendolo rivestire dall'IA, per accelerare.
+
+**(1) CHIUSURA — Module 28.** Cristallizzato `docs/relativization-leverage.md` (capstone breve del
+programma, Entries 25-26): il contrasto tra le due barriere lette con la STESSA lente della leva —
+Magnification = leva ASSENTE (survival not leverage; asintotica), Relativization = leva PRESENTE ED ESATTA
+ma TRIVIALE (collassa su depth(OR)=2^n + aritmetica; persino lo schedule online di BGS e' forma chiusa del
+reach sintattico). Due estremita', nessuna con contenuto nuovo; affila il Collapse Theorem (13esimo
+collasso, primo fuori da CSP/magnification). Contenuto positivo collaterale: lo stress-test di
+fedelta'+stabilita' (Cycle 2) rafforza `oracles`. Aggiunta `barrier_contrast()` a `leverage.py` + test
+(14 fast totali nel modulo, verdi), README riga 28 + voce Documentation. Nessun claim P vs NP.
+
+**(2) AUTOMAZIONE DELLO STRATEGA.** Creato `.claude/agents/strategist.md` = il Principal Investigator
+AUTONOMO che sostituisce il ruolo umano: sceglie la direzione di ogni ciclo (col killer e la ragione
+strutturale), applica il gate graduato, e DECIDE ai gate ROSSO (pivot / cristallizza / chiudi).
+`prompts/research-loop.md` ricablato: ruolo 0 = orchestratore (non piu' stratega), ruolo 1 = strategist;
+passi (a), (h) e il gate ROSSO instradano allo strategist. GUARDRAIL incorporati nell'agente perche'
+l'automazione NON degeneri in restatement gonfiati: scettico-per-default (killer-first), spietato sui
+restatement (a RESTATEMENT cambia regime, non itera), memoria del terreno (conosce le arene chiuse + le due
+lezioni madre; fa grep su pnp_lab/ prima di proporre un'arena "nuova" — lezione del 2026-06-19), criterio
+di novita' (autorizza solo direzioni che ROMPONO strutturalmente una causa di collasso). LIMITE ASSOLUTO
+non negoziabile: nessun claim P vs NP, mai; onesta' > risultati > velocita'. Lo strategist escala
+all'umano in SOLI DUE casi (R-ESC): (ESC-1) candidato NEW CONTENT robustness>=7 senza flag aperti (un
+positivo vero va rivisto da un umano prima di qualunque affermazione esterna); (ESC-2) regimi esauriti.
+
+**Nota di realta' (registrata per onesta').** Automatizzare lo stratega NON rende il lab un risolutore di
+P vs NP: per le sue stesse conclusioni il lab e' una METODOLOGIA. Lo strategist accelera i cicli, non
+sposta quel soffitto. Aspettativa ricalibrata con l'umano.
+
+**Stato repo:** nuovo `docs/relativization-leverage.md`, nuovo `.claude/agents/strategist.md`, esteso
+`pnp_lab/oracles/leverage.py` (`barrier_contrast`) + test (+1), `prompts/research-loop.md` ricablato,
+README riga 28 + voce Documentation, memory aggiornata, questa entry. Suite veloce verde.
+
+**NEXT unstable direction:** lo `strategist` ora guida. Stato delle arene: CSP/algebrico CHIUSO, magnification
+CHIUSO, relativization CHIUSO (Module 28); algebrizzazione gia' eseguibile (terza barriera) ma mai letta con
+la lente della leva — possibile prossima arena VERDE/ROSSO-autonoma per lo strategist (previsione: probabile
+RESTATEMENT, come la relativization). Allo strategist la scelta: applicare la lente a `algebraic_separation`,
+oppure dichiarare ESC-2 (regimi classici esauriti) e chiedere all'umano una barriera nuova. Nessun
+auto-ciclo umano: da qui decide lo strategist.

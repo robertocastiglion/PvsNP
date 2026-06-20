@@ -110,3 +110,10 @@ def test_empty_oracle_reach_is_deterministic():
 def test_honesty_note_has_no_pvsnp_claim():
     note = lev.honesty_note()
     assert "No separation, no P vs NP claim" in note
+
+
+def test_barrier_contrast_names_both_extremes():
+    """The closing synthesis names both barriers and their opposite leverage verdicts."""
+    c = lev.barrier_contrast()
+    assert "MAGNIFICATION" in c and "RELATIVIZATION" in c
+    assert "ASSENTE" in c and "TRIVIALE" in c
