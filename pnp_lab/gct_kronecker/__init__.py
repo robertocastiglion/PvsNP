@@ -1,0 +1,67 @@
+"""GCT / Kronecker — la 7a arena indipendente del PvsNP-lab.
+
+Coefficienti di Kronecker g(lam,mu,nu) di S_d ESATTI (Murnaghan-Nakayama, Fraction/int)
+e il pattern di vanishing confrontato con le condizioni necessarie note (Dvir).
+
+IPOTESI-LAB: su d<=5 il vanishing (g==0) COLLASSA nelle NC note.  KILLER:
+sporadic_vanishing(d) non vuoto = vanishing sporadico = contenuto fuori dizionario.
+Nessun claim su Kronecker positivity / GCT / P vs NP (vedi honesty boundary in kronecker.py).
+"""
+
+from .kronecker import (
+    partitions,
+    transpose,
+    z_alpha,
+    mn_character,
+    hook_length_dimension,
+    kronecker,
+    nc_length,
+    nc_maxpart,
+    v_pred,
+    vanishing_table,
+    mismatches,
+    sporadic_vanishing,
+    nc_false_positive,
+    honesty_note,
+)
+from .coverage import (
+    is_two_row,
+    is_two_column,
+    is_hook,
+    is_rectangle,
+    special_shape,
+    g_orbit,
+    g_orbit_frozen,
+    covered,
+    covered_list,
+    uncovered,
+    coverage_summary,
+)
+
+__all__ = [
+    "partitions",
+    "transpose",
+    "z_alpha",
+    "mn_character",
+    "hook_length_dimension",
+    "kronecker",
+    "nc_length",
+    "nc_maxpart",
+    "v_pred",
+    "vanishing_table",
+    "mismatches",
+    "sporadic_vanishing",
+    "nc_false_positive",
+    "honesty_note",
+    "is_two_row",
+    "is_two_column",
+    "is_hook",
+    "is_rectangle",
+    "special_shape",
+    "g_orbit",
+    "g_orbit_frozen",
+    "covered",
+    "covered_list",
+    "uncovered",
+    "coverage_summary",
+]

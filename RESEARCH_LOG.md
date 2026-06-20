@@ -1903,3 +1903,73 @@ strutturale esterno: (A) una leva meta non-permutation-invariant E non-statistic
 (tutte e tre insieme); oppure (B) una barriera con ragione a-priori per sfuggire al dizionario congiunto
 (cost, gf2_degree, sensitivity, block_sensitivity, approx_degree); oppure (C) una misura nel regime
 genuinamente non-enumerabile (certified bounds / n>=7) — falsifier door 2/3.
+
+---
+
+## Entry 30 — 7a arena "GCT / Kronecker": RIAPERTURA via barriera iniettata + RESTATEMENT #15, chiusura CITED->COMPUTED (2026-06-20)
+
+**Decisione:** il lab era CHIUSO come metodologia (Entry 29, grand capstone). L'UMANO ha iniettato la
+"barriera del tutto nuova" che il capstone stesso indicava come UNICA via di riapertura (falsifier DOOR 3 /
+input strutturale esterno): i COEFFICIENTI DI KRONECKER g(lam,mu,nu) di S_d, oggetto centrale di GCT. Prima
+arena del lab FUORI dalla teoria delle funzioni Booleane (oggetti = molteplicita' rappresentazionali di S_d).
+
+**Explorer + killer.** Ipotesi-lab: su d piccolo il pattern di vanishing (g==0) COLLASSA nelle condizioni
+necessarie note (statistiche elementari di forma di partizione). KILLER pre-dichiarato: un "vanishing
+sporadico" (g=0 con TUTTE le NC soddisfatte) = contenuto fuori dizionario = survival.
+
+**Builder.** Nuovo package `pnp_lab/gct_kronecker/` (`kronecker.py`): motore di caratteri S_d via
+Murnaghan-Nakayama, g ESATTO intero (Fraction, assert denom=1). Ancore verdi: chi@1^d=hook-dim, Sum dim^2=d!,
+g([d],mu,nu)=delta_{mu,nu}, g(lam,[1^d],nu)=delta_{nu,lam'}, simmetria totale S_3, g>=0. Predittore `v_pred`
+con SOLE 2 NC solide (Dvir length-bound + duale per coniugio; la dominance e' stata SCARTATA perche' dava
+falsi positivi gia' a d=3). +35 test fast verdi + 2 slow; esempio `examples/run_gct_kronecker.py`.
+
+**MISURA (esatta, d<=6).** `sporadic_vanishing` (il killer): 0 a d=3, 2 a d=4, 5 a d=5, 44 a d=6.
+`nc_false_positive` = [] ovunque su d<=6 (le 2 NC sono davvero necessarie su questo range, nessun bug NC che
+si traveste da killer). Rigenera: `py examples/run_gct_kronecker.py` oppure
+`from pnp_lab.gct_kronecker import sporadic_vanishing, nc_false_positive`.
+
+**Adversary/Evaluator — KILLED, RESTATEMENT-by-collapse, robustness 6.5->~8/10.** Numeri corretti (doppio
+motore di caratteri). Il survival era ARTEFATTO del set di sole 2 NC deboli: ogni sporadico e' uno zero in
+una FAMIGLIA con formula esplicita NOTA di Kronecker (Rosas two-row/hook, std-by-std classica,
+Bessenrodt-Bowman rettangoli). Riduzione a tenaglia: per-collapse (zero in famiglia con formula nota) +
+per-hardness (l'insufficienza delle NC elementari E' Pak-Panova: decidere g>0 e' NP-hard). Il vero killer
+(terna con 3 partizioni simultaneamente non-hook/non-two-row/non-two-column/non-rettangolo sotto OGNI
+g-simmetria) vive a d>=7 = muro brute-force. RESTATEMENT #15, regola B2. FLAG PORTANTE: il passo di chiusura
+(uncovered=0) era CITED, non computato.
+
+**Builder-2 — chiusura del flag, CITED->COMPUTED.** Nuovo `coverage.py`: predicati di forma esatti
+(is_two_row/is_two_column/is_hook/is_rectangle/special_shape), orbita g-simmetrica S_3xV_4 (permutazioni +
+coniugio simultaneo di due argomenti), `covered(triple)` = esiste rappresentante d'orbita con >=2 argomenti
+special_shape (precondizione strutturale delle formule note; g costante sull'orbita, testato come bug-killer).
+MISURA COMPUTED IN-REPO `coverage_summary(d)` = (#sporadic, #covered, #uncovered): 2/2/0 (d=4), 5/5/0 (d=5),
+44/44/0 (d=6) => **uncovered==0 ovunque d<=6**. Il collasso e' ora COMPUTED, non piu' solo CITED. Confine
+documentato: il repo COMPUTA la precondizione strutturale di copertura, CITA il VALORE delle formule.
+
+**Honesty boundary (EN).** COMPUTED exactly (integer, Fraction assert denom=1): g(lam,mu,nu) for all triples
+of partitions of d<=6 (Murnaghan-Nakayama, two cross-checked engines); the green anchors; the two NCs with
+nc_false_positive=[] on d<=6; the sporadic counts 2,5,44; and now uncovered=0 (exact shape precondition over
+the g-symmetry orbit). CITED, never re-proved: the VALUES of the closed Kronecker formulas (Rosas,
+std-by-std, Bessenrodt-Bowman) as parent theorems; Pak-Panova / Ikenmeyer-Mulmuley-Walter NP-hardness of
+deciding g>0. NOT shown: any claim about Kronecker positivity, GCT obstructions, or P vs NP; the genuine
+out-of-dictionary discriminant lives at d>=7 = brute-force wall. Tiny-instance only (d<=6 exhaustive). No
+separation, no P vs NP claim.
+
+**Stato repo:** nuovo package `pnp_lab/gct_kronecker/` (`__init__.py`, `kronecker.py`, `coverage.py`), nuovo
+`tests/test_gct_kronecker.py` (35 fast + 2 slow verdi), nuovo `examples/run_gct_kronecker.py`, nuovo
+`docs/gct-kronecker.md`; README riga Module 30 + voce Documentation + Quick start; questa entry. Suite veloce
+verde.
+
+**Stato del programma + GATE.** RESTATEMENT => regola B2: ri-strategizzare, non iterare l'arena. La Attractor
+Thesis del grand capstone e' RAFFORZATA, non smentita: anche in una struttura matematica genuinamente diversa
+(rep theory di S_d, fuori dalle funzioni Booleane) ogni quantita' esatta tiny collassa nel dizionario (qui =
+statistiche di forma di partizione + formule chiuse note), e il would-be escape vive allo STESSO muro
+brute-force d>=7. Bilancio aggiornato: **15 collassi / 7 arene** + 1 falsificazione (Module 18) + 1
+non-collasso (Module 22) + survival-PASS@1 (M24) + survival-PASS@3 (M25) + 2 control-PASS (M26 H-confound, M27
+gauge-confound).
+
+**NEXT unstable direction:** il lab resta chiuso come metodologia; la riapertura ha confermato la sua
+disciplina (anche una barriera nuova fuori dalle funzioni Booleane RESTATES). Prossima riapertura SOLO su
+input umano con un oggetto che fugga il dizionario PER COSTRUZIONE: o un vanishing GENUINAMENTE sporadico a
+d>=7 (non coperto da NESSUNA formula chiusa nota sotto ogni g-simmetria) misurato senza il muro brute-force,
+oppure una leva non-enumerabile (falsifier door 2/3). Previsione: ulteriori arene esatte tiny ricadranno nel
+dizionario congiunto/nelle formule note (Attractor Thesis sempre piu' robusta).
