@@ -1800,3 +1800,57 @@ la lente della leva — possibile prossima arena VERDE/ROSSO-autonoma per lo str
 RESTATEMENT, come la relativization). Allo strategist la scelta: applicare la lente a `algebraic_separation`,
 oppure dichiarare ESC-2 (regimi classici esauriti) e chiedere all'umano una barriera nuova. Nessun
 auto-ciclo umano: da qui decide lo strategist.
+
+---
+
+## Entry 28 — 6a arena "Approximate Degree": RESTATEMENT #14, ma piu' affilato (2026-06-20)
+
+**Decisione:** umano "decidi tu" dopo che lo strategist autonomo aveva dichiarato ESC-2 sull'arena
+algebrica (Dir-A = Module 28 redux; Dir-B = Module 22 redux). L'orchestratore (IA) ha scelto una 6a ARENA
+INDIPENDENTE, la piu' distante dalle cinque gia' collassate: l'APPROXIMATE DEGREE (metodo dei polinomi /
+quantum query lower bounds), mai toccato dal lab. Onesto in anticipo: previsione RESTATEMENT; valore =
+estendere il Collapse Theorem a una 6a arena, NON P vs NP (impossibile su istanze minuscole).
+
+**Explorer + killer.** adeg_{1/3}(f) = grado minimo di un polinomio reale che approssima f a errore 1/3.
+KILLER pre-dichiarato: adeg e' permutation+negation invariant ⇒ collassa su una statistica d'orbita
+globale (Paturi) / sul dizionario. Sopravvivenza solo se separa coppie che il dizionario confonde.
+
+**Builder.** Nuovo package `pnp_lab/approx_degree/` (`adeg.py`): adeg ESATTO via la DUALITA' LP (il dual
+polynomial) — E_d(f)=max_psi sum psi f, |psi|_1<=1, psi ⟂ monomi di grado<=d; forma origin-feasible che si
+incastra nel SIMPLESSO RAZIONALE gia' nel repo (`exactness_composes.gap._simplex_max`). adeg=min d con
+E_d<=1/3. `error_degree_d`, `approx_degree`, `adeg_table` (esaustivo), `adeg_vs_cost`, `adeg_vs_dictionary`.
++6 test fast (ancore: parita'=grado n, costanti 0, dittatore 1; E_d monotono, E_n=0) +1 slow. Esempio.
+
+**MISURA (esaustivo n=3, 256 funzioni, esatta):** distribuzione adeg {0:2, 1:102, 2:134, 3:18}.
+  * adeg INCOMPARABILE col cost di formula (Modulo 6): nessuno raffina l'altro (cost 1 -> adeg {0,1};
+    cost 4 -> adeg {1,2}). adeg SEPARA funzioni di cost uguale ⇒ NON collassa su cost (a differenza di
+    tutti i cicli dell'arena sigma(cost)). PRIMO invariante esatto trovato FUORI dal dizionario sigma(cost).
+  * MA ricostruibile dal DIZIONARIO CONGIUNTO (cost, gf2_degree, sensitivity, block_sensitivity):
+    `adeg_vs_dictionary(3)` -> reconstructible=True, splits=[] ⇒ adeg non separa NESSUNA coppia su cui i
+    quattro concordano. Zero potere discriminante aggiuntivo.
+
+**Adversary/Evaluator — RESTATEMENT-OF-KNOWN, robustness ~8.5/10.** adeg e' una misura PARENT-NOTA
+(approximate degree / metodo dei polinomi), esatta, incomparabile col solo cost ma DENTRO il dizionario
+congiunto a n=3 ⇒ nessun contenuto nuovo verso una separazione. Affila il Collapse Theorem: il dizionario
+che assorbe ogni misura tiny non e' il solo sigma(cost) ma il CONGIUNTO di pochi invarianti d'orbita, e una
+misura da un'arena ortogonale (metodo dei polinomi) vi ricade comunque. 14esimo collasso, 6a arena
+indipendente. Onesta' ALTA: killer pre-dichiarato, esito dichiarato, nessun claim P vs NP.
+
+**Honesty boundary (EN).** COMPUTED exactly (rational LP, Fraction): adeg_{1/3}(f) for every function on
+n<=3 via the dual-polynomial LP; the incomparability with cost; the reconstruction from (cost, gf2_degree,
+sensitivity, block_sensitivity). CITED: polynomial method / quantum-query bounds, Paturi. Tiny-instance only
+(n<=3 exhaustive; n=4 = 2^16 LP fuori scope). No separation, no P vs NP claim.
+
+**Stato repo:** nuovo package `pnp_lab/approx_degree/` (+`__init__.py`, `adeg.py`), nuovo
+`tests/test_approx_degree.py` (+6 fast, 1 slow), nuovo `examples/run_approx_degree.py`, nuovo
+`docs/approx-degree.md`; README riga 29 + voce Documentation; questa entry. Suite veloce verde.
+
+**Stato del programma + GATE.** RESTATEMENT ⇒ regola B2: lo strategist ri-strategizza, non itera l'arena.
+Bilancio del lab: ora 14 collassi (6 arene) + 1 falsificazione + 1 non-collasso (Module 22) + survival-PASS@1/@3
++ 2 control-PASS. Il Collapse Theorem e' rafforzato (dizionario congiunto, 6a arena ortogonale).
+
+**NEXT unstable direction (strategist):** sei arene indipendenti collassate; l'unico non-collasso resta
+Module 22 (rompere la permutation-invariance, ma senza leva). Le porte di riapertura restano le tre indicate
+da Module 27/28 (oggetto meta NON permutation-invariant nuovo / livello oltre n=6 / barriera del tutto nuova).
+Previsione dello strategist: ulteriori arene esatte ricadranno nel dizionario congiunto (Collapse Theorem
+sempre piu' robusto) ⇒ probabile ESC-2 al prossimo giro salvo input umano con una leva strutturalmente nuova.
