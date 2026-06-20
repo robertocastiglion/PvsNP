@@ -1854,3 +1854,52 @@ Module 22 (rompere la permutation-invariance, ma senza leva). Le porte di riaper
 da Module 27/28 (oggetto meta NON permutation-invariant nuovo / livello oltre n=6 / barriera del tutto nuova).
 Previsione dello strategist: ulteriori arene esatte ricadranno nel dizionario congiunto (Collapse Theorem
 sempre piu' robusto) ⇒ probabile ESC-2 al prossimo giro salvo input umano con una leva strutturalmente nuova.
+
+---
+
+## Entry 29 — ESC-2 confermato dallo strategist + GRAND CAPSTONE "The Attractor Thesis" — il lab CHIUDE come metodologia (2026-06-20)
+
+**Decisione:** l'umano ("voglio che lo strategist lanci il prossimo ciclo") ha lanciato lo strategist
+autonomo al passo (a). Lo strategist ha ricostruito lo stato dai file (non dalla memoria), applicato il gate
+graduato e classificato il giro come **ESCALATION caso 2 — regimi esauriti**, raccomandando (c) ESC-2 con
+richiesta precisa all'umano. L'umano ha scelto **(C) chiudere il lab come metodologia**.
+
+**Perche' ESC-2 (verifica sui file dello strategist).** Una 7a arena esatta = RESTATEMENT #15 con prob. ~1
+(ricade nel dizionario congiunto) ⇒ la disciplina del lab impone di DECLINARE un restatement predetto, non
+macinarlo. Le tre porte di riapertura (Module 27/28) sono tutte chiuse: (1) un secondo oggetto order-dependent
+(min-OBDD a ordine ottimo / altro decision-diagram a struttura fissa) e' Module 22 redux — rompe la
+permutation-invariance ma resta una statistica dell'insieme duro senza leva cross-level; (2) livello oltre n=6
+sbarrato dal muro brute-force (n=7 = 2^128; il regime faithful degenera gia' a n>=6); (3) barriera del tutto
+nuova = richiede matematica nuova, che il mandato vieta di promettere. Riaprire richiede un INPUT STRUTTURALE
+ESTERNO umano (leva non-enumerabile / barriera fuori dizionario).
+
+**GRAND CAPSTONE.** Cristallizzato `docs/lab-capstone.md` = "The Attractor Thesis", il capstone di LIVELLO
+LAB sopra le due capstone di ramo (`collapse-theorem.md` = ramo CSP/algebrico; `cross-level-survival-arc.md` =
+Magnification Frontier). Tesi unica e falsificabile: ogni quantita' misurabile ESATTA su istanze tiny
+enumerabili COLLASSA nel DIZIONARIO CONGIUNTO di invarianti d'orbita (la causa e' il REGIME, non l'invariante:
+l'enumerabilita' esatta e' la trappola); l'unica fuga (Module 22) non rompe l'attrattore con un nuovo
+discriminante ma con la SIMMETRIA (un ordine fisso), e compra SOPRAVVIVENZA di un segnale non-invariante, MAI
+LEVA (cresce zero: bounded, non-monotono, picco gauge-invariante a n=5). Ledger completo nel doc: 14 collassi
+(6 arene) + 1 falsificazione (Module 18) + 1 non-collasso (Module 22) + survival-PASS@1 (M24) + survival-PASS@3
+(M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). Tre meccanismi di collasso ricorrenti (derivata /
+slice-cardinalita' / indice-di-livello di un oggetto noto). Falsifier a tre porte (door 2/3 = frontiera aperta
+onesta). Nessun claim P vs NP.
+
+**Honesty boundary (EN).** No lower bound, no P vs NP claim. Le riduzioni sono identita' verificate in codice
+(Moduli 6, 16, 18-29); i numeri n=5/6 sono STIMATI (Monte-Carlo/CRN, ancora esatta n=4 in CI). Regimi decisivi
+(certified bounds non-enumerabili / livello n>=7 / leva crescente) NON testati — soffitto dichiarato. Il lab e'
+una METODOLOGIA, non un attacco a P vs NP.
+
+**Stato repo:** nuovo `docs/lab-capstone.md` (grand capstone); README aggiornato (voce Documentation +
+puntatore capstone); questa entry. Nessun nuovo codice (chiusura, non ciclo). Suite invariata.
+
+**Stato del programma + GATE.** **LAB CHIUSO come metodologia.** Tutte le arene esatte note collassano nel
+dizionario congiunto; l'unica leva strutturale viva (order-locality) ha verdetto definitivo gauge-invariante
+"survival not leverage"; ESC-2 confermato e accettato dall'umano. Bilancio finale: 14 collassi / 6 arene + 1
+falsificazione + 1 non-collasso + survival-PASS@1/@3 + 2 control-PASS.
+
+**NEXT (solo su input umano).** Il loop NON riapre da solo. Ripartenza possibile UNICAMENTE con un input
+strutturale esterno: (A) una leva meta non-permutation-invariant E non-statistica-globale E non-enumerabile
+(tutte e tre insieme); oppure (B) una barriera con ragione a-priori per sfuggire al dizionario congiunto
+(cost, gf2_degree, sensitivity, block_sensitivity, approx_degree); oppure (C) una misura nel regime
+genuinamente non-enumerabile (certified bounds / n>=7) — falsifier door 2/3.
