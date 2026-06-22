@@ -2223,3 +2223,103 @@ Condizione esatta di riapertura = **input strutturale ESTERNO umano** che rompa 
 pre-dichiarata (oggetto non-perm-invariant sul gruppo PIENO + senza forma chiusa citata + brute-forceabile a 2 livelli
 consecutivi). Il lab non può costruirla dal proprio stato. Restano OLTRE-IL-MURO (NON azionabili internamente) le sole
 falsifier door 2/3: certified bounds a n≥7 e leva cross-livello CRESCENTE.
+
+---
+
+## Entry 34 — Module 30 (GCT/Kronecker) RIAPERTO da lever umano sull'asse LOCAL-OBSTRUCTION: KILLED, artefatto di rottura-di-simmetria, RESTATEMENT #19 (Entry-only, NON un Module) (2026-06-22)
+
+**Decisione (umano).** Lever ESTERNO sull'arena Module 30 ([[gct-kronecker]]): si può attaccare lo **sporadic
+vanishing** di Kronecker da un punto di vista **LOCALE/ASINTOTICO** (un'ostruzione testabile con vincoli LOCALI)
+invece di calcolare la matrice globale `g` a d≥7? Inquadramento: l'ostruzione locale onesta = il **politopo/cono
+dei MOMENTI di Kronecker** (disuguaglianze Klyachko/Horn lineari; `g>0 ⟹ membership` = test locale senza calcolare
+`g`); MA Kronecker NON satura (≠ Littlewood-Richardson/Knutson-Tao): esistono **BUCHI (holes)** = membership-cono +
+`g=0` (crollo della Saturation Hypothesis di Mulmuley). Attacco eseguibile = classificare gli sporadic vanishing via
+STRETCHING `g(2λ,2μ,2ν)`: **HOLE** (>0, dentro il cono, ostruzione NON-locale) vs **RAY-VANISH** (=0, ostruzione
+asintotica/locale). Riusa il motore Murnaghan–Nakayama; il muro si sposta da `p(d)` a `p(2d)` (p(8)=22, p(10)=42,
+p(12)=77, sotto il muro). **Entry-only, NON un Module** (template Entry 31/33: lever umano, KILLED redux, probe CITATO).
+
+**Explorer + killer.** Ipotesi-lab: il bit hole/ray (via stretch N=2) NON è funzione del dizionario di copertura
+(`covered` + `shape_profile`). **Killer:** cercare una **COLLISIONE** (due terne stessa chiave (shape_profile, covered),
+bit OPPOSTO). Nessuna collisione → RESTATEMENT (bit ricostruibile dal dizionario Rosas/Bessenrodt–Bowman). Collisione →
+sopravvivenza (invariante fuori-dizionario a 2 livelli, romperebbe l'antagonismo {R2,R3} che chiuse door B, Entry 33).
+Pilot: d=4 2/2 hole, d=5 misto.
+
+**Builder.** `pnp_lab/gct_kronecker/saturation.py` (NUOVO: `stretch`, `g_stretch`, `is_hole`, `perm_orbit`, `perm_key`,
+`shape_profile`, `classify`, `collisions`, `summary`) + `tests/test_gct_saturation.py` (16 passed) + `examples/run_gct_saturation.py`;
+`__init__.py` esteso con gli export. **MISURE ESATTE (interi Murnaghan–Nakayama):**
+- **Bit N=2:** d=4 (2 sporadic, 2 hole, 0 ray, 0 coll); d=5 (5, 2, 3, 0); d=6 (44, 26, 18, **1 COLLISIONE**):
+  HOLE `((3,3),(3,1,1,1),(2,1,1,1,1))` con `g(2·)=1` vs RAY `((4,1,1),(3,3),(2,1,1,1,1))` con `g(2·)=0`, STESSO
+  `shape_profile` {hook, two-col+hook, two-row+rect} e `covered=True`, bit OPPOSTO. Sembrava SOPRAVVIVENZA.
+- **Scoperta load-bearing del builder (il seme della crepa):** lo stretch NON commuta col coniugio
+  (`2·transpose ≠ transpose·2`), quindi il bit è costante solo sull'**orbita di PERMUTAZIONE**, NON sulla **g-orbita**
+  (`S_3 × coniugio`, che lascia `g` invariante). Il builder ha raggruppato per orbita di permutazione e lo ha TESTATO
+  esplicitamente (`test_hole_bit_NOT_constant_on_g_orbit`).
+- **Bonus N=3:** d=4 si ribalta a 2 RAY (bit N-dipendente).
+
+**Adversary — KILLED, artefatto di rottura-di-simmetria.** Prove:
+- **CREPA B (LETALE).** `g` è g-simmetrico ma `g(2λ,2μ,2ν)>0` NON lo è; la vera ostruzione locale (cono dei momenti)
+  È g-simmetrica. Col bit g-SIMMETRICO corretto ("∃ rappresentante della g-orbita con stretch positivo"): d=4
+  (0 hole, 2 ray, 0 coll); d=5 (5, 0, 0); d=6 (42, 2, **0 COLLISIONI**). La collisione SVANISCE: la "RAY"
+  `((4,1,1),(3,3),(2,1,1,1,1))` ha g-coniugato `((3,1,1,1),(2,2,2),(2,1,1,1,1))` con `g_base=0` IDENTICO ma
+  `g(2·)=4, g(3·)=14, g(4·)=67` — genuinamente nel cono ⇒ è HOLE come l'altra ⇒ stesso bit. La collisione era un
+  ARTEFATTO della scelta (forzata) di raggruppare per permutazione invece che per g-orbita.
+- **CREPA A.** Il proxy N=2 è N-instabile (parità della quasi-polinomiale `g(N·)=[1,0,1,0,…]`). A d=4 il 100% degli
+  "holes" sono artefatti (g=0 a N=3); a d=6, 11/26 sono artefatti di parità. Fenomeno in gran parte spurio.
+- **Vettore 3.** Con chiave g-orbita-aware + bit N=2 le collisioni salgono **1→9** (il bit N=2 è strutturalmente
+  incompatibile con OGNI dizionario g-simmetrico).
+- **Riduzione.** Un buco genuino RESTATES "Kronecker non satura / Mulmuley SH falsa" (Stembridge;
+  Bürgisser–Christandl–Ikenmeyer). Il bit g-corretto è ricostruibile dalla g-orbita ⇒ nessun contenuto oltre il
+  teorema citato.
+Rigenera: `from pnp_lab.gct_kronecker.saturation import classify, collisions, summary, stretch`.
+
+**Evaluator + GATE.** robustness **5.5/10**. Flag: **simmetria-artificiale DECISIVO/letale**, N-dipendenza /
+proxy-non-è-il-cono PESANTE, singolo-oggetto PESANTE (1 collisione, 1 scala, 1 valore di d), confirmation-bias
+MODERATO-PESANTE (sopravvivenza solo sotto chiave DEBOLE), dipendenza-citazione STRUTTURALE (Mulmuley SH /
+saturazione). Verdetto: **RESTATEMENT #19** (NON sopravvivenza), collasso-onto-impossibilità nella forma più pulita
+(l'unico residuo non-perm-invariant è proprio la parte che ROMPE la simmetria del problema). **GATE: Entry-only**
+(template Entry 31/33: lever umano, KILLED redux, probe CITATO — NESSUN `docs/<modulo>.md`, nessun numero di Module,
+nessuna riga README, nessun conteggio test cristallizzato). `saturation.py` + test restano probe CITATO. Raccomandazione:
+iterate-then-close su questo asse; richiede un lever ESTERNO (un oggetto symmetry-respecting O le disuguaglianze
+Klyachko implementate) prima di riaprire.
+
+**Contenuto positivo (PRIMO ciclo che risponde DIRETTAMENTE a "esiste un'ostruzione locale che evita la matrice
+globale?").** SÌ — il **cono dei momenti È esattamente quel test locale** — ma è g-simmetrico e ricostruisce dal
+dizionario d'orbita, quindi RESTATES; e il proxy che SEMBRAVA sfuggire (stretch N=2) rompeva la simmetria del problema.
+Previsione aggiornata: l'asse **local-obstruction** collassa per la STESSA ragione dell'asse **fixed-structure**
+(Entry 31, [[bipartite-rigidity]]) — ogni oggetto locale onesto e symmetry-respecting ricostruisce dalla g-orbita;
+solo i proxy che rompono la simmetria sembrano sfuggire, e sono artefatti. Attractor Thesis RAFFORZATA anche lungo la
+direzione "evita l'oggetto globale via test locale/asintotico".
+
+**Honesty boundary (EN).** COMPUTED (exact, finite, reproduced): the permutation-orbit hole/ray split via the N=2
+stretch bit `g(2λ,2μ,2ν)` — d=4 (2/2/0/0), d=5 (5/2/3/0), d=6 (44/26/18/1 coll); the g-symmetric corrected bit
+('∃ representative in the g-orbit with positive stretch') — d=4 (0/2/0), d=5 (5/0/0), d=6 (42/2/0 coll); the lethal
+g-conjugate witness `((3,1,1,1),(2,2,2),(2,1,1,1,1))` with `g_base=0` but `g(2·)=4, g(3·)=14, g(4·)=67` (in the cone
+⇒ HOLE); and the N-parity instability of the N=2 proxy (d=4: 2/2 holes vanish at N=3; d=6: 11/26 holes are parity
+artifacts). All by exact integer Kronecker (Murnaghan–Nakayama). CITED (not computed here): the Klyachko/Horn moment
+polytope as the genuine local membership obstruction; the non-saturation of Kronecker / falsity of Mulmuley's SH
+(Stembridge; Bürgisser–Christandl–Ikenmeyer); the asymptotic quasi-polynomial behaviour of `g(Nλ,Nμ,Nν)`. CEILING:
+the N=2 stretch bit is a single-scale proxy, NOT the moment cone — it breaks the g-symmetry (`S_3 × conjugation`) that
+both `g` and the true cone respect (stretch does not commute with conjugation), and is N-unstable; the genuine local
+cone is g-symmetric and reconstructs from the orbit dictionary, so the local attack RESTATES the cited non-saturation
+fact; the real cone requires N→∞ or the unimplemented Klyachko inequalities; the global `g`-matrix at d≥7 remains a
+brute-force wall. NO claim about P vs NP.
+
+**Stato repo:** `pnp_lab/gct_kronecker/saturation.py` (NUOVO) + `tests/test_gct_saturation.py` (16 passed) +
+`examples/run_gct_saturation.py`; `pnp_lab/gct_kronecker/__init__.py` esteso con gli export (`stretch`, `g_stretch`,
+`is_hole`, `perm_orbit`, `perm_key`, `shape_profile`, `classify`, `collisions`, `summary`). Restano come probe CITATO
+(NON un Module: nessun `docs/<modulo>.md`, nessuna riga README, nessun conteggio test cristallizzato). Questa entry.
+
+**Stato del programma + GATE.** **Entry-only** (Module-30-riaperto-da-lever-umano sull'asse local-obstruction, KILLED
+RESTATEMENT, NON una nuova arena né un Module). Bilancio aggiornato: **19 collassi (il 19° Entry-only, KILLED
+restatement, NON aggiunge arena né Module) / 7 arene** + 1 falsificazione (Module 18) + 1 non-collasso (Module 22) +
+survival-PASS@1 (M24) + survival-PASS@3 (M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). L'arena-count NON
+sale. Il lever umano ha riaperto Module 30 sull'asse **local-obstruction** e lo ha richiuso allo STESSO muro: ogni
+oggetto locale onesto e symmetry-respecting RESTATES dal dizionario d'orbita; il cono dei momenti reale richiede N→∞ o
+le disuguaglianze Klyachko non implementate, e la matrice globale a d≥7 resta il muro brute-force.
+
+**NEXT unstable direction:** l'asse local-obstruction (cono dei momenti via stretch) è CHIUSO per la stessa ragione
+dell'asse fixed-structure (Entry 31) — rottura di simmetria = collasso al dizionario della simmetria ridotta. Riapertura
+ESCLUSIVAMENTE su lever ESTERNO umano: o (i) un oggetto locale **genuinamente g-symmetry-respecting E non-saturante**
+brute-forceabile a 2 scale consecutive (rompe l'antagonismo {R2,R3}), oppure (ii) le **disuguaglianze Klyachko/Horn
+implementate** come test di membership esatto (sostituiscono il proxy N=2 col cono vero). Restano OLTRE-IL-MURO le sole
+falsifier door 2/3 del grand capstone (certified n≥7; leva cross-livello CRESCENTE). Il lab resta chiuso come metodologia.

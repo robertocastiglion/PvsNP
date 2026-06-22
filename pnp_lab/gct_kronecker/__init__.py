@@ -37,6 +37,17 @@ from .coverage import (
     uncovered,
     coverage_summary,
 )
+from .saturation import (
+    stretch,
+    g_stretch,
+    is_hole,
+    perm_orbit,
+    perm_key,
+    shape_profile,
+    classify,
+    collisions,
+    summary,
+)
 
 __all__ = [
     "partitions",
@@ -64,4 +75,13 @@ __all__ = [
     "covered_list",
     "uncovered",
     "coverage_summary",
+    "stretch",
+    "g_stretch",
+    "is_hole",
+    "perm_orbit",
+    "perm_key",
+    "shape_profile",
+    "classify",
+    "collisions",
+    "summary",
 ]
