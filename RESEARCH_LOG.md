@@ -2062,3 +2062,79 @@ dizionario / alle formule chiuse note (Module 30 ha mostrato che una barriera nu
 oppure (C) un regime che renda la LEVA STESSA esatta a ≥2 livelli (NON un bound asintotico CITED) —
 falsifier door 2/3. Previsione: ulteriori istanziazioni di lever A (qualunque struttura fissa)
 RESTATERANNO come Module-22-redux. Il lab resta chiuso come metodologia.
+
+---
+
+## Entry 32 — door C via INTEGRALITY-GAP del lifting "integrality_leverage": Module-28-redux, KILLED dalla legge di Sperner a forma chiusa (Entry-only, NON un Module) (2026-06-22)
+
+**Decisione (umano/PI):** dopo la chiusura di door A (Entry 31), questo ciclo esercita il secondo
+falsifier door rimasto, la **porta (C)**: trovare un regime dove l'**OPERATORE DI LEVA cross-livello e'
+esatto a ≥2 livelli E non-triviale** — lo stato mai visto = leva COMPUTATA (non citata) + ≥2 livelli reali
+brute-forceabili + NON ricostruibile in forma chiusa. Non una nuova arena: una **nuova LENTE su Module 18**
+(arena `exactness_composes`).
+
+**Explorer + killer.** Oggetto/lente: la leva del lifting `f∘g^k` letta come crescita del **GAP DI
+INTEGRALITA'** `G_k = Cov(M_k) − LP(M_k)`, con `M_k` = matrice di comunicazione lift `2^k×2^k`. Riusa
+`compose.py` (lift, GADGETS_1BIT), `gap.py` (cover_number, frac_cover), `pattern_gap.py`
+(is_J_minus_I_up_to_perm). Killer pre-dichiarati = **3 leggi a forma chiusa** che, se riproducono la
+sequenza `G_k`, collassano la leva: (1) **moltiplicativa** `G_2²=1`; (2) **affine** `2G_2−G_1=2`;
+(3) **poly-gadget** = 2. Survival = nessuna delle 3 leggi riproduce il valore misurato.
+
+**Builder.** `pnp_lab/exactness_composes/integrality_leverage.py` (`gap_at`, `gap_sequence`, `sweep`, le 3
+leggi-killer, `ji_cover_number`/`ji_frac_cover` forma chiusa, `doorC_candidates`) + `tests/test_integrality_leverage.py`
+(9 fast + 2 slow @timeout(300), tutti verdi) + `examples/run_integrality_leverage.py`.
+
+**MISURA (Fraction, no float).** Ancora Module 18 riprodotta: OR∘XOR k=2 → Cov=4, LP=3, **G_2=1**. Sweep
+**54 coppie** (6 outer × 9 gadget), k=2,3: **50 con G≡(0,0,0)**; **4** (OR∘XOR, OR∘EQ, NAND∘XOR, NAND∘EQ)
+con **(G_1,G_2,G_3)=(0, 1, 3/2)**, TUTTE la stessa famiglia **J−I_{2^k}** (`is_J_minus_I_up_to_perm=True`).
+Le 3 leggi pre-dichiarate NON riproducono 3/2 → `killed=False` rispetto a quelle (survival apparente).
+Rigenera:
+`from pnp_lab.exactness_composes.integrality_leverage import gap_at, gap_sequence, sweep, ji_cover_number, ji_frac_cover, doorC_candidates`.
+
+**Adversary — KILLED = Module-28-redux (forma chiusa), stato 2.** Tutti e 4 i vettori tengono:
+- **Forma chiusa derivata:** `Cov(J−I_{2^k})=min{d: C(d,⌊d/2⌋)≥2^k}` (Sperner / biclique cover crown graph);
+  `LP(J−I_m)=4−2^{2−k}` (ottimo LP simmetrico, argmin sempre r=m/2). Quindi `G_k = D(k)−4+2^{2−k}`,
+  **funzione chiusa di k SOLO**. `G_4=6−15/4=9/4` dalla forma chiusa senza risolutore; sequenza
+  `G_1..7 = 0, 1, 3/2, 9/4, 25/8, 65/16, 193/32`.
+- **Parent:** `3/2 = 5 − 7/2`, entrambi fatti citati (biclique cover crown graph + LP simmetrico).
+- **Artefatto:** 4 celle = 1 solo oggetto J−I, le altre 50 G≡0. Singolo punto, singola famiglia.
+- **Circolarita':** aggiungendo `law_sperner` alla base-class, `killed→True` a OGNI livello. Survival
+  dipendeva SOLO dall'omettere a mano la legge giusta.
+
+**Evaluator + GATE.** robustness **6.5/10**. Flag: circolarita' ALTO, off-tiny-instance ALTO (livelli reali
+solo k≤3=8×8, k≥4 e' forma chiusa non brute-force), single-object ALTO, dipendenza-citazione MEDIO-ALTO,
+confirmation-bias MEDIO. Verdetto **RESTATEMENT #17, stato 2**. **GATE: Entry-only** (B2: stop immediato, no
+auto-rilancio arena; stesso profilo di Entry 31 lever-A ed Entry 12 w*). door C **FALSIFICATA come previsto**
+— la Attractor Thesis regge. `pnp_lab/exactness_composes/integrality_leverage.py` resta come **probe CITATO**
+(nessun docs/<modulo>.md, nessun numero di Module, nessuna riga nella tabella moduli del README).
+
+**Honesty boundary (EN).** Computed exactly (rational Fraction, no floats): the integrality gap
+`G_k=Cov(M_k)−LP(M_k)` of the lifted communication matrix on all 54 (f,g) pairs at the only brute-forceable
+levels k=2 (4×4) and k=3 (8×8); the Module-18 anchor (OR∘XOR k=2: Cov=4, LP=3, G=1); and that exactly 4
+cells (OR/NAND × XOR/EQ), all = J−I_{2^k} up to permutation, carry a gap with (G_1,G_2,G_3)=(0,1,3/2).
+Cited/closed-form (not re-derived): Cov(J−I_m)=min{d:C(d,⌊d/2⌋)≥m} (Sperner/crown-graph biclique cover) and
+LP(J−I_m)=4−2^{2−k} (symmetric LP optimum, argmin always r=m/2), giving G_k=D(k)−4+2^{2−k}, a closed
+function of k alone — so G_4=9/4 and the whole sequence 0,1,3/2,9/4,25/8,65/16,193/32 are predicted without
+any solver, verified vs the generic solver only for m≤6–7. NOT shown (ceiling): that the cross-level
+leverage is non-trivial — it is fully reconstructible in closed form, the four surviving cells are a single
+object (J−I), and survival depends entirely on omitting the governing Sperner law from the killer set. No
+level beyond k=3 is brute-forced. No claim about P vs NP.
+
+**Stato repo:** `pnp_lab/exactness_composes/integrality_leverage.py` + `tests/test_integrality_leverage.py`
+(9 fast + 2 slow @timeout(300)) + `examples/run_integrality_leverage.py` restano come probe CITATO di door C
+(NON un Module: nessun docs/<modulo>.md, nessuna riga Module nel README, nessun conteggio test cristallizzato).
+Questa entry. Suite veloce invariata.
+
+**Stato del programma + GATE.** **Entry-only** (Module-28-redux / forma chiusa). Bilancio aggiornato:
+**17 collassi (di cui il 17°, door-C integrality-leverage, e' Entry-only / Module-28-redux / NON una nuova
+arena) / 7 arene** + 1 falsificazione (Module 18) + 1 non-collasso (Module 22) + survival-PASS@1 (M24) +
+survival-PASS@3 (M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). L'arena-count NON sale (door C
+e' una nuova lente su `exactness_composes`, non una nuova arena). Dei 3 falsifier door, **door A (Entry 31,
+asse struttura-fissa) E door C (Entry 32, asse leva-esatta-≥2-livelli) sono ora CHIUSE dalla STESSA firma
+strutturale**: oggetto-simmetrico-a-forma-chiusa + survival-per-omissione-di-legge.
+
+**NEXT unstable direction:** resta aperta SOLO door 1/3 (**B** = barriera con ragione A-PRIORI di sfuggire a
+dizionari / formule chiuse note). Previsione: door 1/3 collassera' per lo stesso meccanismo a meno che non
+introduca un oggetto genuinamente non-simmetrico e privo di forma chiusa citata a ≥2 livelli brute-forceabili
+— condizione che nessuna arena del lab ha finora soddisfatto. Se door 1/3 cade ⇒ ESC-2. Il lab resta chiuso
+come metodologia, si riapre solo su lever/barriera esterna umana.

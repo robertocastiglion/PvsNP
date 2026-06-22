@@ -33,6 +33,21 @@ from .search import (
     tensor_closure_holds,
 )
 from .lab import gap_table, report, witness_note
+from .integrality_leverage import (
+    DEFAULT_GADGETS,
+    DEFAULT_OUTERS,
+    doorC_candidates,
+    gap_at,
+    gap_sequence,
+    ji_cover_number,
+    ji_frac_cover,
+    killer_table,
+    law_affine,
+    law_multiplicative,
+    law_poly_gadget,
+    leverage_row,
+    sweep,
+)
 
 __all__ = [
     "BoolMatrix",
@@ -57,4 +72,17 @@ __all__ = [
     "gap_table",
     "report",
     "witness_note",
+    "DEFAULT_GADGETS",
+    "DEFAULT_OUTERS",
+    "doorC_candidates",
+    "gap_at",
+    "gap_sequence",
+    "ji_cover_number",
+    "ji_frac_cover",
+    "killer_table",
+    "law_affine",
+    "law_multiplicative",
+    "law_poly_gadget",
+    "leverage_row",
+    "sweep",
 ]
