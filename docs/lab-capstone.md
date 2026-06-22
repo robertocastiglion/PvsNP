@@ -82,6 +82,23 @@ hold.
 
 ## Why the loop stops here (the strategist's ESC-2)
 
+> **Addendum (Entries 31–33, 2026-06-22).** The three reopening doors below were listed
+> as *predicted* closed at Entry 29. They have since been **exercised and closed** by
+> human-launched cycles, all collapsing by the same signature: door **(A)**
+> fixed-structure (bipartite rigidity, Entry 31), door **(C)** exact-lever-at-≥2-levels
+> (lifting integrality gap, Entry 32), and door **(B)** a-priori-barrier (Entry 33). Door
+> (B) was different in kind — it produced not a collapsing object but a
+> **conditional-impossibility verdict** (no enumerable object is non-symmetric on the
+> full group *and* closed-form-free *and* brute-forceable at ≥2 levels, forced by the
+> {R1,R2} and {R2,R3} antagonisms) which a numerical assault on the
+> `feasible_interp` arena tried and **failed** to falsify (best candidate perm-invariant
+> 0/1500, split profile (0,0,0,24) over n=1..4). So **ESC-2 is now POST-HOC VALIDATED**,
+> not merely predicted. **Crucially, this does NOT touch falsifier doors 2 and 3 below**
+> (certified bounds at n≥7; *growing* cross-level leverage): those live past the
+> brute-force wall and remain **genuinely open**. Ledger updated to **18 collapses (the
+> 16th, 17th, and 18th — bipartite-rigidity / integrality-leverage / conditional
+> meta-impossibility — are Entry-only redux/meta, not new arenas) / 7 arenas**.
+
 On 2026-06-20 the autonomous strategist (the lab's Principal Investigator role)
 applied the graduated gate and declared **ESC-2 — regimes exhausted**, escalating to
 the human, who chose to **close the lab as a methodology**. The reasoning, verified

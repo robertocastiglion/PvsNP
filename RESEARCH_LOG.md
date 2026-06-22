@@ -2138,3 +2138,88 @@ dizionari / formule chiuse note). Previsione: door 1/3 collassera' per lo stesso
 introduca un oggetto genuinamente non-simmetrico e privo di forma chiusa citata a ≥2 livelli brute-forceabili
 — condizione che nessuna arena del lab ha finora soddisfatto. Se door 1/3 cade ⇒ ESC-2. Il lab resta chiuso
 come metodologia, si riapre solo su lever/barriera esterna umana.
+
+---
+
+## Entry 33 — door B (l'ULTIMA reopening door): VERDETTO-DI-IMPOSSIBILITÀ CONDIZIONATA, regge sotto assalto numerico (Entry-only, NON un Module) (2026-06-22)
+
+**Decisione (umano/PI):** dopo door A (Entry 31, asse struttura-fissa) e door C (Entry 32, asse leva-esatta-≥2-livelli),
+questo ciclo esercita l'**ultima** reopening door rimasta, la **porta (B)** = "barriera con ragione A-PRIORI di sfuggire
+al dizionario d'orbita / formule chiuse note". Natura DIVERSA dai cicli precedenti: door B **NON ha prodotto un oggetto
+che collassa** — ha prodotto un **VERDETTO di impossibilità strutturale condizionata** + uno stress-test numerico che ha
+provato (e fallito) a falsificarlo. **NESSUN BUILDER** in questo ciclo: verdetto negativo, l'Adversary ha fatto le misure
+sull'arena `feasible_interp` già nel repo. È il **18° "collasso"** ma di TIPO categorialmente diverso:
+**collasso-onto-impossibilità** (collassa sull'ATTRATTORE STESSO del lab, non su un teorema nominato). NON è un teorema —
+è generalizzazione induttiva da 18 cicli, stress-testata contro lo spazio-oggetti concreto del repo.
+
+**Explorer (verdetto NEGATIVO + killer falsificabile).** Nessun oggetto enumerabile soddisfa i 4 requisiti:
+**R1** (non-simmetrico / sfugge al dizionario d'orbita sul gruppo PIENO), **R2** (no forma chiusa citata),
+**R3** (enumerabile a ≥2 livelli brute-forceabili), **R4** (ragione a-priori). Argomento di impossibilità:
+**{R1,R2} ANTAGONISTI** (rompere simmetria nel lab = fissare struttura = collasso al dizionario della simmetria RIDOTTA =
+parent citato = firma door-A/C); **{R2,R3} ANTAGONISTI** (enumerabile = istanze minuscole = teorema totale risponde per
+primo = Collapse Theorem). L'unico oggetto non-collassato (Kronecker d≥7, Module 30) **viola R3** (oltre il muro).
+**Killer falsificabile pre-dichiarato del verdetto:** una tripla `(m, n, n+1)` con `m` non-perm-invariant sul gruppo PIENO
++ `splits≠[]` a ENTRAMBI i livelli contro il dizionario congiunto + nessuna forma chiusa.
+
+**Adversary — ha provato a TROVARE la tripla, FALLENDO. MISURE ESATTE (GF(2) ints / Fraction, no float):**
+- Candidato migliore = `feasible_interp` `min_interpolant_dt_size` (min-DT-leaves dell'interpolante di risoluzione).
+- **Profilo split** contro il dizionario congiunto (cost da `.cache/ct4.pkl`, gf2_degree, sensitivity, block_sensitivity):
+  **(0,0,0,24)** su n=1..4 — splitta SOLO a n=4; n=5=2^32 oltre il muro ⇒ **niente finestra a 2 livelli consecutivi**
+  = **{R2,R3} ESATTO**, fallisce R3.
+- **min-DT-leaves PERM-INVARIANT:** **0 violazioni su 1500** (300 funzioni × 5 permutazioni S_4) ⇒ **fallisce R1**;
+  lo split a n=4 = "4 colonne troppo poche" (firma Module 29), NON rottura di simmetria.
+- **interpolant SIZE non-canonico** ma swap-detector NON scatta su or3/and3 (5=5 gates) ⇒ rumore d'ordine di risoluzione
+  = riga KW⁺/Razborov-Pudlák di `docs/collapse-theorem.md` ⇒ **R2 collasso**, fallisce R2.
+- **Survey oggetti non-simmetrici:** nessun oggetto naturalmente-non-simmetrico (tornei/digrafi/poset/matroidi/automi/codici)
+  esiste in `pnp_lab/`; gli unici R1-validi nel repo = MBPSP fixed-order (332/600 swap-sensitive ma = Module 22, viola R3)
+  e `bipartite_rigidity` (Entry 31, door A). Una nuova famiglia tornei/poset colpirebbe lo STESSO bivio
+  (statistica nominata=R2 OR labeling-fissato=door A).
+- **CONCLUSIONE:** nessuna tripla falsificante tra oggetti concreti; il verdetto regge sotto assalto numerico. **ESC-2 NON prematuro.**
+Rigenera: `from pnp_lab.feasible_interp.interp import min_interpolant_dt_size, build_interpolant_swapped`.
+
+**Evaluator + GATE.** robustness **7.5/10** (alto per un verdetto NEGATIVO perché DOPPIAMENTE fondato: argomento
+strutturale + assalto numerico fallito). Flag: **absence-of-evidence-vs-evidence-of-absence ALTO (dominante)**;
+non-esaustività-ricerca ALTO (solo oggetti del repo / costruibili sui solver esistenti); induzione-non-prova /
+confirmation-bias MEDIO-ALTO ({R1,R2}/{R2,R3} è generalizzazione da 17-18 cicli, NON teorema; "symmetry-break=structure-fix"
+è regolarità empirica, indebolita a survival in Module 22); circolarità MEDIO (usa Collapse Theorem + door-A come premesse,
+auto-referenziale); off-tiny-instance MEDIO. Verdetto **RESTATEMENT #18, meta-categoria "collasso-onto-impossibilità-condizionata"**
+(PRIMO verdetto-di-impossibilità invece di riduzione-di-oggetto). NON gonfiare a teorema. **GATE: Entry-only** (B2, come
+31/32: no `docs/<modulo>.md`, no numero di Module, no riga README / conteggio test); `feasible_interp` resta probe **CITATO**.
+**ESC-2 RI-CONFERMATO** — più forte di Entry 29: là era PREDIZIONE prima di esercitare le door; ora è POST-HOC VALIDATO
+dopo A+C+B tutte esercitate e chiuse dalla stessa firma.
+
+**Honesty boundary (EN).** COMPUTED exactly (GF(2) ints / rational Fraction, no floats): on the feasible-interpolation
+arena (`pnp_lab/feasible_interp/interp.py`), the min-DT-leaves of the resolution interpolant split against the joint
+orbit-invariant dictionary (cost from `.cache/ct4.pkl`, gf2_degree, sensitivity, block_sensitivity) with profile (0,0,0,24)
+over n=1..4 — splitting only at n=4; the permutation-invariance of min-DT-leaves on the full S_4 group (0 violations / 1500
+= 300 functions x 5 permutations); and the silence of the swapped-rule detector on or3/and3 (5=5 gates). These establish
+the best concrete door-B candidate FAILS the falsifier on a named requirement: perm-invariant (fails R1, Module-29
+'too-few-columns' signature not broken symmetry), size non-canonicity is resolution-order noise (KW+/Razborov-Pudlak row of
+the Collapse Theorem, fails R2), no two-consecutive-level window is brute-forceable (n=5=2^32, {R2,R3} antagonism, fails R3).
+The verdict 'no enumerable object satisfies R1∧R2∧R3∧R4' is an INDUCTIVE GENERALIZATION from 18 cycles stress-tested against
+the repo's concrete object-space — NOT a theorem. Two premises are conditional, not derived: {R1,R2} rests on the empirical
+regularity 'symmetry-break = structure-fix' (weakened once to survival in Module 22), and the survey of non-symmetric objects
+(tournaments/digraphs/posets/matroids/automata/codes) is an argument-by-fork, not a built arena — none exists in the repo.
+CEILING: search bounded to repo objects; the one R1∧R2∧R4 survivor (Kronecker d≥7, Module 30) violates R3 by living past the
+brute-force wall, so the verdict survives by un-reachability not refutation; the decisive two-level window is at n≥5, untested.
+NO claim about P vs NP (neither direction).
+
+**Stato repo:** `pnp_lab/feasible_interp/interp.py` (+ `families.py`) resta come probe **CITATO** di door B (NON un Module:
+nessun `docs/<modulo>.md`, nessuna riga Module nel README, nessun conteggio test cristallizzato). Nessun builder, nessun nuovo
+file di codice in questo ciclo. Questa entry. Suite veloce invariata.
+
+**Stato del programma + GATE.** **Entry-only** (verdetto-di-impossibilità-condizionata, NON un collasso-di-oggetto né una
+nuova arena). Bilancio aggiornato: **18 collassi (16°, 17° e 18° tutti Entry-only; il 18° = meta-impossibilità-condizionata,
+NON una nuova arena né un collasso-di-oggetto) / 7 arene** + 1 falsificazione (Module 18) + 1 non-collasso (Module 22) +
+survival-PASS@1 (M24) + survival-PASS@3 (M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). L'arena-count NON sale.
+**Tutte e 3 le REOPENING DOOR interne** (A asse struttura-fissa / C asse leva-esatta-≥2-livelli / B asse barriera-a-priori)
+sono ora **ESERCITATE e CHIUSE dalla STESSA firma** (oggetto-simmetrico-a-forma-chiusa + survival-per-omissione-di-legge; e
+per B: antagonismi {R1,R2}+{R2,R3}). ESC-2 ri-confermato POST-HOC. **ATTENZIONE:** le **FALSIFIER DOOR 2/3 del grand
+capstone** (certified bounds a n≥7; leva cross-livello CRESCENTE) restano **GENUINAMENTE APERTE** — vivono OLTRE il muro
+brute-force, NON marcate chiuse. Solo le reopening door INTERNE sono esaurite.
+
+**NEXT unstable direction:** tutte e 3 le reopening door interne esaurite ⇒ il lab non può aprire altro dal proprio stato.
+Condizione esatta di riapertura = **input strutturale ESTERNO umano** che rompa uno dei due antagonismi = la tripla
+pre-dichiarata (oggetto non-perm-invariant sul gruppo PIENO + senza forma chiusa citata + brute-forceabile a 2 livelli
+consecutivi). Il lab non può costruirla dal proprio stato. Restano OLTRE-IL-MURO (NON azionabili internamente) le sole
+falsifier door 2/3: certified bounds a n≥7 e leva cross-livello CRESCENTE.
