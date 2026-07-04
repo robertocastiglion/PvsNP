@@ -2323,3 +2323,93 @@ ESCLUSIVAMENTE su lever ESTERNO umano: o (i) un oggetto locale **genuinamente g-
 brute-forceabile a 2 scale consecutive (rompe l'antagonismo {R2,R3}), oppure (ii) le **disuguaglianze Klyachko/Horn
 implementate** come test di membership esatto (sostituiscono il proxy N=2 col cono vero). Restano OLTRE-IL-MURO le sole
 falsifier door 2/3 del grand capstone (certified n≥7; leva cross-livello CRESCENTE). Il lab resta chiuso come metodologia.
+
+## Entry 35 — Module 30 (GCT/Kronecker) RIAPERTO da lever umano (ii) sull'asse CONO-DEI-MOMENTI: KILLED via inner-approximation + survival-by-omission, RESTATEMENT #20 (Entry-only, NON un Module) (2026-07-04)
+
+**Decisione (umano).** Secondo lever ESTERNO su Module 30 ([[gct-kronecker]]): **implementa il cono di Klyachko esatto**
+(`g>0 ⟹ membership`) e cerca un buco (ostruzione locale/a-priori che sfugga il muro brute-force d≥7). A differenza del ciclo
+precedente Entry 34 (asse stretch N=2 distrutto da simmetria), questo ciclo ATTACCA il **politopo/cono esatto dei MOMENTI**
+via **LP feasibility Phase-I razionale** (calcolo dell'H-rep beyond-beneath): facce, Farkas esatto, dizionario {nonneg,
+ordering, triangle-ineq}. Contrasto strategico: Entry 34 (proxy N=2, collassa per rottura-simmetria), Entry 35 (obiettivo
+esatto, collassa per inner-approximation-a-scala-fissa). **Entry-only, NON un Module** (template Entry 31/33/34: lever umano,
+KILLED redux, probe CITATO).
+
+**Explorer + killer.** Ipotesi-lab: il cono dei momenti NON è il **dizionario essenziale** per classificare sporadici
+Kronecker; esiste una faccetta di P_D (D∈{3,4,5,6}) che NON è in {nonneg, ordering, triangle-bounds} = survival di
+un'ostruzione locale FUORI da Rosas/Bessenrodt–Bowman. **Killer:** (K1) ogni faccetta "fuori dizionario" è un artefatto
+inner-approximation (P_D è approssimazione interna RAZIONALE, non il cono vero come N→∞); (K2) la faccetta superstite si
+riduce ESATTAMENTE alla first-row bound λ₁ ≥ μ₁+ν₁−d (Klyachko 2004 / Christandl–Mitchison 2006) + permutazioni = NC
+nota. No sopravvivenza → RESTATEMENT.
+
+**Builder.** `pnp_lab/gct_kronecker/moment_cone.py` (NUOVO: `max_parts`, `point`, `support_points`, `in_cone` = LP Phase-I
+RAZIONALE, `is_deep_hole`, `holes`, `summary`/`cone_summary`, `facets` = beneath-beyond ESATTO, `classify_facet`,
+`facet_report` = Farkas esatto vs dizionario {nonneg, ordering} + affine hull) + `tests/test_moment_cone.py` (15 passed) +
+`examples/run_moment_cone.py`; `__init__.py` esteso con gli export. **MISURE ESATTE (interi / Fraction razionale, no float):**
+
+**d=5 vs P_5 (k=5 partizioni):** (#sporadic, #in_cone, #superf_SOLO_nonneg, #profondi, #fuori)=(5, 0, 0, 0, 5). Tutti e 5
+gli sporadici RESTANO fuori dal cono interno razionale a scaling finito.
+
+**d=6 vs P_6 (k=6):** (44, 10, 10, 0, 34) — **10 in-cono, TUTTI superficiali** (violati da una sola disuguaglianza in
+{nonneg, ordering}), 0 profondi, 34 fuori ⇒ **KILLER-1 SPARA**: le 10 faccette in-cono sono inner-boundary, non robuste.
+
+**P_3 (k=3, dim 9, |support|=14, dim affine 6):** 14 faccette exacte. Per verifica: 3 in-dizionario (nonneg + ordering),
+11 "fuori". Rigenera: `from pnp_lab.gct_kronecker.moment_cone import in_cone, holes, classify_facet, facet_report, summary`.
+
+**Adversary — KILLED (2 colpi concordi).** (1) **ARTEFATTO INNER-APPROXIMATION (LETALE).** 8/11 faccette "fuori-dizionario"
+su P_3 VIOLATE da controesempi esatti d=4 con g>0: es. `[(-4,5,-1),(-2,1,1),(-2,1,1)]·x≤-2` violata da
+`((2,2),(2,2),(1,1,1,1))` con g=1, valore 0>-2; padding zero (scelta conservativa, non riducibile). Le 3 in-dizionario
+`0/3` violate. P_3 è "magro" (sole partizioni ≤3 parti), a d=4 compaiono direzioni nuove (es. `(1,1,1,1)`). Inner-
+approximation a scaling FINITO (k fissato) è structurally-not-closed per il cono. (2) **SURVIVAL-BY-OMISSION (firma Entry
+32/33):** le 11 faccette = 5 orbite `S_3` per blocco, 4 uccise dall'attacco 1; l'**unica orbita superstite** {3 faccette
+identiche per affine hull} si riduce ESATTAMENTE a **λ₁ ≥ μ₁+ν₁−d** e permutazioni (la first-row bound NOTA 2004/2006,
+già implicata da `nc_maxpart` del lab). Certificato Farkas esatto: LHS = 3·(triangle) − 1 ≤ 2; NC verificata **0 eccezioni
+su 0,5,15,40,119 positivi** d=3..6 (killer-2 NON spara su nessun range). Col generatore triangolare aggiunto al dizionario:
+3→6 in-dizionario, le 8 restanti=gli artefatti. Null-control: con sole 2 famiglie generatori quasi ogni politopo piccolo ha
+faccette "fuori" ⇒ mezzo discriminante isolato.
+
+**Evaluator + GATE.** robustness **5.5/10**. Flag: **inner-approximation-a-scala-fissa LETALE** (P_D ≠ cono vero come
+N→∞), **dizionario-minimale-per-costruzione** (survival-by-omission = manca il generatore triangle-ineq citato),
+**singola-scala-di-faccette** (H-rep completa solo P_3; P_4~8 min non brute-forced; P_5 esplode), **dipendenza-citazione
+PESANTE** (Klyachko/Christandl–Mitchison + Rosas/Bessenrodt–Bowman), **N_max=4 negli sporadici misure Entry 34** MODERATO.
+Verdetto: **RESTATEMENT #20 — KILLED** (entrambi i killer sparano con impeccabile sequenza logica). **GATE: Entry-only**
+(template Entry 31/33/34: nessun `docs/<modulo>.md`, nessuna riga README, nessun numero di Module; `moment_cone.py` + test
+restano probe CITATO della porta DOOR-2).
+
+**Honesty boundary (EN).** COMPUTED (exact rational Phase-I LP feasibility, exact beneath-beyond H-rep, exact Farkas
+classification, no floats): the inner polytope P_D for D=3..6 (membership queries on all sporadics), the measurements above,
+the 8 exact d=4 counterexamples to the 11 "out-of-dictionary" facets, the exact reduction of the 3 surviving facets to
+λ₁ ≥ μ₁+ν₁−d with Farkas certificate (LHS = 3×triangle−1), and 0-exception verification of the triangle inequality on all
+positive (λ,μ,ν) triples d=3..6 (0/5, 0/15, 0/40, 0/119). CITED, never re-verified: Klyachko 2004 / Christandl–Mitchison
+2006 (first-row bound, quantum marginal spectra), non-saturation of Kronecker (Stembridge; Bürgisser–Christandl–Ikenmeyer
+NP-hardness), the true moment cone as N→∞ closure. CEILING: P_D is a fixed-scale inner rational approximation, NOT the cone
+itself; complete H-rep unreachable for D≥5 (below-beyond unfeasible, cost explodes), so facet-turnover leverage (DOOR-2
+originally framed) is NOT measurable this way; "out-of-dictionary" means ONLY "not in the list of nonneg/ordering/triangle",
+not intrinsic non-membership; no claim about P vs NP.
+
+**Stato repo:** `pnp_lab/gct_kronecker/moment_cone.py` (NUOVO) + `tests/test_moment_cone.py` (15 passed) +
+`examples/run_moment_cone.py`; `pnp_lab/gct_kronecker/__init__.py` esteso con gli export (`max_parts`, `point`,
+`support_points`, `in_cone`, `is_deep_hole`, `holes`, `summary`, `cone_summary`, `facets`, `classify_facet`,
+`facet_report`). Restano come probe CITATO di DOOR-2 (NON un Module: nessun `docs/<modulo>.md`, nessuna riga README, nessun
+conteggio test cristallizzato). Questa entry. Suite veloce invariata.
+
+**Stato del programma + GATE.** **Entry-only** (Module-30-riaperto-da-lever-umano sull'asse cono-momenti, KILLED RESTATEMENT,
+NON una nuova arena né un Module). Bilancio aggiornato: **20 collassi (il 20° Entry-only, KILLED restatement di DOOR-2, NON
+aggiunge arena né Module) / 7 arene** + 1 falsificazione (Module 18) + 1 non-collasso (Module 22) + survival-PASS@1 (M24) +
+survival-PASS@3 (M25) + 2 control-PASS (M26 H-confound, M27 gauge-confound). L'arena-count NON sale. Il lever umano ha
+riaperto Module 30 su due assi consecutivi (Entry 34 stretch N=2 / Entry 35 cono-momenti): entrambi KILLED dalla stessa
+firma (artefatti di scala/simmetria + riduzione al noto). **L'asse local-obstruction di Module 30 è CHIUSO su ENTRAMBI i
+lever** (stretch rompendo simmetria, cono-momenti inner-approximation). Attractor Thesis RAFFORZATA.
+
+**NEXT unstable direction:** (a) **Entry 36 "ponte certificato" (DOOR-2) è DECLASSATA:** testerebbe a d=7,8 una
+disuguaglianza già nota (fidelity-check Klyachko/Christandl–Mitchison, non scoperta); riformulazione onesta: cercare una
+faccetta di P_D (D≥4) NON riducibile a {nonneg, ordering, triangle, affine hull della 3-orbita di maxpart-bounds} — se non
+esiste P_D, il cono non è il piedistallo per DOOR-2. (b) **Entry 37 "leva del cono" (DOOR-3) impossibile in esatto oltre
+D=4:** riformulazione: sampling di direzioni random + oracolo LP (stima probabilistica di L(D), leva cross-scale, pattern
+Modules 24-27). (c) **Direzione più promettente del brief strategico:** il **Teorema dell'Attrattore** (§3 ciclo +3 di
+prompts/fable-frontier.md) — rendere eseguibile la firma stessa del collasso (reticolo degli invarianti delle 7 arene,
+generazione finita della chiusura-dizionario di ogni regime Bulatov–Zhuk-hard, falsifier per non-existence di escape) = il
+deliverable onesto del lab. Riapertura di Module 30 SOLO su nuovo lever esterno (non-approximazione cono, disuguaglianze
+Klyachko implementate O oggetto non-perm-invariant genuinamente senza forma chiusa su d=6..7).
+
+---
+

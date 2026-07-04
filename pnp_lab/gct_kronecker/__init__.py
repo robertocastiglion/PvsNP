@@ -48,6 +48,18 @@ from .saturation import (
     collisions,
     summary,
 )
+from .moment_cone import (
+    max_parts,
+    point,
+    support_points,
+    in_cone,
+    is_deep_hole,
+    holes,
+    summary as cone_summary,
+    facets,
+    classify_facet,
+    facet_report,
+)
 
 __all__ = [
     "partitions",
@@ -84,4 +96,14 @@ __all__ = [
     "classify",
     "collisions",
     "summary",
+    "max_parts",
+    "point",
+    "support_points",
+    "in_cone",
+    "is_deep_hole",
+    "holes",
+    "cone_summary",
+    "facets",
+    "classify_facet",
+    "facet_report",
 ]
