@@ -2453,3 +2453,42 @@ Klyachko implementate O oggetto non-perm-invariant genuinamente senza forma chiu
 
 ---
 
+## Entry 38 — CHIUSURA del programma fable-frontier (scelta umana (a)): ESC-2 ri-confermato al META-LIVELLO, capstone aggiornato (crystallization-only) (2026-07-05)
+
+**Decisione umana:** opzione **(a)** del choice point di Entry 37 — chiudere il programma
+fable-frontier come ri-conferma di ESC-2 al meta-livello. Nessun codice toccato. Nessuna misura
+eseguita. Questa entry registra una decisione umana e un aggiornamento di documentazione.
+
+**Cosa è stato fatto:** aggiunta la sezione "Post-scriptum — the second arc of reopenings and
+the meta-collapse (Entries 30–38)" in fondo a `docs/lab-capstone.md`. Memoria aggiornata
+(`memory/lab-capstone.md`, `memory/MEMORY.md`). Nessun file di codice o test modificato.
+
+**Bilancio finale:** **22 collassi / 7 arene** + 1 falsificazione (Module 18) + 1 non-collasso
+(Module 22) + survival-PASS@1 (M24) + survival-PASS@3 (M25) + 2 control-PASS (M26, M27).
+Il secondo arco (Entries 30–37, 8 cicli) ha prodotto RESTATEMENT #15–#22, tutti killed, nessun
+nuovo Module, nessun nuovo arena. Il meta-pivot (Entries 36–37) — il tentativo più ambizioso:
+rendere la firma dei collassi un oggetto eseguibile — è collassato auto-referenzialmente: il
+ledger dei collassi muore per omissione di tipo, mismatch di granularità e circolarità del
+codebook, che sono esattamente i meccanismi che catalogava. Questo estende l'Attractor Thesis
+al meta-livello.
+
+**Honesty boundary (EN).** This entry records a human decision and a documentation update;
+nothing was computed. The meta-collapse of Entry 37 — the collapse-ledger dying by its own
+catalogued mechanisms (type-omission, granularity mismatch, circular codebook, rising type-rate
+at n=21) — is the arc's closing observation. All numeric claims in this entry derive from
+Entry 37's measurements (21/21 records, C(21)=4 corrected to 5, GT CI [0,0.0952]), which are
+reproducible via `examples/run_collapse_ledger.py`. The lab remains a METHODOLOGY with no claim
+about P vs NP.
+
+**Stato del programma:** fable-frontier CHIUSO. Il lab riapre SOLO su lever esterno che
+soddisfa uno dei criteri del post-scriptum: nuova arena fuori dal repo con ragione a-priori,
+oggetto certificato oltre il muro d≥7/n≥5 non riducibile alle famiglie note, o falsificazione
+indipendente dell'Attractor Thesis. I probe citati — `saturation.py`, `moment_cone.py`,
+`lattice.py`, `collapse_ledger.py` — restano eseguibili e testati (suite 583 passed). Il
+protocollo del loop economico è documentato in `prompts/fable-frontier.md`.
+
+**NEXT unstable direction:** nessuna direzione interna nota. Riapertura SOLO su lever esterno
+(criteri: post-scriptum di docs/lab-capstone.md, Entry 38).
+
+---
+

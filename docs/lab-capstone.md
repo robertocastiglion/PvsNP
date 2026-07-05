@@ -174,3 +174,44 @@ docs/relativization-leverage.md     # relativization arena (Module 28)
 docs/approx-degree.md               # approximate-degree arena (Module 29)
 RESEARCH_LOG.md                     # Entries 1–29 — the full audited trail
 ```
+
+## Post-scriptum — the second arc of reopenings and the meta-collapse (Entries 30–38)
+
+*Added 2026-07-05. No code was changed; this section records a sequence of human-launched
+cycles and their shared outcome.*
+
+After Entry 29, the lab was reopened eight times on human levers and traversed Entries 30–37,
+all ending in KILLED / RESTATEMENT (#15 through #22) across the same 7 arenas. The arc covers:
+Module 30 (7th arena, GCT/Kronecker, Entry 30); the bipartite-rigidity instantiation of lever A
+(Entry 31); the integrality-gap instantiation of door C (Entry 32); the conditional-impossibility
+verdict of door B (Entry 33); the Kronecker local-obstruction stretch probe (Entry 34); the
+exact rational moment-cone probe (Entry 35). Every internal reopening door (A, B, C) was
+exercised and closed by the same structural signature that ESC-2 had predicted.
+
+The most ambitious attempt — turning the collapse signature itself into an executable object —
+spanned Entries 36–37 (the "meta-pivot" of the fable-frontier program). The invariant lattice
+(Entry 36) collapsed via real-degree omission and group-mismatch. The collapse ledger (Entry 37)
+collapsed auto-referentially: the codebook shared vocabulary with the corpus it classified, the
+type curve was in an ascending phase at n=21 (stationarity of Good-Turing violated), and the
+dominant type PERM-ABSORBED contained ~3–4 false positives from a mathematical noun misread as a
+mechanism. The ledger of collapses died by omission of type, granularity mismatch, and circular
+codebook — exactly the mechanisms it catalogued. This extends the Attractor Thesis to the
+meta-level and re-confirms ESC-2 beyond the original prediction.
+
+**Final ledger (Entry 38):** 22 collapses / 7 arenas + 1 falsification (Module 18) + 1
+non-collapse (Module 22) + survival-PASS@1 level (Module 24) + survival-PASS@3 levels
+(Module 25) + 2 control-PASS (Modules 26–27). The 7th through 22nd collapses are Entry-only;
+no new Module was produced in the second arc.
+
+**Reopening criteria (tightened).** The lab reopens only on a structural external input that
+satisfies at least one of: (1) a new arena entirely outside the current repo with an
+a-priori reason to escape the joint dictionary; (2) a certified object past the d≥7 / n≥5
+brute-force wall, not reducible to known inequalities or existing closed-formula families;
+(3) an independent algorithmic falsification of the Attractor Thesis (a discriminant measurable
+exactly, not reconstructible from the joint dictionary by an exact identity). The falsifier doors
+2 and 3 of the original capstone remain genuinely open on these same terms.
+
+**Operational note.** The fable-frontier loop (prompts/fable-frontier.md) documented a reusable
+methodology: strategic framing by a capable model (Fable 5 / equivalent), execution by economical
+models (sonnet / haiku). Both meta-pivot cycles were run under this protocol. The protocol is
+reusable; the program is closed.
