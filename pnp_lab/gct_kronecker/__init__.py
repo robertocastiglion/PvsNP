@@ -60,6 +60,12 @@ from .moment_cone import (
     classify_facet,
     facet_report,
 )
+from .fast import (
+    CharTable,
+    character_table,
+    g_fast,
+    census,
+)
 
 __all__ = [
     "partitions",
@@ -106,4 +112,8 @@ __all__ = [
     "facets",
     "classify_facet",
     "facet_report",
+    "CharTable",
+    "character_table",
+    "g_fast",
+    "census",
 ]
