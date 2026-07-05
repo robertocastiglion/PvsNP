@@ -66,6 +66,22 @@ from .fast import (
     g_fast,
     census,
 )
+from .beyond_wall import (
+    _diagram_intersection,
+    nc_dvir_full,
+    nc_triangle,
+    explained_zero,
+    covered_ext,
+    g_canonical,
+    HuntResult,
+    hunt,
+    sanity_entry30,
+    stretch_triple,
+    stretch_witnesses,
+    false_positives_dvir,
+    false_positives_triangle,
+    honesty_note as beyond_wall_honesty,
+)
 
 __all__ = [
     "partitions",
@@ -116,4 +132,18 @@ __all__ = [
     "character_table",
     "g_fast",
     "census",
+    "_diagram_intersection",
+    "nc_dvir_full",
+    "nc_triangle",
+    "explained_zero",
+    "covered_ext",
+    "g_canonical",
+    "HuntResult",
+    "hunt",
+    "sanity_entry30",
+    "stretch_triple",
+    "stretch_witnesses",
+    "false_positives_dvir",
+    "false_positives_triangle",
+    "beyond_wall_honesty",
 ]
