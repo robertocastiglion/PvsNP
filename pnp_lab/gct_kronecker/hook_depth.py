@@ -90,6 +90,39 @@ def hook_depth_row(d: int, N_max: int = 3) -> Dict:
     return {"d": d, "lam": lam, "values": values, "depth": depth}
 
 
+def predicted_d0(a: int) -> int:
+    """Predicted first d with g(hook_{a,d}^3) = 0.
+
+    Conjecture (Entry 42): d_0(a) = 3a - 1.
+    Verified for a=1 (sign rep: d_0=2), a=2 (d_0=5), a=3 (d_0=8),
+    a=4 (d_0=11), a=5 (d_0=14).
+    """
+    return 3 * a - 1
+
+
+def predicted_T(a: int) -> int:
+    """Predicted depth-bifurcation threshold T(a).
+
+    Conjecture (Entry 42): T(a) = 3a + 2.
+    g(2*hook_{a,d}, ...) = 0 first at d = T(a).
+    Verified for a=1 (T=5), a=2 (T=8), a=3 (T=11).
+    Predicted for a=4 (T=14) and a=5 (T=17) — not yet computable.
+
+    Equivalently: T(a) = d_0(a) + 3.
+    """
+    return 3 * a + 2
+
+
+def last_hole_value(a: int) -> int:
+    """Predicted g(2*hook_{a,T(a)-1}, ...) = a (the last non-zero value before threshold).
+
+    Conjecture (Entry 42): the minimum non-zero g(2*lam_{a,d}) over feasible d equals a.
+    Verified for a=1 (g=1), a=2 (g=2), a=3 (g=3).
+    Predicted for a=4 (g=4 at d=13).
+    """
+    return a
+
+
 def summary(d_min: int = 3, d_max: int = 13, N_max: int = 3) -> List[Dict]:
     """Print depth table for hook lam_d, d=d_min..d_max, N=1..N_max.
 

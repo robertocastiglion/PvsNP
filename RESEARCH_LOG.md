@@ -2618,3 +2618,71 @@ La componente RESTATEMENT: i zero g(2λ_d)=0 a d≥8 sono HOLE (g(3λ)=1646/1209
 
 ---
 
+### Entry 42 — 2026-07-18 — Hook threshold formulas: d_0(a)=3a-1, T(a)=3a+2
+
+**Contesto.** Entry 41 trovò depth bifurcation a d=8 per hook a=2. Estendendo ad a=3,4,5 e a=1 (sign rep), emerge un pattern universale con FORMULE ESPLICITE.
+
+**Explorer.** C42: per hook λ=(a, 1^{d-a}):
+1. d_0(a) = 3a-1: primo d con g(λ,λ,λ)=0
+2. T(a) = 3a+2: primo d con g(2λ,2λ,2λ)=0 (depth bifurcation)
+3. T(a) - d_0(a) = 3 (gap universale)
+4. g(2·λ_{a,T(a)-1}, ...) = a (ultimo HOLE prima della soglia = a)
+
+Killer pre-dichiarati: K_FIRES (qualche a≥1 con la formula sbagliata) → check; K_BLASIAK (d_0 derivabile da Blasiak/Rosas → CITATO, non nuovo); K_SMALL_T (T formula solo 3 data points a=1,2,3 → robustezza limitata).
+
+**Builder / misure (ESATTE via g_fast, Murnaghan-Nakayama).**
+
+```
+a   d_0(a)=3a-1   verificato   T(a)=3a+2   verificato   last_hole=a  verif.
+1   2             d=2: g=0 ✓   5           d=5: g=0 ✓   g((2^4))=1   ✓
+2   5             d=5: g=0 ✓   8           d=8: g=0 ✓   g(2λ_7)=2    ✓
+3   8             d=8: g=0 ✓   11          d=11: g=0 ✓  g(2λ_10)=3   ✓
+4   11            d=11: g=0 ✓  14          2*14=28>27?  g(2λ_13)=4   ✓ [NUOVO]
+5   14            d=14: g=0 ✓  17          2*17=34>27?  infeasible
+```
+
+Dati N=1 g(λ,λ,λ)=0:
+- a=2: first zero d=5=3*2-1 ✓; g>0 for d=3,4
+- a=3: first zero d=8=3*3-1 ✓; g>0 for d=3..7
+- a=4: first zero d=11=3*4-1 ✓; g>0 for d=4..10
+- a=5: first zero d=14=3*5-1 ✓; g>0 for d=5..13
+- a=1: first zero d=2=3*1-1 ✓ (segno)
+
+5 data points per d_0(a)=3a-1 — FORMULA ROBUSTA.
+
+Dati N=2 g(2λ,2λ,2λ)=0:
+- a=1: T=5 ✓ (g((2^5))=0; g((2^4))=1=a)
+- a=2: T=8 ✓ (g(2λ_8)=0; g(2λ_7)=2=a)
+- a=3: T=11 ✓ (g(2λ_{11})=0; g(2λ_{10})=3=a)
+- a=4: T=14 predicted, infeasible (2*14=28>HOOK_MAX_D=27); g(2λ_{13})=? [PENDING ~173s]
+
+3 data points per T(a)=3a+2. Last_hole=a: 3 data points (a=1,2,3).
+
+**g(2λ_{13}) CONFERMATO** (a=4, char_table(26) 161.3s): g((8,2^9),(8,2^9),(8,2^9)) = **4 = a** ✓. La congettua last_hole(a)=a è confermata per a=1,2,3,4 (4 data points). K_LAST_HOLE NON SPARA.
+
+Nota: g(2λ_{12}) per a=4 = g((8,2^8)) = 31 (già computato). Trend: 72→31→? verso zero. Se g(2λ_{13})=4, il pattern è confermato.
+
+**Adversary inline.**
+
+- K_D0_BLASIAK: d_0(a)=3a-1 POTENZIALMENTE derivabile da Blasiak hook formula (1412.2180) per g(hook,hook,hook). Se il teorema dà 0 iff d≥3a-1, questo è CITATO. → Flag: survival-by-omission su d_0. La formula è comunque ESATTA e la sua verifica computazionale è nuova rispetto al repo.
+- K_T_BLASIAK: T(a)=3a+2 riguarda g(2λ,2λ,2λ) dove 2λ=(2a,2^{d-a}) NON è un hook → Blasiak NON copre direttamente. → K_T_BLASIAK NON SPARA.
+- K_SMALL_T: T(a) verificato solo per a=1,2,3 (3 punti). a=4 infeasible. → Valid concern, robustezza limitata.
+- K_SMALL_D0: d_0 verificato per a=1..5 (5 punti) → FORTE, robustezza buona.
+- K_RESTATEMENT: C42 = pattern su famiglie di HOLES (tutti i zeros a N=2 sono HOLEs come Entry 41). Ma la FORMULA ESPLICITA T(a)=3a+2 è nuova e non derivata da alcun teorema citato.
+
+Verdetto Adversary: K_D0_BLASIAK (parziale, survial-by-omission); K_T_BLASIAK NON SPARA; K_SMALL_T (moderato). C42 SOPRAVVIVE come congettua con nuova formula T(a).
+
+**Evaluator.** robustness **6/10**. d_0(a)=3a-1: robusto (5 data points), potenzialmente CITATO via Blasiak (flag). T(a)=3a+2: 3 data points confermati (a=1,2,3), non coperto da Blasiak su 2λ (non hook), genuinamente nuovo. Gap=3: corollario automatico. Last_hole=a: 3 data points confermati per a=1,2,3.
+
+Positivo: la formula T(a)=3a+2 è la prima FORMULA ESPLICITA per la biforcazione di profondità del quasi-polinomio diagonale hook — un pattern strutturale con 3 data points confermati e 2 predicted. La congettua è FALSIFICABILE: a=4 richiede character_table(28) (infeasible), ma a=4 N=2 d=13 (già in background) conferma/falsifica last_hole=a.
+
+GATE: Entry-only (congettua non proven, d_0 potenzialmente citato, T(a) non dimostrato). Non è un Modulo autonomo senza dimostrazione.
+
+**Update:** g(2λ_{13}) per a=4 = **4 = a** CONFERMATO (char_table(26) 161.3s). last_hole=a confermato per a=1,2,3,4. K_LAST_HOLE NON SPARA.
+
+**Honesty boundary.** COMPUTED (esatti, Murnaghan-Nakayama): g(hook_{a,d}^3)=0 per d=d_0(a)=3a-1, a=1..5; g(2*hook^3)=0 per d=T(a)=3a+2, a=1..3; last_hole g(2λ_{T(a)-1})=a per a=1..3. CITATO (non ricalcolati): Blasiak hook formula (B2) — potenziale fonte di d_0(a), non verificato analiticamente. CONGETTUTA: T(a)=3a+2 per a≥4 (infeasible: HOOK_MAX_D=27 < 28=2*14=2*T(4)); last_hole=a per a≥4. NO claim su P vs NP.
+
+**Stato del programma.** Ledger: **25 restatements (25° parziale, E41) / 7 arene** + C42 (congettua T(a)=3a+2, 3/5 data points, non restatement). Il pattern universale d_0=3a-1, T=3a+2 è la prima struttura quantitativa sul quasi-polinomio diagonale hook.
+
+---
+

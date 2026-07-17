@@ -12,7 +12,10 @@ from __future__ import annotations
 
 import pytest
 
-from pnp_lab.gct_kronecker.hook_depth import g_hook_diag, hook_lam, hook_depth_row, HOOK_MAX_D
+from pnp_lab.gct_kronecker.hook_depth import (
+    g_hook_diag, hook_lam, hook_depth_row, HOOK_MAX_D,
+    predicted_d0, predicted_T, last_hole_value,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -161,3 +164,105 @@ def test_threshold_at_d8():
         assert row["depth"] == 2, f"d={d}: depth={row['depth']} (expected 2)"
     row8 = hook_depth_row(8, N_max=2)
     assert row8["depth"] is None, f"d=8 depth={row8['depth']} (expected None/depth>2)"
+
+
+# ---------------------------------------------------------------------------
+# Entry 42: Threshold conjecture d_0(a)=3a-1 and T(a)=3a+2
+# ---------------------------------------------------------------------------
+
+def test_predicted_d0_formula():
+    """predicted_d0(a) = 3a-1 for a=1..5."""
+    expected = {1: 2, 2: 5, 3: 8, 4: 11, 5: 14}
+    for a, d0 in expected.items():
+        assert predicted_d0(a) == d0, f"predicted_d0({a})={predicted_d0(a)}, expected {d0}"
+
+
+def test_predicted_T_formula():
+    """predicted_T(a) = 3a+2 for a=1..5."""
+    expected = {1: 5, 2: 8, 3: 11, 4: 14, 5: 17}
+    for a, T in expected.items():
+        assert predicted_T(a) == T, f"predicted_T({a})={predicted_T(a)}, expected {T}"
+
+
+def test_last_hole_value_formula():
+    """last_hole_value(a) = a for a=1..5."""
+    for a in range(1, 6):
+        assert last_hole_value(a) == a
+
+
+def test_d0_a2_verified():
+    """d_0(2)=5: first zero at d=5 for hook (2,1^3), none at d=4."""
+    assert g_hook_diag(4, 1) == 1, "g(lam_4)>0 (d<d_0)"
+    assert g_hook_diag(5, 1) == 0, "g(lam_5)=0 (d=d_0(2)=5)"
+
+
+def test_d0_a3_verified():
+    """d_0(3)=8: first zero at d=8 for hook (3,1^5), none at d=7."""
+    # Hook (3,1^4) |- 7: g>0 (d < d_0(3))
+    lam7 = (3, 1, 1, 1, 1)
+    assert g_fast_or_gfast(lam7) == 1, "g((3,1^4)^3) should be 1"
+    # Hook (3,1^5) |- 8: g=0 (d = d_0(3)=8)
+    lam8 = (3, 1, 1, 1, 1, 1)
+    assert g_fast_or_gfast(lam8) == 0, "g((3,1^5)^3) should be 0"
+
+
+def test_d0_a4_verified():
+    """d_0(4)=11: first zero at d=11 for hook (4,1^7), none at d=10."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam10 = (4,) + (1,)*6  # (4,1^6) |- 10
+    assert g_fast(lam10, lam10, lam10) == 1, "g((4,1^6)^3) should be 1"
+    lam11 = (4,) + (1,)*7  # (4,1^7) |- 11
+    assert g_fast(lam11, lam11, lam11) == 0, "g((4,1^7)^3) should be 0"
+
+
+def test_d0_a5_verified():
+    """d_0(5)=14: first zero at d=14 for hook (5,1^9), none at d=13."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam13 = (5,) + (1,)*8  # (5,1^8) |- 13
+    assert g_fast(lam13, lam13, lam13) == 1, "g((5,1^8)^3) should be 1"
+    lam14 = (5,) + (1,)*9  # (5,1^9) |- 14
+    assert g_fast(lam14, lam14, lam14) == 0, "g((5,1^9)^3) should be 0"
+
+
+def test_T_a1_verified():
+    """T(1)=5: g((2^5),(2^5),(2^5))=0 (first vanish); g((2^4))=1=a=1."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam4 = (2, 2, 2, 2)  # 2*(1^4)
+    lam5 = (2, 2, 2, 2, 2)  # 2*(1^5)
+    assert g_fast(lam4, lam4, lam4) == 1, "g((2^4)^3) = 1 = a = last_hole"
+    assert g_fast(lam5, lam5, lam5) == 0, "g((2^5)^3) = 0 = T(1)=5 threshold"
+
+
+def test_last_hole_a1():
+    """Last hole for a=1: g((2^4)^3) = 1 = a = last_hole_value(1)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (2, 2, 2, 2)
+    assert g_fast(lam, lam, lam) == last_hole_value(1), "last hole for a=1 should be 1"
+
+
+def test_last_hole_a2():
+    """Last hole for a=2: g(2*(2,1^5)^3) = 2 = a = last_hole_value(2)."""
+    assert g_hook_diag(7, 2) == last_hole_value(2), "last hole for a=2 should be 2"
+
+
+def test_last_hole_a3():
+    """Last hole for a=3: g(2*(3,1^7)^3) = 3 = a = last_hole_value(3)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (3,) + (1,)*7  # (3,1^7) |- 10 = T(3)-1
+    lam2 = tuple(2*x for x in lam)  # (6,2^7) |- 20
+    assert g_fast(lam2, lam2, lam2) == last_hole_value(3), "last hole for a=3 should be 3"
+
+
+@pytest.mark.slow
+def test_last_hole_a4():
+    """Last hole for a=4: g(2*(4,1^9)^3) = 4 = a. char_table(26) ~161s."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (4,) + (1,)*9   # (4,1^9) |- 13 = T(4)-1=14-1
+    lam2 = tuple(2*x for x in lam)  # (8,2^9) |- 26
+    assert g_fast(lam2, lam2, lam2) == last_hole_value(4), "last hole for a=4 should be 4"
+
+
+def g_fast_or_gfast(lam):
+    """Helper: g_fast(lam, lam, lam)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    return g_fast(lam, lam, lam)

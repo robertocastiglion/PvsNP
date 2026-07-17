@@ -95,6 +95,9 @@ from .hook_depth import (
     hook_depth_row,
     summary as hook_depth_summary,
     HOOK_MAX_D,
+    predicted_d0,
+    predicted_T,
+    last_hole_value,
 )
 
 __all__ = [
@@ -170,4 +173,7 @@ __all__ = [
     "hook_depth_row",
     "hook_depth_summary",
     "HOOK_MAX_D",
+    "predicted_d0",
+    "predicted_T",
+    "last_hole_value",
 ]
