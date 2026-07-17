@@ -2516,3 +2516,46 @@ protocollo del loop economico è documentato in `prompts/fable-frontier.md`.
 
 ---
 
+## Entry 40 — Fase 2 "Perseverance Run": censimento diagonale g(λ,λ,λ)=0 d≤12, tutti gli uncovered sono HOLE, RESTATEMENT #24 (Entry-only, NON un Module) (2026-07-18)
+
+**Decisione (Fase 2, PI).** Lever interno: eseguire la direzione (b) lasciata da Entry 39 — censire TUTTI gli zeri g(λ,λ,λ)=0 per λ ⊢ d, d=1..12, e classificarli contro il dizionario Section F di docs/prior-art-kronecker-zeros.md. STRETCH_MAX_D alzato da 18 a 24 (character_table(24) ~58s, fattibile). Entry-only per template.
+
+**Explorer (PI inline). Ipotesi H:** tra tutti g(λ,λ,λ)=0 con λ ⊢ d, d≤12, esiste almeno un zero NON spiegato da {sign, two-row (B1/Rosas), hook (B2/Blasiak), two-col (B6), orbit-covered (≥2 special-shape nell'orbita g-simmetrica)}. Killer pre-dichiarati: K1-ALL-COVERED, K2-OMISSION (famiglia citata omessa), K3-SATURATION (g(2λ)>0 → HOLE → non-saturazione).
+
+**Builder (Sonnet).** Nuovo `pnp_lab/gct_kronecker/diagonal_census.py` + `tests/test_diagonal_census.py` (12 test) + `examples/run_diagonal_census.py`. Suite 665 passed. Commit fff2f4b.
+
+**Misure ESATTE:** 60 zeri diagonali totali (11 sign, 15 hook, 2 two_row, 20 two_col, **12 uncovered**). K1 tecnicamente falsificato. Tutti i 12 uncovered sono **HOLE** (stretch g(2λ,2λ,2λ) da 1301 a 9865756, calcolati con STRETCH_MAX_D=24):
+
+```
+d= 9  λ=(3,2,1,1,1,1)        g(2λ)=14345
+d=10  λ=(3,2,1,1,1,1,1)      g(2λ)=17484   [verifica ind. Adversary]
+d=11  λ=(3,3,1,1,1,1,1)      g(2λ)=26296
+d=11  λ=(3,2,2,1,1,1,1)      g(2λ)=860347
+d=11  λ=(3,2,1,1,1,1,1,1)    g(2λ)=8545
+d=12  λ=(4,2,1,1,1,1,1,1)    g(2λ)=144667
+d=12  λ=(3,3,2,1,1,1,1)      g(2λ)=9865756
+d=12  λ=(3,3,1,1,1,1,1,1)    g(2λ)=31341
+d=12  λ=(3,2,2,2,2,1)        g(2λ)=340292
+d=12  λ=(3,2,2,2,1,1,1)      g(2λ)=5994895
+d=12  λ=(3,2,2,1,1,1,1,1)    g(2λ)=1027017
+d=12  λ=(3,2,1,1,1,1,1,1,1)  g(2λ)=1301
+```
+
+SECONDARIO: hook (2,1^6) d=8 e sign (1^5) d=5 sono "RAY-VANISH a N=2" ma g(3λ)=1646 e 1 rispettivamente → nessun zero vero strutturale per tutti N.
+
+**Adversary (Sonnet).** (1) K2-OMISSION NON SPARA: B4 near_rect=False per tutti i 12 (verificato); B5 MF=False per tutti i 12 (g(λ,λ,μ)>1 trovato per ciascuno, es. g((3,2,1,1,1,1),(3,2,1,1,1,1),(8,1))=2). (2) K3-SATURATION SPARA su tutti i 12. Verifica indipendente: g(2·(3,2,1,1,1,1))=14345 e g(2·(3,2,1,1,1,1,1))=17484 confermati. Tutti e 12 → HOLE → non-saturazione BCI 2011. (3) CIRCOLARITÀ K1-vs-K3 (colpo di grazia): la "sopravvivenza K1" è vacua quando K3 spara immediatamente su tutti; aggiungere "HOLE=non-saturazione" al dizionario → tutti covered → Entry 40 = Entry 34 / RESTATEMENT #19 diagonalizzato. (4) Pattern λ₁∈{3,4}: KILLED (70% false positive rate, artefatto range d≤12).
+
+**Evaluator + GATE (PI inline).** robustness **4.5/10**. Flag: K3-saturation LETALE; circolarità LETALE; pattern artefatto PESANTE; censimento-riproduzione MODERATO. Verdetto: **RESTATEMENT #24 — KILLED**. Riduzione: Entry 40 = Entry 34 (RESTATEMENT #19) specializzato alla diagonale, range d≤12, B1-B7 classificazione esplicita. Nessun zero uncovered esibisce un meccanismo nuovo. **GATE: Entry-only** (nessun docs/<modulo>.md, nessuna riga Module nel README; diagonal_census.py + test restano probe COMPUTED).
+
+**Contenuto positivo onesto:** (i) Prima classificazione dei 60 zeri diagonali d≤12 contro B1-B7; (ii) stretch esatti d=10..12 nuovi (STRETCH_MAX_D=24); (iii) DICOTOMIA: coverage B1-B7 ↔ RAY-VANISH, ¬coverage ↔ HOLE; (iv) nessun vero zero strutturale a tutti N.
+
+**Honesty boundary (EN).** COMPUTED (exact integer, Murnaghan-Nakayama): 60 zeros classified; stretch g(2λ,2λ,2λ) for all 12 uncovered (character_table(20/22/24) in 8.9/23.8/58.4s); g(3λ,3λ,3λ) for hook(2,1^6) at d=8 (=1646, 64.9s). CITED (not computed): non-saturation (Stembridge 2001; BCI 2011); closed-form families B1-B7. CEILING: "uncovered" relative to declared dictionary; extends Entry 39 diagonal specialization with stretch to d=12; the HOLEs were already known in principle from Entry 34. NO claim about P vs NP.
+
+**Stato repo:** `pnp_lab/gct_kronecker/diagonal_census.py` + test + example + __init__ esteso. Commit fff2f4b. Rigenera: `from pnp_lab.gct_kronecker.diagonal_census import summary; summary(12)`.
+
+**Stato del programma + GATE.** Ledger: **24 collassi (il 24° Entry-only, Fase 2 prima entry) / 7 arene** + 1 falsificazione + 1 non-collasso + survival-PASS@1 + survival-PASS@3 + 2 control-PASS. L'Attractor Thesis regge anche sulla diagonale con muro abbattuto.
+
+**NEXT unstable direction:** (a) censire d=13..15 (esito prevedibile: più HOLEs); (b) QUASI-POLINOMIALITÀ DIAGONALE — per quali λ il quasi-polinomio g(Nλ,Nλ,Nλ) ha zeri "profondi" (zero per N=1,2 ma positivo a N=3+)? La transizione hook(2,1^(d-2)) da HOLE a "RAY-VANISH-a-N=2" a d=8 potrebbe avere una legge predittiva — se g(Nλ)=0 per N=1,2,...,k−1 ma g(kλ)>0, il quasi-polinomio ha un "grado di profondità" k che potrebbe caratterizzare la famiglia; (c) fermarsi: 24 restatement confermano ESC-2.
+
+---
+
