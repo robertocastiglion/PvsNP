@@ -64,4 +64,22 @@ dichiarare "sporadico genuino" un vanishing, `coverage.covered` va ESTESO ad A2-
 costruzione. La lista A+B è il dizionario minimo; l'Adversary ha mandato di cercare criteri
 mancanti PRIMA di validare qualunque sopravvivenza.
 
+## F. Diagonale g(λ,λ,λ) — prior art specifico (CICLO 2, aggiunto 2026-07-05)
+
+- **Saxl PROVATO** (dic 2025): per le staircase ρₖ il tensor square contiene OGNI irriducibile
+  ([2512.15035](https://arxiv.org/abs/2512.15035), via Staircase Minimality + teorema di
+  Ikenmeyer su dominanza) ⇒ g(ρₖ,ρₖ,μ)>0 ∀μ, in particolare le diagonali staircase sono positive.
+- **Tensor square conjecture** (Pak–Panova–Vallejo, [1304.0738](https://arxiv.org/abs/1304.0738)):
+  per ogni n≥9 esiste λ self-coniugata col tensor square completo; hooks e two-row compaiono
+  sempre nei tensor square (risultati parziali ivi citati).
+- **Durfee/symmetric partitions**: bound sui Kronecker via quadrato di Durfee
+  ([2207.02561](https://arxiv.org/abs/2207.02561)); max g(λ,λ,λ) su self-coniugate cresce
+  super-esponenzialmente.
+- **Square shapes**: prodotti di Schur di forme quadrate ([2309.00764](https://arxiv.org/abs/2309.00764)).
+- **Kronecker positivity e 2-modular** ([Bessenrodt et al.](https://eprints.whiterose.ac.uk/id/eprint/182698/1/S2330_0000_2021_00070_9.pdf)).
+- Elementari sulla diagonale: g((d),(d),(d))=1; g((1^d),(1^d),(1^d))=0 per d≥2 (segno);
+  g-orbita di (λ,λ,λ) contiene (λ',λ',λ) (coniugio simultaneo di due componenti).
+- NON risulta pubblicato (ricerche 2026-07-05) un censimento CLASSIFICATO degli zeri diagonali
+  a d≤12; i valori grezzi sono riproducibili da dataset/tavole esistenti (sez. D).
+
 **NO claim about P vs NP.**
