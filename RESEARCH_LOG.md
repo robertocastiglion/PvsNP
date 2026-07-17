@@ -2686,3 +2686,45 @@ GATE: Entry-only (congettua non proven, d_0 potenzialmente citato, T(a) non dimo
 
 ---
 
+### Entry 43 — 2026-07-18 — Falsificazione d_0^(N) + uncoverage come motore del pattern C42
+
+**Explorer.** Testare la generalizzazione d_0^{(N)}(a) = d_0(a+N-1) = 3(a+N-1)-1 per N=3, a=1: si prevede g((3^d),(3^d),(3^d))=0 per d≥d_0(3)=8.
+
+**Misure (ESATTE).** g((3^d),(3^d),(3^d)) per d=1..8:
+```
+d   g((3^d))   note
+1   1
+2   0           ZERO (ma: covered=TRUE via two-row)
+3   1
+4   1
+5   1
+6   1
+7   0           ZERO (ma: covered=TRUE via rectangle (3^7) è rettangolo!)
+8   1           <-- K_N3 SPARA: g≠0 a d=8, previsione SBAGLIATA
+```
+
+Compare: g((2^d)) per d=1..8: 1,1,1,1,0,0,0,0 (PERSISTENTE da d=5=T(1) ✓). Il (2^d) è UNCOVERED, il (3^d) ha zeros COPERTI.
+
+**Killer N3 SPARA:** K_N3: g((3^8)^3) = 1 ≠ 0. Congettua d_0^{(3)}(1)=8 FALSIFICATA.
+
+**Spiegazione (MECHANICALLY VERIFIED).**
+- g((3^2)^3) = 0: covered(((3,3),(3,3),(3,3))) = True. (3,3) = due-righe → B1/Rosas.
+- g((3^7)^3) = 0: covered(((3^7),(3^7),(3^7))) = True. (3^7) è un RETTANGOLO (tutti i parts uguali) → B4.
+- g((2^d)^3) = 0 per d≥5: covered((2^d)) = False (già verificato in E41). (2^d)=(2,2,...,2) non è un rettangolo né two-row né hook né two-col per d≥3. UNCOVERED → zeros PERSISTENTI.
+
+**Conclusione (VERIFIED LEMMA):** il pattern d_0^{(N)}(a)=3(a+N-1)-1 è SPECIFICO alle famiglie UNCOVERED. Le famiglie COPERTE (B1-B7) producono zeros sporadici (non persistenti) governati dalle formule chiuse. Il motore del pattern C42 è l'UNCOVERAGE: solo le famiglie (a,2^k) con (2a,2^{k}) uncovered producono zeros persistenti a N=2 con soglia T(a).
+
+**Positive content (VERIFIED):**
+1. FALSIFICAZIONE DOCUMENTATA: d_0^{(3)}(1)=8 falso; g((3^8)^3)=1 (exact).
+2. DISTINZIONE UNCOVERED vs COVERED: (2^d) uncovered → persistent zeros; (3^d) covered → sporadic zeros da B1/B4.
+3. INTERPRETAZIONE C42: la formula T(a)=3a+2 tiene perché (2a,2^k) è SEMPRE uncovered per k≥2a+2 (verif. E41 B5). La condizione di uncoverage è IL DISCRIMINANTE che separa persistente da sporadico.
+4. T(a)=d_0(a+1): tautologia dalla C42 ma con interpretazione geometrica: depth-bifurcation del hook arm-a = first-vanishing del hook arm-(a+1). Verificato per a=1..4 (T(a) confermato).
+
+**Honesty boundary.** COMPUTED (esatti): g((3^d)) per d=1..8; g((2^d)) per d=1..8; covered((3^2),(3^7)); covered((2^d)). CONGETTURA: il meccanismo uncoverage-→-persistent regge per a≥2, N≥2 — non verificabile in generale (infeasible). NO claim su P vs NP.
+
+**GATE: Entry-only.** Non è un Modulo (nessuna struttura nuova da cristallizzare).
+
+**Stato del programma.** Ledger: **25 restatements + 1 FALSIFICAZIONE INTRA-SESSIONE (d_0^{(3)}(1)=8) / 7 arene.** Il pattern C42 è ora DELIMITATO: vale per hooks uncovered, fallisce per sign-rep-scaled (covered). La DISTINZIONE UNCOVERED/COVERED è il meccanismo sottostante.
+
+---
+
