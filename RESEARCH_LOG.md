@@ -2559,3 +2559,62 @@ SECONDARIO: hook (2,1^6) d=8 e sign (1^5) d=5 sono "RAY-VANISH a N=2" ma g(3λ)=
 
 ---
 
+### Entry 41 — 2026-07-18 — Hook diagonal depth bifurcation (RESTATEMENT #25 partial + new content candidate)
+
+**Contesto.** Entry 40 ha classificato 60 zeri diagonali d≤12, trovando la dicotomia B1-B7↔HOLE. Durante la sessione è emerso un pattern nella famiglia hook λ_d=(2,1^(d-2)): g(2λ_d,2λ_d,2λ_d)=0 per d=8..12 (con transizione da g>0 a g=0 proprio a d=8). Entry 41 persegue questo thread.
+
+**Explorer.** H41: g(N·λ_d, N·λ_d, N·λ_d) per N=1,2,3 mostra una BIFORCAZIONE DEL PROFONDITÀ a d=8.
+
+Tabella empirica (tutti valori ESATTI via g_fast, Murnaghan-Nakayama):
+
+```
+d   g(N=1)  g(N=2)  g(N=3)  depth
+3        1       2       ?      1
+4        1       6       ?      1
+5        0      10       ?      2
+6        0       9       ?      2
+7        0       2       ?      2
+8        0       0    1646      3
+9        0       0    1209      3
+10       0       0       ?    >=3
+11       0       0       ?    >=3
+12       0       0       ?    >=3
+13       0       0       ?    >=3
+```
+
+Killer pre-dichiarati: K_FIRES (any d≥8 with g(2λ)>0) → NON SPARA; K_REDUCIBLE (riduzione a formula nota) → NON SPARA; K_ORBIT (covered((2λ,2λ,2λ))=True) → NON SPARA.
+
+**Builder.** `pnp_lab/gct_kronecker/hook_depth.py` + `tests/test_hook_depth.py` + `examples/run_hook_depth.py`. 15 test veloci (not slow) passano in 11.5s. Tests slow (d=11..13 N=2, d=8..9 N=3) marcati @pytest.mark.slow. HOOK_MAX_D=27. Exports aggiunti a `__init__.py`.
+
+Misure chiave (ESATTE):
+- g(2·(2,1^5))=10 (d=5), 9 (d=6), 2 (d=7): HOLE a N=2
+- g(2·(2,1^6))=0 (d=8), g(2·(2,1^7))=0 (d=9): ZERO a N=2 → depth>2
+- g(3·(2,1^6))=1646 (d=8): primo positivo a N=3 → depth=3
+- g(3·(2,1^7))=1209 (d=9): depth=3 confermato
+- g(2·(2,1^10))=0 (d=13): 6° punto confermante g(2λ)=0 per d≥8
+
+La partizione 2λ_d=(4,2^(d-2)): transposta (d-1,d-1,1,1). Né 2λ né la transposta sono special_shape. covered((2λ,2λ,2λ))=False confermato per d=8..10.
+
+**Adversary.** K_ORBIT: NON SPARA. K_B2_INDIRECT: NON SPARA. K_B4_FAT_HOOK: NON SPARA — (4,2^k) non è near-rectangle (diff 4-2=2 > 1). K_NC_FORCE: NON SPARA — A1/A2/A3/A4 banalmente soddisfatte. K_QUASI_POLY: NON SPARA — f_8(2)=0 non è forzato da f_8(1)=0; f_8(N)=(N-1)(N-2)Q(N) con Q(3)=823 consistente; periodo≠2 (f_8(3)=1646 ma f_8(1)=0). K_RESTATEMENT: SPARA PARZIALMENTE — i zero a N=2 sono HOLE (non-saturazione BCI) che RESTATA. Ma la biforcazione a d=8 e la famiglia (4,2^k) uncovered non derivano da alcuna citazione.
+
+**B5 check (post-Adversary, COMPUTATO).** Bessenrodt-Bowman multiplicity-free:
+- (4,2^6) ⊢ 16: max g((4,2^6),(4,2^6),ν) = **71** a ν=(6,4,3,2,1); 153/231 partizioni con g>1. NON mult-free.
+- (4,2^7) ⊢ 18: max g = **88** a ν=(7,5,3,2,1); 231/385 partizioni con g>1. NON mult-free.
+→ B5 NON si applica. Flag survival-by-omission su B5 **RISOLTO** — uncoverage SOLIDA.
+
+**Evaluator.** robustness **5.5/10** (post-B5 check). Flags attivi: (i) depth-3 confermato solo d=8,9 (d≥10 N=3 infeasible: character_table(30)~900s); (ii) threshold d=8 privo di spiegazione strutturale. Flag risolti: B5, K_ORBIT, K_NC, K_QUASI_POLY. Verdetto: RESTATEMENT #25 (parziale) + new content candidate.
+
+La componente RESTATEMENT: i zero g(2λ_d)=0 a d≥8 sono HOLE (g(3λ)=1646/1209>0 per d=8,9) → restata non-saturazione BCI, come Entries 34/40. La componente NEW CONTENT: (1) famiglia uncovered (4,2^k) con k≥6 confermata non coperta da B1-B7+B5; (2) threshold d=8 nella profondità del quasi-polinomio — nuova osservazione enumerativa non derivabile da teoremi citati; (3) biforcazione depth=2 (d≤7) vs depth≥3 (d≥8) — primo pattern quantitativo della struttura del quasi-polinomio diagonale per famiglia esplicita.
+
+**GATE: Entry-only.** `hook_depth.py` + test restano probe COMPUTED. Non è un modulo autonomo: congettua "depth=3 per tutti d≥8" non confermata oltre d=9 e manca spiegazione strutturale.
+
+**Honesty boundary.** COMPUTED (esatti, Murnaghan-Nakayama): g(N·λ_d) per d=3..13, N=1..3 dove feasible; B5 check (max g=71 e 88 per d=8,9); covered() per d=8..10. CITED (non ricalcolati): non-saturazione (Stembridge; BCI 2011); B1-B7 (Rosas, Blasiak, Pak-Panova, Bessenrodt-Bowman). CONGETTUTA: g((4,2^k))=0 per tutti k≥6 (confermato k=6..11, infeasible k≥12); depth(λ_d)=3 per tutti d≥8 (confermato d=8,9, infeasible d≥10). CEILING: character_table(30)~900s fuori portata. NO claim su P vs NP.
+
+**Stato repo:** `pnp_lab/gct_kronecker/hook_depth.py` + `tests/test_hook_depth.py` + `examples/run_hook_depth.py` + `__init__.py` esteso.
+
+**Stato del programma + GATE.** Ledger: **25 restatements (25° parziale, new content candidate) / 7 arene** + 1 falsificazione + 1 non-collasso + survival-PASS@1 + survival-PASS@3 + 2 control-PASS. Nuova osservazione: biforcazione depth diagonale a d=8.
+
+**NEXT direction:** (a) generalize: other fat-hook families (a,b^k) with a≠4 or b≠2 to see if threshold at d=8 is specific to hooks or broader; (b) quasi-polynomial structure: collect more N values for d=8 if feasible; (c) stop.
+
+---
+

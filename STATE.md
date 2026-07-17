@@ -2,55 +2,37 @@
 
 ## Sessione corrente
 
-**Data:** 2026-07-17
-**Entry target:** 40
-**Target:** Censimento diagonale g(λ,λ,λ) a d≤12 — tutti gli zeri classificati contro il
-dizionario Section F di docs/prior-art-kronecker-zeros.md.
+**Data:** 2026-07-18
+**Entry completate questa sessione:** 40 (RESTATEMENT #24), 41 (RESTATEMENT #25 partial + new content candidate)
 
-## Ipotesi (Entry 40)
+## Stato Entry 41 — CHIUSO
 
-H: tra tutti g(λ,λ,λ)=0 con λ ⊢ d, d≤12, esiste almeno UN zero NON spiegato da:
-- segno (1^d)
-- due-righe (B1/Rosas)
-- hook (B2/Blasiak)
-- due-colonne (B6/Pak–Panova)
-- near-rettangolo o rettangolo (B4)
-- membro g-orbita con due forme speciali
+CHIUSO: RESTATEMENT #25 (parziale) + new content candidate.
+- g(2·(2,1^(d-2)))=0 per d=8..13 (6 data points, killer K_FIRES non spara)
+- depth=3 confermato per d=8 (g(3λ)=1646) e d=9 (g(3λ)=1209)
+- B5 check RISOLTO: (4,2^6) max g=71, (4,2^7) max g=88 → NON mult-free → uncoverage SOLIDA
+- Biforcazione depth: d=5..7 → depth=2; d≥8 → depth≥3 (threshold a d=8)
+- GATE: Entry-only (non modulo autonomo; congettua depth=3 non confermata oltre d=9)
 
-Killer pre-dichiarati:
-- K1-ALL-COVERED: tutti i zero ≤d=12 coperti → RESTATEMENT #24
-- K2-OMISSION: ogni superstite ha hook/two-col nell'orbita → survival-by-omission
-- K3-SATURATION: ogni superstite è un HOLE → RESTATES non-saturazione (Entries 34/39)
+## Infrastruttura permanente da questa sessione
 
-## Sotto-task Entry 40 — COMPLETATI
+- STRETCH_MAX_D=24 (diagonal_census.py)
+- HOOK_MAX_D=27 (hook_depth.py)
+- diagonal_census.py + hook_depth.py + test suite (15 test fast + 7 slow)
 
-| # | Task | Stato | Esito |
-|---|------|-------|-------|
-| 1 | Commit Section F prior-art | DONE | 2f309bf |
-| 2 | Build diagonal_census.py + tests | DONE | fff2f4b — 60 zeros, 12 uncovered |
-| 3 | Adversary attack K1/K2/K3 | DONE | K2 non spara, K3 spara su tutti |
-| 4 | Evaluator | DONE | RESTATEMENT #24, 4.5/10 |
-| 5 | RESEARCH_LOG Entry 40 | DONE | appended |
+## Bilancio lab (post-Entry 41)
 
-## Stato Entry 40
-
-CHIUSO: RESTATEMENT #24. Tutti i 12 uncovered zeros sono HOLE (g(2λ)>0 per tutti).
-STRETCH_MAX_D=24 nuova infrastruttura permanente.
-
-## Prossima azione concreta
-
-→ Decidere NEXT direction da Entry 40:
-  (a) censire d=13..15 (prevedibile: più HOLEs, RESTATEMENT #25)
-  (b) quasi-polinomialità diagonale: transizione hook(2,1^(d-2)) a d=8 — legge predittiva?
-  (c) fermarsi: 24 restatement, ESC-2 confermato in Fase 2
-
-## Stato repo
-
-- Prior-art Section F: committato in questo ciclo (vedi sotto)
-- diagonal_census.py: da creare
-- Suite precedente: 583+ test, green
-
-## Bilancio lab (pre-Entry 40)
-
-23 collassi / 7 arene | 1 falsificazione | 1 non-collasso (M22) |
+25 restatements (25° parziale) / 7 arene | 1 falsificazione | 1 non-collasso (M22) |
 survival-PASS@1 (M24) | survival-PASS@3 (M25) | 2 control-PASS (M26, M27)
+
+## Prossima azione concreta — Entry 42 candidates
+
+→ Decidere NEXT direction da Entry 41:
+  (a) Generalizzare fat-hook: (a,b^k) con a≠4 o b≠2 — si vede la stessa transizione depth?
+  (b) Quasi-polinomio strutturale: raccogliere più valori N per d=8 se fattibile
+  (c) Fermarsi: 25 restatements + ESC-2 re-confermato in Fase 2
+
+## Commits questa sessione
+
+- 89b50bc: Entry 40 (RESTATEMENT #24)
+- [pending]: Entry 41 (hook_depth.py + tests + example + RESEARCH_LOG)

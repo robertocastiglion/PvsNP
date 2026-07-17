@@ -89,6 +89,13 @@ from .diagonal_census import (
     summary as diagonal_summary,
     STRETCH_MAX_D,
 )
+from .hook_depth import (
+    hook_lam,
+    g_hook_diag,
+    hook_depth_row,
+    summary as hook_depth_summary,
+    HOOK_MAX_D,
+)
 
 __all__ = [
     "partitions",
@@ -158,4 +165,9 @@ __all__ = [
     "stretch_diagonal",
     "diagonal_summary",
     "STRETCH_MAX_D",
+    "hook_lam",
+    "g_hook_diag",
+    "hook_depth_row",
+    "hook_depth_summary",
+    "HOOK_MAX_D",
 ]
