@@ -82,6 +82,13 @@ from .beyond_wall import (
     false_positives_triangle,
     honesty_note as beyond_wall_honesty,
 )
+from .diagonal_census import (
+    diagonal_zeros,
+    classify_diag,
+    stretch_diagonal,
+    summary as diagonal_summary,
+    STRETCH_MAX_D,
+)
 
 __all__ = [
     "partitions",
@@ -146,4 +153,9 @@ __all__ = [
     "false_positives_dvir",
     "false_positives_triangle",
     "beyond_wall_honesty",
+    "diagonal_zeros",
+    "classify_diag",
+    "stretch_diagonal",
+    "diagonal_summary",
+    "STRETCH_MAX_D",
 ]
