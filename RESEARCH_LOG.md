@@ -2633,13 +2633,17 @@ Killer pre-dichiarati: K_FIRES (qualche a≥1 con la formula sbagliata) → chec
 **Builder / misure (ESATTE via g_fast, Murnaghan-Nakayama).**
 
 ```
-a   d_0(a)=3a-1   verificato   T(a)=3a+2   verificato   last_hole=a  verif.
-1   2             d=2: g=0 ✓   5           d=5: g=0 ✓   g((2^4))=1   ✓
-2   5             d=5: g=0 ✓   8           d=8: g=0 ✓   g(2λ_7)=2    ✓
-3   8             d=8: g=0 ✓   11          d=11: g=0 ✓  g(2λ_10)=3   ✓
-4   11            d=11: g=0 ✓  14          2*14=28>27?  g(2λ_13)=4   ✓ [NUOVO]
-5   14            d=14: g=0 ✓  17          2*17=34>27?  infeasible
+a   d_0(a)=3a-1   g(d_0-1)   g(d_0)   T(a)=3a+2   verif.T  last_hole=a
+1   2             1          0        5            ✓         g((2^4))=1 ✓
+2   5             1          0        8            ✓         g(2λ_7)=2  ✓
+3   8             1          0        11           ✓         g(2λ_10)=3 ✓
+4   11            1          0        14           infeas    g(2λ_13)=4 ✓
+5   14            1          0        17           infeas    infeasible
+6   17            1          0        20           infeas    infeasible
 ```
+
+EXTRA LEGGE: g(hook_{a,3a-2}^3) = 1 per a=1..6 (sempre 1 PRIMA del primo zero). Pattern quantitativo completo per hooks a N=1,2:
+  d=3a-2: g(lam)=1  |  d=3a-1: g(lam)=0  |  d=3a+1: g(2lam)=a  |  d=3a+2: g(2lam)=0
 
 Dati N=1 g(λ,λ,λ)=0:
 - a=2: first zero d=5=3*2-1 ✓; g>0 for d=3,4
@@ -2725,6 +2729,48 @@ Compare: g((2^d)) per d=1..8: 1,1,1,1,0,0,0,0 (PERSISTENTE da d=5=T(1) ✓). Il 
 **GATE: Entry-only.** Non è un Modulo (nessuna struttura nuova da cristallizzare).
 
 **Stato del programma.** Ledger: **25 restatements + 1 FALSIFICAZIONE INTRA-SESSIONE (d_0^{(3)}(1)=8) / 7 arene.** Il pattern C42 è ora DELIMITATO: vale per hooks uncovered, fallisce per sign-rep-scaled (covered). La DISTINZIONE UNCOVERED/COVERED è il meccanismo sottostante.
+
+---
+
+## Entry 44 — Fat-hook bifurcation C44: d_0(a, b=2) = 3a+4 (2026-07-18)
+
+**Ipotesi (Explorer):** Generalizza C42 alle fat-hooks (a, 2^k): esiste una soglia d_0(a, b=2) = 3a+4 con la STESSA PENDENZA-3 in a?
+
+**Esperimento (Builder):** Scansione g((a,2^k),(a,2^k),(a,2^k)) per a=2..6, k=1..8. `fat_hook_lam`, `fat_hook_diag`, `predicted_fat_d0` aggiunti a `hook_depth.py`.
+
+**Dati (TUTTI ESATTI, g_fast/Murnaghan-Nakayama):**
+
+```
+a=2 (rettangoli, covered=True): g=(1,1,1,0,0,...); primo zero k=4 d=10=3*2+4 ✓
+a=3 (uncov da k>=2):            g=(1,2,2,1,0,...); primo zero k=5 d=13=3*3+4 ✓
+a=4 (uncov da k>=2):            g=(2,6,10,9,2,0,...); primo zero k=6 d=16=3*4+4 ✓
+a=5 (uncov da k>=2):            g=(2,7,17,24,13,2,0,...); primo zero k=7 d=19=3*5+4 ✓
+a=6 (uncov da k>=2):            g=(2,7,19,38,41,20,3,0,...); primo zero k=8 d=22=3*6+4 ✓ [char_table(22)~24s]
+```
+
+**Conjecture C44 (5 data points):** d_0(a, b=2) = 3a+4 per a=2..6.
+
+**Legge supplementare:** g(fat_hook(a, b=2, k_0-1)^3) = floor(a/2):
+- a=2: 1; a=3: 1; a=4: 2; a=5: 2; a=6: 3 = floor(a/2) ✓ per tutti.
+
+**Pendenza-3 universale:**
+- d_0(a, b=1) = 3a - 1 (C42, 6 data points)
+- d_0(a, b=2) = 3a + 4 (C44, 5 data points)
+- Differenza costante: C(2) - C(1) = 4 - (-1) = 5 (offset 5, slope identica = 3).
+
+**Fat-hook b=3:** scansione (a,3^k) per a=3..6. Per a=3: tutti rettangoli (covered=True), zeros B4/B1. Per a=4..6: g>0 in tutto il range feasibile (d≤22). b=3 NON mostra lo stesso pattern C44 nel range computabile (infeasibility wall colpisce prima).
+
+**Adversary:** (1) a=2 sono RETTANGOLI: covered=True, zeros da B4. Killer: i zeros covered non sono nuovi. RISPOSTA: è la STESSA prima zero d_0 = 3a+4 = 10 per a=2. La formula vale anche per covered, ma il meccanismo è diverso. (2) b=3 non mostra zeros: forse d_0(a,3) >> 22. CONCESSO: b=3 non confermata, C44 limitata a b=2. (3) "Slope-3 universale" potrebbe essere coincidenza a 2 punti (b=1,2). CONCESSO: 2 valori di b non sufficienti per "universale".
+
+**Evaluator: robustness 5.5/10.** C44 ha 5 data points per b=2 (solido), ma: b=3 non verificata, meccanismo analitico assente, "slope-3 universale" non supportata oltre b=2.
+
+**GATE: Entry-only.** Nessun Modulo (non cristallizzato). Codice in `hook_depth.py` (fat_hook_lam, fat_hook_diag, predicted_fat_d0) + 12 nuovi test in `tests/test_hook_depth.py`.
+
+**d_0(6)=17 (C42 addendum, CONFIRMATO questa sessione):** g((6,1^10)^3)=1, g((6,1^11)^3)=0. EXTRA LEGGE VERIFIED: g(lam_{3a-2}^3) = 1 per a=1..6 (6 data points, TUTTI). Vedi test `test_g_at_d0_minus1_equals_1`.
+
+**Stato del programma.** Ledger: **25 restatements + 1 FALSIFICAZIONE INTRA-SESSIONE / 7 arene.** Pattern C42 a 6 data points. C44 nuovo a 5 data points (b=2 fat-hooks, pendenza-3 verificata). File: `pnp_lab/gct_kronecker/hook_depth.py` (fat_hook_*), 38 test fast + 5 slow in `tests/test_hook_depth.py`.
+
+**NEXT unstable direction:** (a) Verificare b=3 con char_table estesa oltre 22 — d_0(4,3) richiede char_table(25) ~80s; (b) Cercare derivazione analitica di d_0(a,b) = 3a + C(b) da formule di Blasiak/Pak-Panova per hook Kronecker; (c) Fermarsi — ledger 25+ restatements + C42/C44 è il contributo della Fase 2.
 
 ---
 

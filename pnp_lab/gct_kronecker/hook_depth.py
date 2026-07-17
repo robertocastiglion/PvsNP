@@ -123,6 +123,46 @@ def last_hole_value(a: int) -> int:
     return a
 
 
+def fat_hook_lam(a: int, b: int, k: int) -> Partition:
+    """Fat-hook partition (a, b^k) for a >= b >= 1, k >= 1.
+
+    Entry 44: b=2 family (a, 2^k) studied for a=2..6.
+    """
+    if a < b:
+        raise ValueError(f"a={a} must be >= b={b} for a valid partition")
+    if k < 1:
+        raise ValueError(f"k must be >= 1, got {k}")
+    return (a,) + (b,) * k
+
+
+def fat_hook_diag(a: int, b: int, k: int, max_d: Optional[int] = None) -> Optional[int]:
+    """g(lam, lam, lam) where lam = fat_hook_lam(a, b, k) = (a, b^k).
+
+    Returns None if d = a + b*k > max_d (default HOOK_MAX_D).
+    """
+    limit = HOOK_MAX_D if max_d is None else max_d
+    d = a + b * k
+    if d > limit:
+        return None
+    lam = fat_hook_lam(a, b, k)
+    return g_fast(lam, lam, lam)
+
+
+def predicted_fat_d0(a: int, b: int) -> Optional[int]:
+    """Predicted first d with g(fat_hook(a,b,k)^3) = 0 (Entry 44).
+
+    Conjectures:
+      b=1: d_0 = 3a - 1  (C42, verified a=1..6)
+      b=2: d_0 = 3a + 4  (C44, verified a=2..6)
+    Returns None for b not in {1, 2}.
+    """
+    if b == 1:
+        return 3 * a - 1
+    if b == 2:
+        return 3 * a + 4
+    return None
+
+
 def summary(d_min: int = 3, d_max: int = 13, N_max: int = 3) -> List[Dict]:
     """Print depth table for hook lam_d, d=d_min..d_max, N=1..N_max.
 

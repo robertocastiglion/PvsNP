@@ -15,6 +15,7 @@ import pytest
 from pnp_lab.gct_kronecker.hook_depth import (
     g_hook_diag, hook_lam, hook_depth_row, HOOK_MAX_D,
     predicted_d0, predicted_T, last_hole_value,
+    fat_hook_lam, fat_hook_diag, predicted_fat_d0,
 )
 
 
@@ -260,6 +261,114 @@ def test_last_hole_a4():
     lam = (4,) + (1,)*9   # (4,1^9) |- 13 = T(4)-1=14-1
     lam2 = tuple(2*x for x in lam)  # (8,2^9) |- 26
     assert g_fast(lam2, lam2, lam2) == last_hole_value(4), "last hole for a=4 should be 4"
+
+
+# ---------------------------------------------------------------------------
+# Entry 42 addendum: d_0(6)=17; g(lam_{3a-2})=1 for ALL a=1..6
+# ---------------------------------------------------------------------------
+
+def test_d0_a6_verified():
+    """d_0(6)=17: first zero at d=17 for hook (6,1^11), none at d=16."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam16 = (6,) + (1,)*10  # (6,1^10) |- 16 = 3*6-2
+    lam17 = (6,) + (1,)*11  # (6,1^11) |- 17 = 3*6-1 = d_0(6)
+    assert g_fast(lam16, lam16, lam16) == 1, "g((6,1^10)^3) should be 1"
+    assert g_fast(lam17, lam17, lam17) == 0, "g((6,1^11)^3) should be 0 (d=d_0(6)=17)"
+
+
+def test_g_at_d0_minus1_equals_1():
+    """g(lam_{3a-2}^3)=1 for ALL a=1..6: value just before first zero is always 1."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    expected_one = {
+        1: (2,),             # (2,) |- 1 = 3*1-2 [d_0=2]
+        2: (2, 1, 1),        # (2,1^2) |- 4 = 3*2-2 [d_0=5]
+        3: (3, 1, 1, 1, 1),  # (3,1^4) |- 7 = 3*3-2 [d_0=8]
+        4: (4,) + (1,)*6,    # (4,1^6) |- 10 = 3*4-2 [d_0=11]
+        5: (5,) + (1,)*8,    # (5,1^8) |- 13 = 3*5-2 [d_0=14]
+        6: (6,) + (1,)*10,   # (6,1^10) |- 16 = 3*6-2 [d_0=17]
+    }
+    for a, lam in expected_one.items():
+        g = g_fast(lam, lam, lam)
+        assert g == 1, f"a={a}: g(lam_{{3a-2}})={g}, expected 1"
+
+
+# ---------------------------------------------------------------------------
+# Entry 44: Fat-hook d_0(a, b=2) = 3a+4 and slope-3 universality
+# ---------------------------------------------------------------------------
+
+def test_fat_hook_lam_basic():
+    """fat_hook_lam shape sanity."""
+    assert fat_hook_lam(3, 2, 1) == (3, 2)
+    assert fat_hook_lam(4, 2, 3) == (4, 2, 2, 2)
+    assert fat_hook_lam(5, 3, 2) == (5, 3, 3)
+    # Sum = a + b*k
+    for a, b, k in [(3, 2, 2), (4, 2, 4), (5, 3, 3)]:
+        lam = fat_hook_lam(a, b, k)
+        assert sum(lam) == a + b * k
+
+
+def test_predicted_fat_d0_b1():
+    """predicted_fat_d0(a, 1) == 3a-1 (same as predicted_d0)."""
+    for a in range(1, 7):
+        assert predicted_fat_d0(a, 1) == 3 * a - 1 == predicted_d0(a)
+
+
+def test_predicted_fat_d0_b2():
+    """predicted_fat_d0(a, 2) == 3a+4 for a=2..6 (C44)."""
+    expected = {2: 10, 3: 13, 4: 16, 5: 19, 6: 22}
+    for a, d0 in expected.items():
+        assert predicted_fat_d0(a, 2) == d0, f"a={a}: {predicted_fat_d0(a, 2)} != {d0}"
+
+
+def test_predicted_fat_d0_unknown_b():
+    """predicted_fat_d0 returns None for b not in {1,2}."""
+    assert predicted_fat_d0(4, 3) is None
+
+
+def test_fat_d0_a2_b2_verified():
+    """d_0(2,b=2)=10: g((2,2^3)^3)=1>0, g((2,2^4)^3)=0."""
+    assert fat_hook_diag(2, 2, 3) == 1  # d=8, g>0
+    assert fat_hook_diag(2, 2, 4) == 0  # d=10, first zero
+
+
+def test_fat_d0_a3_b2_verified():
+    """d_0(3,b=2)=13: g((3,2^4)^3)=1>0, g((3,2^5)^3)=0."""
+    assert fat_hook_diag(3, 2, 4) == 1  # d=11, g>0
+    assert fat_hook_diag(3, 2, 5) == 0  # d=13, first zero
+
+
+def test_fat_d0_a4_b2_verified():
+    """d_0(4,b=2)=16: g((4,2^5)^3)=2>0, g((4,2^6)^3)=0."""
+    assert fat_hook_diag(4, 2, 5) == 2  # d=14, g>0
+    assert fat_hook_diag(4, 2, 6) == 0  # d=16, first zero
+
+
+def test_fat_d0_a5_b2_verified():
+    """d_0(5,b=2)=19: g((5,2^6)^3)=2>0, g((5,2^7)^3)=0."""
+    assert fat_hook_diag(5, 2, 6) == 2  # d=17, g>0
+    assert fat_hook_diag(5, 2, 7) == 0  # d=19, first zero
+
+
+@pytest.mark.slow
+def test_fat_d0_a6_b2_verified():
+    """d_0(6,b=2)=22: g((6,2^7)^3)=3>0, g((6,2^8)^3)=0. char_table(22) ~24s."""
+    assert fat_hook_diag(6, 2, 7) == 3  # d=20, g>0
+    assert fat_hook_diag(6, 2, 8) == 0  # d=22, first zero
+
+
+def test_slope3_universality():
+    """Slope-3 in a: d_0(a,1)=3a-1 and d_0(a,2)=3a+4 differ by 5 (constant)."""
+    for a in range(2, 7):
+        d0_b1 = predicted_fat_d0(a, 1)
+        d0_b2 = predicted_fat_d0(a, 2)
+        assert d0_b2 - d0_b1 == 5, f"a={a}: offset={d0_b2-d0_b1} (expected 5)"
+
+
+def test_fat_hook_infeasibility():
+    """fat_hook_diag returns None when d > HOOK_MAX_D=27."""
+    assert fat_hook_diag(10, 2, 10) is None  # d=10+20=30 > 27
+    assert fat_hook_diag(6, 2, 12) is None  # d=6+24=30 > 27
+    assert fat_hook_diag(4, 3, 9) is None   # d=4+27=31 > 27
 
 
 def g_fast_or_gfast(lam):

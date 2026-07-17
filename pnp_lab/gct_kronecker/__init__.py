@@ -98,6 +98,9 @@ from .hook_depth import (
     predicted_d0,
     predicted_T,
     last_hole_value,
+    fat_hook_lam,
+    fat_hook_diag,
+    predicted_fat_d0,
 )
 
 __all__ = [
@@ -176,4 +179,7 @@ __all__ = [
     "predicted_d0",
     "predicted_T",
     "last_hole_value",
+    "fat_hook_lam",
+    "fat_hook_diag",
+    "predicted_fat_d0",
 ]
