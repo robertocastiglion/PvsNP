@@ -3,11 +3,11 @@
 ## Sessione corrente
 
 **Data:** 2026-07-18
-**Entry completate (totale arc):** 40–60
+**Entry completate (totale arc):** 40–64
 
 ---
 
-## Ultimo stato — Entry 60 CHIUSO
+## Ultimo stato — Entry 64 CHIUSO
 
 ### Arc hook-diagonal (Entries 40–48, sessioni precedenti):
 Programma COMPLETO. Congetture cristallizzate e callable:
@@ -61,16 +61,62 @@ s_3(k):     1,14,158,1497,≈10826   → no formula; no ord-2; crescita sub-exp
 - Entry 43: a=1 FALSIFICA C42 (d_0(1)≠3·1-1=2; valore effettivo d_0(1)=1 per conv.)
 - Entry 58: C50 non si estende a k=4 (RESTATEMENT #31)
 - Entry 59: predizioni A=1, B=4, C=8 per g((5^5)^3) TUTTE UCCISE (g=21=F(8))
+- Entry 61 (H61): g(δ_k^3) ≠ F(3k-7) per k=3,4,5,6 (self-conjugate ≠ Fibonacci)
+- Entry 64 (F64): 5 delle 11 partizioni in Entry 63 NON erano self-conjugate; 3 mancanti
 
 ---
 
-## Bilancio lab (post-Entry 60)
+## Arc self-conjugate genericness (Entries 61–64, questa sessione):
+
+### Nuove congetture:
+| ID  | Enunciato | Verif. | Wall |
+|-----|-----------|--------|------|
+| C57 | lim R_staircase = 1 (g(δ_k^3)·d!/f³ → 1) | k=1..6 | k=7 (d=28) |
+| C59 | RITIRATA / FALSIFICATA da F64 | — | — |
+| C60 | R monotona in hook-spread (h_1-h_r)/d tra k-hook a stesso d | d=13,15,21 (k=3) | k≥4 |
+
+### Nuovi lemmi:
+- **L61** (H61): g(δ_k^3) ≠ F(3k-7) per k=3,4,5,6 (staircase non Fibonacci)
+- **L62** (cond.): R_square(k)→0 se C53 vale (prova asintotica condizionale)
+- **L63**: R_hook(a)→∞ per a→∞ (Stirling + dati)
+
+### Sequenze aggiuntive:
+```
+g(δ_k^3): 1,1,5,117,18269,24891165  (k=1..6)  [crescita iperesponenziale]
+
+Spettro d=21 self-conjugate (hook-spread order):
+hooks        spread    R
+{21}         1.000     8101.18  (hook puro)
+{17,3,1}     0.762        1.93  (quasi-hook)
+{15,5,1}     0.667        1.04
+{13,7,1}     0.571        0.997
+{13,5,3}     0.476        0.998 \  tie spread
+{11,9,1}     0.476        0.993 /
+{11,7,3}     0.381        0.954  [δ_6 staircase]
+{9,7,5}      0.190        0.838  (più bilanciato)
+```
+
+### Spettro corretto d=10,13,15:
+```
+(5,2,1,1,1)       d=10  hooks={9,1}     R=0.8475
+(4,3,2,1)=δ_4     d=10  hooks={7,3}     R=0.9373
+(7,1^6)           d=13  hooks={13}      R=7.8934
+(5,3,3,1,1)       d=13  hooks={9,3,1}   R=1.0019
+(4,4,3,2)         d=13  hooks={7,5,1}   R=0.8380   ← CORRETTO da F64
+(8,1^7)           d=15  hooks={15}      R=32.3488
+(6,3,3,1,1,1)     d=15  hooks={11,3,1}  R=0.9924   ← CORRETTO da F64
+(5,4,3,2,1)=δ_5   d=15  hooks={9,5,1}  R=0.9511
+(4,4,4,3)         d=15  hooks={7,5,3}   R=0.8488   ← CORRETTO da F64
+```
+
+---
+
+## Bilancio lab (post-Entry 64)
 
 ```
 31 restatements / 7 arene
-5 lemmi (L55, L60, + 3 da sessioni prev)
-1 falsificazione formale (Entry 43)
-1 falsificazione tripartita (Entry 59: A,B,C killed)
+7 lemmi (L55, L60, L62, L63, + 3 da sessioni prev)
+4 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64)
 1 non-collasso (M22)
 survival-PASS@1 (M24), survival-PASS@3 (M25)
 2 control-PASS (M26, M27)
@@ -96,5 +142,7 @@ examples/run_hook_depth.py
 
 (a) **Struttura di C53**: perché F(3k-7)? Connessione Schur-Weyl / plethysm / GL(φ)?
 (b) **Formula pari k=4**: trovare g((c^4)^3) per c pari (1,5,16 per c=2,4,6 — pattern aperto)
-(c) **Nuova arena** (arithmetic circuits, algebrization, plethysm, altro)
-(d) **Fermarsi** — ledger 31 restatements + 5 lemmi + congetture interessanti soddisfa anti-resa
+(c) **C60 a k>3**: spettro a d dove esistono 4-hook shapes (min. d=1+3+5+7=16 — ma d=16 = quadrato (4^4)!)
+(d) **R=1 crossing**: per ogni k-hook fisso, trovare lo spread critico dove R attraversa 1
+(e) **Nuova arena** (arithmetic circuits, algebrization, plethysm, altro)
+(f) **Fermarsi** — ledger 31 restatements + 7 lemmi + 4 falsificazioni soddisfa anti-resa

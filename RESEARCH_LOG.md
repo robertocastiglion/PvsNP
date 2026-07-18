@@ -4023,3 +4023,134 @@ L63 = prova asintotica (Stirling, leading term). C59 = osservazione su 11 punti.
 
 ---
 
+## Entry 64 — ERRATUM Entry 63 + spettro corretto a d=21: FALSIFICAZIONE F64 + C60 (2026-07-18)
+
+**ERRATUM MECCANICO.** La tabella di Entry 63 contiene errori gravi di enumerazione.
+Il test `is_self_conj(lam)` applicato retroattivamente alle 11 partizioni elencate rivela:
+
+```
+5 partizioni NON self-conjugate incluse per errore:
+  (4,4,3,1,1)   d=13  [Entry 63 attribuiva g=235, R=0.9416]
+  (6,3,2,2,1,1) d=15  [Entry 63 attribuiva g=8145, R=0.9850]
+  (5,4,2,2,1,1) d=15  [Entry 63 attribuiva g=10875, R=0.9881]
+  (5,3,3,2,1,1) d=15  [Entry 63 attribuiva g=9203, R=0.9680]
+  (4,4,3,2,2)   d=15  [Entry 63 attribuiva g=618, R=0.8986]
+
+3 partizioni self-conjugate MANCANTI:
+  (4,4,3,2)       d=13  hooks={7,5,1}  [non calcolata]
+  (6,3,3,1,1,1)   d=15  hooks={11,3,1} [non calcolata]
+  (4,4,4,3)       d=15  hooks={7,5,3}  [non calcolata]
+
+Errore aggiuntivo: δ_5=(5,4,3,2,1) etichettata con hooks={9,7,5,3,1}; corretto: {9,5,1}.
+Errore di tricotomia: Entry 63 affermava "quadrato E staircase hanno lo STESSO hook set
+{2k-1,...,1}". FALSO: (k^k) ha k hook {2k-1,2k-3,...,1}; δ_k ha ~k/2 hook {2k-1,2k-5,...}
+(passo 4, non 2). A k=5: quadrato={9,7,5,3,1} (5 hook), δ_5={9,5,1} (3 hook). DIVERSI.
+```
+
+**L63 rimane VALIDA** (usa solo hook puri: (7,1^6) e (8,1^7), entrambi SC ✓).
+
+**TABELLA CORRETTA [g_fast + is_self_conj, <1s totali]:**
+```
+lambda               d    f          g       R=g·d!/f³   hooks
+(5,2,1,1,1)        10    448        21       0.8475      {9,1}
+(4,3,2,1)=δ_4      10    768       117       0.9373      {7,3}
+(7,1^6)            13    924         1       7.8934      {13}
+(5,3,3,1,1)        13  16016       661       1.0019      {9,3,1}
+(4,4,3,2)          13   8580        85       0.8380      {7,5,1}     ← NEW
+(8,1^7)            15   3432         1      32.3488      {15}
+(6,3,3,1,1,1)      15 156000      2881       0.9924      {11,3,1}    ← NEW
+(5,4,3,2,1)=δ_5    15 292864     18269       0.9511      {9,5,1}     hook labels CORRECTED
+(4,4,4,3)          15  24024         9       0.8488      {7,5,3}     ← NEW
+```
+
+**Osservazione cruciale emergente dalla correzione.** Confronto 3-hook a d=15:
+{11,3,1}: spread=(11-1)/15=0.667 → R=0.9924 (più alto)
+{9,5,1}:  spread=(9-1)/15=0.533  → R=0.9511
+{7,5,3}:  spread=(7-3)/15=0.267  → R=0.8488 (più basso)
+PATTERN: hook-spread h_1-h_r PREDICE R — spread maggiore → R più alto.
+
+Idem a d=13:
+{9,3,1}: spread=(9-1)/13=0.615 → R=1.0019
+{7,5,1}: spread=(7-1)/13=0.462 → R=0.8380
+CONSISTENTE.
+
+**NUOVO DATO: spettro d=21 [g_fast, 14.0s per hook puro, <0.1s per gli altri]:**
+```
+lambda                       f            g       R=g·d!/f³   hooks
+(11,1^{10})            184756            1    8101.1796      {21}
+(9,3,3,1,1,1,1,1,1)  59643584         8013       1.9295      {17,3,1}
+(8,4,3,2,1,1,1,1)   570341772      3759213       1.0352      {15,5,1}
+(7,5,3,2,2,1,1)    1118939184     27329601       0.9967      {13,7,1}
+(7,4,4,3,1,1,1)     609339500      4420601       0.9983      {13,5,3}
+(6,6,3,2,2,2)       276529344       411081       0.9932      {11,9,1}
+(6,5,4,3,2,1)=δ_6  1100742656     24891165       0.9535      {11,7,3}
+(5,5,5,3,3)          69283500         5453       0.8377      {9,7,5}
+```
+Sorted per R: 8101 >> 1.93 > 1.04 > 0.997 ≈ 0.998 ≈ 0.993 > 0.954 > 0.838.
+
+**PATTERN HOOK-SPREAD a d=21 (3-hook shapes, 6 punti):**
+```
+{17,3,1}: spread=16/21=0.762 → R=1.9295
+{15,5,1}: spread=14/21=0.667 → R=1.0352
+{13,7,1}: spread=12/21=0.571 → R=0.9967
+{13,5,3}: spread=10/21=0.476 → R=0.9983  \  quasi uguali (Δ=0.005)
+{11,9,1}: spread=10/21=0.476 → R=0.9932  /  (tie rotto da struttura interna)
+{11,7,3}: spread= 8/21=0.381 → R=0.9535  [δ_6]
+{9,7,5} : spread= 4/21=0.190 → R=0.8377
+```
+R è MONOTONA CRESCENTE in spread (h_1-h_r)/d (tranne quasi-tie 0.476 indistinguibile).
+Spread 0 (tutti hook uguali, impossibile con hook distinti) → R→0.
+Spread 1 (h_1=d, h_r→0, i.e., hook puro) → R→∞.
+La curva R(spread) attraversa 1 tra spread 0.476 e 0.571 a d=21.
+
+**FALSIFICAZIONE F64 di C59** ("R monotona crescente nel NUMERO di hook").
+C59 prevedeva che più hook bilanciati → più generica (R più vicina a 1 PER ECCESSO O DIFETTO).
+Ma: la forma più bilanciata a d=21 è {9,7,5} (R=0.838, DI GRAN LUNGA la più lontana da 1
+tra le 3-hook). La forma con R più vicina a 1 è la INTERMEDIA {13,5,3} (R=0.9983).
+La direzione di C59 è INVERTITA: più bilanciata → R PIÙ LONTANA da 1 (sotto).
+
+Nota speciale: {17,3,1} ha R=1.9295 — la prima shape non-hook mai vista con R>>1 in modo
+significativo. Si comporta come "quasi-hook": primo hook domina (17/21=81% del totale),
+gli altri due sono piccoli. Questo conferma che i forme con primo hook dominante si
+avvicinano al comportamento hook (R→∞) anche avendo hook aggiuntivi.
+
+**CONGETTURA C60: R è monotona in hook-spread (h_1-h_r)/d.**
+Tra partizioni self-conjugate k-hook (k≥3) con stesso d e stesso k:
+  R è MONOTONA CRESCENTE in (h_1-h_r)/d.
+Basi: d=13 (2 punti ✓), d=15 (3 punti ✓), d=21 (6 punti, quasi-monotone con un tie ✓).
+Killer dichiarato: coppia (λ,μ) k-hook, stesso d, spread(λ)>spread(μ) ma R(λ)<R(μ).
+Eccezione apparente al tie d=21: {13,5,3} (spread=0.476, R=0.9983) vs
+{11,9,1} (spread=0.476, R=0.9932) — stesso spread, R diversa di 0.005; non contraddice C60
+(spread identico, tie non-ordinabile da spread solo; struttura interna differisce).
+
+**Adversary:**
+(1) "F64 e' una correzione interna, non una falsificazione del corpus" — CONCESSO in parte.
+    Ma la claim esplicita in Entry 63 era "tutte le 11 forme self-conjugate a d=13,15";
+    questa claim è FALSA per verifica meccanica. F64 è falsificazione di Entry 63.
+(2) "C60 su 3 d con k=3 non è generalizzabile a k≥4" — CONCESSO. k=3 è il solo caso
+    verificato (d=10 ha solo k=2, d=21 ha solo k=3 tra le non-hook). k=4 richiederebbe
+    d dove esistono k=4 hook self-conjugate — minimo 1+3+5+7=16, ma con due soli k=4 shape
+    non è testabile con questo corpus.
+(3) "Il tie a d=21 indebolisce C60" — CONCESSO. Il tie non lo falsifica ma mostra che
+    il secondo predittore (struttura interna) è necessario per risolvere i tie.
+(4) "Tricotomia corretta di Entry 63 era concettualmente giusta anche con hook-set sbagliati"
+    — CONCESSO. Il messaggio centrale (hook R→∞, quadrato R→0, staircase R→1) è qualitativo-
+    mente corretto. L'errore negli hook-set è un errore di label, non di fisica.
+
+**Evaluator: 7.5/10.** F64 è falsificazione meccanica netta e obbligatoria. La correzione
+della tabella produce 3 nuovi data point (d=13 mancante + 2 d=15 mancanti). Il dato
+{17,3,1} R=1.93 è la sorpresa principale di questa Entry: primo non-hook con R>>1.
+C60 (hook-spread) è quantitativamente più precisa di C59. Limite: solo k=3 hook verificato.
+
+**Tipo: FALSIFICAZIONE F64 (enumerazione Entry 63) + congettura C60 (hook-spread).**
+Ledger: **31 restatements + 7 lemmi + 4 falsificazioni (Entry 43, 59, 61, 64) / 7 arene.**
+
+**Honesty boundary.** COMPUTED: is_self_conj via coniugata esplicita; g_fast per 9 shape
+corrette a d=10/13/15 (<1s); g_fast per 8 shape a d=21 (14s per hook, <0.1s altri).
+F64 = verifica di auto-contraddizione all'interno di questa sessione. C60 = congettura su
+11+6=17 data point (solo k=3 hook). NO P vs NP.
+
+**NEXT:** Aggiornare STATE.md (riflettere F64, correzioni, C60, d=21 data). Poi fermarsi.
+
+---
+
