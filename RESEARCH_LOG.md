@@ -3560,3 +3560,72 @@ c=4 sequence g((4^k)^3); (c) Pivot nuova arena.
 
 ---
 
+## Entry 58 — g((c^4)^3) quattro righe: C50 UCCISA per c>=4, nuova C52 per c dispari (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+C50 (formula k=3: g = c/2 per c pari, floor(c/3) per c dispari) si estende a k=4.
+Killer pre-dichiarato: qualsiasi c in {1..6} con g != predizione C50.
+
+**Dati esatti g((c^4)^3) per c=1..6 (g_fast, d=4..24):**
+```
+c  | d  | g   | C50_pred(k=3 formula) | match
+1  |  4 | 0   | floor(1/3)=0          | OK   [0.0s]
+2  |  8 | 1   | 2/2=1                 | OK   (cached Entry 53)
+3  | 12 | 1   | floor(3/3)=1          | OK   [0.1s]
+4  | 16 | 5   | 4/2=2                 | FAIL [cached Entry 56]
+5  | 20 | 4   | floor(5/3)=1          | FAIL [6.1s]
+6  | 24 | 16  | 6/2=3                 | FAIL [cached Entry 56]
+7  | 28 | ?   | floor(7/3)=2 (pred)   | WALL
+```
+**KILLER: SCATTATO a c=4.** C50 NON si estende a k=4. 3/6 FAIL.
+
+**RESTATEMENT #31: C50 (formula k=3) non e' k-invariante.**
+C50 valida solo per k=3, non per k=4.
+
+**Sequenza k=4 per c dispari (0, 1, 4):**
+c=1: g=0 = (0)^2 = ((1-1)/2)^2 = 0^2
+c=3: g=1 = (1)^2 = ((3-1)/2)^2 = 1^2
+c=5: g=4 = (2)^2 = ((5-1)/2)^2 = 2^2
+Tutti i 3 data points soddisfano: **g((c^4)^3) = ((c-1)/2)^2 per c DISPARI.**
+(Nota: (c-1)/2 e' un intero poiche' c dispari.)
+
+**Congettura C52 (nuova): g((c^4)^3) = ((c-1)/2)^2 per c DISPARI.**
+Verificata su c=1,3,5 (3 data points). Prossimo test: c=7, d=28 > HOOK_MAX_D=27 (WALL).
+
+**Pattern crescente del grado per k variabile, c dispari:**
+```
+k=2: g((c^2)^3) = 0 per c dispari (costante, grado 0 in c-1)
+k=3: g((c^3)^3) = floor(c/3) ~ (c-1)^1/3 (grado ~1 in c-1)
+k=4: g((c^4)^3) = ((c-1)/2)^2 (grado 2 in c-1)
+```
+Ipotesi strutturale: grado in (c-1) = k-2 per c dispari. (NON verificata per k>=5.)
+Il coefficiente per k=4 e' 1/4 = 1/(2^2) (denominatore 2^{k-2}?).
+
+**Sequenza k=4 per c PARI (1, 5, 16 per c=2,4,6):**
+No formula semplice identificata entro i 3 data points. Differenze: 4, 11. Non costanti.
+Non corrisponde a C(c/2+1, 2), p(c/2), C_cat(c/2). Aperta.
+
+**Adversary:**
+(1) "C52 e' su 3 data points, nessuna prova" — CONCESSO. Tre punti soddisfano una
+    formula quadratica in modo banale (qualsiasi 3 punti soddisfano un polinomio grado 2).
+    Il contenuto reale e' la formula SPECIFICA ((c-1)/2)^2 con coefficiente esatto 1/4.
+(2) "k>=5 inaccessibile (c>=7 per k=5 richiederebbe d=35>27)" — CONCESSO.
+    La congettura non e' verificabile piu' a fondo entro il muro.
+(3) "Il pattern 'grado k-2' e' speculativo" — CONCESSO. Solo k=2,3,4 verificati;
+    k=5 richiederebbe d>=35.
+
+**Evaluator: 5.5/10.** C50 uccisa onestamente (k=4). C52 elegante ma 3 punti. Pattern
+grado k-2 interessante ma non falsificabile entro il muro. Contenuto principale:
+la DIVERSITA' dei comportamenti per diversi k (k=2: tutti 0; k=3: floor(c/3); k=4: quadratico).
+
+**Tipo: RESTATEMENT #31 (C50 non si estende a k=4) + nuova C52 speculativa (3 punti).**
+
+**Honesty boundary.** COMPUTED esatti: c=5,3 g_fast [0.1+6.1s]; c=1,2,4,6 da computazioni
+precedenti. C52 su 3 punti, altamente speculativa. C(c=4 pari) aperta. Wall c=7. NO P vs NP.
+
+**Stato:** Ledger: **31 restatements + 4 lemmi verificati / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Derivare C52 da Rosas (se possibile); (b) Nuova arena / pivot.
+
+---
+
