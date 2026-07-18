@@ -433,6 +433,63 @@ def test_c45_zeros_at_d0():
         assert g_fast(lam, lam, lam) == 0, f"a={a} d={d0}: g != 0 (expected 0)"
 
 
+# ---------------------------------------------------------------------------
+# Entry 47: Stable Kronecker s(k) = g~((2^k)^3)
+# Fast: k=1..5 (d <= 17); Slow: k=6,7,8 (d = 21,24,27)
+# ---------------------------------------------------------------------------
+
+def test_stable_k_two_row():
+    """s(1)=2: g((a,2)^3)=2 for all a>=4 (two-row stability)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for a in range(4, 10):
+        lam = (a, 2)
+        assert g_fast(lam, lam, lam) == 2, f"a={a}: g((a,2)^3) != 2"
+
+
+def test_stable_k_three_row():
+    """s(2)=7: g((a,2,2)^3)=7 for all a>=5 (three-row stability)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for a in range(5, 10):
+        lam = (a, 2, 2)
+        assert g_fast(lam, lam, lam) == 7, f"a={a}: g((a,2,2)^3) != 7"
+
+
+def test_stable_k3_to_k5():
+    """s(3)=19, s(4)=40, s(5)=61 (formula 21k-44 for k=3..5)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    expected = {3: 19, 4: 40, 5: 61}
+    onset_a = {3: 6, 4: 7, 5: 8}  # stable from a=k+3
+    for k, s_k in expected.items():
+        a = onset_a[k]
+        lam = (a,) + (2,)*k
+        assert g_fast(lam, lam, lam) == s_k, f"k={k}: s(k) != {s_k}"
+        assert 21*k - 44 == s_k, f"formula 21k-44 mismatch at k={k}"
+
+
+@pytest.mark.slow
+def test_stable_k6():
+    """s(6)=82=21*6-44. a=9,d=21: char_table(21) ~11s."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (9,) + (2,)*6
+    assert g_fast(lam, lam, lam) == 82
+
+
+@pytest.mark.slow
+def test_stable_k7():
+    """s(7)=103=21*7-44. a=10,d=24: char_table(24) ~46s."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (10,) + (2,)*7
+    assert g_fast(lam, lam, lam) == 103
+
+
+@pytest.mark.slow
+def test_stable_k8():
+    """s(8)=124=21*8-44. a=11,d=27: char_table(27) ~287s."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (11,) + (2,)*8
+    assert g_fast(lam, lam, lam) == 124
+
+
 @pytest.mark.slow
 def test_c45_all_ones_a8():
     """C45: g=1 for ALL d in [8, 22] for arm=8 (15 values). ~73s total."""

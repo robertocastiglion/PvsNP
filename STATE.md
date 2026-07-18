@@ -42,7 +42,7 @@ C42/C44/C45 = pacchetto computazionale hook-diagonal (Entry-only, non Moduli).
 - 807d645: Entry 44 (fat_hook_* + tests + RESEARCH_LOG)
 - 9873c9c: Entry 45 (C45 tests + RESEARCH_LOG + STATE)
 - f108d53: Entry 46 (a=8 verification + 2 slow tests)
-- [pending]: Entry 47 (stable Kronecker s(k), gen. function, s(7)=103 confirmed)
+- [pending]: Entry 47 (stable Kronecker s(k)=21k-44, gen.func., s(7)=103, s(8)=124 confirmed)
 
 ## Prossima azione concreta — Entry 46 candidates
 

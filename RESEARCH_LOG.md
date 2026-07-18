@@ -2894,7 +2894,18 @@ Quindi: **Sigma_k s(k) x^k = (1 + 4x^2 + 7x^3 + 9x^4) / (1-x)^2**
 
 **Stato:** Ledger: **26 restatements (parziale) / 7 arene + 1 falsificazione.** Pacchetto hook: C42+C44+C45+C47 completo.
 
-**NEXT:** (a) Falsificare s(8)=124 con char_table(27) ~272s; (b) Derivare da plethysm; (c) Fermarsi.
+**UPDATE s(8):** s(8) = g((11,2^8)^3) = 124 = 21*8-44. CONFIRMED [287.2s, char_table(27)].
+Formula s(k)=21k-44 verificata per k=3..8 (6 valori consecutivi). Wall at k=9 (d>27).
+
+**Dati b=3 (bonus):** s_3(k) = g~((3^k)^3):
+  k=1: s_3=2; k=2: s_3=14; k=3: s_3=158; k=4: s_3=1497 (char_table(24), 43.9s).
+  Crescita super-lineare (non polinomiale di grado<=2 con coeff. interi).
+  Congettura: s_3(k) ~ (1063/6)k^3 + ... (grado 3 con coefficienti razionali? non confermato).
+  Coerente con grado b(b-1)/2: b=3 -> grado 3.
+
+**Slow tests aggiunti:** test_stable_k6..k8 in tests/test_hook_depth.py (49 fast + 10 slow).
+
+**NEXT:** (a) Derivare gen. function da plethysm GL(2); (b) Fermarsi.
 
 ---
 
