@@ -3114,3 +3114,52 @@ confermato negli ultimi 8 armi. NO claim su a>=10. NO claim P vs NP.
 
 ---
 
+## Entry 52 — g(delta_k^3) per staircase delta_k: 1,5,117,18269,24891165 (2026-07-18)
+
+**Ipotesi (Explorer):** Calcolare g(delta_k^3) per delta_k = (k,k-1,...,2,1) |- k(k+1)/2,
+k=2..6. Cercare pattern. Killer: nessun pattern semplice trovato.
+
+**Risultati:**
+```
+k | delta_k       | d  | dim(V_lambda)  | g(delta_k^3)  | covered
+2 | (2,1)         |  3 | 2              | 1             | True  (hook)
+3 | (3,2,1)       |  6 | 16             | 5             | FALSE
+4 | (4,3,2,1)     | 10 | 768            | 117           | FALSE
+5 | (5,4,3,2,1)   | 15 | 292864         | 18269         | FALSE
+6 | (6,5,4,3,2,1) | 21 | 1100742656     | 24891165      | FALSE
+7 | INFEASIBLE    | 28 | ---            | ---           | ---
+```
+
+**Osservazioni:**
+- delta_2=(2,1) e' un hook coperto (B2/Blasiak). g=1 coerente con C45 (a=2, d=3).
+- delta_3..delta_6 sono UNCOVERED da B1-B7 (non due-righe, non hook, non rettangolo, non
+  due-colonne). Tutti hanno g>>0.
+- Crescita: g(delta_k^3) / dim(V_{delta_k}): 0.50, 0.31, 0.15, 0.062, 0.023 → decrescente.
+- Rapporti consecutivi: 5, 23.4, 156, 1362 → SUPER-ESPONENZIALE in k.
+- log(g)/log(dim): 0, 0.58, 0.72, 0.78, 0.82 → tende a 1 ma lentamente.
+
+**Coverage check (UNCOVERED non-zero):**
+delta_3..delta_6 sono genuinamente fuori dalla coverage dictionary.
+Ma qui g>>0, quindi NON sono falsa copertura: sono semplicemente values grandi fuori dizionario.
+Questi NON sono "zeros da spiegare" ma "non-zeros fuori dizionario" (diversa questione).
+
+**Adversary:**
+(1) "Staircase self-conjugate => formula nota per g(delta^3)?" — SCONOSCIUTO. Non citato in
+Bessenrodt-Bowman-Pak-Panova. Nessuna closed form identificata.
+(2) "Crescita super-esponenziale e' attesa per grandi reps uncovered" — CONCESSO.
+Per reps di grande dimensione, il Kronecker coefficient puo' crescere rapidamente.
+
+**Evaluator: 5/10.** Dati computazionali nuovi (uncovered, all positive). Nessun pattern
+chiuso trovato. Nessuna congettura falsificabile. Osservazione descrittiva.
+
+**Tipo: OSSERVAZIONE — g(delta_k^3) = 1,5,117,18269,24891165; uncovered per k=3..6.**
+
+**Honesty boundary.** Tutti i 5 valori ESATTI (g_fast, MN). delta_7 infeasible (d=28>27).
+Nessuna closed form congetturata. NO claim P vs NP.
+
+**Stato:** Ledger: **28 restatements + 1 lemma + 1 osservazione / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Esplorare g(delta_k, mu, delta_k) per mu vicini a delta_k; (b) Fermarsi.
+
+---
+
