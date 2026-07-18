@@ -3485,3 +3485,78 @@ Correzione Entry 55: tau-parita' come NC e' WRONG per tre-righe. Formula C50 = c
 
 ---
 
+## Entry 57 — g((3^k)^3) sequenza c=3 fissa: alternanza UCCISA, zeros a k=2 e k=7 (k≡2 mod 5) (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+Sequenza g((3^k)^3) per k=1..9 (d=3..27). Congettura: pattern alternante g>0 (k dispari) / g=0 (k pari).
+Killer pre-dichiarato: qualsiasi k pari con g>0 O k dispari con g=0.
+
+**Dati esatti (g_fast, k=1..9):**
+```
+k  | d  | g  | parity | conj   | match
+1  |  3 | 1  | ODD    | >0     | OK
+2  |  6 | 0  | EVEN   | 0      | OK
+3  |  9 | 1  | ODD    | >0     | OK
+4  | 12 | 1  | EVEN   | 0      | FAIL  [k=4 pari, g=1>0]
+5  | 15 | 1  | ODD    | >0     | OK
+6  | 18 | 1  | EVEN   | 0      | FAIL  [k=6 pari, g=1>0]
+7  | 21 | 0  | ODD    | >0     | FAIL  [k=7 dispari, g=0]
+8  | 24 | 1  | EVEN   | 0      | FAIL  [k=8 pari, g=1>0]
+9  | 27 | 1  | ODD    | >0     | OK
+```
+**KILLER: SCATTATO a k=4.** 4/9 FAIL. Alternanza UCCISA.
+
+**Sequenza effettiva: 1,0,1,1,1,1,0,1,1 per k=1..9.**
+ZEROS a k=2 e k=7. NONZERO per tutti gli altri.
+
+**Osservazione: k≡2 (mod 5) → g=0.**
+- k=2: 2 mod 5 = 2. g=0 ✓
+- k=7: 7 mod 5 = 2. g=0 ✓
+- Tutti gli altri k=1,3,4,5,6,8,9: k mod 5 ∈ {0,1,3,4}. g>0 ✓ (9/9 coerenti con k≡2 mod 5 → g=0)
+
+**Natura dei zeros:**
+- k=2: (3,3) a due righe. g=0 by Entry 55 (c=3 dispari → (c,c)^3 = 0). COVERED (rettangolo+due-righe).
+- k=7: (3^7) sette righe. g=0 COVERED (is_rectangle=True). Analogo a (2^5) in Entry 53.
+Entrambi i zeros sono COVERED dalla dictionary B5 (rettangolo). NON sono sporadic uncovered.
+
+**Contrasto con la sequenza c=2 (Entry 53):**
+- c=2: g((2^k)^3) = 1,1,1,1,0,0,...,0 (zeros PERMANENTI da k=5).
+- c=3: g((3^k)^3) = 1,0,1,1,1,1,0,1,1 (zeros ISOLATI a k=2,7; sequenza RITORNA a 1 dopo k=7).
+
+Differenza fondamentale: per c=2 il primo zero e' "stabile" (una soglia); per c=3 i zeros sono
+isolati e la sequenza NON stabilizza a 0. k=8,9 danno g=1 dopo il zero a k=7.
+
+**Congettura C51 (nuova, post-data, da testare in futuro):**
+g((3^k)^3) = 0 se e solo se k ≡ 2 (mod 5) (famiglia c=3 fixed, k variabile).
+Verificata su k=1..9 (9 data points). Prossimo zero predetto: k=12 (d=36 > HOOK_MAX_D=27, inaccessibile).
+Killer C51: k≡2 (mod 5) con g>0 OPPURE k≢2 (mod 5) con g=0. Non testabile entro il muro.
+
+**Avvertenza su C51:** il "perche' 5" e' oscuro. 5 e' anche il valore-soglia di c=2 (k_0(c=2)=5).
+Coincidenza o connessione strutturale? Non derivato.
+
+**Adversary:**
+(1) "C51 e' post-hoc pattern matching su 2 zeros" — CONCESSO. Due dati non costituiscono prova.
+    La connessione k≡2 mod 5 e' speculativa; 5 e' l'unico numero con k_0(c=2)=5, potrebbe
+    essere coincidenza.
+(2) "Alternanza era ovviamente sbagliata: (3,3,3,3)=(3^4) non e' two-row, non c'e' ragione
+    per g=0" — CORRETTO. La congettura era troppo ottimista.
+(3) "I zeros k=2,7 sono entrambi COVERED → contenuto zero-free-discriminant nullo" — CONCESSO.
+    Nessun zero uncovered nella famiglia c=3. Il contenuto dell'entry e' la falsificazione
+    dell'alternanza + l'osservazione strutturale della sequenza non-monotona.
+
+**Evaluator: 6/10.** Alternanza uccisa onestamente (kill a k=4). Sequenza completa c=3 entro il
+muro (9 valori esatti). Zeros identificati come covered. C51 speculativa ma falsificabile
+(se mai d≤27 fosse esteso). Non-monotonicita' della sequenza c=3 vs monotonicita' c=2: nuova.
+
+**Tipo: RESTATEMENT #30 — alternanza c=3 UCCISA; osservazione zeros a k≡2 mod 5; C51 speculativa.**
+
+**Honesty boundary.** COMPUTED esatti: g((3^k)^3) k=1..9 (g_fast, MN, t_total~222s). C51 POST-HOC
+su 2 zeros; prossimo test k=12 inaccessibile. NO claim P vs NP.
+
+**Stato:** Ledger: **30 restatements + 4 lemmi verificati / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Estendere C50 a k=4 (quattro righe): g((c^4)^3) per c=1..6; (b) Cercare pattern per
+c=4 sequence g((4^k)^3); (c) Pivot nuova arena.
+
+---
+
