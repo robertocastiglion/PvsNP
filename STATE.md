@@ -40,7 +40,8 @@ C42/C44/C45 = pacchetto computazionale hook-diagonal (Entry-only, non Moduli).
 - fdf3dd9: Entry 42 (predicted_d0/T/last_hole + tests + RESEARCH_LOG)
 - d9e0f78: Entry 43 (RESEARCH_LOG falsification + uncoverage mechanism)
 - 807d645: Entry 44 (fat_hook_* + tests + RESEARCH_LOG)
-- [pending]: Entry 45 (C45 tests + RESEARCH_LOG + STATE)
+- 9873c9c: Entry 45 (C45 tests + RESEARCH_LOG + STATE)
+- [pending]: Entry 46 (a=8 verification + 2 slow tests)
 
 ## Prossima azione concreta — Entry 46 candidates
 

@@ -2818,3 +2818,36 @@ C45 SUSSUME e RAFFORZA C42: non solo d_0=3a-1, ma l'intera curva è piatta a 1.
 
 ---
 
+## Entry 46 — C45 confermata a=8; total 62 valori; analisi palindromica (2026-07-18)
+
+**Verifica a=8:** g((8,1^{d-8})^3) = 1 per TUTTI d=8..22 (15 valori, 73.2s totale). g=0 per d=23=d_0(8). **C45 reggge per a=8.**
+
+**Bilancio verifiche C45:**
+```
+a  | range d         | #valori | tempo   | stato
+2  | [2,4]           |  3      | <1s     | OK
+3  | [3,7]           |  5      | <1s     | OK
+4  | [4,10]          |  7      | <1s     | OK
+5  | [5,13]          |  9      | <1s     | OK
+6  | [6,16]          | 11      | <1s     | OK
+7  | [7,19]          | 13      |  8.0s   | OK
+8  | [8,22]          | 15      | 73.2s   | OK
+TOTALE: 63 valori (incluso d_0=23 g=0)
+```
+
+**Analisi palindromica.** La simmetria d -> (3a-1)-d (riflette [a, 3a-2] in se stesso) è verificata empiricamente poiché g=1 costante. Il complemento partizione (a,1^{d-a}) -> (d-a+1,1^{a-1}) ha g(lam^3) = g(lam'^3) per la simmetria di Kronecker (g(lam,mu,nu)=g(lam',mu',nu') con prime = complemento). Questo spiega la palindromia: g((a,1^{d-a})^3) = g((d-a+1,1^{a-1})^3). Poiché entrambi devono essere 1, la simmetria è consistente con C45 ma non la prova (circolare).
+
+**Wall a=9:** char_table(26) = ~173s per d=25 (ultimo del range a=9: d=9..25). Sequenza intera richiederebbe ~17 chiamate => ~2900s (non fattibile interattivamente). A=8 è il massimo verificabile in una sessione.
+
+**Adversary:** "Palindromia non è nuova — è conseguenza dell'azione del gruppo S_d". Risposta: la palindromia è trivialmente vera se g=1 costante, ma la COSTANZA è il claim non banale. L'avversario non ha killer qui.
+
+**Evaluator: robustness 7.5/10.** 62 valori a=2..8, nessun fallimento. Manca proof analitica e a=9+ irraggiungibile. Ma: 7 valori di arm distinti, massimo testabile raggiunto.
+
+**GATE: Entry-only.** Test slow aggiunti: `test_c45_all_ones_a8` + `test_c45_zero_at_d0_a8`. Totale test: 46 fast + 7 slow.
+
+**Stato del programma.** Ledger: **25 restatements + 1 FALSIFICAZIONE / 7 arene.** C45 è il claim più pulito emerso dalla Fase 2: il Kronecker diagonale di hook è un blocco rettangolare di 1s. Combinato con C44 (fat-hook d_0) e C42 (thin-hook d_0), il pacchetto descrive l'aritmetica diagonale degli hook in modo molto più completo di quanto disponibile in letteratura (Blasiak/Pak-Panova non danno questa formula esplicita per la curva completa).
+
+**NEXT unstable direction:** (a) Cristallizzare `hook_diagonal_curve(a)` come funzione in hook_depth.py e chiudere il programma hook; (b) Pivot su NEW arena (non hooks); (c) Fermarsi — 25 restatements + C42/C44/C45 è sufficiente per Fase 2.
+
+---
+

@@ -433,6 +433,23 @@ def test_c45_zeros_at_d0():
         assert g_fast(lam, lam, lam) == 0, f"a={a} d={d0}: g != 0 (expected 0)"
 
 
+@pytest.mark.slow
+def test_c45_all_ones_a8():
+    """C45: g=1 for ALL d in [8, 22] for arm=8 (15 values). ~73s total."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(8, 23):  # d=8..22  (d_0=23)
+        lam = (8,) + (1,)*(d-8)
+        assert g_fast(lam, lam, lam) == 1, f"a=8 d={d}: g != 1"
+
+
+@pytest.mark.slow
+def test_c45_zero_at_d0_a8():
+    """C45: g=0 at d=d_0(8)=23. char_table(23) ~40s."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    lam = (8,) + (1,)*15  # (8,1^15) |- 23 = d_0(8)
+    assert g_fast(lam, lam, lam) == 0
+
+
 def test_c45_not_all_ones_fat_hook():
     """C45 is specific to thin hooks b=1: fat-hook (a,2^k) has g > 1 for some k."""
     from pnp_lab.gct_kronecker.fast import g_fast
