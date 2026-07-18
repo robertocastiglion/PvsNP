@@ -2774,3 +2774,47 @@ a=6 (uncov da k>=2):            g=(2,7,19,38,41,20,3,0,...); primo zero k=8 d=22
 
 ---
 
+## Entry 45 — C45: g((a,1^{d-a})^3) = 1 per TUTTO d in [a, 3a-2] (2026-07-18)
+
+**Ipotesi (Explorer):** La congettura C42 (d_0=3a-1) dice quando il Kronecker diagonale degli hook DIVENTA zero. E' vera un'affermazione più forte? Quale è il valore nelle posizioni non-zero?
+
+**Scoperta:** Calcolando la sequenza COMPLETA g((a,1^{d-a})^3) per d=a..3a-2 (tutte le posizioni non-zero), la risposta è **sempre 1**, per ogni a=2..7.
+
+**Dati esatti (47 valori individuali, tutti = 1):**
+
+```
+a=2: d= 2, 3, 4        ->  g = 1, 1, 1           (3 valori, 2a-1=3)   [d_0=5]
+a=3: d= 3..7           ->  g = 1, 1, 1, 1, 1      (5 valori, 2a-1=5)   [d_0=8]
+a=4: d= 4..10          ->  g = 1, 1, 1, 1, 1, 1, 1 (7 valori, 2a-1=7)  [d_0=11]
+a=5: d= 5..13          ->  g = 1,...,1             (9 valori, 2a-1=9)   [d_0=14]
+a=6: d= 6..16          ->  g = 1,...,1             (11 valori, 2a-1=11) [d_0=17]
+a=7: d= 7..19          ->  g = 1,...,1             (13 valori, 2a-1=13) [d_0=20]
+```
+
+Tutte le sequenze sono PALINDROME (banale: g(lam^3) = g(lam^3), la lista è simmetrica per `d -> d_0-1 + a - d` ... in realtà è simmetrica sotto d -> 3a-1-d+a = trasposizione, perché il complemento di (a,1^{d-a}) in S_d è (d-a+1, 1^{a-1})).
+
+**Congettura C45 (47 valori verificati):**
+```
+g((a, 1^{d-a}), (a, 1^{d-a}), (a, 1^{d-a})) = { 1 se a <= d <= 3a-2
+                                                  { 0 se d >= 3a-1
+```
+(per d < a la partizione non esiste; per d = a otteniamo (a,) = hook a una riga = partizione a un solo blocco)
+
+C45 SUSSUME e RAFFORZA C42: non solo d_0=3a-1, ma l'intera curva è piatta a 1.
+
+**Confronto fat-hook:** La proprietà "g=1 costante" è SPECIFICA ai thin-hooks (b=1). Per fat-hooks (a,2^k) a=3,4,5,6: sequenze variabili come 1,2,2,1 o 2,6,10,9,2. Il coefficiente massimo cresce con a. C45 non vale per b>=2 (verificato con a=4 b=2 k=3: g=10).
+
+**Avversario:** (1) La simmetria palindromica era attesa per qualche motivo? Per hook (a,1^{d-a}), il complemento è (d-a+1,1^{a-1}) e g(lam,mu,nu) = g(lam',mu',nu') con l' = complemento. Quindi g((a,1^{d-a})^3) = g((d-a+1,1^{a-1})^3). Se la sequenza in d è palindromica, vuol dire che il valore a d coincide con quello a a+(3a-2)-d = 4a-2-d. Questo richiederebbe g((a,1^{d-a})^3) = g((a,1^{4a-2-d-a})^3) = g((a,1^{3a-2-d})^3). Verifica: d=a -> g((a,)^3), d=3a-2 -> g((a,1^{2a-2})^3). I valori sono g=1 per entrambi, consistente. (2) Potrebbe essere un teorema noto? I coefficienti di Kronecker per hook sono stati computati da Blasiak (2012). La formula di Blasiak per due hook non è immediatamente un'affermazione su tre hook identici. MA: la coincidenza con g=1 costante potrebbe seguire da un'identità combinatoria. NON è stato dimostrato analiticamente (è una congettura computazionale). (3) a=7 richiede char_table(19) — fattibile (~8s, VERIFICATO).
+
+**Evaluator: robustness 7/10.** 47 valori individuali esatti, 6 valori di a, sequenze palindrome, killer "fat-hook g>1" spara come previsto. Meccanismo analitico assente (congettura, non teorema dimostrato). Robustness alta per un pattern computazionale.
+
+**GATE: Entry-only.** Nessun Modulo separato. 8 nuovi test in `tests/test_hook_depth.py` (46 fast totali + 5 slow). `test_c45_all_ones_a2..a7`, `test_c45_zeros_at_d0`, `test_c45_not_all_ones_fat_hook`.
+
+**Honesty boundary.** COMPUTED (esatti): 47 valori g((a,1^{d-a})^3)=1 per a=2..7; g=0 al boundary per a=2..6; g=10 per fat-hook (4,2^3) — tutte via g_fast/Murnaghan-Nakayama. CONGETTURA: C45 vale per tutti a>=2 — non verificabile in generale. ASSENZA di proof analitica. NO claim su P vs NP.
+
+**Stato del programma.** Ledger invariato: **25 restatements + 1 FALSIFICAZIONE / 7 arene.** C45 aggiunge la forma ESATTA della curva diagonale per thin-hooks: indicatrice su [a, 3a-2]. Combinato: C42 (d_0), C44 (fat-hook d_0), C45 (curva costante) formano un pacchetto coerente sull'aritmetica diagonale dei coefficienti di Kronecker per hook.
+
+**NEXT unstable direction:** (a) Provare a DIMOSTRARE C45 dalla formula di Blasiak per Kronecker di due hook uguali: g(lam^2, lam) = 1 se lam = hook con a <= d <= 3a-2? (b) Cercare CONTRO-ESEMPI per a=8 o a=9 (richiederebbe char_table(24) per a=8; c'è già il precedente a=7 in 8s); (c) Cristallizzare come sotto-modulo di hook_depth.py con funzione `hook_diagonal_curve(a)` che restituisce {d: g} per d in [a, 3a-2]; (d) Fermarsi.
+
+---
+

@@ -371,6 +371,76 @@ def test_fat_hook_infeasibility():
     assert fat_hook_diag(4, 3, 9) is None   # d=4+27=31 > 27
 
 
+# ---------------------------------------------------------------------------
+# Entry 45: C45 conjecture — g((a,1^{d-a})^3) = 1 for ALL a <= d <= 3a-2
+# (the entire non-zero range is identically 1; 47 individual values a=2..7)
+# ---------------------------------------------------------------------------
+
+def test_c45_all_ones_a2():
+    """C45: g=1 for ALL d in [2, 4] for arm=2 (3 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(2, 5):   # d=2,3,4  (d_0=5)
+        lam = (2,) + (1,)*(d-2)
+        assert g_fast(lam, lam, lam) == 1, f"a=2 d={d}: g != 1"
+
+
+def test_c45_all_ones_a3():
+    """C45: g=1 for ALL d in [3, 7] for arm=3 (5 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(3, 8):   # d=3..7  (d_0=8)
+        lam = (3,) + (1,)*(d-3)
+        assert g_fast(lam, lam, lam) == 1, f"a=3 d={d}: g != 1"
+
+
+def test_c45_all_ones_a4():
+    """C45: g=1 for ALL d in [4, 10] for arm=4 (7 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(4, 11):  # d=4..10  (d_0=11)
+        lam = (4,) + (1,)*(d-4)
+        assert g_fast(lam, lam, lam) == 1, f"a=4 d={d}: g != 1"
+
+
+def test_c45_all_ones_a5():
+    """C45: g=1 for ALL d in [5, 13] for arm=5 (9 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(5, 14):  # d=5..13  (d_0=14)
+        lam = (5,) + (1,)*(d-5)
+        assert g_fast(lam, lam, lam) == 1, f"a=5 d={d}: g != 1"
+
+
+def test_c45_all_ones_a6():
+    """C45: g=1 for ALL d in [6, 16] for arm=6 (11 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(6, 17):  # d=6..16  (d_0=17)
+        lam = (6,) + (1,)*(d-6)
+        assert g_fast(lam, lam, lam) == 1, f"a=6 d={d}: g != 1"
+
+
+def test_c45_all_ones_a7():
+    """C45: g=1 for ALL d in [7, 19] for arm=7 (13 values)."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for d in range(7, 20):  # d=7..19  (d_0=20)
+        lam = (7,) + (1,)*(d-7)
+        assert g_fast(lam, lam, lam) == 1, f"a=7 d={d}: g != 1"
+
+
+def test_c45_zeros_at_d0():
+    """C45: g=0 at d=d_0(a)=3a-1 for a=2..6."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    for a in range(2, 7):
+        d0 = 3*a - 1
+        lam = (a,) + (1,)*(d0-a)
+        assert g_fast(lam, lam, lam) == 0, f"a={a} d={d0}: g != 0 (expected 0)"
+
+
+def test_c45_not_all_ones_fat_hook():
+    """C45 is specific to thin hooks b=1: fat-hook (a,2^k) has g > 1 for some k."""
+    from pnp_lab.gct_kronecker.fast import g_fast
+    # a=4 b=2 k=3: g=10 != 1 (C45 is thin-hook only)
+    lam = (4, 2, 2, 2)  # (4,2^3) |- 10
+    assert g_fast(lam, lam, lam) == 10, "fat-hook g should be > 1"
+
+
 def g_fast_or_gfast(lam):
     """Helper: g_fast(lam, lam, lam)."""
     from pnp_lab.gct_kronecker.fast import g_fast
