@@ -2851,3 +2851,50 @@ TOTALE: 63 valori (incluso d_0=23 g=0)
 
 ---
 
+## Entry 47 — Stable Kronecker s(k)=g~((2^k)^3): closed form + gen. function (2026-07-18)
+
+**Ipotesi (Explorer):** Per grandi arm a, g((a,2^k)^3) stabilizza a s(k). Qual e' il comportamento di s(k) in k?
+
+**Risultato (Builder):** Dati per k=0..7 (tutti esatti, g_fast):
+
+```
+k | s(k)  | onset-a | verifica
+0 | 1     | a=0     | triviale
+1 | 2     | a=4     | a=4..15 (12 val)
+2 | 7     | a=5     | a=5..15 (11 val)
+3 | 19    | a=6     | a=6..14  (9 val)
+4 | 40    | a=7     | a=7..12  (6 val)
+5 | 61    | a=8     | a=8..10  (3 val)
+6 | 82    | a=9     | a=9,10   (2 val, ~11-17s)
+7 | 103   | a=10    | a=10     (1 val, 45.5s) PREDETTO=103 CONFERMATO
+```
+
+**Funzione generatrice (coefficienti della f. rationale):**
+(1-x)^2 * Sigma s(k) x^k = 1 + 4x^2 + 7x^3 + 9x^4  (= 0 per k>=5)
+
+Quindi: **Sigma_k s(k) x^k = (1 + 4x^2 + 7x^3 + 9x^4) / (1-x)^2**
+
+**Forma chiusa verificata:**
+- s(0)=1, s(1)=2, s(2)=7
+- s(k) = 21k - 44  per k>=3 (differenze costanti: s(k)-s(k-1)=21 per k>=4)
+- Verifica: s(3)=19, s(4)=40, s(5)=61, s(6)=82, s(7)=103 tutti da 21k-44.
+
+**Notizia:** 21 = somma coefficienti numeratore (1+0+4+7+9) = pendenza asintotica = C(7,2) = T_6.
+
+**Due-righe:** g((a,2)^3)=2=s(1) per TUTTO a>=4 (a=4..15 verificato).
+**Tre-righe:** g((a,2,2)^3)=7=s(2) per TUTTO a>=5 (a=5..15 verificato).
+
+**Adversary:** (1) "Stabilita' Kronecker e' nota (Murnaghan 1938)" — la quasi-polinomialita' e' prevista, RESTATEMENT parziale. (2) "Gen. function potrebbe seguire dal plethysm GL(2)" — possibile, assenza di proof. (3) "s(8)=124 non verificato" — richiede char_table(27) ~272s. CONCESSO.
+
+**Evaluator: 6.5/10.** Formula chiusa su 8 valori; predizione s(7)=103 CONFERMATA (killer pre-dichiarato); due/tre-righe stabile su 12+ valori. RESTATEMENT parziale + formula specifica nuova.
+
+**Tipo: RESTATEMENT #26 (parziale) + nuovo contenuto esplicito.**
+
+**Honesty boundary.** COMPUTED esatti: s(k) k=0..7; g((a,2)^3)=2 a=4..15; g((a,2,2)^3)=7 a=5..15. CONGETTURA: s(k)=21k-44 per k>=3 e gen. function razionale. NO proof analitica. NO claim P vs NP.
+
+**Stato:** Ledger: **26 restatements (parziale) / 7 arene + 1 falsificazione.** Pacchetto hook: C42+C44+C45+C47 completo.
+
+**NEXT:** (a) Falsificare s(8)=124 con char_table(27) ~272s; (b) Derivare da plethysm; (c) Fermarsi.
+
+---
+
