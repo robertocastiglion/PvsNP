@@ -3780,3 +3780,73 @@ algebrica esatta. C54 estrapolazione NON provata. NO P vs NP.
 
 ---
 
+## Entry 61 — Diagonale STAIRCASE g(δ_k^3): FALSIFICAZIONE di H61, crescita astronomica vs Fibonacci (2026-07-18)
+
+**Ipotesi H61 (Explorer, pre-dichiarata):**
+δ_k = (k, k-1, ..., 2, 1) e' self-conjugate (δ_k' = δ_k) come (k^k). Testo: vale C53
+sulla staircase? Cioe': g(δ_k^3) = F(3k-7) per k>=3 (F(2)=1, F(5)=5, F(8)=21, F(11)=89)?
+Killer: g(δ_k^3) ≠ F(3k-7) per qualche k con d_k = k(k+1)/2 ≤ 27.
+
+**Pre-check analitico: k=2.**
+δ_2 = (2,1), d=3. S_3 character table: χ^{(2,1)} = (2, 0, -1) su (id, transp, 3-cycle).
+g((2,1)^3) = 1/6 [1·2^3 + 3·0^3 + 2·(-1)^3] = 1/6[8+0-2] = 1. (F(-1)=1 ✓)
+
+**Risultato computazione [g_fast, k=1..6]:**
+```
+k | delta_k       | d  | g(delta_k^3) | F(3k-7) | esito
+1 | (1)           |  1 | 1            | F(-4)   | (triviale)
+2 | (2,1)         |  3 | 1            | F(-1)=1 | OK
+3 | (3,2,1)       |  6 | 5            | F(2)=1  | FAIL (5 ≠ 1)
+4 | (4,3,2,1)     | 10 | 117          | F(5)=5  | FAIL (117 ≠ 5)
+5 | (5,4,3,2,1)   | 15 | 18 269       | F(8)=21 | FAIL (18269 ≠ 21)
+6 | (6,5,4,3,2,1) | 21 | 24 891 165   | F(11)=89| FAIL (24891165 ≠ 89)
+7 | —             | 28 | WALL         |         |
+```
+
+**TUTTI E 4 I TEST FALLISCONO. H61 FALSIFICATA.**
+
+**Analisi della crescita della staircase:**
+Rapporti g(k)/g(k-1): 5, 23.4, 156.1, 1362.1 (crescenti).
+log(g): 1.61, 4.76, 9.81, 17.03. Differenze: 3.15, 5.05, 7.22 (seconde diff. ≈ 1.9-2.2).
+Crescita super-esponenziale vs Fibonacci: F(3k-7) ~ φ^{3k}/√5 (crescita esponenziale pura).
+Il rapporto g_staircase(k) / F(3k-7) per k=3..6: 5, 23.4, 870, 279678. Diverge >>>∞.
+La staircase cresce INCOMPARABILMENTE piu' veloce del quadrato.
+
+**Implicazione per C53:**
+La self-conjugateness (δ_k' = δ_k) NON e' sufficiente a produrre il pattern Fibonacci.
+Il quadrato (k^k) ha una proprieta' AGGIUNTIVA: e' l'unico rettangolo self-conjugate.
+C53 e' vincolato alla struttura RETTANGOLARE (righe costanti) e NON e' una proprieta'
+della self-conjugateness in generale.
+
+Interpretazione strutturale: il quadrato (k^k) ha massima simmetria colonnare+righe
+(S_k x S_k symmetry?); la staircase ha la MINIMA regularita' ammissibile.
+
+**Coincidenza numerica: g(δ_3^3) = 5 = g((4^4)^3).**
+Il valore g=5 appare sia nella staircase k=3 (d=6) che nel quadrato k=4 (d=16).
+Dati i diversi d, e' quasi certamente coincidenza (g=5 e' un valore comune).
+
+**Adversary:**
+(1) "H61 era implausibile: F(3k-7) per staircase non c'era motivo di aspettarselo" — CONCESSO.
+    Ma il test era onesto: self-conjugateness e' una proprieta' CONDIVISA tra quadrati
+    e staircases. La falsificazione dimostra che non basta.
+(2) "Il risultato e' ovvio: staircases crescono come fattoriali" — CONCESSO per l'ordine
+    di grandezza. Ma il test era NECESSARIO: senza misurare, 'ovvio' non e' verifica.
+(3) "Coincidenza g=5 non va analizzata" — CONCESSO. Notata ma non affermata come legge.
+
+**Evaluator: 7/10.** 4 test completamente falliti in 10.7s. La crescita staircase e'
+spettacolare (24 milioni vs 89) e CHIARAMENTE distingue i due regimi. La falsificazione
+e' netta e informativa (esclude self-conjugateness come causa di C53). Limite: H61 era
+debole a priori (4 data points per C53, nessun motivo strutturale per estenderla).
+
+**Tipo: FALSIFICAZIONE di H61 (self-conj. → Fibonacci) + osservazione crescita staircase.**
+Ledger: **31 restatements + 5 lemmi + 3 falsificazioni totali (Entry 43, Entry 59, Entry 61).**
+
+**Honesty boundary.** COMPUTED esatti: g(δ_k^3) k=3..6 [g_fast, 11.0s totali]. H61
+esplicitamente pre-dichiarata e falsificata. C53 rimane su 4 data points (quadrati).
+NO P vs NP.
+
+**NEXT:** (a) Fermarsi e aggiornare STATE; (b) Formula per g(δ_k^3) (improbabile chiusa);
+(c) Nuova arena fuori dai coefficienti di Kronecker.
+
+---
+
