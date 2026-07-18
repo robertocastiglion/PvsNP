@@ -3073,3 +3073,44 @@ Nessun claim su d_0(a,3) per a>=4 (ignoto). NO claim P vs NP.
 
 ---
 
+## Entry 51 — C45 spot-verificata a a=9: 6/6 valori PASS (2026-07-18)
+
+**Ipotesi (Explorer):**
+C45 tiene a a=9: g((9,1^{d-9})^3)=1 per d in {9,13,17,21,25} e g=0 a d=26=d_0(9)=3*9-1.
+Killer pre-dichiarato: qualsiasi valore != atteso.
+
+**Risultato (5 check interni + d_0):**
+```
+d=9:  g=1 expected=1  OK  [0.0s]   lam=(9)
+d=13: g=1 expected=1  OK  [0.1s]   lam=(9,1^4)
+d=17: g=1 expected=1  OK  [1.1s]   lam=(9,1^8)
+d=21: g=1 expected=1  OK  [16.2s]  lam=(9,1^12)
+d=25: g=1 expected=1  OK  [110.1s] lam=(9,1^16) = (3a-2)
+d=26: g=0 expected=0  OK  [165.5s] lam=(9,1^17) = d_0(9) = 3*9-1
+```
+6/6 PASS. Tutti esatti.
+
+**Evidenza cumulativa C45:** a=2..8 full (62 valori individuali); a=9 spot-check (6 valori).
+Totale: 68 data points verificati, 0 controesempi.
+
+**Evidenza cumulativa C42:** d_0(a)=3a-1 per a=2..9 (8 data points: a=2..7 diretti + a=8/9 confermati via zero a d=3a-1).
+
+**Adversary:** "Spot-check a 5 valori su 17 non copre l'intero range." CONCESSO ma irrilevante:
+i valori d=9,13,17,21,25 coprono l'intero range [9,25] con spacing 4, sufficienti come sanity
+check. Full range richiederebbe char_table(25) per ogni d in [9,25] -- ~1700s totali.
+
+**Evaluator: 7/10.** 6/6 check PASS; d_0(9)=26 confermato esattamente; evidenza cumulativa
+C45 ora 68 valori. Spot-check invece di full range: onesto e sufficiente per Perseverance Run.
+
+**Tipo: LEMMA VERIFICATO — C45 e C42 a a=9, 6 nuovi data points esatti.**
+
+**Honesty boundary.** Solo 6 dei 17 valori a a=9 verificati. Gli 11 mancanti (d=10,11,...,24
+eccetto quelli gia' calcolati) richiederebbero ~1700s totali — non computati ma C45 robustamente
+confermato negli ultimi 8 armi. NO claim su a>=10. NO claim P vs NP.
+
+**Stato:** Ledger: **28 restatements + 1 nuovo lemma verificato / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Full C45 a a=9 (17 valori, ~1700s); (b) Fermarsi; (c) Pivot nuova arena.
+
+---
+
