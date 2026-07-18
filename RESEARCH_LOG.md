@@ -3395,3 +3395,93 @@ NO claim P vs NP.
 
 ---
 
+## Entry 56 — g((c^3)^3) tre-righe: tau-parita' FALSIFICATA per c=2,5,6,9; nuova formula C50 (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+Congettura: estendere la condizione necessaria di parita' (Entry 55) ai rettangoli a tre righe
+(c,c,c)^3. Predizione: g=0 per c con 3*tau(c,c,c) dispari (c ≡ 1,2 mod 4).
+Killer pre-dichiarato: qualsiasi c in {1..9} con g>0 nonostante 3*tau dispari.
+
+**tau(c,c,c) = c + floor(c/2) (verificato direttamente cell-per-cell):**
+Row 1 (i=1): #j in 1..c con i+j=1+j dispari = #j pari = floor(c/2).
+Row 2 (i=2): #j con 2+j dispari = #j dispari = ceil(c/2).
+Row 3 (i=3): #j con 3+j dispari = #j pari = floor(c/2).
+tau = floor(c/2)+ceil(c/2)+floor(c/2) = c + floor(c/2).
+
+**Predizioni parita' vs dati esatti (g_fast, c=1..9, d=3..27):**
+```
+c  | d  | tau | 3*tau | parity   | pred    | g      | match
+1  |  3 |  1  |   3   | ODD      | g=0     | 0      | OK    [0.0s]
+2  |  6 |  3  |   9   | ODD      | g=0     | 1      | FAIL  [0.0s]  <=
+3  |  9 |  4  |  12   | EVEN     | poss>0  | 1      | OK    [0.0s]
+4  | 12 |  6  |  18   | EVEN     | poss>0  | 2      | OK    [0.1s]
+5  | 15 |  7  |  21   | ODD      | g=0     | 1      | FAIL  [0.4s]  <=
+6  | 18 |  9  |  27   | ODD      | g=0     | 3      | FAIL  [2.1s]  <=
+7  | 21 | 10  |  30   | EVEN     | poss>0  | 2      | OK   [14.4s]
+8  | 24 | 12  |  36   | EVEN     | poss>0  | 4      | OK   [61.4s]
+9  | 27 | 13  |  39   | ODD      | g=0     | 3      | FAIL [258.6s] <=
+```
+FAIL a c=2,5,6,9 (4/9). Killer: SCATTATO.
+tau-parita' NON e' una condizione necessaria universale per g((c^3)^3).
+
+**CORREZIONE Entry 55:** La "proof" tramite tau-parita' per g((c,c)^3)=0 (c dispari) era
+CIRCOLARE / non sufficientemente fondata. La condizione necessaria tau(lambda)+tau(mu)+tau(nu)
+≡ 0 (mod 2) NON e' un teorema universale di Kronecker (controesempio: (2,2,2)^3 con g=1>0,
+3*tau=9 dispari). Il fatto che g((c,c)^3)=0 per c dispari e' CORRETTO (13/13 PASS in Entry 55)
+ma la spiegazione teorica tramite tau resta CITED (Rosas 2001, formula esplicita per due-righe)
+e non da' una prova diretta tramite il solo conteggio di celle. La parte computazionale di Entry
+55 (dati g esatti) e' intatta e corretta.
+
+**Nuova osservazione: g((c,c,c)^3) = c/2 per c PARI, floor(c/3) per c DISPARI.**
+```
+c  | g   | c/2    | floor(c/3) | formula attesa
+1  | 0   |  0.5   | 0          | 0 (ODD: floor(1/3)=0)  ✓
+2  | 1   |  1     | 0          | 1 (EVEN: c/2=1)         ✓
+3  | 1   |  1.5   | 1          | 1 (ODD: floor(3/3)=1)   ✓
+4  | 2   |  2     | 1          | 2 (EVEN: c/2=2)         ✓
+5  | 1   |  2.5   | 1          | 1 (ODD: floor(5/3)=1)   ✓
+6  | 3   |  3     | 2          | 3 (EVEN: c/2=3)         ✓
+7  | 2   |  3.5   | 2          | 2 (ODD: floor(7/3)=2)   ✓
+8  | 4   |  4     | 2          | 4 (EVEN: c/2=4)         ✓
+9  | 3   |  4.5   | 3          | 3 (ODD: floor(9/3)=3)   ✓
+```
+9/9 match. Formula: g((c^3)^3) = c/2 se c pari; floor(c/3) se c dispari.
+
+**Congettura C50 (pre-dichiarata, non ancora testata oltre c=9):**
+g((c,c,c)^3) = c/2 per c PARI, floor(c/3) per c DISPARI, per tutti i c >= 1.
+Wall: c=10 richiede d=30 > HOOK_MAX_D=27. Limite corrente: 9 data points.
+
+**Osservazione: formula unificata non ovvia.** c/2 e floor(c/3) sono due funzioni diverse;
+non c'e' una singola closed form semplice che le unifichi. Possibile connessione:
+stable Kronecker s_3(k) e gl(3) plethysm? Non derivato nel repo.
+
+**Nota su Entry 55:** l'affermazione "tau-parita' e' una condizione necessaria standard" era
+un'IPOTESI dell'Explorer, presentata erroneamente come teorema citato. La CORREZIONE e' questa:
+il risultato g((c,c)^3)=0 per c dispari (Entry 55) resta COMPUTAZIONALMENTE VERIFICATO (13/13)
+e CITATO (Rosas 2001), ma il meccanismo tau non e' il motivo generale. La colpa e' dell'Explorer
+che ha over-claimed la copertura teorica.
+
+**Adversary:**
+(1) "C50 e' solo parzialmente verificata (9 punti, no proof)" — CONCESSO. C50 e' una congettura
+    pulita ma non dimostrata. La formula c/2 e floor(c/3) potrebbero essere coincidenze di 9 p.
+(2) "Le FAIL potrebbero avere una spiegazione alternativa (formula 2-core/spin)" — CONCESSO.
+    La condizione corretta e' probabilmente legata ai 2-core, non al mio tau. Non derivata qui.
+(3) "Entry 55 half-proof ora invalidata" — PARZIALMENTE CONCESSO: la parte computazionale (dati
+    13 g esatti) e' valida; la spiegazione teorica tau e' squalificata per generalita'.
+
+**Evaluator: 7/10.** FALSIFICAZIONE documentata, dati esatti c=1..9, C50 congetturata.
+Entry 55 corretta onestamente. La falsificazione e' il contenuto primario dell'entry; C50 e'
+bonus. Penalita' per il over-claim di Entry 55; bonus per l'onesta' immediata.
+
+**Tipo: RESTATEMENT #29 (tau-parita' non-universale) + nuova congettura C50.**
+
+**Honesty boundary.** COMPUTED esatti: g((c^3)^3) c=1..9 (g_fast, MN, Fraction, t_total~337s).
+Correzione Entry 55: tau-parita' come NC e' WRONG per tre-righe. Formula C50 = congettura
+(9 punti). NO proof analitica. Wall c=10. NO claim P vs NP.
+
+**Stato:** Ledger: **29 restatements + 4 lemmi verificati / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Approfondire C50 (derivare da Rosas/plethysm GL(3)); (b) Pivot nuova famiglia.
+
+---
+
