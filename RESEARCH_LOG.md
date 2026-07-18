@@ -3708,3 +3708,75 @@ Congettura C53 su 4 punti (k=2..5). NO proof. Muro k=6 (d=36>27). NO P vs NP.
 
 ---
 
+## Entry 60 — s_3(k) stable Kronecker: LEMMA L60 (no ord-2 recurrence) + wall collision s_3(5) (2026-07-18)
+
+**Contesto.** Background data (Entry 39 via prior sessions): s_3(k) = lim_{a→∞} g((a,3^k)^3).
+Valori noti: s_3(1)=1, s_3(2)=14, s_3(3)=158, s_3(4)=1497.
+
+**LEMMA L60 (algebrico, prova esatta senza nuovi calcoli):**
+s_3(k) NON soddisfa alcuna ricorrenza lineare di ordine 2 con coefficienti interi.
+
+Dimostrazione: se s_3(k) = a·s_3(k-1) + b·s_3(k-2), allora da k=3 e k=4:
+  (I)  158 = 14a + b
+  (II) 1497 = 158a + 14b
+Sostituendo b = 158 − 14a in (II): 1497 = 158a + 14(158−14a) = −38a + 2212.
+Quindi 38a = 715 → a = 715/38 (non intero). Contraddizione. QED.
+
+Corollario: s_3 non e' una sottosuccessione di nessuna successione di Lucas
+(le cui sottosuccessioni soddisfano tutte ricorrenze ord-2 intere). Distingue s_3
+da s_2(k)=21k-44 (lineare, banalmente ord-1) e da C53 / g((k^k)^3) (Fibonacci, ord-2).
+
+**Computazione: s_3(5) — sweep entro il muro d≤27 [g_fast, 642s totali].**
+Forma: (a, 3, 3, 3, 3, 3), d = a+15.
+```
+a= 3 d=18: g=    1
+a= 4 d=19: g=   10
+a= 5 d=20: g=  168
+a= 6 d=21: g= 1170
+a= 7 d=22: g= 3929
+a= 8 d=23: g= 7671
+a= 9 d=24: g=10074
+a=10 d=25: g=10758   (Δ=684)
+a=11 d=26: g=10823   (Δ= 65)
+a=12 d=27: g=10826   (Δ=  3)  ← MURO
+```
+Onset pattern per k=1..4: a≥4, a≥7, a≥9, a≥10. Per k=5: onset > 12.
+Differenze Δ(a=10→11→12): 684, 65, 3. Ratio: 3/65≈0.046.
+Proiezione geometrica: Δ(13→14) ≈ 3·0.046 ≈ 0.14 ≈ 0 → s_3(5) ∈ {10826, 10827}.
+
+**COLLISIONE CON IL MURO: s_3(5) non determinabile a d≤27.**
+L'onset d'instabilita' per k=5 e' a≥13 (d=28 > 27). Stesso muro di C51, C53.
+
+**Congettura C54 (wall-limited): s_3(5) = 10826.**
+Basata su estrapolazione geometrica delle Δ; Δ residua ≤1 con alta probabilita'.
+Killer: g((13,3^5)^3) ≠ 10826. Non verificabile a d≤27.
+
+**Osservazione: struttura di s_3.**
+Sequenza: 1, 14, 158, 1497, ≈10826. Rapporti: 14.0, 11.3, 9.5, 7.2 (decrescenti).
+Differenze finite D^n: D^1=13,144,1339; D^2=131,1195; D^3=1064. NON costante → non polin.
+Crescita sub-esponenziale (log(s_3) incrementi: 2.64, 2.42, 2.25, 1.98 decrescenti).
+Nessuna formula chiusa identificata da 5 punti.
+
+**Adversary:**
+(1) "L60 banale: ovvio che 715/38 non sia intero" — CONCESSO ma utile: chiude
+    esplicitamente l'ipotesi 'ord-2', distingue s_3 da Fibonacci e Lucas.
+(2) "C54 speculativa: estrapolazione geometrica non e' prova" — CONCESSO. Dichiarata
+    come congettura, non lemma. Limite onesto del muro.
+(3) "Nessuna nuova congettura falsificabile entro d≤27" — CONCESSO per C54.
+    Il lemma L60 e' l'unico risultato provato in questa entry.
+
+**Evaluator: 5.5/10.** L60 solido (verifica algebrica esatta). Wall collision onesta
+(non si afferma s_3(5)=10826 come fatto). C54 debole. Nessun RESTATEMENT: L60 e' un
+risultato di non-esistenza, non una falsificazione di ipotesi pre-dichiarata.
+Contenuto utile: chiude ord-2 e separa strutturalmente s_3 dal gruppo (s_1, s_2, Fibonacci).
+
+**Tipo: LEMMA (L60, no ord-2 recurrence) + wall collision + congettura debole C54.**
+**NO new RESTATEMENT.** Ledger: **31 restatements + 5 lemmi (L60) + 1 falsificazione / 7 arene.**
+
+**Honesty boundary.** COMPUTED: g((a,3^5)^3) per a=3..12 [g_fast, 642s totali]. L60 prova
+algebrica esatta. C54 estrapolazione NON provata. NO P vs NP.
+
+**NEXT:** Pivot / fermarsi. Aggiornare STATE.md.
+
+---
+

@@ -3,73 +3,98 @@
 ## Sessione corrente
 
 **Data:** 2026-07-18
-**Entry completate questa sessione:** 40, 41, 42, 43, 44, 45, 46, 47, 48
+**Entry completate (totale arc):** 40–60
 
-## Ultimo stato — Entry 48 CHIUSO (cristallizzazione)
+---
 
-**Programma hook COMPLETO. Nessun nuovo claim matematico in Entry 48.**
+## Ultimo stato — Entry 60 CHIUSO
 
-### Pacchetto hook_depth.py (Entry 41–48):
-
-```
-hook_lam(d)                         # (2, 1^{d-2})
-g_hook_diag(d, N)                   # g(N*lam_d^3) esatto
-hook_depth_row(d, N_max)            # tabella profondità
-predicted_d0(a)          = 3a-1     # C42
-predicted_T(a)           = 3a+2     # C42
-last_hole_value(a)       = a        # C42
-fat_hook_lam(a, b, k)               # (a, b^k)
-fat_hook_diag(a, b, k)              # g(fat_hook^3)
-predicted_fat_d0(a, 1)   = 3a-1     # C42
-predicted_fat_d0(a, 2)   = 3a+4     # C44
-hook_diagonal_curve(a)              # {d:1} per d in [a, 3a-2]  (C45)
-stable_kronecker_b2(k)              # s(k): 1,2,7,21k-44 per k>=3  (C47)
-```
-
-### Congetture verificate:
-
-- **C42:** d_0(a)=3a-1, T(a)=3a+2, last_hole=a — verificato a=2..7 (a=1 falsificato in Entry 43)
-- **C44:** d_0(a,b=2)=3a+4 — verificato a=2..6
-- **C45:** g((a,1^{d-a})^3)=1 per a≤d≤3a-2, 0 per d≥3a-1 — verificato a=2..8 (62 valori)
-- **C47:** s(k)=21k-44 per k≥3, s(0..8)=1,2,7,19,40,61,82,103,124 — verificato k=0..8
-
-### Test suite:
+### Arc hook-diagonal (Entries 40–48, sessioni precedenti):
+Programma COMPLETO. Congetture cristallizzate e callable:
 
 ```
-tests/test_hook_depth.py: 56 fast + 12 slow = 68 total
-Fast: 56/56 PASS in 18s
-Slow: 12 (require @pytest.mark.slow; a=8 C45=73s, s(8)=287s, etc.)
+hook_depth.py (HOOK_MAX_D=27):
+  predicted_d0(a)     = 3a-1   (C42)
+  predicted_T(a)      = 3a+2   (C42)
+  last_hole_value(a)  = a      (C42)
+  predicted_fat_d0(a,2) = 3a+4 (C44)
+  hook_diagonal_curve(a)       (C45: g=1 per d in [a,3a-2])
+  stable_kronecker_b2(k)       (C47: 1,2,7,21k-44 per k>=3)
 ```
+
+Test suite: 56 fast + 12 slow = 68 test. Ledger entrata: 26 restatements.
+
+---
+
+## Arc Kronecker diagonale (Entries 49–60, questa sessione):
+
+### Congetture attive:
+
+| ID  | Enunciato | Verif. | Wall |
+|-----|-----------|--------|------|
+| C42 | d_0(a)=3a-1, T(a)=3a+2 | a=2..7 | — |
+| C44 | d_0(a,b=2)=3a+4 | a=2..7 | c=8 |
+| C45 | g((a,1^{d-a})^3)=1 per d in [a,3a-2] | a=2..9 (68 valori) | — |
+| C47 | s_2(k)=21k-44 per k>=3 | k=0..8 | — |
+| C49 | g((c^2)^3)=0 c disp., =1 c pari | c=1..13 | c=14 |
+| C50 | g((c^3)^3)=floor(c/3) disp., c/2 pari | c=1..9 | c=10 |
+| C51 | g((3^k)^3)=0 iff k≡2 mod 5 | k=1..9 (2 zeri: k=2,7) | k=12 |
+| C52 | g((c^4)^3)=((c-1)/2)^2 c disp. | c=1,3,5 | c=7 |
+| C53 | g((k^k)^3)=F(3k-7) k>=2 (Fibonacci) | k=2..5: 1,1,5,21 | k=6 |
+| C54 | s_3(5)=10826 (wall-limited, speculativa) | non verif. | d=28 |
+
+### Lemmi provati (con verifica meccanica):
+- **L55** (parity): g((c^2)^3) non segue τ-parità per k≥3 (c=2,5,6,9 controesempi)
+- **L60** (no-ord2): s_3(k) NON soddisfa ricorrenza lineare ord-2 intera (38a=715, non intero)
+
+### Sequenze chiave:
+```
+g((k^k)^3): 1,1,1,5,21  (k=1..5)  → F(3k-7) per k>=2 [C53]
+g((c^2)^3): 0,1,0,1,...            → 0/1 per c disp/pari [C49]
+g((c^3)^3): 0,1,1,2,2,3,...        → floor(c/3) / c/2 [C50]
+g((c^4)^3): 0,1,1,5,4,16,...       → ((c-1)/2)^2 disp., formula aperta pari
+g((3^k)^3): 1,0,1,1,2,1,0,1,1     (k=1..9) → zeri k=2,7 (k≡2 mod 5?) [C51]
+s_3(k):     1,14,158,1497,≈10826   → no formula; no ord-2; crescita sub-exp
+```
+
+### Falsificazioni di questa sessione:
+- Entry 43: a=1 FALSIFICA C42 (d_0(1)≠3·1-1=2; valore effettivo d_0(1)=1 per conv.)
+- Entry 58: C50 non si estende a k=4 (RESTATEMENT #31)
+- Entry 59: predizioni A=1, B=4, C=8 per g((5^5)^3) TUTTE UCCISE (g=21=F(8))
+
+---
+
+## Bilancio lab (post-Entry 60)
+
+```
+31 restatements / 7 arene
+5 lemmi (L55, L60, + 3 da sessioni prev)
+1 falsificazione formale (Entry 43)
+1 falsificazione tripartita (Entry 59: A,B,C killed)
+1 non-collasso (M22)
+survival-PASS@1 (M24), survival-PASS@3 (M25)
+2 control-PASS (M26, M27)
+```
+
+---
 
 ## Infrastruttura permanente da questa sessione
 
-- `pnp_lab/gct_kronecker/diagonal_census.py` (STRETCH_MAX_D=24)
-- `pnp_lab/gct_kronecker/hook_depth.py` (HOOK_MAX_D=27; 12 callable)
-- `tests/test_hook_depth.py` (68 test)
-- `examples/run_hook_depth.py`
+```
+pnp_lab/gct_kronecker/
+  fast.py              (g_fast, HOOK_MAX_D=27)
+  coverage.py          (covered, sporadic_vanishing)
+  hook_depth.py        (C42/C44/C45/C47 callabili)
+  diagonal_census.py   (STRETCH_MAX_D=24)
+tests/test_hook_depth.py  (68 test: 56 fast + 12 slow)
+examples/run_hook_depth.py
+```
 
-## Bilancio lab (post-Entry 48)
-
-26 restatements / 7 arene | 1 falsificazione (Entry 43) | 1 non-collasso (M22) |
-survival-PASS@1 (M24) | survival-PASS@3 (M25) | 2 control-PASS (M26, M27)
-
-Programma hook-diagonal CHIUSO (C42/C44/C45/C47 callable + test).
-
-## Commits questa sessione
-
-- 89b50bc: Entry 40 (RESTATEMENT #24)
-- 09ea373: Entry 41 (hook_depth.py + tests + example + RESEARCH_LOG)
-- fdf3dd9: Entry 42 (predicted_d0/T/last_hole + tests + RESEARCH_LOG)
-- d9e0f78: Entry 43 (RESEARCH_LOG falsification + uncoverage mechanism)
-- 807d645: Entry 44 (fat_hook_* + tests + RESEARCH_LOG)
-- 9873c9c: Entry 45 (C45 tests + RESEARCH_LOG + STATE)
-- f108d53: Entry 46 (a=8 verification + 2 slow tests)
-- db78034: Entry 47 (stable Kronecker s(k)=21k-44, gen.func., s(7)=103, s(8)=124 confirmed)
-- [pending]: Entry 48 (hook_diagonal_curve + stable_kronecker_b2 + 7 tests + STATE)
+---
 
 ## Azioni possibili successive
 
-(a) Analisi analitica della gen. function (1+4x^2+7x^3+9x^4)/(1-x)^2
-    via plethysm GL(2) / reduced Kronecker theory
-(b) Pivot su nuova arena (arithmetic circuits, algebraic complexity, altro)
-(c) Fermarsi — ledger 26 restatements + C42/C44/C45/C47 soddisfa anti-resa
+(a) **Struttura di C53**: perché F(3k-7)? Connessione Schur-Weyl / plethysm / GL(φ)?
+(b) **Formula pari k=4**: trovare g((c^4)^3) per c pari (1,5,16 per c=2,4,6 — pattern aperto)
+(c) **Nuova arena** (arithmetic circuits, algebrization, plethysm, altro)
+(d) **Fermarsi** — ledger 31 restatements + 5 lemmi + congetture interessanti soddisfa anti-resa
