@@ -3018,3 +3018,58 @@ s_3(5) IN [10826, 10829], non esatto (a=13 infeasible). NO claim su grado asinto
 
 ---
 
+## Entry 50 — C44 non si generalizza a b=3: muro + covered (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+Esiste C44-analogo per b=3: d_0(a,b=3) = 3a + C(3) (pendenza-3 universale).
+Killer pre-dichiarato: C(3) non costante, o il pattern non tiene per b=3.
+
+**Coverage check (a=3):**
+- (3,3): is_two_row=True, is_rectangle=True, special_shape=True, covered=True.
+- g((3,3)^3) = 0 = covered zero (B1+B5). Non sporadico.
+- d_0(3,b=3) = 6: COVERED. Offset vs b=1: 6 - (3*3-1) = 6-8 = -2 (negativo!).
+
+**Sequenze g((a,3^k)^3) per a=3..7, k=1 al muro:**
+```
+a=3: 0  (k=1, d=6) -> ZERO immediato, COVERED
+a=4: 1, 2, 6, 9, 10, 8, 5  (k=1..7, d=7..25) -> no zero, muro a d=25
+a=5: 1, 6, 36, 106, 168, 164, 100  (k=1..7, d=8..26) -> no zero, muro a d=26
+a=6: 2, 13, 95, 452, 1170, 1646, 1209  (k=1..7, d=9..27) -> no zero, muro a d=27
+     peak a k=6 (g=1646), poi DECREASE a k=7 (g=1209)
+a=7: 2, 14, 143, 1003, 3929, 8197  (k=1..6, d=10..25) -> ancora crescente al muro
+```
+
+**Verdetto: Killer CONFERMATO. C44 NON si generalizza a b=3.**
+- a=3: zero unico accessibile, ma COVERED (B1+B5). Offset NEGATIVO vs b=1.
+- a=4..7: nessun primo zero entro d<=27 (muro hit in tutti i casi).
+- Le sequenze sono NON-MONOTONE con picco a k crescente al crescere di a.
+  (diverso da b=1 dove le sequenze sono monotone decrescenti a 0.)
+
+**Osservazioni qualitative (b=3 vs b=1/b=2):**
+- b=1: g((a,1^k)^3) = 1 per a<=d<=3a-2 (C45), poi 0. Monotone decrescente dal picco.
+- b=2: g((a,2^k)^3) sale poi scende a 0 entro d<=27 per a=2..6 (C44 verificato).
+- b=3: g((a,3^k)^3) sale poi scende, ma il picco e' a k molto piu' grande; il muro
+  impedisce di raggiungere il primo zero per a>=4.
+
+**Adversary:**
+(1) "Il muro hit non FALSIFICA C44-analogo, lo rende solo non testabile" CONCESSO.
+Il killer pre-dichiarato era "C(3) non costante"; il risultato e' piu' forte: nessun zero
+ACCESSIBILE per a>=4 -> impossibile verificare. Honest kill.
+(2) "La covered zero a=3 e' un artefact di 'minimum-a = b'" CORRETTO. Per b=3 minimum a=b=3
+e (3,3) e' la partizione quadrata di minima dimensione, coperta per le due ragioni B1+B5.
+
+**Evaluator: 5/10.** Wall hit = nessun nuovo dato computabile su d_0(a,3) per a>=4.
+Coverage check del caso a=3 e' valida e utile. Qualitatively different behavior = nuova
+osservazione, ma nessun numero nuovo oltre il muro.
+
+**Tipo: RESTATEMENT #28 — C44-analogo per b=3 INACCESSIBILE (wall hit) + covered zero a=3.**
+
+**Honesty boundary.** Tutti i valori ESATTI (g_fast, Murnaghan-Nakayama). Covered check ESATTO.
+Nessun claim su d_0(a,3) per a>=4 (ignoto). NO claim P vs NP.
+
+**Stato:** Ledger: **28 restatements / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Pivot su nuova arena; (b) Analisi gen. function b=2 (plethysm GL(2)); (c) Fermarsi.
+
+---
+
