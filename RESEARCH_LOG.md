@@ -2909,3 +2909,46 @@ Formula s(k)=21k-44 verificata per k=3..8 (6 valori consecutivi). Wall at k=9 (d
 
 ---
 
+## Entry 48 — Cristallizzazione hook_diagonal_curve + stable_kronecker_b2 (2026-07-18)
+
+**Tipo: CRISTALLIZZAZIONE — nessun nuovo claim matematico, chiusura del programma hook.**
+
+**Aggiunte a `pnp_lab/gct_kronecker/hook_depth.py`:**
+
+1. `hook_diagonal_curve(a) -> Dict[int, int]`:
+   Restituisce {d: g((a,1^{d-a})^3)} per d in [a, 3a-2].
+   Encoda C45 come callable: len=2a-1, tutti i valori =1 (verificato a=2..8).
+   Parametro minimo: solo arm `a`. Genera la curva intera in una chiamata.
+
+2. `stable_kronecker_b2(k) -> Optional[int]`:
+   Forma chiusa di s(k)=g~((2^k)^3) (Entry 47, verificata k=0..8):
+     s(0)=1, s(1)=2, s(2)=7, s(k)=21k-44 per k>=3.
+   Restituisce None per k<0.
+
+**Esportati da `pnp_lab/gct_kronecker/__init__.py`.**
+
+**Test aggiunti (`tests/test_hook_depth.py`, Entry 48 section):**
+- `test_hook_diagonal_curve_a2`: {d:1} per d=2,3,4
+- `test_hook_diagonal_curve_a3`: {d:1} per d=3..7
+- `test_hook_diagonal_curve_length`: len=2a-1 per a=2..6
+- `test_hook_diagonal_curve_ends_at_3a_minus_2`: max key = 3a-2 per a=2..6
+- `test_stable_kronecker_b2_formula`: k=0..8 esatti
+- `test_stable_kronecker_b2_linear_k_geq4`: diff=21 per k=4..8
+- `test_stable_kronecker_b2_none_negative`: k<0 -> None
+
+**Risultato: 56 fast + 12 slow = 68 test totali. 56/56 fast PASS in 18s.**
+
+**Honesty boundary.** Nessun nuovo claim matematico. Le due funzioni sono un wrapper
+computazionale (hook_diagonal_curve) e una lookup table con formula (stable_kronecker_b2).
+Entrambe poggiano su C45/C47 verificati ma non dimostrati analiticamente.
+
+**Stato:** Ledger: **26 restatements / 7 arene + 1 falsificazione + 1 non-collasso + 3 PASS.**
+Programma hook CHIUSO: C42, C44, C45, C47 cristallizzati come callable + tests eseguibili.
+
+**NEXT (possibilita' aperte):**
+(a) Analisi analitica della gen. function (plethysm GL(2) → prova s(k)=21k-44)
+(b) Pivot su nuova arena completamente diversa (es. arithmetic circuits, algebraic complexity)
+(c) Fermarsi — ledger ricco, anti-resa soddisfatto da 48 cicli
+
+---
+

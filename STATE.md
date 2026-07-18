@@ -3,35 +3,57 @@
 ## Sessione corrente
 
 **Data:** 2026-07-18
-**Entry completate questa sessione:** 40, 41, 42, 43, 44, 45
+**Entry completate questa sessione:** 40, 41, 42, 43, 44, 45, 46, 47, 48
 
-## Ultimo stato — Entry 45 CHIUSO
+## Ultimo stato — Entry 48 CHIUSO (cristallizzazione)
 
-**Congettura C45 (NUOVA, 47 valori verificati):**
+**Programma hook COMPLETO. Nessun nuovo claim matematico in Entry 48.**
+
+### Pacchetto hook_depth.py (Entry 41–48):
+
 ```
-g((a, 1^{d-a}), (a, 1^{d-a}), (a, 1^{d-a})) = 1 per a <= d <= 3a-2
-                                               = 0 per d >= 3a-1 (= d_0(a))
+hook_lam(d)                         # (2, 1^{d-2})
+g_hook_diag(d, N)                   # g(N*lam_d^3) esatto
+hook_depth_row(d, N_max)            # tabella profondità
+predicted_d0(a)          = 3a-1     # C42
+predicted_T(a)           = 3a+2     # C42
+last_hole_value(a)       = a        # C42
+fat_hook_lam(a, b, k)               # (a, b^k)
+fat_hook_diag(a, b, k)              # g(fat_hook^3)
+predicted_fat_d0(a, 1)   = 3a-1     # C42
+predicted_fat_d0(a, 2)   = 3a+4     # C44
+hook_diagonal_curve(a)              # {d:1} per d in [a, 3a-2]  (C45)
+stable_kronecker_b2(k)              # s(k): 1,2,7,21k-44 per k>=3  (C47)
 ```
-Verificato per a=2..7 (6 valori di arm, 47 valori individuali, tutti esatti via g_fast).
-Sequenze palindrome. Fat-hooks (b=2) NON soddisfano C45 (g>1 per a>=3). Robustness 7/10.
 
-**C42 addendum (Entry 42+45):** d_0(a)=3a-1 per a=2..7 (7 data points).
-**C44 (Entry 44):** d_0(a,b=2)=3a+4 per a=2..6 (5 data points).
-**Falsificazione intra-sessione (Entry 43):** d_0^{(3)}(1) != 8 (g((3^8)^3)=1 per rettangolo coperto).
+### Congetture verificate:
+
+- **C42:** d_0(a)=3a-1, T(a)=3a+2, last_hole=a — verificato a=2..7 (a=1 falsificato in Entry 43)
+- **C44:** d_0(a,b=2)=3a+4 — verificato a=2..6
+- **C45:** g((a,1^{d-a})^3)=1 per a≤d≤3a-2, 0 per d≥3a-1 — verificato a=2..8 (62 valori)
+- **C47:** s(k)=21k-44 per k≥3, s(0..8)=1,2,7,19,40,61,82,103,124 — verificato k=0..8
+
+### Test suite:
+
+```
+tests/test_hook_depth.py: 56 fast + 12 slow = 68 total
+Fast: 56/56 PASS in 18s
+Slow: 12 (require @pytest.mark.slow; a=8 C45=73s, s(8)=287s, etc.)
+```
 
 ## Infrastruttura permanente da questa sessione
 
 - `pnp_lab/gct_kronecker/diagonal_census.py` (STRETCH_MAX_D=24)
-- `pnp_lab/gct_kronecker/hook_depth.py` (HOOK_MAX_D=27; hook_lam, g_hook_diag,
-  hook_depth_row, predicted_d0/T/last_hole, fat_hook_lam/diag/predicted_fat_d0)
-- `tests/test_hook_depth.py` (46 fast + 5 slow test)
+- `pnp_lab/gct_kronecker/hook_depth.py` (HOOK_MAX_D=27; 12 callable)
+- `tests/test_hook_depth.py` (68 test)
 - `examples/run_hook_depth.py`
 
-## Bilancio lab (post-Entry 45)
+## Bilancio lab (post-Entry 48)
 
-25 restatements / 7 arene | 1 falsificazione intra-sessione | 1 non-collasso (M22) |
+26 restatements / 7 arene | 1 falsificazione (Entry 43) | 1 non-collasso (M22) |
 survival-PASS@1 (M24) | survival-PASS@3 (M25) | 2 control-PASS (M26, M27)
-C42/C44/C45 = pacchetto computazionale hook-diagonal (Entry-only, non Moduli).
+
+Programma hook-diagonal CHIUSO (C42/C44/C45/C47 callable + test).
 
 ## Commits questa sessione
 
@@ -42,11 +64,12 @@ C42/C44/C45 = pacchetto computazionale hook-diagonal (Entry-only, non Moduli).
 - 807d645: Entry 44 (fat_hook_* + tests + RESEARCH_LOG)
 - 9873c9c: Entry 45 (C45 tests + RESEARCH_LOG + STATE)
 - f108d53: Entry 46 (a=8 verification + 2 slow tests)
-- [pending]: Entry 47 (stable Kronecker s(k)=21k-44, gen.func., s(7)=103, s(8)=124 confirmed)
+- db78034: Entry 47 (stable Kronecker s(k)=21k-44, gen.func., s(7)=103, s(8)=124 confirmed)
+- [pending]: Entry 48 (hook_diagonal_curve + stable_kronecker_b2 + 7 tests + STATE)
 
-## Prossima azione concreta — Entry 46 candidates
+## Azioni possibili successive
 
-(a) Dimostrare C45 analiticamente dal Blasiak formula per g(hook^2, hook)
-(b) Verificare a=8 (char_table(23) per d=22, char_table(22) per d=21 — fattibile ~24s)
-(c) Aggiungere `hook_diagonal_curve(a)` a hook_depth.py come cristallizzazione minima
-(d) Fermarsi — ledger 25 restatements + C42/C44/C45 è il contributo Fase 2
+(a) Analisi analitica della gen. function (1+4x^2+7x^3+9x^4)/(1-x)^2
+    via plethysm GL(2) / reduced Kronecker theory
+(b) Pivot su nuova arena (arithmetic circuits, algebraic complexity, altro)
+(c) Fermarsi — ledger 26 restatements + C42/C44/C45/C47 soddisfa anti-resa

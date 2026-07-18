@@ -16,6 +16,7 @@ from pnp_lab.gct_kronecker.hook_depth import (
     g_hook_diag, hook_lam, hook_depth_row, HOOK_MAX_D,
     predicted_d0, predicted_T, last_hole_value,
     fat_hook_lam, fat_hook_diag, predicted_fat_d0,
+    hook_diagonal_curve, stable_kronecker_b2,
 )
 
 
@@ -519,3 +520,55 @@ def g_fast_or_gfast(lam):
     """Helper: g_fast(lam, lam, lam)."""
     from pnp_lab.gct_kronecker.fast import g_fast
     return g_fast(lam, lam, lam)
+
+
+# ---------------------------------------------------------------------------
+# Entry 48: hook_diagonal_curve + stable_kronecker_b2 (crystallization)
+# ---------------------------------------------------------------------------
+
+def test_hook_diagonal_curve_a2():
+    """C45 via hook_diagonal_curve: {d:1} for d in [2,4] (3 entries)."""
+    curve = hook_diagonal_curve(2)
+    assert list(curve.keys()) == list(range(2, 5))     # d=2,3,4
+    assert all(v == 1 for v in curve.values())
+
+
+def test_hook_diagonal_curve_a3():
+    """C45 via hook_diagonal_curve: {d:1} for d in [3,7] (5 entries)."""
+    curve = hook_diagonal_curve(3)
+    assert list(curve.keys()) == list(range(3, 8))
+    assert all(v == 1 for v in curve.values())
+
+
+def test_hook_diagonal_curve_length():
+    """hook_diagonal_curve(a) has exactly 2a-1 entries for a=2..6."""
+    for a in range(2, 7):
+        curve = hook_diagonal_curve(a)
+        assert len(curve) == 2 * a - 1, f"a={a}: len={len(curve)} != {2*a-1}"
+
+
+def test_hook_diagonal_curve_ends_at_3a_minus_2():
+    """The last key is always 3a-2 (one before d_0=3a-1)."""
+    for a in range(2, 7):
+        curve = hook_diagonal_curve(a)
+        assert max(curve.keys()) == 3 * a - 2, f"a={a}: max key {max(curve.keys())} != {3*a-2}"
+
+
+def test_stable_kronecker_b2_formula():
+    """stable_kronecker_b2: closed form matches k=0..8 exactly."""
+    expected = {0: 1, 1: 2, 2: 7, 3: 19, 4: 40, 5: 61, 6: 82, 7: 103, 8: 124}
+    for k, s in expected.items():
+        assert stable_kronecker_b2(k) == s, f"k={k}: s={stable_kronecker_b2(k)} != {s}"
+
+
+def test_stable_kronecker_b2_linear_k_geq4():
+    """21k-44 arithmetic: consecutive differences are 21 for k>=4 (both values linear)."""
+    for k in range(4, 9):
+        assert stable_kronecker_b2(k) - stable_kronecker_b2(k - 1) == 21, \
+            f"diff at k={k} != 21"
+
+
+def test_stable_kronecker_b2_none_negative():
+    """stable_kronecker_b2 returns None for k<0."""
+    assert stable_kronecker_b2(-1) is None
+    assert stable_kronecker_b2(-5) is None

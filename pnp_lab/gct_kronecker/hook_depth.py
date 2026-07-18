@@ -163,6 +163,40 @@ def predicted_fat_d0(a: int, b: int) -> Optional[int]:
     return None
 
 
+def hook_diagonal_curve(a: int) -> Dict[int, int]:
+    """Return {d: g((a,1^{d-a})^3)} for d in [a, 3a-2].
+
+    C45 conjecture (Entry 45, verified a=2..8):
+      g = 1 for ALL d in [a, 3a-2]  and  g = 0 for d >= 3a-1.
+    Returned dict has exactly 2a-1 entries, all mapping to 1.
+    """
+    from .fast import g_fast as _g
+    result: Dict[int, int] = {}
+    for d in range(a, 3 * a - 1):
+        lam = (a,) + (1,) * (d - a)
+        result[d] = _g(lam, lam, lam)
+    return result
+
+
+def stable_kronecker_b2(k: int) -> Optional[int]:
+    """g~((2^k)^3) = lim_{a->inf} g((a,2^k)^3).
+
+    Closed form (Entry 47, verified k=0..8):
+      s(0)=1, s(1)=2, s(2)=7, s(k)=21k-44 for k>=3.
+
+    Returns None for k<0.
+    """
+    if k < 0:
+        return None
+    if k == 0:
+        return 1
+    if k == 1:
+        return 2
+    if k == 2:
+        return 7
+    return 21 * k - 44
+
+
 def summary(d_min: int = 3, d_max: int = 13, N_max: int = 3) -> List[Dict]:
     """Print depth table for hook lam_d, d=d_min..d_max, N=1..N_max.
 

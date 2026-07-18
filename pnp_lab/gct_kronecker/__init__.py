@@ -101,6 +101,8 @@ from .hook_depth import (
     fat_hook_lam,
     fat_hook_diag,
     predicted_fat_d0,
+    hook_diagonal_curve,
+    stable_kronecker_b2,
 )
 
 __all__ = [
@@ -182,4 +184,6 @@ __all__ = [
     "fat_hook_lam",
     "fat_hook_diag",
     "predicted_fat_d0",
+    "hook_diagonal_curve",
+    "stable_kronecker_b2",
 ]
