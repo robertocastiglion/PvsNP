@@ -3163,3 +3163,86 @@ Nessuna closed form congetturata. NO claim P vs NP.
 
 ---
 
+## Entry 53 — g((2^k)^3) = 0 per k>=5: soglia ESATTA k=5 (d=10), contrasto con s_2(k)->inf (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+La famiglia dei rettangoli "due-colonne esatti" (2^k) dovrebbe mostrare una soglia di vanishing.
+Pre-dichiarato: soglia a k=5 (d=10), cosi' come s_2(k)=21k-44 diverge pur essendo nella stessa
+famiglia di forma covered.
+
+**Killer pre-dichiarato:** g((2^k)^3) != 0 per qualche k>=5.
+
+**Risultati (g_fast, esatti, k=1..13):**
+```
+k | lam=(2^k) | d=2k | g((2^k)^3) | is_two_col | special | covered
+1 | (2)       |   2  | 1           | True       | True    | True
+2 | (2,2)     |   4  | 1           | True       | True    | True
+3 | (2,2,2)   |   6  | 1           | True       | True    | True
+4 | (2,2,2,2) |   8  | 1           | True       | True    | True
+5 | (2^5)     |  10  | 0           | True       | True    | True
+6 | (2^6)     |  12  | 0           | True       | True    | True
+7 | (2^7)     |  14  | 0           | True       | True    | True
+...
+13| (2^13)    |  26  | 0           | True       | True    | True
+```
+
+**Soglia ESATTA: k=5 (d=10).** g=1 per k=1..4; g=0 per k=5..13 (9 valori consecutivi).
+Killer: CONCESSO — nessun controesempio. 9 valori consecutivi =0 oltre la soglia.
+
+**Coverage:** Tutti i k sono covered=True (is_two_column=True per ogni (2^k) poiche' max part=2).
+NOTA: covered() verifica la PRECONDIZIONE STRUTTURALE delle formule Rosas/Bessenrodt-Bowman,
+NON il valore g. Per k=3,4 (g=1): covered=True significa "la formula B-B si applica" ma la
+formula da' g=1, non 0. Per k>=5 (g=0): covered=True + g=0 = zero spiegato da formula nota.
+
+**Contrasto con stable Kronecker s_2(k):**
+```
+k    | g((2^k)^3)  | s_2(k) = g~((a->inf, 2^k)^3)
+1    | 1           | 2
+2    | 1           | 7
+3    | 1           | 19
+4    | 1           | 40
+5    | 0           | 61      <- soglia: esatto=0, limite=61
+6    | 0           | 82
+7    | 0           | 103
+8    | 0           | 124
+k    | 0 (k>=5)   | 21k-44 -> +inf
+```
+Il limite stabile DIVERGE mentre il rettangolo esatto ANNULLA. Il parametro "arm a" e' decisivo:
+aggiungere una prima riga a -> inf porta g da 0 (rettangolo, a=0) a s_2(k)=21k-44.
+
+**Confine tra nonzero e zero nella famiglia two-column (fixed column-width=2, varying rows):**
+- (2^1), (2^2), (2^3), (2^4): g=1 (quattro valori nonzero consecutivi)
+- (2^k) per k>=5: g=0
+
+Questo e' il "rettangolo limite" (a=0): il piu' stretto fat-hook possibile con b=2. L'arm
+a->0 porta g a 0 (per k>=5); l'arm a->inf porta g a 21k-44. Transizione da 0 a nonzero
+avviene a a_onset(k) ~ k+3 (per b=2, pattern C44/onset-stability).
+
+**Adversary:**
+(1) "Il risultato e' dentro Bessenrodt-Bowman (2017)" — CONCESSO. La famiglia (2^k)^3 e'
+    covered; la soglia k=5 e' derivabile analiticamente dalla formula B-B. Restatement parziale.
+(2) "covered() su triplette non-zero (k=3,4) e' uso fuori-contesto" — CORRETTO. covered() e'
+    disegnato per sporadic_vanishing entries (g=0 per costruzione); applicarlo a g=1 non e'
+    un errore di codice ma un uso improprio dell'API. Il fatto che covered=True restituisca
+    True per k=3,4 e' ATTESO (struttura due-colonne attiva), non una false positive del sistema.
+(3) "Contrasto con s_2(k) e' gia' noto" — CONCESSO; il contrasto "rettangolo esatto -> 0 vs
+    limite stabile -> inf" segue dal fatto che g(N*lam, N*mu, N*nu) cresce con N
+    (non-saturation + positivity).
+
+**Evaluator: 6/10.** Soglia k=5 verificata su 13 dati esatti; contrasto s_2 vs esatto ben
+documentato; covered correttamente interpretato. Contenuto COVERED = Bessenrodt-Bowman
+(citato, non riprovato), ma il numero esatto della soglia e il contrasto con s_2 sono espliciti.
+Robustness 6/10: tutto e' covered, quindi restatement parziale; nessun uncovered.
+
+**Tipo: LEMMA VERIFICATO — soglia di vanishing k=5 per g((2^k)^3), covered by B-B.**
+
+**Honesty boundary.** COMPUTED esatti: g((2^k)^3) k=1..13 (g_fast, MN, Fraction). Coverage
+check ESATTO (is_two_column, special_shape, g_orbit). CITATO: formula B-B che implica la soglia
+analiticamente. NON riprovata analiticamente la soglia k=5 in questo repo. NO claim P vs NP.
+
+**Stato:** Ledger: **28 restatements + 2 lemmi verificati / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) C44 per a=7 (l'ultimo caso prima del muro — d_0(7,2)=25 predetto); (b) Pivot nuova arena.
+
+---
+
