@@ -2952,3 +2952,69 @@ Programma hook CHIUSO: C42, C44, C45, C47 cristallizzati come callable + tests e
 
 ---
 
+## Entry 49 — s_3(5): grado-3 FALSIFICATO; muro a d=27 (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarata):**
+Fit grado-3 da s_3(1..4)=2,14,158,1497 → Δ^3=1063 costante → s_3(5)=5094.
+Killer pre-dichiarato: s_3(5) ≠ 5094 → grado-3 FALSIFICATO.
+
+**Verifica s_3(1..4) come veri limiti stabili (onset-of-stability):**
+```
+k=1: b=3 stabile a a>=6; s_3(1)=2   (a=4,5 danno 1 — plateau pre-stabile, FALSO onset)
+k=2: stabile a a>=7;  s_3(2)=14
+k=3: stabile a a>=9;  s_3(3)=158
+k=4: stabile a a>=10; s_3(4)=1497
+```
+Tutti e 4 CONFERMATI come veri limiti. (Nota: il criterio "prima coppia consecutiva uguale" e'
+insufficiente per k=1: a=4,5 danno 1,1 ma il limite vero e' 2.)
+
+**s_3(5) = g~((3^5)^3): sequenza a=6..12:**
+```
+a=6  d=21: g=1170  [18.4s]
+a=7  d=22: g=3929  [25.1s]
+a=8  d=23: g=7671  [39.1s]
+a=9  d=24: g=10074 [63.5s]
+a=10 d=25: g=10758 [108s]
+a=11 d=26: g=10823 [201s]
+a=12 d=27: g=10826 [290s]   MURO (a=13 richiederebbe d=28>HOOK_MAX_D)
+```
+Differenze: 2759, 3742, 2403, 684, 65, 3. Convergenza quasi completa.
+s_3(5) in [10826, 10829] (non esattamente stabile entro d<=27).
+
+**Killer: CONFERMATO. Grado-3 FALSIFICATO.**
+- Predetto: s_3(5)=5094; Osservato: ~10826. Rapporto: 10826/5094 ~ 2.13.
+- Il fit grado-3 da Entry 47 NON regge al quinto data point.
+
+**Differenze finite:**
+```
+d^1: 12, 144, 1339, 9329
+d^2: 132, 1195, 7990
+d^3: 1063, 6795      NON costanti (1063 != 6795)
+d^4: 5732            un solo valore, non verificabile
+```
+
+**Onset pattern confronto b=2 vs b=3:**
+```
+b=2: onset a = k+3 (k=1..8 verificato)
+b=3: onset a ~ k+5..6 (k=2: a=7=k+5; k=4: a=10=k+6; k=5: a>=12)
+```
+Onset b=3 scala ~2x rispetto a b=2.
+
+**Adversary:**
+(1) "s_3(5) non esattamente stabile" CONCESSO. Diff=3 suggerisce limite=10826 o 10827, non 5094.
+(2) "Grado-3 era non confermato in Entry 47" CORRETTO; kill e' di un'ipotesi speculativa.
+
+**Evaluator: 6/10.** Kill pre-dichiarato confermato; s_3(1..4) verificati; onset pattern b=3
+nuovo dato. Limite: s_3(5) approssimato; grado effettivo sconosciuto.
+
+**Tipo: RESTATEMENT #27 — fit grado-3 per s_3(k) UCCISO.**
+
+**Honesty boundary.** s_3(k) k=1..4 esatti (stabili). g((a,3^5)^3) a=6..12 ESATTI.
+s_3(5) IN [10826, 10829], non esatto (a=13 infeasible). NO claim su grado asintotico. NO P vs NP.
+
+**Stato:** Ledger: **27 restatements / 7 arene + 1 falsificazione.**
+
+**NEXT:** (a) Pivot su nuova arena; (b) Analisi gen. function b=2; (c) Fermarsi.
+
+---
+
