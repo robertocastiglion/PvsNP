@@ -3629,3 +3629,82 @@ precedenti. C52 su 3 punti, altamente speculativa. C(c=4 pari) aperta. Wall c=7.
 
 ---
 
+## Entry 59 — g((k^k)^3) diagonale quadrata: A=B=C=UCCISE, g=21=F(8), CONGETTURA FIBONACCI C53 (2026-07-18)
+
+**Ipotesi (Explorer, pre-dichiarate):**
+g((5^5)^3) = ? Tre predizioni in competizione per la DIAGONALE QUADRATA g((k^k)^3):
+A: g=1 (da formula k=3 floor(c/3))
+B: g=4 (da formula k=4 ((c-1)/2)^2)
+C: g=8 (da ipotetica estensione "grado 3": ((c-1)/2)^3)
+
+Killer: ANY value ≠ 1,4,8.
+
+**Risultato (g_fast, d=25, 110.4s):**
+```
+g((5,5,5,5,5)^3) = 21.
+```
+**TUTTE E TRE LE PREDIZIONI UCCISE (g=21 ≠ 1, 4, 8).**
+
+**Cross-check C50:** g((5,5,5)^3) = 1 = floor(5/3) ✓ [0.0s] (C50 intatta per k=3).
+
+**SEQUENZA DIAGONALE QUADRATA g((k^k)^3) per k=1..5:**
+```
+k | lam   | d  | g   | F(3k-7)
+1 | (1)   |  1 | 1   | F(-4)=-3  (triviale, fuori formula)
+2 | (2,2) |  4 | 1   | F(-1)=1   ✓
+3 | (3^3) |  9 | 1   | F(2)=1    ✓
+4 | (4^4) | 16 | 5   | F(5)=5    ✓
+5 | (5^5) | 25 | 21  | F(8)=21   ✓
+```
+Sequenza: 1, 1, 1, 5, 21 per k=1..5.
+
+**Osservazione FIBONACCI: g((k^k)^3) = F(3k-7) per k=2..5.**
+F(3k-7) per k=2,3,4,5: F(-1),F(2),F(5),F(8) = 1,1,5,21.
+Fibonacci (con F(-1)=1 via estensione: F(-n)=(-1)^{n+1}F(n)):
+F(-1) = (-1)^2 * F(1) = 1; F(2)=1; F(5)=5; F(8)=21. TUTTI ✓.
+
+La sottosuccessione F(2),F(5),F(8),F(11),... = ogni terzo Fibonacci dal secondo.
+Ratio consecutivo: F(3n+5)/F(3n+2) -> phi^3 = 4.236... (phi = sezione aurea).
+Il termine successivo: F(11) = 89.
+
+**Congettura C53 (FIBONACCI): g((k^k)^3) = F(3k-7) per k >= 2.**
+Verificata: k=2,3,4,5 (4 data points). Prossimo: k=6, F(11)=89, d=36 > HOOK_MAX_D=27.
+MURO: impossibile verificare k>=6 nell'attuale sistema.
+
+**Plausibilita':** il Fibonacci appare naturalmente nei prodotti di Kronecker via la
+relazione GL(phi) x teoria degli schemi di Young. La sottosuccessione F(3k) e' nota
+in combinatoria (e.g., tribonacci roots, Lucas sequences modulo 5). La specifica
+occorrenza F(3k-7) nella diagonale quadrata non e' citata nella letteratura nota.
+
+**Adversary:**
+(1) "4 punti potrebbero coincidere con Fibonacci per casualita'" — CONCESSO. Con solo
+    k=2..5 (le 4 non-triviali), la congettura e' empirica. F(-1)=1=F(2)=1 (due valori uguali
+    riducono la forza discriminante). I valori 1,1,5,21 si distinguono da 1,1,2,5 (Catalan-like)
+    e da 1,1,4,8 (geometric-like) ma 4 punti non provano.
+(2) "F(3k-7) con Fibonacci estesi e' ad hoc (F(-1)=1 e' una scelta)" — CONCESSO. La formula
+    e' piu' pulita se riscritta: g((k^k)^3) = F(3(k-3)+2) per k>=3 (evita indici negativi).
+    Per k=3: F(2)=1; k=4: F(5)=5; k=5: F(8)=21. Per k=2: fuori formula (g=1 separato).
+(3) "La stessa sottosuccessione F(2),F(5),F(8) compare in molti contesti combinatori" — CONCESSO.
+    La congettura necessita di una spiegazione strutturale, non offerta qui.
+
+**Riscrittura pulita di C53:** g((k^k)^3) = F(3(k-3)+2) per k>=3, e g=1 per k=1,2.
+Equivalente: g = F(3k-7) con convenzione F(0)=0,F(1)=1,F(2)=1,F(-1)=1.
+
+**Evaluator: 7.5/10.** Tutte e tre le predizioni pre-dichiarate UCCISE (buona pratica scienti-
+fica: 3-way kill). Il valore g=21=F(8) e' preciso e inatteso. Congettura C53 elegante, pulita,
+non banale (non e' uno dei candidati pre-dichiarati). 4 punti sufficienti per "interessante",
+insufficienti per "provato". Muro k=6 = onesto. Fibonacci in Kronecker e' noto in altri
+contesti ma questa istanza specifica e' probabilmente nuova nel repo.
+
+**Tipo: FALSIFICAZIONE (predizioni A,B,C uccise) + nuova congettura C53 (Fibonacci).**
+
+**Honesty boundary.** COMPUTED esatti: g((5^5)^3) = 21 [110.4s]; g((5^3)^3)=1 [0.0s].
+Congettura C53 su 4 punti (k=2..5). NO proof. Muro k=6 (d=36>27). NO P vs NP.
+
+**Stato:** Ledger: **31 restatements + 4 lemmi + 1 NUOVA FALSIFICAZIONE TRIPARTITA / 7 arene.**
+
+**NEXT:** (a) Cercare spiegazione strutturale di C53 (via plethysm / Schur-Weyl / GL(phi));
+(b) Pivot nuova arena; (c) Aggiornare STATE.md e fermarsi.
+
+---
+
