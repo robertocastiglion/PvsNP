@@ -3850,3 +3850,91 @@ NO P vs NP.
 
 ---
 
+## Entry 62 — Genericness ratio R(k) = g·d!/f³: LEMMA L62 (cond.) + C57 staircase asintotica (2026-07-18)
+
+**Motivazione.** Dopo la falsificazione H61 (staircase ≠ Fibonacci), sorge la domanda:
+PERCHE' la diagonale quadrata cresce lentamente (Fibonacci) mentre la staircase
+cresce astronomicamente? La metrica naturale: R(k) = g · d! / f^3, dove f = dim V_λ,
+d = |λ|. R(k) ~ 1 per rappresentazioni "generiche", R → 0 per "degenerate", R > 1
+per "over-concentrate" (g >> attesa di Weingarten).
+
+**Computazione [g_fast + hook-length, <1s]:**
+```
+k   d         f           g(delta)      f^3/d!           R_staircase
+1   1         1           1             1.000             1.0000
+2   3         2           1             1.333             0.7500
+3   6        16           5             5.689             0.8789
+4  10       768         117           124.830             0.9373
+5  15   292864       18269         19208.717             0.9511
+6  21  1100742656  24891165     26104385.730             0.9535
+7  28  WALL
+
+Square g((k^k)^3) per confronto:
+k   d         f           g(square)     f^3/d!           R_square
+2   4         2           1             0.333             3.0000
+3   9        42           1             0.204             4.8980
+4  16     24024           5             0.663             7.5449
+5  25  701149020         21            22.222             0.9450
+```
+
+**Osservazioni chiave:**
+1. Staircase: R_staircase MONOTONA CRESCENTE: 0.75, 0.879, 0.937, 0.951, 0.953.
+   Variazione k=5→6: solo +0.0024 (quasi piatto). Convergenza rapida.
+2. Square: R_square NON MONOTONA: 3.0, 4.90, 7.54, 0.945.
+   Grande salto da k=4 (R=7.5) a k=5 (R=0.945). Attraversa 1 tra k=4 e k=5.
+3. Al k=5: R_staircase=0.9511 e R_square=0.9450 — quasi UGUALI (diff=0.006)!
+   Coincidenza numerica al k=5; origine strutturale non chiara.
+
+**LEMMA L62 (condizionale a C53): R_square(k) → 0 per k→∞.**
+
+Se C53 vale: g((k^k)^3) = F(3k-7) ~ phi^{3k}/sqrt(5) (crescita esponenziale, esponente 3 log phi ≈ 1.44 per step in k).
+Per la formula hook-length: log f^{(k^k)} ~ k^2 · C per qualche C > 0 (crescita quadratica in k).
+Quindi: log R_square(k) ≈ log F(3k-7) + log (k^2)! - 3 log f^{(k^k)}
+  ≈ 3k log phi + k^2 log k^2 - 3 · C · k^2
+  = 3k log phi + 2k^2 log k - 3Ck^2 → -∞ (il termine quadratico domina).
+Quindi R_square(k) → 0 esponenzialmente in k^2. QED (condizionale a C53). □
+
+Corollario: g((k^k)^3) e' "asintoticamente degenere" (infinitamente sotto-rappresentato
+rispetto all'attesa Haar-casuale f^3/d!).
+
+**Congettura C57 (staircase asintotica):**
+lim_{k→∞} g(δ_k^3) · (k(k+1)/2)! / (f^{δ_k})^3 = 1.
+
+Base: 5 data points con R → 0.9535 (quasi stabile da k=5 a k=6, Δ=0.0024).
+Interpretazione: δ_k e' "asintoticamente Haar-generica" — la diagonale staircase satura
+l'attesa di Weingarten. Ha senso strutturalmente: δ_k e' la partizione "meno speciale"
+tra tutte le self-conjugate (massima disequality nelle righe).
+
+Killer di C57: R(k=7) < 0.9535 (decrescita) O R < 0.90 (sotto la convergenza attesa).
+NON verificabile: k=7 e' oltre il muro (d=28>27).
+
+**Contrast strutturale:**
+Quadrato (k^k) = rettangolo self-conjugate = MASSIMA regolarita' → R → 0 (Fibonacci).
+Staircase δ_k = non-rettangolare self-conjugate = MASSIMA irregolarita' → R → 1.
+
+La self-conjugateness NON determina la genericness; la struttura rettangolare/non-rettangolare SI'.
+
+**Adversary:**
+(1) "L62 e' condizionale a C53, non provato" — CONCESSO. Dichiarato esplicitamente.
+(2) "C57 e' su 5 punti, convergenza lenta/ambigua" — CONCESSO. Il piatto k=5→6 (Δ=0.0024)
+    suggerisce convergenza ma 5 punti non bastano. Limite onesto.
+(3) "Coincidenza R_square(5)≈R_staircase(5) non spiega nulla" — CONCESSO. Notata, non affermata.
+(4) "La 'genericness' di Weingarten e' un fatto noto, non nuovo" — CONCESSO in principio.
+    La MISURAZIONE ESATTA su questa specifica famiglia (staircase Kronecker) e' nuova nel repo.
+
+**Evaluator: 6/10.** Lemma L62 e' condizionale ma pulito. C57 elegante ma 5 punti + convergenza
+lenta. Il CONTRASTO quadrato/staircase e' il risultato piu' chiaro: uno → 0, l'altro → 1,
+entrambi self-conjugate. Contenuto nuovo: la "genericness" del Kronecker diagonale come
+misura quantitativa della struttura della partizione.
+
+**Tipo: LEMMA condizionale (L62, R_square→0 se C53) + congettura C57 (staircase→1).**
+Ledger: **31 restatements + 6 lemmi (L62 cond.) + 3 falsificazioni / 7 arene.**
+
+**Honesty boundary.** COMPUTED: hook_length_product per k=1..6 (<1s); g(δ_k^3) da Entry 61;
+g((k^k)^3) da Entry 59 + prior. L62 = prova asintotica condizionale (non rigorosa sul
+termine C·k^2). C57 su 5 data points. NO P vs NP.
+
+**NEXT:** Fermarsi o nuova arena.
+
+---
+
