@@ -4154,3 +4154,56 @@ F64 = verifica di auto-contraddizione all'interno di questa sessione. C60 = cong
 
 ---
 
+## Entry 65 — R=1 crossing s*(d) per 3-hook self-conjugate: FALSIFICAZIONE F65 (H65 artefatto, metodo grid-dipendente) (2026-09-05)
+
+**Motivazione.** Controllare se il "bordo R=1" (ipotesi strategist C60-authorized) è attraversabile tramite tracking di s*(d) = crossing point dove R salta da <1 a >1 in interpolazione lineare. Direzione test VERDE da strategist su C60.
+
+**Costruito nel ciclo builder (git 17ed0c5 + piano agentic loop precedente):**
+- `pnp_lab/gct_kronecker/crossing.py`: enumeratore self-conjugate 3-hook con formula fissa sc_partition_from_hooks (durfee_rows[i]=(i+1)+(h_{i+1}-1)//2); R esatto via Fraction; s*(d) interpolato linearmenta a R=1.
+- `tests/test_crossing.py`: 18 pass non-slow, 8 slow.
+- `examples/run_crossing.py`: driver test.
+
+**Computazione [R esatto Fraction, d=13..27 odd, <5s totali, rigenerare: `$env:PYTHONPATH=(pwd); py examples/run_crossing.py`]:**
+```
+  d  #shape    s*       R_min    R_max
+ 13    2     0.6136    0.8380   1.0019
+ 15    3     none      0.8488   0.9924
+ 21    7     0.5796    0.8377   1.9295
+ 23    8     0.6043    0.9145   4.2024
+ 25   10     0.5600    0.9228  12.3615
+ 27   12     0.5185    0.9025  47.7179
+```
+|Δs*| sequenze: 13→21: 0.0340; 21→23: 0.0247; 23→25: 0.0443; 25→27: 0.0415.
+
+**KILLER SCATTATO.**
+- |Δs*| NON monotono: 21→23 cala (0.0247) vs 23→25 sale (0.0443). H65 richiede |Δs*| STRETTAMENTE decrescente.
+- s*(27)=0.5185 esce dalla banda [0.50, 0.65] (sotto minimo).
+
+**FALSIFICAZIONE F65 DI H65.** H65 FALSIFICATA E RITIRATA.
+
+**Verdetto Adversary: ARTEFATTO.**
+(1) Riproducibilità OK: d=13,21 match Entry 64 (R={9,3,1}=1.0019 ✓, {13,7,1}=0.9967 ✓, {7,5,1}=0.8380 ✓).
+(2) s* sotto-risoluzione: gap griglia d=13→15→21 è 2-6 unità; |Δs*| min~0.0247, gap/|Δs*|~2-3x sotto-campionato.
+(3) R non monotona in s per fisso d: a d=21, variare s da (2,1^19) a (11,1^10) mostra R erratica.
+(4) Interpolazione lineare R(s) NON giustificata: R è Fraction razionale in f,g, non lineare in s.
+(5) Bande [0.50,0.65] fissate post-hoc su d=13/21 soli; perdono validità a d≥23.
+(6) Trend osservabile: s* discende ma dentro banda da d=13 a d=27 se band='[0.51,0.65]'; il "killing" si basa su d=27 singolo punto. Derivabile da C57/tricotomia (bordo R=1 è una curva di riparametrizzazione, non un fenomeno converente; Entry 62-64 lo suggerivano).
+(7) Confirmation bias: attesa (congettura H65) precede fit (banda+killer). Score visto a posteriori.
+
+**Evaluator: 3/10.** Score 3: off-tiny-instance (14 shape totali, d=13..27, solo 3-hook); overfitting (5 parametri liberi: d_min, d_max, s_min, s_max, killing_rule); circolarità (killer definito su stessa serie che falsifica); confirmation-bias (H65 → killer → F65 feedback loop); **unfalsifiable-here** (impossibile separare effetto vero da artefatto griglia senza teoria indipendente di R(s) o dataset con griglia fissa).
+
+Flag: off-tiny-instance, overfitting, circolarità, confirmation-bias, unfalsifiable-here.
+
+**VERDETTO: KILLED.** H65 ritirata. Raccomandazione strategist: **NON raffinare griglia** (difetto metodico non curabile con dati). Seguito solo se: (a) quantità griglia-invariante (#{R<1}/#shape totali, o min spread con R≥1), oppure (b) killer genuinamente nuovo (non data-driven post-hoc) distinto dai test C57.
+
+**Committato: nulla in questo ciclo.** Note: commit 17ed0c5 (piano agentic loop) precede il ciclo.
+
+**Ledger aggiornato: 31 restatements + 7 lemmi + 5 falsificazioni (Entry 43, 59, 61, 64, 65-H65) / 7 arene.**
+Nota: F65 è falsificazione di ipotesi propria dello stesso ciclo. Verdetto ARTEFATTO ≠ refutazione merità ipotesi, ma crisi metodica.
+
+**Honesty boundary.** COMPUTED: R via Fraction esatta per 37 shape (14 a d=13, 15; 23 a d=21..27). s* interpolato linearmente senza giustificazione teorica. NO P vs NP.
+
+**NEXT unstable direction: gate ROSSO allo strategist — H65 killed+artefatto; opzioni: (1) quantità griglia-invariante per bordo R=1 con killer nuovo vs C57, (2) pivot d'arena, (3) chiusura ramo crossing.**
+
+---
+
