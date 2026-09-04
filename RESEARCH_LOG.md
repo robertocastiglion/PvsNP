@@ -4207,3 +4207,41 @@ Nota: F65 è falsificazione di ipotesi propria dello stesso ciclo. Verdetto ARTE
 
 ---
 
+## Entry 66 — GATE ROSSO + ESC-2 (regimi esauriti): nessun esperimento in ciclo; pivot collassato pre-ciclo (2026-09-05)
+
+**Tipo.** GATE ROSSO + ESC-2 (regimi esauriti). Zero Builder: nessun esperimento eseguito; pivot strategist collassato pre-ciclo con esito onesto.
+
+**Sequenza post-Entry 65.**
+Dopo Entry 65 (H65 killed + artefatto metodico), lo strategist ha chiuso il ramo crossing/hook-spread e ordinato pivot dentro-arena sul cono dei momenti (buchi profondi / faccette fuori-dizionario, KILLER-1/2 pre-dichiarati).
+
+**Explorer declina ipotesi — asse chiuso da Entry 34-35.**
+L'Explorer ha ispezionato `moment_cone.py`, `beyond_wall.py` e DECLINATO di emettere ipotesi:
+- Asse dei buchi profondi già chiuso: deep holes = 0 a d=5,6 (KILLER-1 spara).
+- H-rep P_3 = 6 faccette robuste. Unica fuori-dizionario: triangle bound Klyachko.
+- Verifica meccanica rifatta ora: robust=6, killed=8; i 3 OOD robusti riducono a -λ₁+μ₁+ν₁ ≤ d.
+- Candidati generati e scartati per self-consistency: H66 slack-profile (restatement Entry 35), faccette D=4 (restatement predetto), deep hole d=7 stretch-esteso (restatement per costruzione).
+
+**Strategist — Arene residue TUTTE CHIUSE.**
+Verifica delle arene residue: 
+- Cono momenti CHIUSO.
+- Saturazione/semigruppo CHIUSO (`saturation.py`, restate Stembridge/BCI).
+- Hook-spread killed da Entry 65.
+- Klyachko/Horn completi, fuori mandato tiny.
+- C53/k=4 raffinamenti permutation-invariant non producono candidati.
+- **Nessun candidato rompe simultaneamente le due lezioni madre** (enumerabile-esatto; statistica globale).
+- **Trigger B2:** due collassi-su-noto consecutivi ⇒ **ESC-2**.
+
+**Domanda posta all'umano (3 opzioni).**
+(1) Kronecker che rompa permutation-invariance (statistica locale a singola terna, tiny-esatta, non ricostruibile dal dizionario);
+(2) Arena/barriera mai istanziata nel lab con fenomeno asintotico rendibile tiny-esatto e killer pre-dichiarabile;
+(3) **Chiusura della Perseverance Run cristallizzando il ledger come esito metodologico.**
+
+**Raccomandazione strategist: opzione (3).**
+
+**Ledger invariato.**
+31 restatements + 7 lemmi + 5 falsificazioni (Entry 43, 59, 61, 64, 65-H65) / 7 arene.
+
+**NEXT unstable direction: in attesa di decisione umana ESC-2 (opzioni 1/2/3); nessun ciclo autonomo fino a risposta.**
+
+---
+
