@@ -4245,3 +4245,30 @@ Verifica delle arene residue:
 
 ---
 
+## Entry 67 — ESC-2 riapertura (opzione 3, alto rischio restatement): H67 gate VERDE, formula pari k=4 separazione regimi (2026-09-05)
+
+**Tipo.** Continuazione post-ESC-2 autorizzata dall'umano (opzione 3: accettare alto rischio restatement per esplorare). Gate VERDE. Candidato (b) "formula pari k=4" ridiretto a domanda binaria.
+
+**Direzione strategist — H67 + killer.**
+Ipotesi H67: g((c^4)^3) con λ=(c,c,c,c), d=4c governata da unica legge in c vs regimi pari/dispari separati. Killer dichiarato: interpolante Lagrange di grado 2 sui pari non coincide con estensione di ((c-1)/2)² e nessuna relazione algebrica banale unifica i rami.
+
+**Misure esatte (Explorer, g_fast, 87s; rigenerare: python + g_fast su λ=(c,c,c,c) c=1..6).**
+- Serie [0, 1, 1, 5, 4, 16] (c=1,2,3,4,5,6 rispettivamente).
+- Regime dispari ((c-1)/2)² match esatto: c=1→0, c=3→1, c=5→4. 
+- Regime pari interpolante Lagrange P(c) = (7/8)c² − (13/4)c + 4 (esatto su c=2,4,6).
+- 5 tentativi unificazione falliti: shift, Δ²=2 vs 7, tetraedrici, m(2m−1), m²+(m−1)².
+- Verdetto explorer: REGIMI-SEPARATI (atteso).
+
+**Adversary — RESTATEMENT.**
+Ramo pari = Lagrange 3 punti/3 coefficienti (contenuto zero); separazione forzata da integralità (triviale); quasi-polinomialità g(cλ) nota (prior-art A5/B1 Rosas/Ehrhart); score netto sopra C52 ≈ 0. Obiezione residua: unico falsificabile = 4° punto c=7 (d=28, appena oltre muro HOOK_MAX_D=27) o c=8 (d=32). Correzione orchestratore: d=4c (non 343/512 come adversary scrisse).
+
+**Evaluator — score 3/10, flag RESTATEMENT-OF-KNOWN.**
+Flag: overfitting, muro-computazionale-dichiarato (c=7 al muro, non off-tiny formale), confirmation-bias. Honesty boundary COMPUTED: c=1..6 esatti; CITATO non provato: quasi-polinomialità (Rosas/Ehrhart), integralità (Entry 55); NON VERIFICATO c≥7; zero claim P vs NP / Kronecker positivity; L67 = restatement prior-art dichiarato.
+
+**Ledger aggiornato.**
+32 restatements + 7 lemmi + 5 falsificazioni / 7 arene. Zero Builder speso nel ciclo.
+
+**NEXT unstable direction: ESC-2 confermata da ciclo negativo-onesto — decisione umana pendente: chiudere la run (raccomandato) o fornire oggetto/arena strutturalmente nuovi; nessun ciclo autonomo.**
+
+---
+
