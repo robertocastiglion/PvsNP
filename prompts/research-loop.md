@@ -50,6 +50,32 @@ passando solo il contesto necessario, e raccogli gli output:
     lo strategist DECIDE (pivot / cristallizza / chiudi); R-ESC = escala all'umano SOLO per
     new-content robustness≥7 o regimi esauriti. Poi esegui la decisione.
 
+## BUDGET TOKEN E ROUTING DEI MODELLI (vincolante — vedi docs/agentic-loop-plan.md)
+Routing per ruolo (frontmatter `model:` degli agenti; NON sovrascrivere se non indicato):
+- strategist, explorer, adversary → opus (decisioni di merito, creatività matematica,
+  red-team: il verificatore deve essere almeno forte quanto il generatore);
+- builder, evaluator → sonnet (implementazione e sintesi strutturata: ottimo rapporto
+  qualità/costo sul codice e sulla rubrica);
+- archivist → haiku (lavoro meccanico di trascrizione; niente ragionamento).
+Upgrade puntuale: a un gate ROSSO con candidato NEW CONTENT o a ESC-1, puoi invocare
+lo strategist con override `model: fable` per la singola decisione critica.
+
+Guardrail token per ciclo (circuit breaker duri):
+- (T1) UNA invocazione per ruolo per ciclo; unica eccezione: il builder ha max 2 cicli
+  di riparazione interni (già nel suo prompt). Nessun altro retry di subagente.
+- (T2) Contesto MINIMO in ingresso a ogni subagente: passa la direzione scelta +
+  il puntatore all'ultima entry del log; MAI incollare l'intero RESEARCH_LOG.md o
+  interi moduli nel prompt del subagente (il file lo leggono da soli, in coda).
+- (T3) Output cap per ruolo (già nei prompt agente): explorer/adversary ≤40 righe,
+  builder/evaluator ≤30, archivist ≤10. Un output che sfonda il cap è un segnale di
+  overthinking, non di qualità.
+- (T4) Se il builder riporta INCONCLUSIVE dopo i cap di riparazione, il ciclo si
+  CHIUDE con verdetto INCONCLUSIVE e passa allo strategist: non rilanciare builder
+  o explorer nello stesso ciclo.
+- (T5) Log leggero: per ricostruire lo stato leggi l'ULTIMA entry (coda del file),
+  non l'intero log; memory/MEMORY.md è l'indice, i .md collegati si aprono solo se
+  pertinenti alla direzione scelta.
+
 ## "RISULTATO RILEVANTE" (criterio di successo, verificato da adversary+evaluator)
 - congettura NUOVA, falsificabile, non implicata dai parent, testabile sul piccolo; o
 - controesempio/kill esatto a una congettura precisa; o
