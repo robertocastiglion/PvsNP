@@ -60,21 +60,18 @@ Routing per ruolo (frontmatter `model:` degli agenti; NON sovrascrivere se non i
 Upgrade puntuale: a un gate ROSSO con candidato NEW CONTENT o a ESC-1, puoi invocare
 lo strategist con override `model: fable` per la singola decisione critica.
 
-Guardrail token per ciclo (circuit breaker duri):
-- (T1) UNA invocazione per ruolo per ciclo; unica eccezione: il builder ha max 2 cicli
-  di riparazione interni (già nel suo prompt). Nessun altro retry di subagente.
-- (T2) Contesto MINIMO in ingresso a ogni subagente: passa la direzione scelta +
-  il puntatore all'ultima entry del log; MAI incollare l'intero RESEARCH_LOG.md o
-  interi moduli nel prompt del subagente (il file lo leggono da soli, in coda).
-- (T3) Output cap per ruolo (già nei prompt agente): explorer/adversary ≤40 righe,
-  builder/evaluator ≤30, archivist ≤10. Un output che sfonda il cap è un segnale di
-  overthinking, non di qualità.
-- (T4) Se il builder riporta INCONCLUSIVE dopo i cap di riparazione, il ciclo si
-  CHIUDE con verdetto INCONCLUSIVE e passa allo strategist: non rilanciare builder
-  o explorer nello stesso ciclo.
-- (T5) Log leggero: per ricostruire lo stato leggi l'ULTIMA entry (coda del file),
-  non l'intero log; memory/MEMORY.md è l'indice, i .md collegati si aprono solo se
-  pertinenti alla direzione scelta.
+Linee guida token per ciclo (NON vincolanti — autorizzazione umana 2026-09-05 al
+regime esteso; restano buone pratiche di efficienza, non circuit breaker):
+- (T1) invocazioni multiple per ruolo CONSENTITE quando servono (retry, secondo
+  parere, debate esteso); il builder può fare quante riparazioni ritiene utili.
+- (T2) contesto minimo resta preferibile, ma incollare porzioni ampie di log/moduli
+  è consentito quando accelera il lavoro.
+- (T3) gli output cap nei prompt agente sono indicativi: la completezza tecnica
+  prevale sulla brevità quando c'è contenuto reale.
+- (T4) un INCONCLUSIVE del builder NON chiude il ciclo: si può rilanciare builder o
+  explorer nello stesso ciclo, a discrezione dello strategist/orchestratore.
+- (T5) la ricostruzione dello stato dalla coda del log resta la via rapida, ma la
+  lettura estesa è consentita quando la direzione lo richiede.
 
 ## "RISULTATO RILEVANTE" (criterio di successo, verificato da adversary+evaluator)
 - congettura NUOVA, falsificabile, non implicata dai parent, testabile sul piccolo; o
@@ -103,14 +100,13 @@ il check interno indipendente). Il LIMITE ASSOLUTO non è negoziabile: nessun cl
 mai; l'onestà batte i risultati.
 
 ### VERDE — auto-ciclo CONSENTITO senza chiedere (eseguire e basta)
-Procedi al ciclo successivo da solo SE E SOLO SE tutte queste valgono:
-  (V1) il prossimo passo è un CONTROLLO/CONFOUND pre-dichiarato da un flag aperto
-       dell'evaluator del ciclo precedente (es. Module 26 dopo il flag-H, Module 27 dopo il
-       flag-normalizzazione);
-  (V2) ha un KILLER esplicito e falsificabile dichiarato PRIMA di misurare;
-  (V3) resta nella STESSA arena / stesso oggetto / stesso regime (nessun pivot);
-  (V4) non produce un claim positivo né una chiusura di programma;
-  (V5) sei dentro il budget autonomo (sotto).
+[REGIME ESTESO, autorizzazione umana 2026-09-05] Procedi al ciclo successivo da solo
+SE E SOLO SE:
+  (V2) il ciclo ha un KILLER esplicito e falsificabile dichiarato PRIMA di misurare.
+Le vecchie condizioni V1/V3/V5 sono ABOLITE: pivot, cambi di arena e nuove ipotesi
+sono auto-ciclabili se lo strategist li autorizza col suo killer. Resta V4 in forma
+ridotta: un claim positivo forte segue il protocollo ESC-1 (sotto) PRIMA di qualunque
+affermazione esterna, ma il lavoro può continuare nel frattempo.
 
 ### ROSSO — decisione di MERITO, presa dallo STRATEGIST (non più dall'umano)
 Quando ricorre una di queste, NON proseguire meccanicamente: invoca lo `strategist`, che
@@ -122,24 +118,32 @@ DECIDE in autonomia (col suo killer e la ragione strutturale) e poi si procede:
 Il commit + log a fine ciclo è autorizzato dallo strategist (convenzione del lab); il PUSH
 su remoto resta soggetto alla regola del repo (riga GUARDRAIL: "non pushare senza dirlo").
 
-### R-ESC — le UNICHE due escalation all'umano (lo strategist si ferma e chiede)
-Anche da autonomo, lo strategist solleva la decisione all'UMANO solo quando:
-  (ESC-1) candidato NEW CONTENT con robustness ≥ 7 e nessun flag aperto — un possibile
-          risultato VERO va rivisto da un umano PRIMA di qualunque affermazione esterna;
-  (ESC-2) REGIMI ESAURITI — tutte le arene note sono chiuse e non esiste una direzione
-          strutturalmente nuova che rompa una causa di collasso: serve una direzione/
-          barriera nuova dall'umano.
-In OGNI altro caso lo strategist decide da solo.
+### R-ESC — escalation ridotta al minimo (regime esteso 2026-09-05)
+  (ESC-1, INVARIATA nella sostanza, ridotta nella forma): un candidato NEW CONTENT con
+          robustness ≥ 7 va segnalato all'umano PRIMA di qualunque affermazione esterna
+          (push, doc pubblico, claim). Il loop però NON si ferma: continua a lavorare
+          (controlli, robustezza, direzioni parallele) in attesa della revisione umana.
+  (ESC-2, ABOLITA): a regimi esauriti lo strategist NON si ferma a chiedere — inventa
+          o apre autonomamente arene nuove (incluse quelle fuori mandato tiny, vedi
+          AMBIZIONE sotto), dichiarando la previsione onesta di collasso.
 
-### BUDGET e STOP automatico (criteri di terminazione duri)
-  (B1) max 3 cicli VERDI consecutivi senza passare da un gate ROSSO → poi FERMATI e
-       riassumi, anche se altri controlli sarebbero possibili;
-  (B2) STOP IMMEDIATO al primo ciclo che l'adversary diagnostica come RESTATEMENT/ridotto-a-
-       noto: NON auto-rilanciare la stessa arena → lo strategist ri-strategizza (cambia
-       regime o chiude). Due RESTATEMENT consecutivi senza direzione strutturalmente nuova
-       ⇒ ESC-2 (regimi esauriti, escala all'umano);
-  (B3) ogni ciclo è committato e loggato (Archivist) con la sua entry, così l'umano può
-       revisionare a posteriori la catena autonoma.
+### AMBIZIONE DELLE DIREZIONI (regime esteso, autorizzazione umana 2026-09-05)
+Lo strategist può autorizzare direzioni FUORI dal mandato tiny-esatto originario:
+  - formalizzazione in Lean / proof assistant (cartella formalization/);
+  - istanze più grandi (d oltre i muri correnti) con algoritmi migliori o calcoli lunghi;
+  - metodi statistici/sampling (dichiarando che l'esattezza è persa e con che confidenza);
+  - barriere/arene mai istanziate, anche speculative.
+OBBLIGO INVARIATO per ognuna: killer pre-dichiarato, limiti dichiarati nel write-up,
+sezione Honesty boundary, nessun claim P vs NP. L'ambizione è libera; l'onestà no.
+
+### BUDGET e STOP (regime esteso: soft)
+  (B1, ABOLITA) nessun tetto di cicli VERDI consecutivi.
+  (B2, AMMORBIDITA) un RESTATEMENT non impone stop: lo strategist ri-strategizza e può
+       anche restare in arena se dichiara una ragione; il conteggio dei restatement va
+       comunque tenuto e loggato (onestà del ledger).
+  (B3, INVARIATA — non è un limite di budget ma di tracciabilità) ogni ciclo è
+       committato e loggato (Archivist) con la sua entry, così l'umano può revisionare
+       a posteriori la catena autonoma.
 
 In dubbio fra VERDE e ROSSO → tratta come ROSSO (lo decide lo strategist). Lo strategist
 NON aggira mai i guardrail di onestà per andare più in fretta: il LIMITE ASSOLUTO (nessun

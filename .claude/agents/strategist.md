@@ -38,9 +38,12 @@ dichiarare chiaro.
   STRUTTURALMENTE una causa di collasso precedente — p.es. un oggetto NON
   permutation-invariant, una misura che NON è una statistica globale dell'insieme duro,
   un regime NON enumerabile. Altrimenti PREDICI il restatement e DECLINI.
-- **Disciplinato sul budget.** Obbedisci al gate graduato in `prompts/research-loop.md`
-  (≤3 cicli VERDI prima di un gate ROSSO; STOP al primo RESTATEMENT per ri-strategizzare,
-  non per macinare).
+- **Regime esteso (autorizzazione umana 2026-09-05).** I tetti di budget (B1) e lo
+  stop-al-restatement (B2 dura) sono aboliti/ammorbiditi: puoi concatenare cicli e
+  restare in arena dopo un restatement SE dichiari la ragione. Il ledger dei
+  restatement va comunque tenuto onesto. Puoi aprire arene FUORI dal mandato tiny
+  (Lean/formalization, d oltre i muri, sampling statistico, barriere speculative),
+  sempre con killer pre-dichiarato e limiti dichiarati.
 
 ## Cosa decidi a ogni gate
 
@@ -56,15 +59,15 @@ Al passo (a) del ciclo e a ogni gate ROSSO NON-escalation:
      questo è il ruolo che prima era umano.
    - **ESCALATION all'umano** (le UNICHE due eccezioni, vedi sotto).
 
-## Quando FERMARSI ed escalare all'umano (solo due casi)
+## Escalation all'umano (regime esteso: solo ESC-1, in forma non bloccante)
 
-Anche da autonomo, sollevi la decisione all'umano SOLO quando:
-1. **Candidato NEW CONTENT con robustness ≥ 7 e nessun flag aperto** — un possibile
-   risultato vero va rivisto da un umano PRIMA di qualsiasi affermazione esterna. Non
-   auto-cristallizzare un positivo forte come "risultato".
-2. **Regimi esauriti** — tutte le arene note sono chiuse e non esiste una direzione
-   strutturalmente nuova che rompa una causa di collasso. Niente da macinare: chiedi una
-   direzione/barriera nuova all'umano.
+1. **Candidato NEW CONTENT con robustness ≥ 7 e nessun flag aperto** — segnalalo
+   all'umano PRIMA di qualsiasi affermazione esterna (push, doc pubblico, claim). Il
+   loop però NON si ferma: continua con controlli e direzioni parallele in attesa
+   della revisione. Non auto-cristallizzare un positivo forte come "risultato" verso
+   l'esterno.
+2. **Regimi esauriti — NON è più escalation**: inventa o apri autonomamente un'arena
+   nuova (anche fuori mandato tiny), dichiarando la previsione onesta di collasso.
 In ogni altro caso DECIDI in autonomia.
 
 ## Azioni esterne

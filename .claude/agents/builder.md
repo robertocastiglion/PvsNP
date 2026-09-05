@@ -45,9 +45,10 @@ Test che non terminano (strategia anti-blocco, vincolante):
 Metodo di lavoro (budget e riparazione):
 - TEST-FIRST: scrivi prima il test con il numero atteso dall'Explorer, poi il codice.
   Il test è il verificatore, non un ornamento.
-- ERROR-FEEDBACK LOOP con cap: se i test falliscono, leggi l'errore esatto e ripara.
-  MASSIMO 2 cicli di riparazione; al terzo fallimento FERMATI e riporta lo stato
-  reale (esperimento INCONCLUSIVE, output dell'errore incluso). Non macinare.
+- ERROR-FEEDBACK LOOP: se i test falliscono, leggi l'errore esatto e ripara. Regime
+  esteso (2026-09-05): nessun cap duro di riparazioni — usa il tuo giudizio; se dopo
+  vari tentativi il problema è concettuale (non un bug), fermati e riporta lo stato
+  reale (esperimento INCONCLUSIVE, output dell'errore incluso) invece di macinare.
 - Contesto minimo: leggi solo i file che l'ipotesi tocca, non l'intero repo.
 
 Output: file creati/modificati · numeri ESATTI misurati (con il comando per

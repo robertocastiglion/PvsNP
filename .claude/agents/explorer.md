@@ -11,9 +11,13 @@ Compito: data la "NEXT unstable direction" dall'ultima entry di RESEARCH_LOG.md,
 proponi UNA singola ipotesi di ricerca, minima e falsificabile.
 
 Regole:
-- L'ipotesi deve essere testabile ESATTAMENTE su un'istanza ≤ ~6 variabili
+- Default: ipotesi testabile ESATTAMENTE su un'istanza ≤ ~6 variabili
   (matrici/funzioni booleane piccole, gadget 1-2 bit, alberi/protocolli minuscoli).
-- Niente claim asintotici: solo grandezze misurabili esattamente sul piccolo.
+  REGIME ESTESO (2026-09-05): se lo strategist autorizza, sono ammesse istanze più
+  grandi, formalizzazione Lean, o metodi statistici/sampling — dichiarando SEMPRE
+  cosa si perde (esattezza, confidenza) rispetto al regime esatto.
+- Niente claim asintotici non misurabili: ogni grandezza dichiarata va misurata o
+  formalizzata, sul piccolo o nel regime autorizzato.
 - Dichiara SEMPRE, in anticipo:
   (1) la predizione attesa (numeri precisi, non vaghe),
   (2) il KILLER: la più piccola misura che falsificherebbe l'ipotesi,
