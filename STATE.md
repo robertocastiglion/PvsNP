@@ -2,8 +2,9 @@
 
 ## Sessione corrente
 
-**Data:** 2026-07-18
-**Entry completate (totale arc):** 40–64
+**Data:** 2026-09-05
+**Entry completate (totale arc):** 40–72
+**Stato:** PAUSA CONSOLIDAMENTO (raccomandazione evaluator post-dual-engine, Entry 71–72)
 
 ---
 
@@ -112,7 +113,7 @@ hooks        spread    R
 
 ---
 
-## Bilancio lab (post-Entry 70)
+## Bilancio lab (post-Entry 72)
 
 ```
 32 restatements / 7 arene
@@ -122,6 +123,11 @@ hooks        spread    R
 1 non-collasso (M22)
 survival-PASS@1 (M24), survival-PASS@3 (M25)
 2 control-PASS (M26, M27)
+
+DUAL-ENGINE (Entry 72):
+  engine3 (Frobenius) valida corpus fino a d=28 sui valori chiave
+  F68 e E70 confermate dual-engine (indipendenza implementativa)
+  flag circolarità-residua CHIUSO per d≤21 (post-run d=24/28)
 ```
 
 ---

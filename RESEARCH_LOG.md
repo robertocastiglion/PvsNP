@@ -4407,3 +4407,35 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 72 — ENGINE TERZO FROBENIUS (chiusura circolarità residua, dual-engine validation) (2026-09-05)
+
+**Tipo: CONSOLIDAMENTO — ENGINE TERZO indipendente (chiusura flag circolarità-residua Entry 71).**
+
+**Direzione (VERDE, controllo pre-dichiarato):** validare g_fast con algoritmo genuinamente diverso da Murnaghan-Nakayama.
+
+**Costruito:**
+- `pnp_lab/gct_kronecker/engine3.py` — caratteri via formula di Frobenius (alternatori × power-sum in ZZ[x], coefficiente del monomio dominante); ZERO import da fast.py/kronecker.py (solo stdlib, verificato).
+- `tests/test_engine3.py`: 37 test (24 fast 0.28s + 13 slow 90s), tutti verdi.
+
+**Validazione & misure:**
+- g3==g_fast su tutte le terne d≤5, χ a mano d≤4.
+- 11 valori corpus d=9..21: δ_4=117, δ_5=18269, δ_6=24891165 (16.8s), (9,3,3,1^6)=8013 (36.3s), ecc.
+- Post-evaluator spot-check: d=24 g3((6^4)^3)=16 (14.9s, match C49 c=6); **d=28 g3((7^4)^3)=21 (59.7s, CONFERMA INDIPENDENTE F68)**.
+- Bonus: engine3 conferma indipendentemente E70 (g((3^5)^3)=1 su entrambi gli engine).
+- **Rigenerare:** `$env:PYTHONPATH=(pwd); py -c "from pnp_lab.gct_kronecker.engine3 import g3; print(g3((7,7,7,7),(7,7,7,7),(7,7,7,7)))"`.
+
+**Evaluator: 7/10. VERDETTO: NEW CONTENT (narrow).**
+- Flag circolarità-residua CHIUSO per d≤21 (post-run: esteso ai valori chiave d=24/28).
+- Flag residui: off-tiny (mild), circolarità concettuale (entrambi gli engine usano la stessa formula g=(1/d!)Σχ³ — indipendenza implementativa, non concettuale; un errore condiviso di teoria delle rappresentazioni non sarebbe catturato — dichiarato).
+- Confirmation-bias mild (campioni scelti dal corpus, non stress-test avversariali).
+
+**Honesty boundary:** validazione esaustiva d≤5, spot 11+2 valori d≤28; indipendenza implementativa non concettuale; nessun claim P vs NP.
+
+**Ledger post-Entry 72:** 32 restatements + 7 lemmi (L60 Lean-cert) + 6 falsificazioni + 3 errata-dati / 7 arene + formalization + QA (ora dual-engine).
+
+**Raccomandazione registrata (2 evaluator consecutivi):** PAUSA DI CONSOLIDAMENTO — nessun nuovo ciclo di congetture; il run di sessione (Entry 65–72, 8 cicli) si chiude qui in attesa di revisione umana.
+
+**NEXT unstable direction: PAUSA consolidamento post-run (raccomandazione evaluator 71+72). Riaperture candidate future: accelerazione algoritmica d>28, decisione C53 closed-by-wall, stress-test avversariali engine3, o arena nuova dall'umano.**
+
+---
+
