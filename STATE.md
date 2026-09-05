@@ -39,7 +39,7 @@ Test suite: 56 fast + 12 slow = 68 test. Ledger entrata: 26 restatements.
 | C49 | g((c^2)^3)=0 c disp., =1 c pari | c=1..13 | c=14 |
 | C50 | g((c^3)^3)=floor(c/3) disp., c/2 pari | c=1..9 | c=10 |
 | C51 | g((3^k)^3)=0 iff k≡2 mod 5 | k=1..9 (2 zeri: k=2,7) | k=12 |
-| C52 | g((c^4)^3)=((c-1)/2)^2 c disp. | c=1,3,5 | c=7 |
+| C52 | FALSIFICATA (F68/Entry 68) — g((7^4)^3)=21≠9, serie dispari [0,1,4,21] | c=1,3,5→killed | c=7 |
 | C53 | g((k^k)^3)=F(3k-7) k>=2 (Fibonacci) | k=2..5: 1,1,5,21 | k=6 |
 | C54 | s_3(5)=10826 (wall-limited, speculativa) | non verif. | d=28 |
 
@@ -63,6 +63,7 @@ s_3(k):     1,14,158,1497,≈10826   → no formula; no ord-2; crescita sub-exp
 - Entry 59: predizioni A=1, B=4, C=8 per g((5^5)^3) TUTTE UCCISE (g=21=F(8))
 - Entry 61 (H61): g(δ_k^3) ≠ F(3k-7) per k=3,4,5,6 (self-conjugate ≠ Fibonacci)
 - Entry 64 (F64): 5 delle 11 partizioni in Entry 63 NON erano self-conjugate; 3 mancanti
+- Entry 68 (F68): C52 FALSIFICATA — g((7^4)^3)=21≠9, serie dispari [0,1,4,21]
 
 ---
 
@@ -111,12 +112,12 @@ hooks        spread    R
 
 ---
 
-## Bilancio lab (post-Entry 64)
+## Bilancio lab (post-Entry 68)
 
 ```
-31 restatements / 7 arene
+32 restatements / 7 arene
 7 lemmi (L55, L60, L62, L63, + 3 da sessioni prev)
-4 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64)
+6 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64, F68/Entry 68)
 1 non-collasso (M22)
 survival-PASS@1 (M24), survival-PASS@3 (M25)
 2 control-PASS (M26, M27)

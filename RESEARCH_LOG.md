@@ -4272,3 +4272,23 @@ Flag: overfitting, muro-computazionale-dichiarato (c=7 al muro, non off-tiny for
 
 ---
 
+## Entry 68 — FALSIFICAZIONE F68 di C52 (2026-09-05)
+
+**Tipo.** FALSIFICAZIONE F68 di C52 — killer pre-dichiarato in Entry 67 eseguito su autorizzazione umana ("tenta il punto c=7"). Regime esteso attivo (commit a2b1aa4: B1 abolito, ESC-2 abolita, arene fuori-tiny autorizzate).
+
+**Misura.** g((7,7,7,7)^3) = 21 esatto (d=28, g_fast, 400.4s; rigenerare: `$env:PYTHONPATH=(pwd); py -c "from pnp_lab.gct_kronecker.fast import g_fast; print(g_fast((7,7,7,7),(7,7,7,7),(7,7,7,7)))"`). C52 predice ((7-1)/2)²=9. 21≠9: C52 FALSIFICATA e RITIRATA.
+
+**Adversary.** FALSIFICAZIONE-VALIDA, tutti gli attacchi tenuti — g_fast senza rami d-dipendenti (HOOK_MAX_D solo in hook_depth.py), assert divisibilità d! attivo, anchor c=3,5,6 riprodotti, d=28 rilanciato indipendentemente (21 confermato), scope corretto (uccide solo la formula chiusa; Ehrhart/C53/C49-51 intatti).
+
+**Evaluator.** 8.5/10. Flag aperti: off-tiny-instance (parziale, d=28 oltre muro dichiarato), confirmation-bias (residuo: C52 era promossa su soli 3 punti — bias nella promozione, non nel test). VERDETTO: KILLED. Prima predizione out-of-sample del lab testata a 0 gradi di libertà.
+
+**Honesty boundary.** COMPUTED g((7^4)^3)=21 esatto riprodotto 2×; FALSIFICATO C52; INTATTI Ehrhart asintotico, C53, C49-51; SERIE APERTA dispari [0,1,4,21] (differenze 1,3,17, nessun fit grado-2; coincidenza 21=F(8)=g((5^5)^3) osservata non claimata); nessun claim P vs NP.
+
+**Ledger.** 32 restatements + 7 lemmi + 6 falsificazioni (Entry 43, 59, 61, 64, 65, 68) / 7 arene.
+
+**Raccomandazione evaluator.** Registrata: non lanciare c=9 (d=36, oltre muro) senza killer indipendente; collegare i due 21 richiederebbe teoria esterna (plethysm/Murnaghan/Rosas/Pak-Panova). Nota: regime esteso → decide lo strategist, non si escala.
+
+**NEXT unstable direction: strategist in regime esteso — opzioni: teoria per serie [0,1,4,21] via letteratura, arena nuova fuori-tiny (Lean/sampling), o cristallizzazione. Loop attivo.**
+
+---
+
