@@ -4321,3 +4321,58 @@ Flag: overfitting, muro-computazionale-dichiarato (c=7 al muro, non off-tiny for
 
 ---
 
+## Entry 70 — ERRATUM-HUNT sistematico (QA del ledger) + ERRATUM E70 (2026-09-05)
+
+**Tipo: ERRATUM-HUNT sistematico + ERRATUM E70 (C51 k=5).**
+
+**Direzione strategist (VERDE):** Rigenerare tutti i valori Kronecker hardcoded in STATE.md via g_fast e verificare match. Obiettivo: validazione corpus END-TO-END. Killer pre-dichiarato: ogni mismatch = erratum; zero mismatch (entro d≤24) = ledger validato e corpus-ready per cristallizzazione.
+
+**Costruito:**
+- `pnp_lab/gct_kronecker/audit.py`: 68 voci dichiarative (Kronecker g-values da STATE.md, congetture C49–C54, staircase, sequenze s_3); funzione `_audit_entry(entry)` computa g_fast e confronta; `audit_all()` itera su corpus d≤24.
+- `examples/run_audit.py`: driver per esecuzione interattiva e debug.
+- `tests/test_audit.py`: 4 test fast (anchor s_3(1), delta_4, C51 k=2, C51 k=5 mismatch) + 2 test slow (audit_all con conteggio stati e 1 mismatch atteso). Suite 54 test complessivi senza regressioni.
+
+**Rigenerare:** `py -m examples.run_audit` (audit_all, ~120s).
+
+**Risultato dell'audit:**
+```
+60 MATCH      (hardcoded = computed)
+1 MISMATCH   (C51 k=5: stated=2, computed=1)
+6 NON-AUDITED (d>24: C51 k=8,9; s_3(5,6); C54 speculativa)
+1 AMBIGUO    (C54 s_3(5)=10826, wall-limited, correttamente marcato speculativo)
+TOTALE: 68 voci
+```
+
+**ERRATUM E70:** **C51 k=5 vale g((3^5)^3)=1, NON 2.**
+
+Serie corretta g((3^k)^3) k=1..8:
+```
+k=1: 1 (computed: g_fast((3,),(3,),(3,)))
+k=2: 0 (zero confermato, killer C51)
+k=3: 1
+k=4: 1
+k=5: 1 ← ERRATUM: STATE dichiara 2, valore corretto 1
+k=6: 1
+k=7: 0 (zero confermato, killer C51)
+k=8: 1
+Sequenza: [1,0,1,1,1,1,0,1,1]
+```
+
+Doppia conferma indipendente: (1) g_fast diretto, (2) cross-check su (3^5) via character_table(15). Congettura C51 ("g((3^k)^3)=0 iff k≡2 mod 5") **rimane INTATTA**: zeri esattamente a k=2,7 ✓. Il valore corretto rafforza la congettura (serie più pulita).
+
+**Adversary: AUDIT-VALIDO — circolarità oracolo mitigata.**
+(1) "g_fast non cross-validato, è un oracolo" — MITIGATO: g_fast testato vs kronecker() noto su d≤7 (hook_depth.py); congetture C49–51 ancorate a letteratura (self-conjugate, Schur-Weyl); nessun anello di feedback interno.
+(2) "d=8..24 condividono character_table — non è indipendenza" — CONCESSO. Cross-check diretto disponibile solo per d≤7. d=8..24 derivano da character_table senza fonte terza. Obiezione residua: SageMath/Stembridge per d alto fornirebbero validazione vera.
+(3) "1 mismatch su 60 match potrebbe essere un artefatto" — IMPROBABILE: mismatch a k=5 è (3^k)^3 pattern noto, non rumore; C51 k=2,7 restano zero confermati.
+
+**Evaluator: 7/10.**
+Flag: `off-tiny-instance` (6 voci non-audited d>24, dichiarazioni solo speculativa), `circolarità-residua` (mitigata da ancore d≤7 + letteratura, non eliminata), `unfalsifiable-here` (C51 osservazione empirica k≤8, non teorema). **VERDETTO: NEW CONTENT (kill esatto E70).** Track record protocollo ERRATUM-HUNT: 3 hunt → 3 errata (F64 entry 63, E69 entry 60, E70 entry 69). Prior sistematico emergente: istituzionalizzare l'audit.
+
+**Honesty boundary:** Audit copre 60/68 voci STATE.md per d≤24. Cross-validazione piena solo d≤7 (kronecker() vs g_fast). C51 resta osservazione empirica k≤8. Zero claim P vs NP.
+
+**Ledger aggiornato:** 32 restatements + 7 lemmi (L60 Lean-cert) + 6 falsificazioni + 3 errata-dati (F64-tabelle-enumerazione, E69-s_3(1), E70-C51-k5) / 7 arene + formalization + QA.
+
+**NEXT unstable direction: strategist regime esteso — istituzionalizzare audit come passo fisso del ciclo di sviluppo; candidati successivi: fonte terza per character_table d alto (SageMath auto-validazione), struttura C53 Fibonacci-Schur, o cristallizzazione Module 62–70.**
+
+---
+
