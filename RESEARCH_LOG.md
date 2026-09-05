@@ -4292,3 +4292,32 @@ Flag: overfitting, muro-computazionale-dichiarato (c=7 al muro, non off-tiny for
 
 ---
 
+## Entry 69 — LEMMA CERTIFICATO L60 (Lean 4) + ERRATUM E69 (Entry 60 s₃(1)) (2026-09-05)
+
+**Tipo: LEMMA CERTIFICATO (L60 in Lean 4) + ERRATUM E69 (premessa di Entry 60).**
+
+**Direzione (strategist, regime esteso):** Formalizzare L60 in formalization/ — contenuto certificato-macchina, non-restatement per costruzione. Killer pre-dichiarati: build≠0, sorry residuo, assiomi extra.
+
+**Costruito:** 
+- `formalization/PvsNP/Kronecker.lean`: teoremi `s3_no_order2_recurrence` + `s3_no_order2_recurrence_named`, prova su ℚ della non-integralità di ricorrenze ord-2 lineari per s₃(k) dai 4 valori empirici (k=1,2,5,6).
+- Import in `formalization/PvsNP.lean`, certificazione via `#print axioms` in `formalization/Check.lean`.
+- **Build:** `lake build` exit code 0 (13 job). **Assiomi:** `[propext, Quot.sound]` per entrambi i teoremi, **zero sorry**.
+
+**ERRATUM E69:** L'obiezione residua dell'adversary ("valori hardcoded non rigenerati") eseguita dall'orchestratore ha trovato che Entry 60 usava s₃(1)=1 (plateau pre-stabile a=4,5) mentre il limite stabile è s₃(1)=2. Già dichiarato in Entry 49 riga ~2963; riconfermato ora: g((a,3)^3)=2 per a=6..12; s₃(2)=14 confermato (a=7..11). 
+
+**Rigenerare:** `$env:PYTHONPATH=(pwd); py -c "from pnp_lab.gct_kronecker.fast import g_fast; print([g_fast((a,3),(a,3),(a,3)) for a in range(4,13)])"`.
+
+**Correzione:** Sistema corretto {158=14a+2b, 1497=158a+14b} → 60a=391, 60∤391 (391=6·60+31) → nessuna soluzione intera. Conclusione: **L60 sopravvive a entrambi i valori** (vecchio: 38a=715). Lean riscritto e ri-certificato.
+
+**Adversary: CERTIFICATO-VALIDO** — build riprodotto, enunciato fedele, non vacuo (su ℚ soluzione a=391/60 esiste, quindi il certificato prova genuinamente la non-integralità; portata non gonfiata).
+
+**Evaluator: 7/10.** Flag: `off-tiny-instance` (s₃ limiti empirici, non provati asintoticamente), `confirmation-bias` residuo (L60 regge con entrambi i dati → basso potere discriminante), `unfalsifiable-here` (non vincola struttura asintotica). **VERDETTO: NEW CONTENT (debole)** — lemma certificato + erratum documentato. ESC-1 non scatta (flag aperti). Raccomandazione: cristallizzare, non inseguire s₃(5); prossime opzioni: struttura C53 o nuova arena.
+
+**Honesty boundary:** L60 esclude SOLO ricorrenze ord-2 intere sul sistema dai 4 valori empirici; nulla su ordini superiori/non-lineari/asintotica; nessun claim P vs NP.
+
+**Ledger: 32 restatements + 7 lemmi (di cui L60 ora certificato-macchina) + 6 falsificazioni + 1 erratum-dati (E69, dopo F64) / 7 arene + formalization.**
+
+**NEXT unstable direction: strategist regime esteso — struttura C53 (Fibonacci-Schur), nuova arena, o cristallizzazione Module del materiale 62-69.**
+
+---
+

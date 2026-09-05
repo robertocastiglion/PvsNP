@@ -30,3 +30,4 @@ import PvsNP.SAT
 import PvsNP.CookLevin
 import PvsNP.Tableau
 import PvsNP.NaturalProofs
+import PvsNP.Kronecker

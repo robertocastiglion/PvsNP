@@ -45,7 +45,7 @@ Test suite: 56 fast + 12 slow = 68 test. Ledger entrata: 26 restatements.
 
 ### Lemmi provati (con verifica meccanica):
 - **L55** (parity): g((c^2)^3) non segue τ-parità per k≥3 (c=2,5,6,9 controesempi)
-- **L60** (no-ord2): s_3(k) NON soddisfa ricorrenza lineare ord-2 intera (38a=715, non intero)
+- **L60** (no-ord2): s_3(k) NON soddisfa ricorrenza lineare ord-2 intera [**CERTIFICATO IN LEAN 4**, Entry 69; assiomi: propext, Quot.sound; zero sorry; prova su ℚ 60a=391 non-intero]
 
 ### Sequenze chiave:
 ```
@@ -54,7 +54,7 @@ g((c^2)^3): 0,1,0,1,...            → 0/1 per c disp/pari [C49]
 g((c^3)^3): 0,1,1,2,2,3,...        → floor(c/3) / c/2 [C50]
 g((c^4)^3): 0,1,1,5,4,16,...       → ((c-1)/2)^2 disp., formula aperta pari
 g((3^k)^3): 1,0,1,1,2,1,0,1,1     (k=1..9) → zeri k=2,7 (k≡2 mod 5?) [C51]
-s_3(k):     1,14,158,1497,≈10826   → no formula; no ord-2; crescita sub-exp
+s_3(k):     2,14,158,1497,≈10826   → no formula; no ord-2 (L60, Lean-cert); crescita sub-exp [ERRATUM E69: s₃(1)=2 corretto]
 ```
 
 ### Falsificazioni di questa sessione:
@@ -112,12 +112,13 @@ hooks        spread    R
 
 ---
 
-## Bilancio lab (post-Entry 68)
+## Bilancio lab (post-Entry 69)
 
 ```
 32 restatements / 7 arene
-7 lemmi (L55, L60, L62, L63, + 3 da sessioni prev)
+7 lemmi (L55, L60 [Lean-cert, Entry 69], L62, L63, + 3 da sessioni prev)
 6 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64, F68/Entry 68)
+1 erratum-dati (E69: s₃(1) corretto 1→2, Entry 69)
 1 non-collasso (M22)
 survival-PASS@1 (M24), survival-PASS@3 (M25)
 2 control-PASS (M26, M27)

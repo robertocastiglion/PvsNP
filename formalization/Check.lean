@@ -38,3 +38,7 @@ import PvsNP
 #print axioms PvsNP.NaturalProofs.hardnessProperty_large
 #print axioms PvsNP.NaturalProofs.rr_barrier
 #print axioms PvsNP.NaturalProofs.natural_property_breaks_crypto
+
+-- Kronecker L60: s₃ non soddisfa alcuna ricorrenza ord-2 intera.
+#print axioms PvsNP.Kronecker.s3_no_order2_recurrence
+#print axioms PvsNP.Kronecker.s3_no_order2_recurrence_named
