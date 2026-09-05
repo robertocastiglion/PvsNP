@@ -41,7 +41,7 @@ Test suite: 56 fast + 12 slow = 68 test. Ledger entrata: 26 restatements.
 | C50 | g((c^3)^3)=floor(c/3) disp., c/2 pari | c=1..9 | c=10 |
 | C51 | g((3^k)^3)=0 iff k≡2 mod 5 | k=1..9 (2 zeri: k=2,7) | k=12 |
 | C52 | FALSIFICATA (F68/Entry 68) — g((7^4)^3)=21≠9, serie dispari [0,1,4,21] | c=1,3,5→killed | c=7 |
-| C53 | g((k^k)^3)=F(3k-7) k>=2 (Fibonacci) | k=2..5: 1,1,5,21 | k=6 |
+| C53 | FALSIFICATA (F73: g((6^6)^3)=9309≠F(11)=89, d=36) | k=2..5: 1,1,5,21→killed | k=6 |
 | C54 | s_3(5)=10826 (wall-limited, speculativa) | non verif. | d=28 |
 
 ### Lemmi provati (con verifica meccanica):
@@ -65,6 +65,7 @@ s_3(k):     2,14,158,1497,≈10826   → no formula; no ord-2 (L60, Lean-cert); 
 - Entry 61 (H61): g(δ_k^3) ≠ F(3k-7) per k=3,4,5,6 (self-conjugate ≠ Fibonacci)
 - Entry 64 (F64): 5 delle 11 partizioni in Entry 63 NON erano self-conjugate; 3 mancanti
 - Entry 68 (F68): C52 FALSIFICATA — g((7^4)^3)=21≠9, serie dispari [0,1,4,21]
+- Entry 73 (F73): C53 FALSIFICATA — g((6^6)^3)=9309≠F(11)=89, serie Fibonacci [1,1,5,21,9309] aperta
 
 ---
 
@@ -79,7 +80,7 @@ s_3(k):     2,14,158,1497,≈10826   → no formula; no ord-2 (L60, Lean-cert); 
 
 ### Nuovi lemmi:
 - **L61** (H61): g(δ_k^3) ≠ F(3k-7) per k=3,4,5,6 (staircase non Fibonacci)
-- **L62** (cond.): R_square(k)→0 se C53 vale (prova asintotica condizionale)
+- **L62** (cond.): VOID (cascata logica post-C53 F73 — R_square condizionato su C53 falsificato)
 - **L63**: R_hook(a)→∞ per a→∞ (Stirling + dati)
 
 ### Sequenze aggiuntive:
@@ -116,9 +117,9 @@ hooks        spread    R
 ## Bilancio lab (post-Entry 72)
 
 ```
-32 restatements / 7 arene
-7 lemmi (L55, L60 [Lean-cert, Entry 69], L62, L63, + 3 da sessioni prev)
-6 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64, F68/Entry 68)
+33 restatements / 7 arene
+7 lemmi (L55, L60 [Lean-cert, Entry 69], L62 VOID post-F73, L63, + 3 da sessioni prev)
+7 falsificazioni (Entry 43, Entry 59×3, H61/Entry 61, F64/Entry 64, F68/Entry 68, F73/Entry 73)
 3 errata-dati (F64: enumerazione Entry 63; E69: s₃(1) corretto 1→2; E70: C51 k=5 corretto 2→1)
 1 non-collasso (M22)
 survival-PASS@1 (M24), survival-PASS@3 (M25)

@@ -4439,3 +4439,41 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 73 — Batch F73 (C53 FALSIFICATA), C49/C50 CONFERMATI, serie dispari c=9 aperta
+
+**Data:** 2026-09-05
+
+**Tipo: POST-CONSOLIDAMENTO — Ripresa ciclo con falsificazione pre-registrata di C53 (congettura Fibonacci su potenze k-esime).**
+
+**Direzione (ROSSO, falsificazione voluta):** teste killer su C53 k=6, conferme duali-engine C49/C50, nuova serie dispari c=9 d=36.
+
+**Risultati batch:**
+- **C53 k=6 d=36:** g((6^6)^3)=9309, predicted F(11)=89 → **FALSIFICATA** (scarto enorme, pre-registered killer, zero-parameter)
+- **C49 c=14 d=28:** g((14^2)^3)=1, predicted 1 → **CONFIRMED** (dual-engine: g_fast 1.2s + engine3 12.3s)
+- **C50 c=10 d=30:** g((10^3)^3)=5, predicted 5 → **CONFIRMED** (dual-engine: g_fast 2.8s + engine3 18.1s)
+- **Odd c=9 d=36:** g((9^2)^3)=118, no formula → **NEW DATA** (single-engine g_fast pending engine3 cross-check, CPU 3.4s)
+
+**Metodo:** engine3 (Frobenius alternants) + g_fast (Murnaghan-Nakayama, d≤28 cross-check CPU≤30s). Total CPU ~7300s batch.
+
+**Ledger batch:** 1 kill (pre-registered C53), 2 confirmations (on-trend), 1 new data point (off-wall d=36 c=9 single-engine).
+
+**Cascata logica:** L62 (R_square(k)→0 conditional IF C53 holds) now VOID because C53 is killed. Series [1,1,5,21,9309] open (non-Fibonacci post-k=5).
+
+**Corpus size post-batch:** 33 restatements + 7 lemmi + 7 falsificazioni (was 6; C53 now killed).
+
+**Evaluator: 7.5/10. VERDETTO: FALSIFICATION-ON-TARGET + CONFIRMATION-BIAS-MILD.**
+- Off-tiny instance flagged (d=36 c=9 g=118 single-engine — engine3 cross-check pending).
+- Confirmation-bias: C49/C50 predicted and confirmed (selection from corpus pre-decision); non-adversarial.
+- Circolarità-residua reduced to implementative (cascade L62 now structural, not concettual).
+- Honesty boundary: [C53 killer pre-registered, scarto threshold κ=F(11)=89 zero-parameter, L62 void post-kill, engine3 pending for c=9 d=36].
+
+**Azioni registrate:** 
+1. Loggare kill C53 (Entry 73).
+2. Update STATE.md: C53 row → "FALSIFICATA (F73: g((6^6)^3)=9309≠F(11)=89, d=36)", L62 row → "VOID (cascata logica post-C53)".
+3. Cross-check g=118 engine3@d=36 c=9 prima di corpus freezing.
+4. Series [1,1,5,21,9309] marked OPEN — non-Fibonacci, no next conjecture direction.
+
+**NEXT unstable direction: C53 closed (FALSIFICATA). L62 VOID. Pending engine3 cross-check c=9 d=36 g=118. Decidi: continue d>30 stress-test avversariale, o arena nuova, o consolidamento permanente (raccomandazione: NO nuovi cicli autonomi sino a revisione umana su nuova direzione).**
+
+---
+
