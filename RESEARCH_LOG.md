@@ -4376,3 +4376,34 @@ Flag: `off-tiny-instance` (6 voci non-audited d>24, dichiarazioni solo speculati
 
 ---
 
+## Entry 71 — CRISTALLIZZAZIONE Module docs (Kronecker Perseverance Run 62–70) (2026-09-05)
+
+**Tipo: CRISTALLIZZAZIONE (Module docs) del Kronecker Perseverance Run, Entry 62–70.**
+
+**Direzione strategist (ROSSO-autonomo, regime esteso):** Chiusura debito documentale. Killer: ogni numero con comando rigeneratore; nessuna congettura promossa a risultato.
+
+**Costruito:**
+- `docs/kronecker-perseverance.md`: 9 sezioni + 3 appendici (spettro R + tricotomia, crossing chiuso H65, F64/F68, E69/E70, L60-Lean, protocollo ERRATUM-HUNT, honesty boundary complessiva).
+- `README.md` aggiornato: righe crossing/audit, lista docs estesa, conteggio test 731 fast + 1 skipped.
+
+**Adversary: DOC-DA-CORREGGERE → 2 correzioni obbligatorie applicate e verificate:**
+(1) ImportError comando rigeneratore R (hook_length_dimension da kronecker.py, non fast.py) — corretto, ri-eseguito (δ₆ R=0.9535 match).
+(2) README 732→731+1 skipped.
+Spot-check passati (C51, R d=21, L60); verdetti negativi non edulcorati; congetture tutte CONJECTURE.
+
+**Evaluator: 7.5/10.**
+Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-instance` (serie corte, wall d=28), `unfalsifiable-here` (C53 k=6/C57 k=7 fuori infrastruttura).
+**VERDETTO: NEW CONTENT (documentazione)** — tre contributi: F68 kill esatto, E70+protocollo ERRATUM-HUNT (contributo metodologico), L60 certificato kernel.
+
+**Raccomandazione evaluator registrata:** Pausa consolidamento; prima nuovi rami: (1) engine terzo (SageMath/Stembridge) su ≥5 valori d=10..24 per chiudere circolarità; (2) spiegare test skipped; (3) decidere C53 closed-by-wall o estensione. Nessuna direzione nuova finché circolarità aperta.
+
+**Test suite:** 731 passed / 1 skipped / 67 deselected, zero regressioni.
+
+**Ledger invariato:** 32 restatements + 7 lemmi (L60 Lean-cert) + 6 falsificazioni + 3 errata-dati / 7 arene + formalization + QA. Sessione: Entry 65–71 (7 cicli in questa sessione).
+
+**Honesty boundary:** Documentazione cristallizza regime esteso Kronecker (d≤24, R empirico, C49–54 non elevate, L60 kernel certificato). Zero claim P vs NP.
+
+**NEXT unstable direction: consolidamento — engine terzo per character_table (chiude circolarità), spiegare test skipped, decisione C53 closed-by-wall. Poi eventuale nuova arena.**
+
+---
+
