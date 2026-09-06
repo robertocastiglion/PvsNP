@@ -4525,3 +4525,33 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 76 — Circolarità χ: il sistema a 3 vincoli NON è caratterizzante (gruppo spurio 2,4,8,192); filone QA-engine3 CHIUSO (2026-09-06)
+
+**Tipo:** DECISIONE binaria (gate ROSSO-autonomo) sul flag circolarità concettuale χ del dual-engine; 3° ciclo, breaker B1 al limite.
+
+**Direzione (strategist, ROSSO-autonomo):** decidere se [colonna-orto + riga-orto + ancoraggio hook-length dim(χ_λ)=χ_λ(1^d)] chiude la circolarità χ. Pre-commitment: se il collasso (spuria residua) si materializza, CHIUDERE il flag come "necessario-non-sufficiente, irriducibile con vincoli zero-parametro interni+dim" e FERMARE il filone QA-engine3 (nessun 4° tentativo).
+
+**Costruito:**
+- `pnp_lab/gct_kronecker/orthogonality.py` aggiunte `row_orthogonality_check(d)`, `dim_degeneracy_blocks(d)`, `spurious_group_size(d)`.
+- Import hook_length_dimension da kronecker.py (puro hook product, esterno a chi3/MN).
+- `tests/test_orthogonality.py`: +row-orto PASS d=3..6 (d=7 slow), +regressione spurious_group_size.
+- `examples/run_orthogonality.py` aggiornato.
+- 23 test verdi.
+- Rigenerare: `C:\Users\A258189\AppData\Local\Programs\Python\Python312\python.exe -m pytest tests/test_orthogonality.py -q`
+
+**Misurato:** Killer = SÌ, circolarità χ APERTA. Le permutazioni di righe INTERNE ai blocchi a dim-degenere (righe λ≠ρ con hook_length_dimension uguale) sopravvivono ai tre vincoli; i flip di segno muoiono per ancoraggio dim>0. Gruppo spurio = prodotto dei gruppi simmetrici sui blocchi dim-degeneri. Conteggi esatti: |G_spurio| = 2,4,8,192 per d=3,4,5,6. Prima apparizione a d=2 (spurious_group_size(2)=2). Per d=6, 4 blocchi degeneri (taglie 2,4,2,2) → 2!·4!·2!·2! = 192.
+
+**Adversary:** VERDETTO RESTATEMENT (teoremi di ortogonalità di Schur + fatto elementare che dim non separa irrep non isomorfi di ugual grado). Conteggi VALIDATI indipendentemente via brute-force su tutte le n! permutazioni: 2,4,8,192 corretti e completi (nessuna sottostima/sovrastima), aritmetica intera pura nessun artefatto. Correzione: prima apparizione d=2 non d=3. Nota importante: il claim negativo è DEBOLE-NON-FALSO — la spuria è una permutazione di ETICHETTE λ, e nel dual-engine le righe sono indicizzate da λ a priori, quindi la circolarità PRATICA può essere chiusa anche con quella astratta aperta; la non-caratterizzazione non tocca la validazione pratica di engine3. Obiezione residua (non perseguita, vedi DECISIONE-B1): un 4° vincolo (ancoraggio segno via trasposta χ_λ'(α)=sgn(α)χ_λ(α)) potrebbe collassare il gruppo spurio, ma non chiuderebbe la circolarità concettuale.
+
+**Evaluator:** 6/10. VERDETTO: RESTATEMENT-OF-KNOWN. ESC-1 NON scatta. Flag: circolarità APERTA (astratta), restatement-of-known, off-tiny-instance (d≤6 vs corpus d=28..36), confirmation-bias lieve, unfalsifiable-here (4° vincolo non testato). Distinzione registrata: circolarità ASTRATTA (aperta) ≠ circolarità PRATICA (chiusa operativamente da 23 test + brute-force indipendente + indicizzazione λ a priori).
+
+**Honesty boundary:** Sistema a 3 vincoli testato d=2..6, aritmetica intera esatta. Gruppo spurio residuo |G|=2,4,8,192 (d=3..6), confermato brute-force. Limiti: (1) range d≤6, corpus vive d=28..36, nessuna estensione verificata; (2) condizione NECESSARIA NON SUFFICIENTE, univocità killed (controesempio d=4); (3) circolarità CONCETTUALE (i due engine condividono g=(1/d!)Σ|C_α|χ³, differiscono solo in χ) resta dichiarata, un errore rappresentazionale condiviso non sarebbe rilevato; (4) irriducibilità con 3 vincoli implicata da fatti classici (Schur + teoria elementare irrep S_d), non contenuto nuovo; (5) nessun claim su P vs NP.
+
+**Ledger:** invariato nei conteggi. Aggiunge infrastruttura QA (row_orthogonality_check, spurious_group_size). Flag circolarità concettuale χ: CHIUSO per decisione come "necessario-non-sufficiente, irriducibile con vincoli zero-parametro interni+dim".
+
+**DECISIONE-B1:** pre-commitment onorato. Il collasso si è materializzato → filone QA-engine3 FERMATO. Nessun 4° ciclo sulla stessa arena (un 4° vincolo aggiungerebbe un altro teorema classico, non chiuderebbe la circolarità concettuale). 3° ciclo ROSSO-autonomo, B1 rispettato (non trattato come VERDE).
+
+**NEXT unstable direction:** filone QA-engine3 chiuso. Decisione umana/strategist per prossima sessione: (a) cristallizzare l'intero modulo gct-kronecker come esito metodologico, oppure (b) portare il lab su un'arena strutturalmente diversa. Nessun nuovo ciclo autonomo su engine3-circolarità.
+
+---
+

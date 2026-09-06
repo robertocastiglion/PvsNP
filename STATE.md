@@ -2,9 +2,9 @@
 
 ## Sessione corrente
 
-**Data:** 2026-09-05
-**Entry completate (totale arc):** 40–72
-**Stato:** PAUSA CONSOLIDAMENTO (raccomandazione evaluator post-dual-engine, Entry 71–72)
+**Data:** 2026-09-06
+**Entry completate (totale arc):** 40–76
+**Stato:** DECISIONE-B1 ONORE: filone QA-engine3 CHIUSO (Entry 76 — circolarità astratta irriducibile con 3 vincoli, pratica chiusa operativamente)
 
 ---
 
@@ -43,6 +43,7 @@ Test suite: 56 fast + 12 slow = 68 test. Ledger entrata: 26 restatements.
 | C52 | FALSIFICATA (F68/Entry 68) — g((7^4)^3)=21≠9, serie dispari [0,1,4,21] | c=1,3,5→killed | c=7 |
 | C53 | FALSIFICATA (F73: g((6^6)^3)=9309≠F(11)=89, d=36) | k=2..5: 1,1,5,21→killed | k=6 |
 | C54 | s_3(5)=10826 (wall-limited, speculativa) | non verif. | d=28 |
+| χ-circularity | DECISIONE-B1 (Entry 76): [col-orto + row-orto + hook-dim-anchor] NECESSARIO-NON-SUFFICIENTE; gruppo spurio |G|=2,4,8,192 (d=3..6) da permutazioni intra-blocco dim-degenere; circolarità ASTRATTA irriducibile con vincoli zero-parametro interni+dim; circolarità PRATICA chiusa operativamente (23 test + brute-force + indexing λ a priori); filone QA-engine3 fermato | d≤6 |
 
 ### Lemmi provati (con verifica meccanica):
 - **L55** (parity): g((c^2)^3) non segue τ-parità per k≥3 (c=2,5,6,9 controesempi)
