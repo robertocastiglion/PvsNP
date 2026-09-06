@@ -4555,3 +4555,25 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 77 — Nuova arena Proof-DAG geometry: primo ciclo INCONCLUSIVE (bug greedy≠min-length); arena intatta (2026-09-06)
+
+**Tipo:** APERTURA NUOVA ARENA (decisione umana: (b) arena strutturalmente diversa dopo chiusura filone Kronecker/GCT all'Entry 76). Primo ciclo. B1 resettato per autorizzazione umana.
+
+**Direzione (strategist, VERDE):** arena "Proof-DAG geometry" — misurare la FORMA del DAG di refutazione Resolution su formule UNSAT tiny (oggetto-processo, non statistica scalare). Misura: profilo di larghezza per livello W(F)=(w_0,...,w_L). Ipotesi: W è invariante più fine della coppia scalare (s=length, w*=min-width). Killer pre-dichiarato: se W è funzione di (s,w*) ⇒ RESTATEMENT di Ben-Sasson-Wigderson (BW).
+
+**Costruito:** pnp_lab/proof_complexity/dag_profile.py (canonical_refutation, min_width, width_profile→WidthProfile), tests/test_dag_profile.py (10 test), pool: PHP_2^1, coppia di controllo B (rinomina σ), coppia-test C (2col_clash, f_diamond). Estende la saturazione di resolution.py tracciando i genitori.
+
+**Misurato (poi INVALIDATO, vedi Adversary):** claim killer CONFERMATO — 2col_clash e f_diamond con (s=8,w*=2) identici ma W diverso (4,1,2,1) vs (4,2,1,1). Coppia B invariante sotto rinomina. 10/10 test.
+
+**Adversary:** VERDETTO KILLED. Attacco letale: la length s=8 è FALSA. Ricerca esaustiva indipendente (BFS su insiemi di clausole) dà min-length REALE = 7 per ENTRAMBE (4 assiomi + 3 risolventi). Il codice canonical_refutation (dag_profile.py:270-287, choose_greedy) NON minimizza (width,length): è un puro greedy lessicografico sui genitori che non ricalcola il sotto-DAG; la docstring promette "min-width poi min-length" ma implementa greedy lex. Quindi min_width() e ogni cifra di W misurano la TRAIETTORIA DEL GREEDY, non la formula. Il test test_consistenza_diamond asserisce s==8, certificando un artefatto. Il killer confronta refutazioni sub-ottime.
+
+**Evaluator:** 2/10. VERDETTO: INCONCLUSIVE (per bug implementativo, NON kill dell'ipotesi). ESC-1 NON scatta. L'arena NON è chiusa: l'ipotesi (W più fine di (s,w*)) resta scientificamente aperta e potrebbe reggere con ottimizzatore globale. Flag: off-tiny-instance, circolarità (W misurato su refutazioni dello stesso greedy che sbaglia s,w*), confirmation-bias (coppia scelta dopo aver visto i profili, non pre-registrata), unfalsifiable-here (finché s non è minimizzato globalmente, ogni confronto W è inammissibile). Unico segmento valido: invarianza per rinomina (coppia B).
+
+**Honesty boundary:** dag_profile.py usa greedy lessicografico, NON minimizza (width,length); min_width() e W calcolati sulla traiettoria del greedy, non sul minimo globale. Ricerca BFS indipendente (Adversary) trova min-length=7 per 2col_clash e f_diamond, non 8. Corpus tiny (2 formule, n<10 var). Confronto W INAMMISSIBILE finché s,w* non calcolati con ottimizzatore globale certificato. W come invariante più fine di (s,w*) è ipotesi APERTA, né dimostrata né refutata. Nessun claim P vs NP.
+
+**Ledger:** nuova arena aperta (8ª). Nessun risultato valido prodotto in questo ciclo. Modulo dag_profile.py committato CON bug documentato (INCONCLUSIVE), da correggere in Entry 78.
+
+**NEXT unstable direction:** Entry 78 (obbligatoria, obiezione residua adversary+evaluator): (a) sostituire choose_greedy con ottimizzatore GLOBALE reale (BFS su DAG di derivazione o ILP) per min-length/min-width certificato; (b) verificare s_opt=7 per entrambe le formule; (c) ricalcolare w* e W su refutazioni minime; (d) verificare se 2col_clash e f_diamond restano iso-(s,w*) e se W resta distinto o la differenza evapora col nodo spurio rimosso; (e) correggere/rimuovere test_consistenza_diamond che asserisce s=8. Solo allora il confronto di profili è ammissibile e si può avere un primo dato valido.
+
+---
+

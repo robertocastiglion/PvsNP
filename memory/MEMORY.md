@@ -11,3 +11,4 @@ Append-only index of durable findings, verdicts, and structural facts.
 | L62-void | verdict | VOID | 73 | R_square(k)→0 conditional on C53 now vacuous; cascata logica post-kill |
 | dual-engine-validation | fact | CONFIRMED | 72 | engine3 (Frobenius) validates g_fast (Murnaghan-Nakayama) d≤28, independent implementation |
 | falsification-corpus | fact | CORPUS | 73 | 7 falsificazioni total; C53 F73 adds 1; series [1,1,5,21,9309] marked OPEN |
+| proof-dag-geometry | arena | OPEN-INCONCLUSIVE | 77 | nuova arena (8ª): profilo larghezza per livello W(F) del DAG Resolution come invariante più fine di (s,w*); primo ciclo INCONCLUSIVE — bug: canonical_refutation è greedy lex non min-length (s reale=7 non 8); ipotesi aperta, Entry 78 deve usare ottimizzatore globale |
