@@ -4501,3 +4501,27 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 75 — Colonna-ortogonalità di engine3: consistenza confermata, univocità killed (2026-09-06)
+
+**Data:** 2026-09-06
+
+**Tipo:** CONSOLIDAMENTO/QA — tentativo di chiudere la circolarità concettuale residua dell'Entry 74 via ortogonalità di colonna dei caratteri di engine3.
+
+**Direzione (strategist, VERDE):** verificare Σ_{λ⊢d} chi3(λ,α)·chi3(λ,β)=z_α·δ_{αβ} usando SOLO chi3 (mai la formula g condivisa), per validare engine3 fuori dalla formula g. Pre-dichiarato: PASS ⇒ potenziale NEW CONTENT/ESC-1; FAIL ⇒ critico.
+
+**Costruito:** pnp_lab/gct_kronecker/orthogonality.py (`column_orthogonality_check(d)`), tests/test_orthogonality.py (13 test), examples/run_orthogonality.py. Import genuinamente reciso: solo chi3, _partitions3, _z_alpha3 da engine3; mai g3/g_fast.
+
+**Misurato:** d=2..8 tutti PASS, uguaglianza intera esatta (nessuna tolleranza float), 0 violazioni. Tempi: d=8 = 0.097s (22 classi, 253 coppie). 13/13 test verdi. Killer bidirezionale zero-parametro NON scattato. Rigenerare: `C:\Users\A258189\AppData\Local\Programs\Python\Python312\python.exe examples/run_orthogonality.py`.
+
+**Adversary:** il claim di UNIVOCITÀ è KILLED. Controesempio esatto a d=4: la colonna-ortogonalità è invariante per permutazione delle righe λ e per flip di segno di un'intera riga; esistono tabelle SPURIE T'≠tavola-vera che superano il test. La colonna-ortogonalità è condizione NECESSARIA, non SUFFICIENTE, per essere la tavola dei caratteri genuina. Import reciso confermato, ma il test alimenta chi3 con i propri output (consistenza interna, non secondo calcolatore indipendente): semi-circolarità residua. d≤8 non tocca il corpus (d=28..36). Il modulo verifica il secondo teorema di ortogonalità di Schur (risultato classico): lo verifica, non lo scopre.
+
+**Evaluator:** 5.5/10. VERDETTO: RESTATEMENT-OF-KNOWN. ESC-1 NON scatta (il PASS non chiude la circolarità né certifica univocità; il pre-annuncio NEW CONTENT era condizionato alla chiusura, non avvenuta). Flag: circolarità APERTA, confirmation-bias mild, off-tiny-instance dichiarato (d≤8 vs corpus d≤36), restatement-of-known (secondo teorema di Schur), claim-univocità-killed esplicito. Il modulo resta un componente di QA valido (consistenza interna esatta), non una chiusura della circolarità.
+
+**Honesty boundary:** orthogonality.py verifica il secondo teorema di ortogonalità di Schur usando solo chi3 (engine Frobenius, zero import da g_fast/kronecker.py). Limiti: (1) range d=2..8, non esteso al corpus d=28..36; (2) consistenza interna, non indipendenza concettuale (errore sistematico condiviso dall'implementazione Frobenius non rilevabile); (3) condizione necessaria non sufficiente — invariante per permutazioni/flip di segno di righe, tabelle spurie superano il test, il PASS NON certifica χ genuini per α≠1^d; (4) claim univocità killed (controesempio d=4); (5) nessun claim P vs NP.
+
+**Ledger:** invariato nei conteggi. Aggiunge un modulo QA (orthogonality.py). Circolarità concettuale resta DICHIARATA, non risolta.
+
+**NEXT unstable direction:** Entry 76 candidata — vincolare le RIGHE (non solo il Gram delle colonne): riga-ortogonalità Σ_α (|C_α|/d!)·χ_λ(α)·χ_ρ(α)=δ_{λρ} + ancoraggio esterno hook-length della dim χ_λ per almeno una λ non banale, che rompe la libertà di permutazione/segno. Killer pre-registrato per Entry 76: esiste una tabella spuria che sopravvive SIMULTANEAMENTE a colonna-orto + riga-orto + ancoraggio hook-length su tutte le λ? Se NO ⇒ sistema caratterizzante, circolarità chiusa; se SÌ ⇒ resta aperta.
+
+---
+
