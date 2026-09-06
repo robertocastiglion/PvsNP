@@ -4477,3 +4477,27 @@ Flag: `circolarità-residua` (dichiarata, single engine d=8..24), `off-tiny-inst
 
 ---
 
+## Entry 74 — Cross-check dual-engine di C53 (g((6^6)^3)=9309 confermato via Frobenius) (2026-09-06)
+
+**Data:** 2026-09-06
+
+**Tipo:** CONSOLIDAMENTO — chiusura debito engine3 sul valore base della falsificazione C53.
+
+**Direzione (VERDE, ripresa autorizzata dall'umano post-pausa):** validare dual-engine il valore g((6^6)^3)=9309 su cui poggia la kill C53 dell'Entry 73 (finora single-engine g_fast).
+
+**Misurato:** engine3 (Frobenius alternants, zero import da fast.py/kronecker.py) calcola g3((6^6)^3) @ d=36 = 9309, MATCH con g_fast. Killer pre-dichiarato (g3≠9309 ⇒ kill invalidata) NON scattato. Costo 28811.8s (~8h, singola macchina). Stdout materializzato nel file di output ("Result: g3 = 9309 / Time: 28811.8s"). Exit code 1 dello script = UnicodeEncodeError cosmetico sul print del carattere ✓ in cp1252, DOPO il confronto già superato — non tocca il risultato numerico. Nota: fix futuro suggerito, sostituire ✓/✗ con ASCII in engine3_test.py.
+
+**Rigenerare:** `$env:PYTHONPATH=(pwd); py -c "from pnp_lab.gct_kronecker.engine3 import g3; print(g3((6,6,6,6,6,6),(6,6,6,6,6,6),(6,6,6,6,6,6)))"` (~8h).
+
+**Adversary (1 round):** il claim sopravvive a tutti gli attacchi. Ha prodotto un mattone indipendente reale: hook-length dim(ρ_(6^6)) = 1671643033734960 = χ3((6^6),1^36) MATCH, che valida la componente χ_λ senza passare per Murnaghan-Nakayama né per la formula g. Circolarità CONCETTUALE resta dichiarata (entrambi gli engine usano g=(1/d!)Σ|C_α|χ³, differiscono solo nel calcolo di χ; errore teorico condiviso non catturato). Obiezione residua per Entry 75: check indipendente su χ_μ/χ_ν per classi α≠1^d via colonna-ortogonalità Σ_λ χ_λ(α)χ_λ(β)=z_α δ_{αβ}, che validi engine3 senza riusare la formula g.
+
+**Evaluator:** 6.5/10. VERDETTO: RESTATEMENT-OF-KNOWN (rafforzato) — la kill C53 era già valida e zero-parametro all'Entry 73; il dual-engine la rafforza (+1 indipendenza parziale) ma non aggiunge contenuto nuovo (F(11)=89 già escluso, scarto 9220). ESC-1 non scatta. Flag aperti: circolarità (parzialmente mitigata dal mattone hook-length, non chiusa), off-tiny-instance (d=36 non tiny, rerun ~8h), ledger-stale (corretto in questa archiviazione).
+
+**Honesty boundary:** La falsificazione di C53 (g((k^k)^3)=F(3k-7)) poggia su un singolo punto dato: k=6, d=36, g=9309, calcolato da due implementazioni indipendenti (g_fast via Murnaghan-Nakayama, engine3 via Frobenius). I due engine condividono la formula teorica g=(1/d!)Σ|C_α|χ³ e differiscono solo nel calcolo di χ_λ: un errore rappresentazionale condiviso non sarebbe rilevato. Unico check genuinamente indipendente (parziale): hook-length conferma dim(ρ_(6^6))=1671643033734960=χ3((6^6),1^36), che valida la componente χ solo alla partizione banale α=1^d; χ_μ,χ_ν per α non banali non hanno verifica indipendente all'Entry 74. La dimensione d=36 rende il ricalcolo indipendente costoso (~8h). La serie [1,1,5,21,9309] è empiricamente non-Fibonacci; forma chiusa e struttura asintotica ignote. Nessun claim su P vs NP.
+
+**Ledger:** invariato nei conteggi (33 restatements + 7 lemmi + 7 falsificazioni / 7 arene); C53-kill ora dual-engine.
+
+**NEXT unstable direction:** Entry 75 candidata — check indipendente χ_μ/χ_ν via colonna-ortogonalità (obiezione residua adversary); se passa, dual-engine genuinamente indipendente e verdetto sale a NEW CONTENT (narrow). Non cristallizzare il modulo C53 finché la circolarità non è risolta.
+
+---
+

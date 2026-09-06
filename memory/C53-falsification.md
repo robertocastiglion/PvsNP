@@ -9,8 +9,8 @@ slug: C53-falsification
 
 **Verification:** k=2,3,4,5 → g=1,1,5,21 = F(−1), F(1), F(5), F(8) ✓
 
-**Killer (F73, pre-registered):** k=6 d=36
-- g((6^6)^3) = 9309 (dual-engine: g_fast 1.2s + engine3 pending cross-check)
+**Killer (F73, pre-registered; F74 dual-engine confirmed):** k=6 d=36
+- g((6^6)^3) = 9309 (dual-engine CONFIRMED Entry 74: g_fast 1.2s + engine3 Frobenius 28811.8s @ d=36, MATCH)
 - Predicted F(11) = 89
 - Scarto = 9309 − 89 = 9220 (huge, zero-parameter falsification)
 
